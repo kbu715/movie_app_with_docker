@@ -18,8 +18,8 @@ export default() => (
             <Route path="/" exact component={Auth(Home,null)}/>
             <Route path="/tv" exact component={Auth(TV,null)}/>
             <Route path="/search" component={Auth(Search,null)}/>
-            <Route path="/movie/:id" component={Auth(Detail,null)}/>
-            <Route path="/show/:id" component={Auth(Detail,null)}/>
+            <Route path="/movie/:id" component={Detail}/>
+            <Route path="/show/:id" component={Detail}/>
             <Route path="/sign-in" component={Auth(Login,false)}/>
             <Route path="/sign-up" component={Auth(SignUp,false)}/>
             <Route path="/logout" component={Auth(Logout,true)}/>

@@ -56,6 +56,9 @@ const SLink = styled(Link)`
 `;
 
 
+
+
+
 export default withRouter(({location: {
         pathname
     }}) => //withRouter 때문에 props를 가질 수 있다.          
@@ -81,9 +84,11 @@ export default withRouter(({location: {
             <Item current={pathname === "/sign-up"}>
                 <SLink to="/sign-up">SignUp</SLink>
             </Item>
+
             <Item current={pathname === "/logout"}>
                 <SLink to="/logout">Logout</SLink>
             </Item>
+          
           </List2>
     </Header>
 ));

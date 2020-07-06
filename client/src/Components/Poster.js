@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 const Container = styled.div`
-  font-size: 12px;
+font-size: 12px;
+min-height: 350px;
 `;
 const Image = styled.div`
   background-image: url(${(props) => props.bgUrl});
@@ -21,15 +22,12 @@ const Image = styled.div`
   transition:all 0.1s linear 0s;
 `;
 const Rating = styled.span`
-  bottom: 5px;
-
-  right: 5px;
-
-  position: absolute;
-
-  opacity: 0;
-
-  transition: opacity 0.1s linear;
+font-size: 15px;
+    position: absolute;
+    bottom: 5px;
+    right: 25px;
+    opacity: 0;
+    transition: all 0.1s linear 0s;
 `;
 const ImageContainer = styled.div`
   margin-bottom: 5px;
@@ -67,6 +65,7 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
             `https://image.tmdb.org/t/p/w300${imageUrl}`
           }
         />
+        
         <Rating>
           <span role="img" aria-label="rating">
             ⭐️

@@ -32,7 +32,7 @@ const Backdrop = styled.div`
 
   background-size: cover;
 
-  filter: blur(3px);
+  filter: blur(1px);
 
   opacity: 0.5;
 
@@ -106,7 +106,7 @@ const DetailPresenter = ({ result, loading, error }) =>
     <Container>
       <Helmet>
         <title>
-          {result.original_title ? result.original_title : result.original_name}{" "}
+          {result.title ? result.title : result.original_name}{" "}
           | Nomflix
         </title>
       </Helmet>
@@ -120,8 +120,8 @@ const DetailPresenter = ({ result, loading, error }) =>
         />
         <Data>
           <Title>
-            {result.original_title
-              ? result.original_title //movie : original_title, tv show : original_name
+            {result.title
+              ? result.title //movie : original_title, tv show : original_name
               : result.original_name}
           </Title>
 
