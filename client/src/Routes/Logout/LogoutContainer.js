@@ -27,5 +27,3 @@ function LogoutContainer(props) {
 };
 
 export default withRouter(LogoutContainer);
-
-

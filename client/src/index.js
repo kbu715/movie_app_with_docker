@@ -8,6 +8,8 @@ import { applyMiddleware, createStore } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
 import Reducer from './_reducers';
+import theme from './utils/theme';
+import { ThemeProvider } from 'styled-components';
 
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware,ReduxThunk)(createStore);
@@ -19,7 +21,9 @@ ReactDOM.render(
     window.__REDUX_DEVTOOLS_EXTENSION__()
     )}
 >
+<ThemeProvider theme={theme}>
         <App/>
+    </ThemeProvider>
     </Provider>,
 
     

@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import {Link, withRouter} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import Axios from "axios";
+import { useSelector } from "react-redux";
 
-const Header = styled.header `
+const Header = styled.header`
   color: white;
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -14,84 +16,99 @@ const Header = styled.header `
   background-color: rgba(20, 20, 20, 0.8);
   z-index: 100;
   box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
-  
 `;
 
-
-const List1 = styled.ul `
+const List1 = styled.ul`
   display: flex;
   justify-content: flex-start;
-  
   width: 100%;
-  
 `;
 
-const List2 = styled.ul `
+const List2 = styled.ul`
   display: flex;
   justify-content: flex-end;
-  float:right;
-  
+  float: right;
   width: 100%;
-  
 `;
-const Item = styled.li `
+const Item = styled.li`
   width: 80px;
   height: 50px;
   float: right;
   text-align: center;
-  border-bottom: 5px solid ${props => (
-    props.current
-        ? "#e50914"
-        : "transparent"
-)};
-  transition:border-bottom .5s ease-in-out;
+  border-bottom: 5px solid
+    ${props => (props.current ? "#e50914" : "transparent")};
+  transition: border-bottom 0.5s ease-in-out;
 `;
 
-
-const SLink = styled(Link)` 
+const SLink = styled(Link)`
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
+export default withRouter(
+  (
+    props //withRouter 때문에 props를 가질 수 있다.
+  ) => {
+    const user = useSelector(state => state.user);
+    console.log(user.userData);
+    const {
+      location: { pathname },
+    } = props;
+    const logoutHandler = () => {
+      Axios.get("/api/users/logout").then(response => {
+        if (response.status === 200) {
+          alert("정말로 로그아웃 하시겠습니까");
+          props.history.push("/login");
+        } else {
+          alert("로그 아웃 실패");
+        }
+      });
+    };
 
-
-
-
-export default withRouter(({location: {
-        pathname
-    }}) => //withRouter 때문에 props를 가질 수 있다.          
-    (
-    <Header>
-        <List1>
-            <Item current={pathname === "/"}>
+    return (
+      <>
+        <Header>
+          <>
+            <List1>
+              <Item current={pathname === "/"}>
                 <SLink to="/">Movies</SLink>
-            </Item>
-            <Item current={pathname === "/tv"}>
-                <SLink to="/tv">TV</SLink>
-            </Item>
-            <Item current={pathname === "/search"}>
+              </Item>
+              <Item current={pathname === "/search"}>
                 <SLink to="/search">Search</SLink>
-            </Item>
-
-        </List1>
-
-        <List2>
-            <Item current={pathname === "/sign-in"}>
-                <SLink to="/sign-in">Login</SLink>
-            </Item>
-            <Item current={pathname === "/sign-up"}>
-                <SLink to="/sign-up">SignUp</SLink>
-            </Item>
-
-            <Item current={pathname === "/logout"}>
-                <SLink to="/logout">Logout</SLink>
-            </Item>
-          
-          </List2>
-    </Header>
-));
+              </Item>
+              <Item current={pathname === "/favorite"}>
+                <SLink
+                  to={
+                    user.userData && !user.userData.isAuth
+                      ? "/sign-in"
+                      : "/favorite"
+                  }
+                >
+                  찜한 콘텐츠
+                </SLink>
+              </Item>
+            </List1>
+            {user.userData && !user.userData.isAuth ? (
+              <List2>
+                <Item current={pathname === "/sign-in"}>
+                  <SLink to="/sign-in">Login</SLink>
+                </Item>
+              </List2>
+            ) : (
+              <List2>
+                <Item>
+                  <SLink to="/" onClick={logoutHandler}>Logout</SLink>
+                </Item>
+              </List2>
+            )}
+          </>
+        </Header>
+      </>
+    );
+  }
+);
 
 //const SLink = styled(Link)``; : React Router에서 주어진 Link, 이런식으로 스타일을 추가 할 수있다.
 

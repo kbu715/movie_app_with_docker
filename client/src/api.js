@@ -19,9 +19,14 @@ export const moviesApi = {
     }),
     search: term => api.get("search/movie", {
         params: {
-            query: encodeURIComponent(term)
+            query: term
         }
-    })
+    }),
+    trending: () => api.get("trending/movie/day"),
+    cast: (id) => api.get(`movie/${id}/credits`),
+        
+
+
 };
 export const tvApi = {
     topRated: () => api.get("tv/top_rated"),

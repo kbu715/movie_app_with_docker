@@ -28,7 +28,7 @@ const Video = styled.div`
 // `;
 
 
-const HomePresenter = ({ nowPlaying, popular, upcoming, loading, error }) => (
+const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error }) => (
   <>
     <Helmet>
       <title>Movies | Nomflix</title>
@@ -41,6 +41,7 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, loading, error }) => (
           <Helmet>
             <title>Movies | Nomflix</title>
           </Helmet>
+          {/* 메인 비디오 */}
           <Video>
             {/* <VideoTest /> */}
               <iframe width="100%" 
@@ -55,8 +56,28 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, loading, error }) => (
             {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/E11p66uJVMY?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe> */}
           </Video>
 
+          {/* 현재 상영중 */}
+          {trending && trending.length > 0 && (
+            <Section title="트렌딩">
+              {trending.map((movie) => (
+                <Poster
+                  key={movie.id}
+                  id={movie.id}
+                  imageUrl={movie.poster_path}
+                  title={movie.title}
+                  rating={movie.vote_average}
+                  year={movie.release_date.substring(0, 4)}
+                  isMovie={true}
+                />
+              ))}
+            </Section>
+          )}
+             
+
+
+          {/* 현재 상영중 */}
           {nowPlaying && nowPlaying.length > 0 && (
-            <Section title="Now Playing">
+            <Section title="현재 상영중">
               {nowPlaying.map((movie) => (
                 <Poster
                   key={movie.id}
@@ -72,7 +93,7 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, loading, error }) => (
           )}
 
           {upcoming && upcoming.length > 0 && (
-            <Section title="Upcoming Movies">
+            <Section title="개봉 예정">
               {upcoming.map((movie) => (
                 <Poster
                   key={movie.id}
@@ -88,7 +109,7 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, loading, error }) => (
           )}
 
           {popular && popular.length > 0 && (
-            <Section title="Popular Movies">
+            <Section title="흥행순">
               {popular.map((movie) => (
                 <Poster
                   key={movie.id}

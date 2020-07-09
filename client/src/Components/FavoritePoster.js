@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Ratingg from '../Components/Rating';
 
@@ -125,9 +124,9 @@ const RatingsWrapper = styled.div`
 
 
 
-const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
+const FavoritePoster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
   
-  <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
+  
     <Container>
       
       <ImageContainer>
@@ -153,11 +152,11 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
        </Year>
        </RatingsWrapper>
     </Container>
-  </Link>
+  
   
   
 );
-Poster.propTypes = {
+FavoritePoster.propTypes = {
   id: PropTypes.number.isRequired,
   imageUrl: PropTypes.string,
   title: PropTypes.string.isRequired,
@@ -165,4 +164,4 @@ Poster.propTypes = {
   year: PropTypes.string,
   isMovie: PropTypes.bool,
 };
-export default Poster;
+export default FavoritePoster;

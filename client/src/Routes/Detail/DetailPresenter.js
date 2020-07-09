@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Loader from "Components/Loader";
+import Rating from "../../Components/Rating";
 import Helmet from "react-helmet";
 import { withRouter } from 'react-router-dom';
+import Cast from './Cast/Cast';
+import Favorite from "./Sections/Favorite";
+
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -32,7 +36,7 @@ const Backdrop = styled.div`
 
   background-size: cover;
 
-  filter: blur(1px);
+  filter: blur(0px);
 
   opacity: 0.5;
 
@@ -71,7 +75,12 @@ const Data = styled.div`
 `;
 
 const Title = styled.h3`
-  font-size: 32px;
+    font-size: 4rem;
+    font-weight: 200;
+    line-height: 1.2;    
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
 `;
 
 const ItemContainer = styled.div`
@@ -87,13 +96,47 @@ const Divider = styled.span`
 const Overview = styled.p`
   font-size: 12px;
 
-  opacity: 0.7;
+  opacity: 0.9;
 
   line-height: 1.5;
 
   width: 50%;
 `;
-const DetailPresenter = ({ result, loading, error }) =>
+const RatingsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  margin-top:10px;
+`;
+
+const RatingNumber = styled.p`
+  font-size: 1.3rem;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--color-primary);
+`;
+
+const Heading = styled.h3`
+  color: var(--color-primary-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+
+  @media ${props => props.theme.mediaQueries.medium} {
+    font-size: 1.2rem;
+  }
+`;
+
+
+
+
+
+const DetailPresenter = ({ result, loading, error,castResult,isMovie  }) => 
+  
+  {
+    
+    return (
   loading ? (
     <>
       <Helmet>
@@ -120,23 +163,25 @@ const DetailPresenter = ({ result, loading, error }) =>
         />
         <Data>
           <Title>
-            {result.title
-              ? result.title //movie : original_title, tv show : original_name
-              : result.original_name}
+          {isMovie
+              ? result.title //movie : title, tv show : name
+              : result.name}
           </Title>
 
           <ItemContainer>
-            <Item>
-              {result.release_date
+          <Item>
+              {isMovie
                 ? result.release_date.substring(0, 4)
                 : result.first_air_date.substring(0, 4)}
-            </Item>
+            </Item>            
 
             <Divider>•</Divider>
 
+            
             <Item>
-              {result.runtime ? result.runtime : result.episode_run_time[0]} min
+              {isMovie ? result.runtime : result.episode_run_time[0]} min
             </Item>
+            
 
             <Divider>•</Divider>
 
@@ -148,17 +193,37 @@ const DetailPresenter = ({ result, loading, error }) =>
                     : `${genre.name} / `
                 )}
             </Item>
+
+            <Favorite
+              isMovie={isMovie}
+              movieInfo={result}
+              movieId={parseInt(result.id)}
+              userFrom={localStorage.getItem("userId")}
+            />
+
+            <RatingsWrapper>
+                <Rating number={result.vote_average / 2} />
+                <RatingNumber>{result.vote_average}</RatingNumber>
+              </RatingsWrapper>
+
           </ItemContainer>
 
           <Overview>{result.overview}</Overview>
+
+          <Heading>The Cast</Heading>
+          <Cast cast={castResult.cast}/>
         </Data>
       </Content>
     </Container>
-  );
+  ))};
+  
 
 DetailPresenter.propTypes = {
+  castResult:PropTypes.object,
   result: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
+  isMovie: PropTypes.bool,
+  
 };
 export default withRouter(DetailPresenter);

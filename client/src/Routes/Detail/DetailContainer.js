@@ -9,7 +9,8 @@ export default class extends React.Component {
                 pathname
             }} = props;
         this.state = {
-            result: null,
+            castResult:null,
+             result: null,
             error: null,
             loading: true,
             isMovie: pathname.includes("/movie/")
@@ -17,6 +18,7 @@ export default class extends React.Component {
     }
 
     async componentDidMount() {
+        
         const {
             match: {
                 params: {
@@ -29,29 +31,35 @@ export default class extends React.Component {
             }
         } = this.props;
 
-        const {isMovie} = this.state;
+        const {isMovie} = this.state;    
         const parsedId = parseInt(id);
 
         if (isNaN(parsedId)) {
             return push('/');
         }
         let result = null;
+        let castResult = null;
         try {
             if (isMovie) {
-                ({ data: result } = await moviesApi.movieDetail(parsedId)); // const = 이거랑 양쪽에 () 한거랑 같은거야
+                 ({ data: result } = await moviesApi.movieDetail(parsedId)); // const = 이거랑 양쪽에 () 한거랑 같은거야                
+                 ({ data: castResult } = await moviesApi.cast(parsedId)); // const = 이거랑 양쪽에 () 한거랑 같은거야
             } else {
                 ({ data: result } = await tvApi.showDetail(parsedId));
-            }
-            console.log(result);
+            }            
 
         } catch  {
             this.setState({error: "Can't find anything."})
         } finally {
-            this.setState({loading: false, result})
-        }
+            this.setState({loading: false, result,castResult})
+        }      
+
+
     }
     render() {
-        const {result, error, loading} = this.state;
-        return (<DetailPresenter result={result} error={error} loading={loading}/>);
+        const {result, error, loading,castResult,isMovie} = this.state;    
+        console.log('====================================');
+        console.log(castResult);
+        console.log('====================================');
+        return (<DetailPresenter isMovie={isMovie} result={result} castResult={castResult} error={error} loading={loading}/>);
     }
 }

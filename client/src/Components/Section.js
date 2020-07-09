@@ -5,6 +5,11 @@ const Container = styled.div`
   :not(:last-child) {
     margin-bottom: 60px;
   }
+  
+  margin:0 auto;
+  width:70%;
+  
+  
 `;
 const Title = styled.span`
   position: relative;
@@ -26,14 +31,22 @@ const TitleSub = styled.a`
   transition: all 0.2s ease 0s;
 `;
 const Grid = styled.div`
-   margin-top: 30px;
-    display: flex;
+
+   margin-top: 30px;   
+   display: flex;  
+   //flex-direction: column;
+  //justify-content:center
+  border-radius: 0.8rem;
+
+
+  align-items:center;
     width: 100%;
     height: 10%;
   overflow-x: auto;
-  overflow-y: hidden;  
+  overflow-y: hidden;
+
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
     height: 8px;
     background: none;   
   }
@@ -47,15 +60,24 @@ const Grid = styled.div`
     background: none;
     box-shaow: inset 0px 0px 10px;
     overflow:auto;
-`;
 
+    transform: translate3d(3px, 0px, 0px);
+    transition-duration: 0ms;
+
+
+
+
+
+`;
 
 
 
 const Section = (
   { title, children } // children 예약된 react prop
 ) => (
+    
     <Container>
+      
       <Title>
         {title}
         <TitleSub href="#/movie">View More</TitleSub>
