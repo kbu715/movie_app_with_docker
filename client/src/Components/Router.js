@@ -14,7 +14,7 @@ import SignUp from "../Routes/SignUp";
 import Logout from "../Routes/Logout";
 import Auth from "../hoc/auth";
 import Favorite from "../Routes/Favorite";
-
+import Admin from "../Routes/Admin";
 //hoc 불러오기
 export default () => (
   <Router>
@@ -29,6 +29,7 @@ export default () => (
         <Route path="/sign-up" component={Auth(SignUp, false)} />
         <Route path="/logout" component={Auth(Logout, true)} />
         <Route path="/favorite" component={Auth(Favorite, true)} />
+        <Route path="/admin" component={Auth(Admin, true)} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

@@ -1,51 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import FavoritePresenter from "./FavoritePresenter";
 import Axios from "axios";
 
-export default class extends React.Component {
-  state = {
-    favoriteMovies: null,
-    error: null,
-    loading: true,
-  };
+export default function FavoriteContainer() {
 
-  async componentDidMount() {
-    try {
-      
+  const [favoriteMovies, setFavoriteMovies] = useState([])
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-        Axios.post("/api/favorite/getFavoredMovie", {
-          userFrom: localStorage.getItem("userId"),
-        }).then(response => {
-          if (response.data.success) {
-        
-            this.setState({ favoriteMovies: response.data.favorites });
-          } else {
-            alert("영화 정보를 가져오는데 실패했습니다.");
-          }
-        });
-      
-
-    } catch {
-      this.setState({
-        error: "Can't find TV information.",
-      });
-    } finally {
-      this.setState({ loading: false });
-    }
+  const fetchFavoredMovie = () => {
+    Axios.post("/api/favorite/getFavoredMovie", {
+      userFrom: localStorage.getItem("userId"),
+    }).then(response => {
+      if (response.data.success) {
+        setFavoriteMovies(response.data.favorites)
+      } else {
+        alert("영화 정보를 가져오는데 실패했습니다.");
+      }
+    }); 
   }
-  render() {
-    const { favoriteMovies, error, loading } = this.state;
-    console.log(favoriteMovies)
+ 
+  const onClickDelete = (movieId, userFrom) => {
+    const variables = {
+      movieId,
+      userFrom,
+    }
 
+    Axios.post('/api/favorite/removeFromFavorite', variables)
+    .then(response => {
+      if(response.data.success){
+        fetchFavoredMovie();
+      } else {
+        alert('리스트에서 지우는데 실패했습니다.')
+      }
+    })
+}
+
+
+
+  useEffect(() => {
+    try {
+      fetchFavoredMovie();
+    } catch {
+      setError("Can't find TV information.")
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
   
-
     return (
       <FavoritePresenter
+        onClickDelete={onClickDelete}
         favoriteMovies={favoriteMovies}
         error={error}
         loading={loading}
       />
     );
   }
-}

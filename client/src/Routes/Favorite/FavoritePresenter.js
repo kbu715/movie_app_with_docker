@@ -12,12 +12,10 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-const DelBtn = styled.button`
-  color:red;
-`;
 
 
-const FavoritePresenter = ({ favoriteMovies, loading, error }) => { 
+
+const FavoritePresenter = ({ onClickDelete, favoriteMovies, loading, error }) => { 
 
  
   
@@ -34,9 +32,9 @@ const FavoritePresenter = ({ favoriteMovies, loading, error }) => {
         {favoriteMovies && favoriteMovies.length > 0 && (
           <Section title="내가 찜한 콘텐츠">
             {favoriteMovies.map(movie => (
-                <>
-                <DelBtn>삭제</DelBtn>
+           
                 <FavoritePoster
+                  onClickDelete={onClickDelete}
                   isMovie={movie.isMovie}
                   key={movie.movieId}
                   id={movie.movieId}
@@ -45,7 +43,7 @@ const FavoritePresenter = ({ favoriteMovies, loading, error }) => {
                   year={movie.movieYear}
                   rating={movie.movieRating}
                 />
-              </>
+          
             
             ))}
             

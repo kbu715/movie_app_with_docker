@@ -115,16 +115,59 @@ const RatingsWrapper = styled.div`
 
   ${Container}:hover & {
     color: var(--color-primary-lighter);
-  }
+  }  
+`;
 
-  
-  
+const DelBtn = styled.button`
+  padding: 0px 5px;
+  box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5);
+  line-height: 1.25;
+  background: #e50914;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  position: relative;
+  transition: background-color .6s ease;
+  overflow: hidden;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 50%;
+    left: 50%;
+    transform-style: flat;
+    transform: translate3d(-50%,-50%,0);
+    background: rgba(white,.1);
+    border-radius: 100%;
+    transition: width .3s ease, height .3s ease;
+  }
+  &:focus,
+  &:hover {
+      background: darken(#FC6E51,7%);
+  }
+  &:active {
+    &:after {
+      width: 200px;
+      height: 200px;
+    }
+  }
 `;
 
 
 
+const FavoritePoster = ({ onClickDelete, id, imageUrl, title, rating, year, isMovie = false }) => {
 
-const FavoritePoster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
+
+
+
+
+
+
+
+return (
   
   
     <Container>
@@ -145,17 +188,22 @@ const FavoritePoster = ({ id, imageUrl, title, rating, year, isMovie = false }) 
       </ImageContainer>
       <RatingsWrapper>
       <Title>
+        <DelBtn onClick={()=>onClickDelete(id, localStorage.getItem("userId"))}>del</DelBtn>
         {title.length > 18 ? `${title.substring(0, 8)}...` : title}
       </Title>
       <Year>
         <Ratingg number = {rating/2}/>        
        </Year>
+       
        </RatingsWrapper>
+       
     </Container>
   
   
   
-);
+)};
+
+
 FavoritePoster.propTypes = {
   id: PropTypes.number.isRequired,
   imageUrl: PropTypes.string,
