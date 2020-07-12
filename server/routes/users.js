@@ -79,5 +79,16 @@ router.post('/register', (req, res) => {
         })
       })
   })
+
+
+
+  router.get('/management', (req, res)=>{
+    User.find({}).exec((err, info) => {
+      if (err) return res.status(400).send(err);
+  
+      res.status(200).json({ success: true, users: info });
+    });
+  })
+
   
   module.exports = router;
