@@ -18,82 +18,82 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Axios from "axios";
-
-const styles = (theme) => ({
+import './Admin.css';
+const styles = theme => ({
   root: {
-    width: "100%",
-    minWidth: 1080,
+    width: '100%',
+    minWidth: 1080
   },
   menu: {
     marginTop: 15,
     marginBottom: 15,
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center'
   },
   paper: {
     marginLeft: 18,
-    marginRight: 18,
+    marginRight: 18
   },
   progress: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2
   },
   grow: {
     flexGrow: 1,
   },
   tableHead: {
-    fontSize: "1.0rem",
+    fontSize: '1.0rem'
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
   },
   title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
     },
   },
   search: {
-    position: "relative",
+    position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
+    '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing.unit,
-      width: "auto",
+      width: 'auto',
     },
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   inputRoot: {
-    color: "inherit",
-    width: "100%",
+    color: 'inherit',
+    width: '100%',
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
       width: 120,
-      "&:focus": {
+      '&:focus': {
         width: 200,
       },
     },
-  },
+  }
 });
 
 class AdminContainer extends Component {
@@ -150,7 +150,7 @@ class AdminContainer extends Component {
         });
       }
       const { classes } = this.props;
-      const cellList = ["프로필 이미지", "이메일", "이름"];
+      const cellList = ["프로필 이미지", "이메일", "이름", "설정"];
       return (
         <div className={classes.root}>
           <AppBar position="static">
@@ -179,9 +179,7 @@ class AdminContainer extends Component {
               </div>
             </Toolbar>
           </AppBar>
-          <div className={classes.menu}>
-            
-          </div>
+
           <Paper className={classes.paper}>
             <Table className={classes.table}>
               <TableHead>
