@@ -1,21 +1,24 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Slider from 'react-slick';
-import CastItem from './CastItem';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import React, { useState, useRef, useEffect } from "react";
+import Slider from "react-slick";
+import CastItem from "./CastItem";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Wrapper = styled.div`
   margin-bottom: 5rem;
+`;
+
+const Test = styled.div`
+  margin-top: 10px;
+  display: flex;
+  overflow: auto;
 `;
 
 const Credits = ({ cast }) => {
   // if (!cast) {
   //   return <Loader />;
   // }
-  
-  
-  
+
   const [totalShow, setTotalShow] = useState(null);
   const sliderElement = useRef();
 
@@ -27,19 +30,15 @@ const Credits = ({ cast }) => {
     }
     setTotalShow(totalItems);
   };
-  
-  const items = cast.map(person => (
+
+  const items = cast.map((person) => (
     <CastItem person={person} key={person.id} />
-    
   ));
 
-  
-  
-  
   useEffect(() => {
     changeTotalShow();
-    window.addEventListener('resize', changeTotalShow);
-    return () => window.removeEventListener('resize', changeTotalShow);
+    window.addEventListener("resize", changeTotalShow);
+    return () => window.removeEventListener("resize", changeTotalShow);
   }, []);
 
   const settings = {
@@ -57,7 +56,8 @@ const Credits = ({ cast }) => {
 
   return (
     <Wrapper ref={sliderElement}>
-      <Slider {...settings}>{items}</Slider>
+      {/* <Slider {...settings}>{items}</Slider> */}
+      <Test>{items}</Test>
     </Wrapper>
   );
 };
@@ -66,18 +66,18 @@ function NextArrow({ onClick }) {
   return (
     <FontAwesomeIcon
       style={{
-        right: '-15px',
-        position: 'absolute',
-        top: '50%',
-        display: 'block',
-        width: '12px',
-        height: '12px',
-        padding: '0',
-        transform: 'translate(0, -50%)',
-        cursor: 'pointer',
+        right: "-15px",
+        position: "absolute",
+        top: "50%",
+        display: "block",
+        width: "12px",
+        height: "12px",
+        padding: "0",
+        transform: "translate(0, -50%)",
+        cursor: "pointer",
       }}
       onClick={onClick}
-      icon={'chevron-right'}
+      icon={"chevron-right"}
       size="1x"
     />
   );
@@ -87,18 +87,18 @@ function PrevArrow({ onClick }) {
   return (
     <FontAwesomeIcon
       style={{
-        left: '-15px',
-        position: 'absolute',
-        top: '50%',
-        display: 'block',
-        width: '12px',
-        height: '12px',
-        padding: '0',
-        transform: 'translate(0, -50%)',
-        cursor: 'pointer',
+        left: "-15px",
+        position: "absolute",
+        top: "50%",
+        display: "block",
+        width: "12px",
+        height: "12px",
+        padding: "0",
+        transform: "translate(0, -50%)",
+        cursor: "pointer",
       }}
       onClick={onClick}
-      icon={'chevron-left'}
+      icon={"chevron-left"}
       size="1x"
     />
   );

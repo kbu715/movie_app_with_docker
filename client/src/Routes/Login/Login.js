@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_action";
 import { withRouter } from "react-router-dom";
+import { GoogleLogin } from "react-google-login";
 // import './Login.css';
 function Login(props) {
   const dispatch = useDispatch();
@@ -9,15 +10,15 @@ function Login(props) {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
-  const onEmailHandler = event => {
+  const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
 
-  const onPasswordHandler = event => {
+  const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
 
-  const onSubmitHandler = event => {
+  const onSubmitHandler = (event) => {
     event.preventDefault(); //페이지 refresh 방지
 
     let body = {
@@ -26,7 +27,7 @@ function Login(props) {
     };
 
     //redux action => loginUser는 action이름
-    dispatch(loginUser(body)).then(response => {
+    dispatch(loginUser(body)).then((response) => {
       console.log(response.payload);
       if (response.payload.loginSuccess) {
         window.localStorage.setItem("userId", response.payload.userId); //
@@ -37,6 +38,9 @@ function Login(props) {
     });
   };
 
+  // const responseGoogle = (response) => {
+  //   console.log(response);
+  // };
 
   return (
     <div className="auth-wrapper">
@@ -69,7 +73,14 @@ function Login(props) {
                 className="custom-control-input"
                 id="customCheck1"
               />
-              {/* API 로그인 자리 */}
+
+              {/* <GoogleLogin
+                clientId="456699879153-8fq6596vepc2sm6207tn2frootqmgrku.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              /> */}
             </div>
           </div>
 

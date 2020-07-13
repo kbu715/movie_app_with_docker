@@ -11,34 +11,51 @@ export default class extends React.Component {
     error: null,
     loading: true,
   };
-  async componentDidMount() { //처음 render 되고 실행되는 함수
-    try { //Object Deconstruction "객체 비구조화 할당"
-      const { data: { results: nowPlaying } } = await moviesApi.nowPlaying();
-      const { data: { results: upcoming } } = await moviesApi.upcoming();
-      const { data: { results: popular } } = await moviesApi.popular();
-      const { data: { results: trending } } = await moviesApi.trending();
+  async componentDidMount() {
+    //처음 render 되고 실행되는 함수
+    try {
+      //Object Deconstruction "객체 비구조화 할당"
+      const {
+        data: { results: nowPlaying },
+      } = await moviesApi.nowPlaying();
+      const {
+        data: { results: upcoming },
+      } = await moviesApi.upcoming();
+      const {
+        data: { results: popular },
+      } = await moviesApi.popular();
+      const {
+        data: { results: trending },
+      } = await moviesApi.trending();
 
       // throw Error(); 에러 테스트 할때''
       this.setState({
         nowPlaying, //nowPlaying: nowPlaying 이랑 같은 표현
         upcoming,
         popular,
-        trending
-      })
+        trending,
+      });
     } catch {
       this.setState({
-        error: "Can't find movies from information."
-      })
+        error: "Can't find movies from information.",
+      });
     } finally {
       this.setState({
         loading: false,
-      })
+      });
     }
   }
 
   render() {
-    const { nowPlaying, upcoming, popular, trending, error, loading } = this.state;
-    console.log(this.state);
+    const {
+      nowPlaying,
+      upcoming,
+      popular,
+      trending,
+      error,
+      loading,
+    } = this.state;
+
     return (
       <HomePresenter
         nowPlaying={nowPlaying}
@@ -46,12 +63,10 @@ export default class extends React.Component {
         popular={popular}
         trending={trending}
         error={error}
-        loading={loading}        
+        loading={loading}
       />
     );
   }
 }
 
-
 //컨테이너는 data를 가지고, state를 가지고 api를 불러온다. 그리고 모든 로직을 처리한다.
-

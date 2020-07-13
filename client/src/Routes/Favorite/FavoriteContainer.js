@@ -35,11 +35,7 @@ export default class extends React.Component {
   }
   render() {
     const { favoriteMovies, error, loading } = this.state;
-    console.log(favoriteMovies)
-
-
-  
-
+    
     return (
       <FavoritePresenter
         favoriteMovies={favoriteMovies}
