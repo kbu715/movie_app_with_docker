@@ -7,8 +7,8 @@ import Helmet from "react-helmet";
 import { withRouter } from "react-router-dom";
 import Cast from "./Cast/Cast";
 import Video from "./Video/Video";
-// import { IMAGE_BASE_URL } from "../../Components/Config";
 import Favorite from "./Sections/Favorite";
+import Reservation from "../Reservation/Reservation";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -76,12 +76,13 @@ const Data = styled.div`
 `;
 
 const Title = styled.h3`
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 200;
   line-height: 1.2;
   letter-spacing: -0.5px;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
+  display: flex;
 `;
 
 const ItemContainer = styled.div`
@@ -131,31 +132,13 @@ const Heading = styled.h3`
 `;
 
 const ButtonsWrapper = styled.div`
+  margin-top: -73px;
   display: flex;
   align-items: center;
-  border: 1px solid red;
   @media ${(props) => props.theme.mediaQueries.small} {
     flex-direction: column;
     align-items: flex-start;
   }
-`;
-
-const LeftButtons = styled.div`
-  margin-right: auto;
-  display: flex;
-  @media ${(props) => props.theme.mediaQueries.small} {
-    margin-bottom: 2rem;
-  }
-  & > *:not(:last-child) {
-    margin-right: 2rem;
-    @media ${(props) => props.theme.mediaQueries.large} {
-      margin-right: 1rem;
-    }
-  }
-`;
-
-const Tvideo = styled.iframe`
-  border: 1px solid blue;
 `;
 
 const DetailPresenter = ({
@@ -164,8 +147,6 @@ const DetailPresenter = ({
   error,
   castResult,
   isMovie,
-  isOpen,
-  openModal,
   video,
 }) => {
   return loading ? (
@@ -196,6 +177,7 @@ const DetailPresenter = ({
             {isMovie
               ? result.title //movie : title, tv show : name
               : result.name}
+            <Reservation />
           </Title>
 
           <ItemContainer>
@@ -238,10 +220,10 @@ const DetailPresenter = ({
           <Overview>{result.overview}</Overview>
 
           <Heading>The Cast</Heading>
-          <Cast cast={castResult.cast} isOpen={isOpen} />
+          <Cast cast={castResult.cast} />
 
           <ButtonsWrapper>
-            <Video video={video.results} />
+            <Video video={video.results[0]} />
           </ButtonsWrapper>
         </Data>
       </Content>

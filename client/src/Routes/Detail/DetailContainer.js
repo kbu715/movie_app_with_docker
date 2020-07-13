@@ -1,6 +1,8 @@
 import React from "react";
 import DetailPresenter from "./DetailPresenter";
 import { moviesApi, tvApi } from "api";
+
+
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ export default class extends React.Component {
       error: null,
       loading: true,
       isMovie: pathname.includes("/movie/"),
-      isOpen: true,
+      modalOpened: false,
       video: null,
     };
   }
@@ -51,19 +53,9 @@ export default class extends React.Component {
       this.setState({ loading: false, result, castResult, video });
     }
   }
-  openModal() {
-    this.setState({ isOpen: true });
-  }
+
   render() {
-    const {
-      result,
-      error,
-      loading,
-      castResult,
-      isMovie,
-      isOpen,
-      video,
-    } = this.state;
+    const { result, error, loading, castResult, isMovie, video } = this.state;
 
     return (
       <DetailPresenter
@@ -72,8 +64,6 @@ export default class extends React.Component {
         castResult={castResult}
         error={error}
         loading={loading}
-        isOpen={isOpen}
-        openModal={this.openModal}
         video={video}
       />
     );
