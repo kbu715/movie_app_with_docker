@@ -7,6 +7,7 @@ import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
 import Helmet from "react-helmet";
 import { withRouter } from "react-router-dom";
+
 const Container = styled.div`
   padding: 10px;
   border: 2px solid pink;
