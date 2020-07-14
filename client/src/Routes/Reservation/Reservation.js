@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Modal from "react-awesome-modal";
+import ModalVideo from "react-modal-video";
 
 const Button = styled.button`
   -webkit-border-radius: 3px;
@@ -18,7 +19,7 @@ const Button = styled.button`
   margin-left: 5px;
 `;
 
-const Reservation = () => {
+const Reservation = ({ video }) => {
   const [visible, setVisible] = useState(false);
 
   const openModal = () => {
@@ -40,6 +41,15 @@ const Reservation = () => {
         onClickAway={closeModal}
       >
         <div>
+          <iframe
+            width="500"
+            height="230"
+            src={`https://www.youtube.com/embed/${video.key}?autoplay=1`}
+            frameBorder="0"
+            allow="accelerometer; autoplay encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+
           <button onClick={closeModal}>닫기</button>
         </div>
       </Modal>

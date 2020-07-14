@@ -177,7 +177,7 @@ const DetailPresenter = ({
             {isMovie
               ? result.title //movie : title, tv show : name
               : result.name}
-            <Reservation />
+            <Reservation video={video.results[0]} />
           </Title>
 
           <ItemContainer>
