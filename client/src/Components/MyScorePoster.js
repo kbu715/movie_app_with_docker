@@ -112,7 +112,7 @@ const MyScorePoster = ({
           {title.length > 18 ? `${title.substring(0, 8)}...` : title}
         </Title>
       </RatingsWrapper>
-      <MyScoreRating />
+      <MyScoreRating number={score}/>
     </Container>
   </Link>
 );

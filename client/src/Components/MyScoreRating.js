@@ -16,13 +16,14 @@ const FontAwesome = styled(FontAwesomeIcon)`
   margin-left: 10px;
 `;
 
-const Rating = () => {
-
+const Rating = (number) => {
+console.log("number:",number);
   return (
     <StarsWrapper
       emptySymbol={<FontAwesome icon={["far", "star"]} size="lg" />}
       fullSymbol={<FontAwesome icon={["fas", "star"]} size="lg" />}
-    />
+      initialRating={number}
+      />
   );
 };
 

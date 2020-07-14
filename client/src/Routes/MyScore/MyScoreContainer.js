@@ -17,6 +17,7 @@ export default class extends React.Component {
       } = await moviesApi.popular();
       this.setState({
         popular,
+        score: 1,
       });
     } catch (error) {
       this.setState({
@@ -28,8 +29,9 @@ export default class extends React.Component {
       });
     }
   }
-
+  
   render() {
+    console.log("score:",this.state.score);
     const { popular, loading, error, score } = this.state;
     return (
       <MyScorePresenter popular={popular} loading={loading} error={error} score={score} />
