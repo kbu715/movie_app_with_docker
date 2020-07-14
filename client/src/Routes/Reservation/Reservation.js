@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Modal from "react-awesome-modal";
+import ModalVideo from "react-modal-video";
 
 const Button = styled.button`
-  /* -webkit-border-radius: 3px;
+  -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   border-radius: 3px;
@@ -14,30 +16,10 @@ const Button = styled.button`
   color: white;
   border-color: white;
   background: transparent;
-  margin-left: 5px; */
-
-  display: flex;
-  flex-direction: row-reverse;
-  --webkit-box-align: center;
-  align-items: center;
-  cursor: pointer;
-  line-height: 1;
-  font-weight: 500;
-  font-size: 1.3rem;
-  width: auto;
-  --webkit-box-flex: 0;
-  flex-grow: 0;
-  color: #263238;
-  /* background-color: transparent; */
-  box-shadow: none;
-  text-decoration: none;
-  outline: none;
-  padding: 1.2rem 3rem;
-  border-radius: 5rem;
-  transition: all 600ms cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+  margin-left: 5px;
 `;
 
-const Video = ({ video }) => {
+const Reservation = ({ video }) => {
   const [visible, setVisible] = useState(false);
 
   const openModal = () => {
@@ -50,11 +32,11 @@ const Video = ({ video }) => {
 
   return (
     <div>
-      <Button onClick={openModal}>Trailer</Button>
+      <Button onClick={openModal}>간편예매</Button>
       <Modal
         visible={visible}
-        width="30%"
-        height="30%"
+        width="80%"
+        height="80%"
         effect="fadeInUp"
         onClickAway={closeModal}
       >
@@ -75,4 +57,4 @@ const Video = ({ video }) => {
   );
 };
 
-export default Video;
+export default Reservation;
