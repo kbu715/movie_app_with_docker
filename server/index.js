@@ -14,7 +14,7 @@ app.use(cookieParser());
 const mongoose = require("mongoose");
 mongoose
   .connect(
-    "mongodb+srv://jinwoo:1234@cluster0-hpf0t.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "mongodb+srv://jiyoung:1234@cluster0.a5pz2.mongodb.net/<dbname>?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

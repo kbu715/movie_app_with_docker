@@ -8,7 +8,8 @@ import Poster from "../../Components/Poster";
 import Helmet from "react-helmet";
 import { withRouter } from 'react-router-dom';
 const Container = styled.div`
-  padding: 20px;
+  padding: 10px;
+  border: 1px solid pink;
 `;
 const Video = styled.div`
   width: 100%;

@@ -89,6 +89,9 @@ export default withRouter(
                   찜한 콘텐츠
                 </SLink>
               </Item>
+              <Item current={pathname === "/myscore"}>
+                <SLink to="/myscore">평가하기</SLink>
+              </Item>
             </List1>
             {user.userData && !user.userData.isAuth ? (
               <List2>
