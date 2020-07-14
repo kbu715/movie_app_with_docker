@@ -36,7 +36,7 @@ const Item = styled.li`
   float: right;
   text-align: center;
   border-bottom: 5px solid
-    ${props => (props.current ? "#e50914" : "transparent")};
+    ${(props) => (props.current ? "#e50914" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 `;
 
@@ -51,13 +51,13 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector(state => state.user);
-    console.log(user.userData);
+    const user = useSelector((state) => state.user);
+
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then(response => {
+      Axios.get("/api/users/logout").then((response) => {
         if (response.status === 200) {
           alert("정말로 로그아웃 하시겠습니까");
           props.history.push("/login");
@@ -89,6 +89,9 @@ export default withRouter(
                   찜한 콘텐츠
                 </SLink>
               </Item>
+              <Item current={pathname === "/myscore"}>
+                <SLink to="/myscore">평가하기</SLink>
+              </Item>
             </List1>
             {user.userData && !user.userData.isAuth ? (
               <List2>
@@ -99,7 +102,9 @@ export default withRouter(
             ) : (
               <List2>
                 <Item>
-                  <SLink to="/" onClick={logoutHandler}>Logout</SLink>
+                  <SLink to="/" onClick={logoutHandler}>
+                    Logout
+                  </SLink>
                 </Item>
               </List2>
             )}

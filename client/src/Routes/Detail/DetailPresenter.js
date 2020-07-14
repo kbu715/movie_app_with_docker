@@ -4,10 +4,11 @@ import styled from "styled-components";
 import Loader from "Components/Loader";
 import Rating from "../../Components/Rating";
 import Helmet from "react-helmet";
-import { withRouter } from 'react-router-dom';
-import Cast from './Cast/Cast';
+import { withRouter } from "react-router-dom";
+import Cast from "./Cast/Cast";
+import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
-
+import Reservation from "../Reservation/Reservation";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -75,12 +76,13 @@ const Data = styled.div`
 `;
 
 const Title = styled.h3`
-    font-size: 4rem;
-    font-weight: 200;
-    line-height: 1.2;    
-    letter-spacing: -0.5px;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
+  font-size: 2rem;
+  font-weight: 200;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: flex;
 `;
 
 const ItemContainer = styled.div`
@@ -106,7 +108,7 @@ const RatingsWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: auto;
-  margin-top:10px;
+  margin-top: 10px;
 `;
 
 const RatingNumber = styled.p`
@@ -118,26 +120,36 @@ const RatingNumber = styled.p`
 
 const Heading = styled.h3`
   color: var(--color-primary-dark);
-  font-weight: 700;
+  font-weight: 300;
   text-transform: uppercase;
   margin-bottom: 1rem;
   font-size: 1.4rem;
+  margin-top: 10px;
 
-  @media ${props => props.theme.mediaQueries.medium} {
+  @media ${(props) => props.theme.mediaQueries.medium} {
     font-size: 1.2rem;
   }
 `;
 
+const ButtonsWrapper = styled.div`
+  margin-top: -73px;
+  display: flex;
+  align-items: center;
+  @media ${(props) => props.theme.mediaQueries.small} {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
 
-
-
-
-const DetailPresenter = ({ result, loading, error,castResult,isMovie  }) => 
-  
-  {
-    
-    return (
-  loading ? (
+const DetailPresenter = ({
+  result,
+  loading,
+  error,
+  castResult,
+  isMovie,
+  video,
+}) => {
+  return loading ? (
     <>
       <Helmet>
         <title>Loading | Nomflix</title>
@@ -149,8 +161,7 @@ const DetailPresenter = ({ result, loading, error,castResult,isMovie  }) =>
     <Container>
       <Helmet>
         <title>
-          {result.title ? result.title : result.original_name}{" "}
-          | Nomflix
+          {result.title ? result.title : result.original_name} | Nomflix
         </title>
       </Helmet>
       <Backdrop
@@ -163,25 +174,24 @@ const DetailPresenter = ({ result, loading, error,castResult,isMovie  }) =>
         />
         <Data>
           <Title>
-          {isMovie
+            {isMovie
               ? result.title //movie : title, tv show : name
               : result.name}
+            <Reservation video={video.results[0]} />
           </Title>
 
           <ItemContainer>
-          <Item>
+            <Item>
               {isMovie
                 ? result.release_date.substring(0, 4)
                 : result.first_air_date.substring(0, 4)}
-            </Item>            
+            </Item>
 
             <Divider>•</Divider>
 
-            
             <Item>
               {isMovie ? result.runtime : result.episode_run_time[0]} min
             </Item>
-            
 
             <Divider>•</Divider>
 
@@ -202,28 +212,30 @@ const DetailPresenter = ({ result, loading, error,castResult,isMovie  }) =>
             />
 
             <RatingsWrapper>
-                <Rating number={result.vote_average / 2} />
-                <RatingNumber>{result.vote_average}</RatingNumber>
-              </RatingsWrapper>
-
+              <Rating number={result.vote_average / 2} />
+              <RatingNumber>{result.vote_average}</RatingNumber>
+            </RatingsWrapper>
           </ItemContainer>
 
           <Overview>{result.overview}</Overview>
 
           <Heading>The Cast</Heading>
-          <Cast cast={castResult.cast}/>
+          <Cast cast={castResult.cast} />
+
+          <ButtonsWrapper>
+            <Video video={video.results[0]} />
+          </ButtonsWrapper>
         </Data>
       </Content>
     </Container>
-  ))};
-  
+  );
+};
 
 DetailPresenter.propTypes = {
-  castResult:PropTypes.object,
+  castResult: PropTypes.object,
   result: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
   isMovie: PropTypes.bool,
-  
 };
 export default withRouter(DetailPresenter);
