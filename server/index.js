@@ -14,7 +14,7 @@ app.use(cookieParser());
 const mongoose = require("mongoose");
 mongoose
   .connect(
-    "mongodb+srv://jiyoung:1234@cluster0.a5pz2.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    config.mongoURI,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -27,6 +27,7 @@ mongoose
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/favorite", require("./routes/favorite"));
+app.use("/api/myscore", require("./routes/myscore"));
 
 const port = 5000;
 

@@ -17,7 +17,7 @@ export default class extends React.Component {
       } = await moviesApi.popular();
       this.setState({
         popular,
-        score: 1,
+        score: "1",
       });
     } catch (error) {
       this.setState({

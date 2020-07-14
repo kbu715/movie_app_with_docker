@@ -45,7 +45,7 @@ MyScorePresenter.propTypes = {
   movieResults: PropTypes.array,
   error: PropTypes.string,
   loading: PropTypes.bool.isRequired,
-  score: PropTypes.number,
+  score: PropTypes.string,
 };
 
 export default MyScorePresenter;
