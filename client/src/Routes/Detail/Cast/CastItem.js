@@ -10,10 +10,11 @@ const MovieImg = styled.img`
   object-fit: cover;
   background-color: transparent;
   transition: all 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  padding: 9px;
 `;
 
 const CastItem = ({ person }) => {
-  const [loaded, setLoaded] = useState(false);
+  //const [loaded, setLoaded] = useState(false);
 
   return (
     <MovieImg
@@ -22,7 +23,6 @@ const CastItem = ({ person }) => {
           ? person.profile_path
           : require("./assets/noImage.png")
       }`}
-      onLoad={() => setLoaded(true)}
     />
   );
 };
