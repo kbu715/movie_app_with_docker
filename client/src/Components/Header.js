@@ -19,25 +19,57 @@ const Header = styled.header`
 `;
 
 const List1 = styled.ul`
-  display: flex;
+  // display: flex;
   justify-content: flex-start;
   width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 37px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 10px;
 `;
 
 const List2 = styled.ul`
-  display: flex;
+  // display: flex;
   justify-content: flex-end;
   float: right;
   width: 100%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 18px;
+  font-weight: 300;
+  height: 44px;
 `;
 const Item = styled.li`
-  width: 80px;
-  height: 50px;
-  float: right;
-  text-align: center;
-  border-bottom: 5px solid
-    ${(props) => (props.current ? "#e50914" : "transparent")};
-  transition: border-bottom 0.5s ease-in-out;
+  // width: 80px;
+  // height: 50px;
+  // float: right;
+  // text-align: center;
+  // border-bottom: 5px solid
+  //   ${props => (props.current ? "#e50914" : "transparent")};
+  // transition: border-bottom 0.5s ease-in-out;
+  font-weight: 400;
+  padding: 7px 10px;
+  font-size: 14px;
+  -webkit-transition: background .125s ease;
+  transition: background .125s ease;
+  border-radius: 3px;
+
+  &:hover {
+    background: #e50914;
+    cursor: pointer;
+  }
 `;
 
 const SLink = styled(Link)`
@@ -51,13 +83,13 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector(state => state.user);
 
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then((response) => {
+      Axios.get("/api/users/logout").then(response => {
         if (response.status === 200) {
           alert("정말로 로그아웃 하시겠습니까");
           props.history.push("/login");
@@ -86,11 +118,11 @@ export default withRouter(
                       : "/favorite"
                   }
                 >
-                  찜한 콘텐츠
+                  MyList
                 </SLink>
               </Item>
               <Item current={pathname === "/myscore"}>
-                <SLink to="/myscore">평가하기</SLink>
+                <SLink to="/myscore">평가</SLink>
               </Item>
             </List1>
             {user.userData && !user.userData.isAuth ? (
