@@ -16,12 +16,15 @@ const Rating = (props) => {
     console.log(value);
   };
 
+  console.log("props",props);
+
   useEffect(() => {
     const body = {
-      id: props.id,
-      value,
+      movieId: props.id,
+      movieTitle: props.title,
+      myScore: value,
     };
-    axios.post("/api/myscore/giveStarRating", body).then((response) => {
+    axios.post("/api/users/giveStarRating", body).then((response) => {
       console.log("response:", response);
     });
   }, []);

@@ -7,43 +7,96 @@ import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
 import Helmet from "react-helmet";
 import { withRouter } from "react-router-dom";
+
 const Container = styled.div`
   padding: 10px;
-  // border: 1px solid pink;
+  scroll-behavior: smooth;
 `;
 const Video = styled.div`
-  /* width: 100%; */
-  /* margin-top: 0px; !important */
-  /* margin-bottom: 10px; */
   position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 700px;
-  /* width: auto;
-  height: auto; */
+  width: 100%;
+  top:-50px;
   z-index: -1;
 `;
-// const VideoTest = styled.div`
-//   position: relative;
-//   width: 100%;
-//   height: 500px;
-//   //  background: url(http://wallpaperswide.com/download/netflix-wallpaper-1920x540.jpg)
-//   //  background: url(https://youtu.be/GV3HUDMQ-F8)
-//     center top / cover no-repeat;
-//   background-repeat: no-repeat;
-//   background-position: center top;
-//   margin: auto;
-//   border-radius: 5px;
-// `;
-
+const Effect = styled.div`
+width: 100%;
+height: 600px;
+margin-top: 100px;
+/* border: 5px solid green; */
+background: linear-gradient(to bottom, transparent, black);
+`;
+const TopSection = styled.div`
+  margin-top: -250px;
+`;
+const Button = styled.button`
+  background: transparent;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 44px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid rgba(245, 245, 241, 0.2);
+  border-radius: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  -webkit-transition: border 0.125s ease, background 0.125s ease;
+  transition: border 0.125s ease, background 0.125s ease;
+`;
+const Hero = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* background-size: cover; */
+`;
+const HeroContent = styled.div`
+  position: relative;
+  z-index: 4;
+  width: auto;
+  left: 10px;
+  top: 10px;
+`;
+const HeroContentText = styled.span`
+  font-size: 60px;
+`;
+const HeroContentLogo = styled.img`
+  max-width: 400px;
+  display: block;
+  position: relative;
+  left: -5px;
+`;
+const HeroContentP = styled.div`
+  width: 100%;
+  font-size: 20px;
+  margin-top:40px;
+        color : white;
+`;
+const HeroButtonWrapper = styled.div`
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 400px;
+  margin-top: 30px;
+`;
 const HomePresenter = ({
   nowPlaying,
   popular,
   upcoming,
   trending,
   loading,
-  error,
+  error
 }) => (
   <>
     <Helmet>
@@ -53,27 +106,51 @@ const HomePresenter = ({
     {loading ? (
       <Loader />
     ) : (
-      <Container>
+      <>
+      <Container onWheel={(e)=>{
+        console.log(window.scrollY);
+      }}>
+      <Video>
+            <iframe
+              width="100%"
+              height="800"
+              src="http://videos.hd-trailers.net/Mad_Max_Fury_Road_2015_Trailer_F4_5.1-1080p-HDTN.mp4"
+              frameBorder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="movie-trailer"
+              >
+            </iframe>
+          </Video>
         <Helmet>
           <title>Movies | Nomflix</title>
         </Helmet>
-        {/* 메인 비디오 */}
-        <Video>
-          {/* <VideoTest /> */}
-          <iframe
-            width="100%"
-            height="500"
-            src="https://www.youtube.com/embed/GV3HUDMQ-F8?autoplay=1"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="ddd"
-          ></iframe>
+        <Hero>
+          <Effect>
+            <HeroContent>
+              <HeroContentLogo />
 
-          {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/E11p66uJVMY?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe> */}
-        </Video>
-
-        {/* 현재 상영중 */}
+              <HeroContentText>Season 2 now avilable</HeroContentText>
+    
+              
+              <HeroContentP>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
+                Doloremque id quam sapiente unde voluptatum alias vero debitis,<br/>
+                magnam quis quod.<br/>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
+                Doloremque id quam sapiente unde voluptatum alias vero debitis,<br/>
+                magnam quis quod.
+              </HeroContentP>
+              
+              <HeroButtonWrapper>
+                <HeroButton text="Detail view" />
+                <HeroButton text="+ my List" />
+              </HeroButtonWrapper>
+            </HeroContent>
+            {/* <HeroOverlay></HeroOverlay> */}
+            </Effect>
+          </Hero>
+          <TopSection>
         {trending && trending.length > 0 && (
           <Section title="트렌딩">
             {trending.map(movie => (
@@ -138,24 +215,25 @@ const HomePresenter = ({
             ))}
           </Section>
         )}
-
+</TopSection>
         {error && <Message color="#e74c3c" text={error} />}
       </Container>
+    </>
     )}
   </>
 );
 
-// class HeroButton extends React.Component {
-//   render() {
-//     return (
-//       <Button>
-//         <a href="#" data-primary={this.props.primary}>
-//           {this.props.text}
-//         </a>
-//       </Button>
-//     );
-//   }
-// }
+class HeroButton extends React.Component {
+  render() {
+    return (
+      <Button>
+        <a href="/movie/76341" data-primary={this.props.primary}>
+          {this.props.text}
+        </a>
+      </Button>
+    );
+  }
+}
 
 HomePresenter.propTypes = {
   nowPlaying: PropTypes.array,
