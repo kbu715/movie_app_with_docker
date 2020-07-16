@@ -7,6 +7,7 @@ const globalStyles = createGlobalStyle`
         color: white;
     }
     *{
+        color: inherit;
         box-sizing:border-box;
     }
     body{

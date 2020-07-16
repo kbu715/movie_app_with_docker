@@ -103,9 +103,11 @@ const Overview = styled.p`
   line-height: 1.5;
 
   width: 50%;
+  color: white;
 `;
 const RatingsWrapper = styled.div`
   display: flex;
+  color: white;
   align-items: center;
   margin-right: auto;
   margin-top: 10px;
@@ -125,6 +127,7 @@ const Heading = styled.h3`
   margin-bottom: 1rem;
   font-size: 1.4rem;
   margin-top: 10px;
+  color: white;
 
   @media ${(props) => props.theme.mediaQueries.medium} {
     font-size: 1.2rem;
