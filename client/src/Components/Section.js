@@ -5,9 +5,8 @@ const Container = styled.div`
   :not(:last-child) {
     margin-bottom: 60px;
   }
-
   margin: 0 auto;
-  width: 70%;
+  width: 100%;
 `;
 const Title = styled.span`
   position: relative;

@@ -24,6 +24,7 @@ mongoose
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/favorite", require("./routes/favorite"));
+app.use("/api/myscore", require("./routes/myscore"));
 
 const port = 5000;
 

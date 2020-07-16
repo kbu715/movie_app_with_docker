@@ -30,6 +30,7 @@ const MyScorePresenter = ({ loading, popular, error, score }) => (
                 imageUrl={movie.poster_path}
                 title={movie.title}
                 isMovie={true}
+                score={score}
               />
             ))}
           </MyScoreSection>
@@ -44,6 +45,7 @@ MyScorePresenter.propTypes = {
   movieResults: PropTypes.array,
   error: PropTypes.string,
   loading: PropTypes.bool.isRequired,
+  score: PropTypes.string,
 };
 
 export default MyScorePresenter;

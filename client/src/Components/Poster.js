@@ -7,6 +7,7 @@ import Ratingg from '../Components/Rating';
 const Container = styled.div`
 font-size: 12px;
 min-height: 350px;
+
 `;
 const Image = styled.div`
   background-image: url(${(props) => props.bgUrl});
