@@ -11,12 +11,10 @@ const StarsWrapper = styled.span`
 
 const Rating = (props) => {
   const [value, setValue] = useState(0);
-  const onChangeHandle = (value) => {
-    setValue({ value });
-    console.log(value);
-  };
-
-  console.log("props",props);
+  // const onChangeHandle = (value) => {
+  //   setValue({ value });
+  //   console.log(value);
+  // };
 
   useEffect(() => {
     const body = {
@@ -24,16 +22,24 @@ const Rating = (props) => {
       movieTitle: props.title,
       myScore: value,
     };
-    axios.post("/api/users/giveStarRating", body).then((response) => {
-      console.log("response:", response);
+    axios.post("/api/myscore/giveStarRating", body).then((response) => {
+      // const response:{request:{response : res}}
+      const res = response.request.response
+      console.log("response:", res);
     });
   }, []);
 
   return (
     <StarsWrapper>
-      <Rate onChange={onChangeHandle} value={value} />
+      <Rate />
     </StarsWrapper>
   );
 };
 
 export default Rating;
+
+/*
+import { Rate } from 'antd';
+
+ReactDOM.render(<Rate />, mountNode);
+*/

@@ -22,6 +22,7 @@ const Header = styled.header`
   left: 0;
   justify-content: center;
 `;
+
 const List1 = styled.ul`
   justify-content: flex-start;
   width: 100%;
@@ -97,9 +98,6 @@ export default withRouter(
         }
       });
     };
-
-    const absoluteTop = window.pageYOffset;
-    console.log("absoluteTop:",absoluteTop);
 
     return (
       <>
