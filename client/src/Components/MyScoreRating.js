@@ -10,12 +10,13 @@ const StarsWrapper = styled.span`
 `;
 
 const Rating = (props) => {
-  const [value, setValue] = useState(0);
-  // const onChangeHandle = (value) => {
-  //   setValue({ value });
-  //   console.log(value);
-  // };
+  const [value, setValue] = useState();
+  const onClickHandler = (value) => {
+    setValue({ value });
+    console.log("value:", value);
+  };
 
+  console.log(value);
   useEffect(() => {
     const body = {
       movieId: props.id,
@@ -23,15 +24,14 @@ const Rating = (props) => {
       myScore: value,
     };
     axios.post("/api/myscore/giveStarRating", body).then((response) => {
-      // const response:{request:{response : res}}
       const res = response.request.response
-      console.log("response:", res);
+      // console.log("response:", res);
     });
   }, []);
 
   return (
-    <StarsWrapper>
-      <Rate />
+    <StarsWrapper onClick={onClickHandler}>
+      <Rate value={value}/>
     </StarsWrapper>
   );
 };
