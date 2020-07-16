@@ -107,11 +107,7 @@ const HomePresenter = ({
       <Loader />
     ) : (
       <>
-        <Container
-          onWheel={e => {
-            console.log(window.scrollY);
-          }}
-        >
+        <Container onWheel={e => {}}>
           <Video>
             <iframe
               width="100%"
