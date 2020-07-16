@@ -15,15 +15,15 @@ const Container = styled.div`
 const Video = styled.div`
   position: absolute;
   width: 100%;
-  top:-50px;
+  top: -50px;
   z-index: -1;
 `;
 const Effect = styled.div`
-width: 100%;
-height: 600px;
-margin-top: 100px;
-/* border: 5px solid green; */
-background: linear-gradient(to bottom, transparent, black);
+  width: 100%;
+  height: 600px;
+  margin-top: 100px;
+  /* border: 5px solid green; */
+  background: linear-gradient(to bottom, transparent, black);
 `;
 const TopSection = styled.div`
   margin-top: -250px;
@@ -79,8 +79,8 @@ const HeroContentLogo = styled.img`
 const HeroContentP = styled.div`
   width: 100%;
   font-size: 20px;
-  margin-top:40px;
-        color : white;
+  margin-top: 40px;
+  color: white;
 `;
 const HeroButtonWrapper = styled.div`
   display: -webkit-box;
@@ -96,7 +96,7 @@ const HomePresenter = ({
   upcoming,
   trending,
   loading,
-  error
+  error,
 }) => (
   <>
     <Helmet>
@@ -107,10 +107,8 @@ const HomePresenter = ({
       <Loader />
     ) : (
       <>
-      <Container onWheel={(e)=>{
-        console.log(window.scrollY);
-      }}>
-      <Video>
+        <Container onWheel={e => {}}>
+          <Video>
             <iframe
               width="100%"
               height="800"
@@ -119,106 +117,111 @@ const HomePresenter = ({
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               title="movie-trailer"
-              >
-            </iframe>
+            ></iframe>
           </Video>
-        <Helmet>
-          <title>Movies | Nomflix</title>
-        </Helmet>
-        <Hero>
-          <Effect>
-            <HeroContent>
-              <HeroContentLogo />
+          <Helmet>
+            <title>Movies | Nomflix</title>
+          </Helmet>
+          <Hero>
+            <Effect>
+              <HeroContent>
+                <HeroContentLogo />
 
-              <HeroContentText>Season 2 now avilable</HeroContentText>
-    
-              
-              <HeroContentP>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
-                Doloremque id quam sapiente unde voluptatum alias vero debitis,<br/>
-                magnam quis quod.<br/>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
-                Doloremque id quam sapiente unde voluptatum alias vero debitis,<br/>
-                magnam quis quod.
-              </HeroContentP>
-              
-              <HeroButtonWrapper>
-                <HeroButton text="Detail view" />
-                <HeroButton text="+ my List" />
-              </HeroButtonWrapper>
-            </HeroContent>
-            {/* <HeroOverlay></HeroOverlay> */}
+                <HeroContentText>Season 2 now avilable</HeroContentText>
+
+                <HeroContentP>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  <br />
+                  Doloremque id quam sapiente unde voluptatum alias vero
+                  debitis,
+                  <br />
+                  magnam quis quod.
+                  <br />
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  <br />
+                  Doloremque id quam sapiente unde voluptatum alias vero
+                  debitis,
+                  <br />
+                  magnam quis quod.
+                </HeroContentP>
+
+                <HeroButtonWrapper>
+                  <HeroButton text="Detail view" />
+                  <HeroButton text="+ my List" />
+                </HeroButtonWrapper>
+              </HeroContent>
+              {/* <HeroOverlay></HeroOverlay> */}
             </Effect>
           </Hero>
           <TopSection>
-        {trending && trending.length > 0 && (
-          <Section title="트렌딩">
-            {trending.map(movie => (
-              <Poster
-                key={movie.id}
-                id={movie.id}
-                imageUrl={movie.poster_path}
-                title={movie.title}
-                rating={movie.vote_average}
-                year={movie.release_date.substring(0, 4)}
-                isMovie={true}
-              />
-            ))}
-          </Section>
-        )}
+            {trending && trending.length > 0 && (
+              <Section title="트렌딩">
+                {trending.map(movie => (
+                  <Poster
+                    key={movie.id}
+                    id={movie.id}
+                    imageUrl={movie.poster_path}
+                    title={movie.title}
+                    rating={movie.vote_average}
+                    year={movie.release_date.substring(0, 4)}
+                    isMovie={true}
+                  />
+                ))}
+              </Section>
+            )}
 
-        {/* 현재 상영중 */}
-        {nowPlaying && nowPlaying.length > 0 && (
-          <Section title="현재 상영중">
-            {nowPlaying.map(movie => (
-              <Poster
-                key={movie.id}
-                id={movie.id}
-                imageUrl={movie.poster_path}
-                title={movie.title}
-                rating={movie.vote_average}
-                year={movie.release_date.substring(0, 4)}
-                isMovie={true}
-              />
-            ))}
-          </Section>
-        )}
+            {/* 현재 상영중 */}
+            {nowPlaying && nowPlaying.length > 0 && (
+              <Section title="현재 상영중">
+                {nowPlaying.map(movie => (
+                  <Poster
+                    key={movie.id}
+                    id={movie.id}
+                    imageUrl={movie.poster_path}
+                    title={movie.title}
+                    rating={movie.vote_average}
+                    year={movie.release_date.substring(0, 4)}
+                    isMovie={true}
+                  />
+                ))}
+              </Section>
+            )}
 
-        {upcoming && upcoming.length > 0 && (
-          <Section title="개봉 예정">
-            {upcoming.map(movie => (
-              <Poster
-                key={movie.id}
-                id={movie.id}
-                imageUrl={movie.poster_path}
-                title={movie.title}
-                rating={movie.vote_average}
-                year={movie.release_date.substring(0, 4)}
-                isMovie={true}
-              />
-            ))}
-          </Section>
-        )}
+            {upcoming && upcoming.length > 0 && (
+              <Section title="개봉 예정">
+                {upcoming.map(movie => (
+                  <Poster
+                    key={movie.id}
+                    id={movie.id}
+                    imageUrl={movie.poster_path}
+                    title={movie.title}
+                    rating={movie.vote_average}
+                    year={movie.release_date.substring(0, 4)}
+                    isMovie={true}
+                  />
+                ))}
+              </Section>
+            )}
 
-        {popular && popular.length > 0 && (
-          <Section title="흥행순">
-            {popular.map(movie => (
-              <Poster
-                key={movie.id}
-                id={movie.id}
-                imageUrl={movie.poster_path}
-                title={movie.title}
-                rating={movie.vote_average}
-                year={movie.release_date.substring(0, 4)}
-                isMovie={true}
-              />
-            ))}
-          </Section>
-        )}
-</TopSection>
-        {error && <Message color="#e74c3c" text={error} />}
-      </Container>
-    </>
+            {popular && popular.length > 0 && (
+              <Section title="흥행순">
+                {popular.map(movie => (
+                  <Poster
+                    key={movie.id}
+                    id={movie.id}
+                    imageUrl={movie.poster_path}
+                    title={movie.title}
+                    rating={movie.vote_average}
+                    year={movie.release_date.substring(0, 4)}
+                    isMovie={true}
+                  />
+                ))}
+              </Section>
+            )}
+          </TopSection>
+          {error && <Message color="#e74c3c" text={error} />}
+        </Container>
+      </>
     )}
   </>
 );
