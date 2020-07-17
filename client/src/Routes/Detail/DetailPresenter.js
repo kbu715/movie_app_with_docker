@@ -9,6 +9,7 @@ import Cast from "./Cast/Cast";
 import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
 import Reservation from "../Reservation/Reservation";
+import TimeModal from "../Reservation/Modal/TimeModal";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -177,7 +178,17 @@ const DetailPresenter = ({
             {isMovie
               ? result.title //movie : title, tv show : name
               : result.name}
-            <Reservation video={video.results[0]} />
+            <Reservation
+              id={result.id}
+              title={result.title}
+              bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+            />
+
+            {/* <TimeModal
+              id={result.id}
+              title={result.title}
+              bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+            /> */}
           </Title>
 
           <ItemContainer>

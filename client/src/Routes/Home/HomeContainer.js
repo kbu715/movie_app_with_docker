@@ -11,6 +11,15 @@ export default class extends React.Component {
     error: null,
     loading: true,
   };
+
+  settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   async componentDidMount() {
     //처음 render 되고 실행되는 함수
     try {
@@ -54,6 +63,7 @@ export default class extends React.Component {
       trending,
       error,
       loading,
+      settings,
     } = this.state;
 
     return (
@@ -64,6 +74,7 @@ export default class extends React.Component {
         trending={trending}
         error={error}
         loading={loading}
+        settings={settings}
       />
     );
   }
