@@ -6,7 +6,7 @@ import Loader from "Components/Loader";
 import Section from "Components/Section";
 import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
-import MyScoreRating from 'Components/MyScoreRating';
+// import MyScoreRating from 'Components/MyScoreRating';
 
 const Container = styled.div`
   padding: 20px;

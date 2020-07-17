@@ -7,7 +7,6 @@ import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
 import Helmet from "react-helmet";
 import { withRouter } from "react-router-dom";
-
 const Container = styled.div`
   padding: 10px;
   scroll-behavior: smooth;
@@ -22,11 +21,10 @@ const Effect = styled.div`
   width: 100%;
   height: 600px;
   margin-top: 100px;
-  /* border: 5px solid green; */
   background: linear-gradient(to bottom, transparent, black);
 `;
 const TopSection = styled.div`
-  margin-top: -250px;
+  margin-top: -200px;
 `;
 const Button = styled.button`
   background: transparent;
@@ -90,6 +88,25 @@ const HeroButtonWrapper = styled.div`
   width: 400px;
   margin-top: 30px;
 `;
+const AButton = styled.a`
+  &:link {
+    text-decoration: none;
+    color: white;
+  }
+  &:visited {
+    text-decoration: none;
+    color: white;
+  }
+  &:active {
+    text-decoration: none;
+    color: gray;
+  }
+  &:hover {
+    text-decoration: none;
+    color: gray;
+  }
+`;
+
 const HomePresenter = ({
   nowPlaying,
   popular,
@@ -102,7 +119,6 @@ const HomePresenter = ({
     <Helmet>
       <title>Movies | Nomflix</title>
     </Helmet>
-
     {loading ? (
       <Loader />
     ) : (
@@ -126,28 +142,24 @@ const HomePresenter = ({
             <Effect>
               <HeroContent>
                 <HeroContentLogo />
-
-                <HeroContentText>Season 2 now avilable</HeroContentText>
-
+                <HeroContentText>매드맥스: 분노의 도로</HeroContentText>
                 <HeroContentP>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  "세상이 멸망하면서 누가 미친 건지 알 수 없어졌다. 나인지 이
+                  세상인지.."
                   <br />
-                  Doloremque id quam sapiente unde voluptatum alias vero
-                  debitis,
                   <br />
-                  magnam quis quod.
                   <br />
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  핵전쟁으로 멸망한 22세기. 얼마 남지 않은 물과 기름을
                   <br />
-                  Doloremque id quam sapiente unde voluptatum alias vero
-                  debitis,
                   <br />
-                  magnam quis quod.
+                  차지한 독재자 임모탄 조가 살아남은 인류를 지배한다.
+                  <br />
+                  <br />
+                  끝내주는 날, 끝내주는 액션이 폭렬한다!
                 </HeroContentP>
-
                 <HeroButtonWrapper>
-                  <HeroButton text="Detail view" />
-                  <HeroButton text="+ my List" />
+                  <HeroButton text="상세 정보" />
+                  <HeroButton text="+ 찜한 목록" />
                 </HeroButtonWrapper>
               </HeroContent>
               {/* <HeroOverlay></HeroOverlay> */}
@@ -155,7 +167,7 @@ const HomePresenter = ({
           </Hero>
           <TopSection>
             {trending && trending.length > 0 && (
-              <Section title="트렌딩">
+              <Section title="인기 상영작">
                 {trending.map(movie => (
                   <Poster
                     key={movie.id}
@@ -169,7 +181,6 @@ const HomePresenter = ({
                 ))}
               </Section>
             )}
-
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
               <Section title="현재 상영중">
@@ -186,7 +197,6 @@ const HomePresenter = ({
                 ))}
               </Section>
             )}
-
             {upcoming && upcoming.length > 0 && (
               <Section title="개봉 예정">
                 {upcoming.map(movie => (
@@ -202,7 +212,6 @@ const HomePresenter = ({
                 ))}
               </Section>
             )}
-
             {popular && popular.length > 0 && (
               <Section title="흥행순">
                 {popular.map(movie => (
@@ -225,19 +234,17 @@ const HomePresenter = ({
     )}
   </>
 );
-
 class HeroButton extends React.Component {
   render() {
     return (
       <Button>
-        <a href="/movie/76341" data-primary={this.props.primary}>
+        <AButton href="/movie/76341" data-primary={this.props.primary}>
           {this.props.text}
-        </a>
+        </AButton>
       </Button>
     );
   }
 }
-
 HomePresenter.propTypes = {
   nowPlaying: PropTypes.array,
   popular: PropTypes.array,
@@ -246,7 +253,5 @@ HomePresenter.propTypes = {
   error: PropTypes.string,
 };
 export default withRouter(HomePresenter);
-
 //프리젠터는 그 데이터들을 보여주는 역할을 한다. 프리젠터는 스타일이고, 컨테이너는 데이타야.
-
 //react에서 children은 일반적으로 태그 사이의 값을 받아.
