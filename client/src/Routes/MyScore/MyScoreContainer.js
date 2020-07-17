@@ -7,7 +7,6 @@ export default class extends React.Component {
     loading: true,
     popular: null,
     error: null,
-    score: null,
   };
 
   async componentDidMount() {
@@ -28,11 +27,11 @@ export default class extends React.Component {
       });
     }
   }
-
+  
   render() {
-    const { popular, loading, error, score } = this.state;
+    const { popular, loading, error } = this.state;
     return (
-      <MyScorePresenter popular={popular} loading={loading} error={error} score={score} />
+      <MyScorePresenter popular={popular} loading={loading} error={error} />
     );
   }
 }

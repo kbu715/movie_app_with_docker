@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 
 const Header = styled.header`
-  color: white;
+  /* background-color:transparent;
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: black;
+  } */
   position: fixed;
   top: 0;
   left: 0;
@@ -13,22 +17,41 @@ const Header = styled.header`
   height: 50px;
   display: flex;
   align-items: center;
-  background-color: rgba(20, 20, 20, 0.8);
-  z-index: 100;
-  box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  top: 0;
+  left: 0;
+  justify-content: center;
 `;
 
 const List1 = styled.ul`
-  display: flex;
   justify-content: flex-start;
   width: 100%;
-`;
-
-const List2 = styled.ul`
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  height: 37px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 10px;
+`;
+const List2 = styled.ul`
   justify-content: flex-end;
   float: right;
   width: 100%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 18px;
+  font-weight: 300;
+  height: 44px;
 `;
 const Item = styled.li`
   width: 80px;
@@ -45,11 +68,38 @@ const Item = styled.li`
   }
 `;
 
-const SLink = styled(Link)`
+//   font-weight: 400;
+//   padding: 2px 10px;
+//   font-size: 14px;
+//   -webkit-transition: background 0.125s ease;
+//   transition: background 0.125s ease;
+//   border-radius: 3px;
+//   &:hover {
+//     background: #e50914;
+//     cursor: pointer;
+//   }
+// `;
+const SLink = styled.a`
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  &:link {
+    text-decoration: none;
+    color: white;
+  }
+  &:visited {
+    text-decoration: none;
+    color: white;
+  }
+  &:active {
+    text-decoration: none;
+    color: white;
+  }
+  &:hover {
+    text-decoration: none;
+    color: white;
+  }
 `;
 
 export default withRouter(
@@ -57,7 +107,6 @@ export default withRouter(
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
     const user = useSelector((state) => state.user);
-
     const {
       location: { pathname },
     } = props;
@@ -75,53 +124,48 @@ export default withRouter(
     return (
       <>
         <Header>
-          <>
-            <List1>
-              <Item current={pathname === "/"}>
-                <SLink to="/">Movies</SLink>
+          <List1>
+            <Item current={pathname === "/"}>
+              <SLink href="/">홈</SLink>
+            </Item>
+            <Item current={pathname === "/search"}>
+              <SLink href="/search">검색</SLink>
+            </Item>
+            <Item current={pathname === "/favorite"}>
+              <SLink
+                href={
+                  user.userData && !user.userData.isAuth
+                    ? "/sign-in"
+                    : "/favorite"
+                }
+              >
+                찜한 목록
+              </SLink>
+            </Item>
+            <Item current={pathname === "/myscore"}>
+              <SLink href="/myscore">평가</SLink>
+            </Item>
+          </List1>
+          {user.userData && !user.userData.isAuth ? (
+            <List2>
+              <Item current={pathname === "/sign-in"}>
+                <SLink href="/sign-in">로그인</SLink>
               </Item>
-              <Item current={pathname === "/search"}>
-                <SLink to="/search">Search</SLink>
-              </Item>
-              <Item current={pathname === "/favorite"}>
-                <SLink
-                  to={
-                    user.userData && !user.userData.isAuth
-                      ? "/sign-in"
-                      : "/favorite"
-                  }
-                >
-                  찜한 콘텐츠
+            </List2>
+          ) : (
+            <List2>
+              <Item>
+                <SLink href="/" onClick={logoutHandler}>
+                  로그아웃
                 </SLink>
               </Item>
-              <Item current={pathname === "/myscore"}>
-                <SLink to="/myscore">평가하기</SLink>
-              </Item>
-            </List1>
-            {user.userData && !user.userData.isAuth ? (
-              <List2>
-                <Item current={pathname === "/sign-in"}>
-                  <SLink to="/sign-in">Login</SLink>
-                </Item>
-              </List2>
-            ) : (
-              <List2>
-                <Item>
-                  <SLink to="/" onClick={logoutHandler}>
-                    Logout
-                  </SLink>
-                </Item>
-              </List2>
-            )}
-          </>
+            </List2>
+          )}
         </Header>
       </>
     );
   }
 );
-
 //const SLink = styled(Link)``; : React Router에서 주어진 Link, 이런식으로 스타일을 추가 할 수있다.
-
 //npm i styled-reset : SC를 이용해서 CSS를 초기화해서 0의 상태에서 시작하게 하는 거야
-
 //position:fixed 스크롤해도 그자리에 있게 하기 위해

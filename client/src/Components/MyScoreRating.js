@@ -1,29 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Stars from "react-rating";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Rate } from "antd";
+import "antd/dist/antd.css";
+import axios from "axios";
 
-const StarsWrapper = styled(Stars)`
+const StarsWrapper = styled.span`
   line-height: 1;
-  /* margin: 0 auto; */
   margin-left: 50px;
 `;
 
-const FontAwesome = styled(FontAwesomeIcon)`
-  color: #dadbcd;
-  transition: color 500ms cubic-bezier(0.6, 0.045, 0.355, 1);
-  /* border: 1px solid green; */
-  margin-left: 10px;
-`;
+const Rating = (props) => {
+  const [value, setValue] = useState(0);
+  // const onChangeHandle = (value) => {
+  //   setValue({ value });
+  //   console.log(value);
+  // };
 
-const Rating = () => {
+  useEffect(() => {
+    const body = {
+      movieId: props.id,
+      movieTitle: props.title,
+      myScore: value,
+    };
+    axios.post("/api/myscore/giveStarRating", body).then((response) => {
+      // const response:{request:{response : res}}
+      const res = response.request.response
+      console.log("response:", res);
+    });
+  }, []);
 
   return (
-    <StarsWrapper
-      emptySymbol={<FontAwesome icon={["far", "star"]} size="lg" />}
-      fullSymbol={<FontAwesome icon={["fas", "star"]} size="lg" />}
-    />
+    <StarsWrapper>
+      <Rate />
+    </StarsWrapper>
   );
 };
 
 export default Rating;
+
+/*
+import { Rate } from 'antd';
+
+ReactDOM.render(<Rate />, mountNode);
+*/
