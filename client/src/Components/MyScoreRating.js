@@ -10,7 +10,7 @@ const StarsWrapper = styled.span`
 `;
 
 const Rating = (props) => {
-  console.log("props:",props); //id, title
+  // console.log("props:",props); //id, title
   const [value, setValue] = useState();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);

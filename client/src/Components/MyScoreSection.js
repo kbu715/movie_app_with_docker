@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import Result from "../Routes/MyScore/Result"
 
 const Container = styled.div`
   :not(:last-child) {
@@ -20,8 +21,8 @@ const Title = styled.span`
 const Grid = styled.div`
   margin-top: 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
-  grid-gap: 150px;
+  grid-template-columns: repeat(auto-fill, 250px);
+  grid-gap: 100px;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -30,6 +31,7 @@ const Grid = styled.div`
 const MyScoreSection = ({ title, children }) => (
   <Container>
     <Title>{title}</Title>
+    <Result></Result>
     <Grid>{children}</Grid>
   </Container>
 );

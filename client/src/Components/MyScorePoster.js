@@ -12,9 +12,9 @@ const Container = styled.div`
 const Image = styled.div`
   background-image: url(${(props) => props.bgUrl});
 
-  width: 250px;
+  width: 280px;
 
-  height: 380px;
+  height: 410px;
 
   margin-right: 20px;
 
