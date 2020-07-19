@@ -19,6 +19,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Axios from "axios";
 import "./Admin.css";
+import Loader from "../../Components/Loader";
 const styles = theme => ({
   root: {
     width: "100%",
@@ -103,6 +104,7 @@ class AdminContainer extends Component {
       users: "",
       completed: 0,
       searchKeyword: "",
+      loading: true,
     };
   }
   stateRefresh = () => {
@@ -119,7 +121,7 @@ class AdminContainer extends Component {
   componentDidMount() {
     this.timer = setInterval(this.progress, 20);
     this.callApi()
-      .then(res => this.setState({ users: res }))
+      .then(res => this.setState({ users: res, loading: false }))
       .catch(err => console.log(err));
   }
 
@@ -159,6 +161,8 @@ class AdminContainer extends Component {
     const { classes } = this.props;
     const cellList = ["프로필 이미지", "이메일", "이름", "설정"];
     return (
+      <>
+      { this.state.loading ? ( <Loader />) : (
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
@@ -224,7 +228,8 @@ class AdminContainer extends Component {
             </TableBody>
           </Table>
         </Paper>
-      </div>
+      </div> )}
+      </>
     );
   }
 }

@@ -149,6 +149,11 @@ export default withRouter(
           ) : (
             <List2>
               <Item>
+                <SLink href="/mypage">
+                  내계정
+                </SLink>
+              </Item>
+              <Item>
                 <SLink href="/" onClick={logoutHandler}>
                   로그아웃
                 </SLink>

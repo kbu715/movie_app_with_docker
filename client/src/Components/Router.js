@@ -16,6 +16,8 @@ import Auth from "../hoc/auth";
 import Favorite from "../Routes/Favorite";
 import Admin from "../Routes/Admin";
 import MyScore from "../Routes/MyScore";
+import MyPage from "../Routes/MyPage";
+
 
 //hoc 불러오기
 export default () => (
@@ -24,7 +26,7 @@ export default () => (
       {" "}
       <Header />
       <Switch>
-        <Route path="/" exact component={Auth(Home, null)} />
+        <Route path="/" exact component={Auth(Home, true)} />
         <Route path="/search" component={Auth(Search, null)} />
         <Route path="/movie/:id" component={Detail} />
         <Route path="/sign-in" component={Auth(Login, false)} />
@@ -33,6 +35,7 @@ export default () => (
         <Route path="/favorite" component={Auth(Favorite, true)} />
         <Route path="/admin" component={Auth(Admin, true, true)} />
         <Route path="/myscore" component={Auth(MyScore, true)} />
+        <Route path="/mypage" component={Auth(MyPage, true)} />
         <Redirect from="*" to="/" />
       </Switch>
     </>
