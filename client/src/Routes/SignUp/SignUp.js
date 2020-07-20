@@ -4,6 +4,7 @@ import { registerUser } from '../../_actions/user_action'
 import './SignUp.css';
 import { withRouter } from 'react-router-dom';
 
+
 function SignUp(props){
 
   const dispatch = useDispatch();
@@ -37,21 +38,19 @@ function SignUp(props){
       if(Password !== ConfirmPassword) {
         return alert('비밀번호와 비밀번호 확인은 같아야 합니다.');
       }
-
-
+      
         let body = {
             email : Email,
             password : Password,
             name : Name
         }
 
-
-        //redux action => loginUser는 action이름
+        // redux action => loginUser는 action이름
         dispatch(registerUser(body))
           .then(response => {
             if(response.payload.success) {
               props.history.push('/sign-in')
-              alert('회원가입 성공!');
+              alert('회원가입 성공!'); 
             } else {
               alert('회원가입 실패');
             }
@@ -87,7 +86,7 @@ function SignUp(props){
                 onChange={onNameHandler}
               />
             </div>           
-            
+         
 
             <div className="form-group">
               <label>Password</label>
