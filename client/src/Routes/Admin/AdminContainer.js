@@ -105,7 +105,6 @@ class AdminContainer extends Component {
       users: "",
       completed: 0,
       searchKeyword: "",
-      loading: true,
     };
   }
   stateRefresh = () => {
@@ -161,76 +160,79 @@ class AdminContainer extends Component {
     };
     const { classes } = this.props;
     const cellList = ["프로필 이미지", "이메일", "이름", "설정"];
-   
+
     return (
       <>
-      { this.state.loading ? ( <Loader />) : (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-              User 관리 시스템
-            </Typography>
-            <div className={classes.grow} />
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="검색하기"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                name="searchKeyword"
-                value={this.state.searchKeyword}
-                onChange={this.handleValueChange}
-              />
-            </div>
-          </Toolbar>
-        </AppBar>
+        {this.state.loading ? (
+          <Loader />
+        ) : (
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Toolbar>
+                <IconButton
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="Open drawer"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography
+                  className={classes.title}
+                  variant="h6"
+                  color="inherit"
+                  noWrap
+                >
+                  User 관리 시스템
+                </Typography>
+                <div className={classes.grow} />
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <SearchIcon />
+                  </div>
+                  <InputBase
+                    placeholder="검색하기"
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                    name="searchKeyword"
+                    value={this.state.searchKeyword}
+                    onChange={this.handleValueChange}
+                  />
+                </div>
+              </Toolbar>
+            </AppBar>
 
-        <Paper className={classes.paper}>
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                {cellList.map(c => {
-                  return (
-                    <TableCell className={classes.tableHead}>{c}</TableCell>
-                  );
-                })}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.users ? (
-                filteredComponents(this.state.users)
-              ) : (
-                <TableRow>
-                  <TableCell colSpan="6" align="center">
-                    <CircularProgress
-                      className={classes.progress}
-                      variant="determinate"
-                      value={this.state.completed}
-                    />
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </Paper>
-      </div> )}
+            <Paper className={classes.paper}>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    {cellList.map(c => {
+                      return (
+                        <TableCell className={classes.tableHead}>{c}</TableCell>
+                      );
+                    })}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.state.users ? (
+                    filteredComponents(this.state.users)
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan="6" align="center">
+                        <CircularProgress
+                          className={classes.progress}
+                          variant="determinate"
+                          value={this.state.completed}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </Paper>
+          </div>
+        )}
       </>
     );
   }
