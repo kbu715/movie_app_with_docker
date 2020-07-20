@@ -24,7 +24,7 @@ export default () => (
       {" "}
       <Header />
       <Switch>
-        <Route path="/" exact component={Auth(Home, null)} />
+        <Route path="/" exact component={Auth(Home, true)} />
         <Route path="/search" component={Auth(Search, null)} />
         <Route path="/movie/:id" component={Detail} />
         <Route path="/sign-in" component={Auth(Login, false)} />
