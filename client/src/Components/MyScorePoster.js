@@ -93,7 +93,7 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const MyScorePoster = ({ id, imageUrl, title }) => (
+const MyScorePoster = ({ movieId, imageUrl, title, Count, setCount, select, setSelect }) => (
   <Container>
     <ImageContainer>
       <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
@@ -101,11 +101,11 @@ const MyScorePoster = ({ id, imageUrl, title }) => (
     <RatingsWrapper>
       <Title>{title.length > 18 ? `${title.substring(0, 8)}...` : title}</Title>
     </RatingsWrapper>
-    <MyScoreRating id={id} title={title} imageUrl={imageUrl}/>
+    <MyScoreRating movieId={movieId} title={title} imageUrl={imageUrl} Count={Count} setCount={setCount} select={select} setSelect={setSelect}/>
   </Container>
 );
 MyScorePoster.propTypes = {
-  id: PropTypes.number.isRequired,
+  movieId: PropTypes.number.isRequired,
   imageUrl: PropTypes.string,
   title: PropTypes.string.isRequired,
 };

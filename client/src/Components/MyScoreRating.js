@@ -10,49 +10,41 @@ const StarsWrapper = styled.span`
 `;
 
 const Rating = (props) => {
-  // console.log("props:",props); //id, title
-  const [value, setValue] = useState();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [movieId, setMovieId] = useState("");
+  const [value, setValue] = useState(0);
+  const [movieId, setMovieId] = useState(null);
   
-  const fetchStarRating = (value) =>{
-    console.log(props); //id, imgUrl, title
-    
+  const fetchStarRating = (score) =>{
+    setValue(score);
+
     axios.post("/api/myscore/giveStarRating", {
       userFrom: localStorage.getItem("userId"),
-      myScore :value,
-      movieId: props.id,
+      myScore :score,
+      movieId: movieId,
     }).then(response=>{
       if (response.data.success) {
-        setValue(response.data.myscore)
-        setMovieId(response.data.movieId)
+        setMovieId(response.data.doc.movieId)
+        // console.log(value,"asdf",props.movieId);
+        props.setSelect([...props.select,props.movieId])
+        // console.log("select:", props.select);
+        //setMovies([...Movies, ...result.results]) //movies+result
+        
       } else {
         alert("평가하기를 실패하였습니다.")
       }
     })
   }
 
-  // const giveStarRating=()=>{
-  //   const body = {
-  //     movieId: props.id,
-  //     movieTitle: props.title,
-  //     myScore: value,
-  //   };
-  //   axios.post("/api/myscore/giveStarRating", body).then((response) => {
-  //     const res = response.request.response
-  //     console.log("response:", res);//user정보, id 등
-  //   });
-  // }
-
   const onClickHandler = (value) => {
-    setValue(value);
     //별점 추가
     fetchStarRating(value);
+
+    //별점 counting
+
+    props.setCount(props.select.length)
   };
   return (
     <StarsWrapper>
-      <Rate onChange={onClickHandler} allowClear={false} error={error} loading={loading}/>
+      <Rate onChange={onClickHandler} allowClear={false}/>
     </StarsWrapper>
   );
 };
