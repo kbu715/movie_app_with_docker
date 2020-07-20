@@ -31,7 +31,7 @@ const Backdrop = styled.div`
 
   height: 100%;
 
-  background-image: url(${(props) => props.bgImage});
+  background-image: url(${props => props.bgImage});
 
   background-position: center center;
 
@@ -59,7 +59,7 @@ const Content = styled.div`
 const Cover = styled.div`
   width: 30%;
 
-  background-image: url(${(props) => props.bgImage});
+  background-image: url(${props => props.bgImage});
 
   background-position: center center;
 
@@ -83,6 +83,7 @@ const Title = styled.h3`
   text-transform: uppercase;
   margin-bottom: 0.5rem;
   display: flex;
+  color: white;
 `;
 
 const ItemContainer = styled.div`
@@ -111,6 +112,7 @@ const RatingsWrapper = styled.div`
   align-items: center;
   margin-right: auto;
   margin-top: 10px;
+  color: white;
 `;
 
 const RatingNumber = styled.p`
@@ -129,7 +131,7 @@ const Heading = styled.h3`
   margin-top: 10px;
   color: white;
 
-  @media ${(props) => props.theme.mediaQueries.medium} {
+  @media ${props => props.theme.mediaQueries.medium} {
     font-size: 1.2rem;
   }
 `;
@@ -138,7 +140,7 @@ const ButtonsWrapper = styled.div`
   margin-top: -73px;
   display: flex;
   align-items: center;
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${props => props.theme.mediaQueries.small} {
     flex-direction: column;
     align-items: flex-start;
   }

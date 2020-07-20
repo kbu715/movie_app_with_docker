@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+// import Slider from "react-slick";
+// import "../../node_modules/slick-carousel/slick/slick.css";
+// import "../../node_modules/slick-carousel/slick/slick-theme.css";
+
 const Container = styled.div`
   :not(:last-child) {
     margin-bottom: 60px;
@@ -63,15 +67,26 @@ const Grid = styled.div`
 
 const Section = (
   { title, children } // children 예약된 react prop
-) => (
-  <Container>
-    <Title>
-      {title}
-      <TitleSub href="#/movie">View More</TitleSub>
-    </Title>
-    <Grid>{children}</Grid>
-  </Container>
-);
+) => {
+  // const settings = {
+  //   dots: true,
+  //   lazyLoad: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   initialSlide: 2,
+  // };
+  return (
+    <Container>
+      <Title>
+        {title}
+        <TitleSub href="#/movie">View More</TitleSub>
+      </Title>
+      <Grid>{children}</Grid>
+    </Container>
+  );
+};
 
 Section.propTypes = {
   title: PropTypes.string.isRequired,
