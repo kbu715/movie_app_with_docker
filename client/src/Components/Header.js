@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {  withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -59,7 +59,7 @@ const Item = styled.li`
   float: right;
   text-align: center;
   border-bottom: 5px solid
-    ${props => (props.current ? "#e50914" : "transparent")};
+    ${(props) => (props.current ? "#e50914" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 
   font-weight: 400;
@@ -100,15 +100,15 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector(state => state.user);
+    const user = useSelector((state) => state.user);
+  
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then(response => {
+      Axios.get("/api/users/logout").then((response) => {
         if (response.status === 200) {
-          alert("정말로 로그아웃 하시겠습니까");
-          props.history.push("/login");
+
         } else {
           alert("로그 아웃 실패");
         }
@@ -150,11 +150,35 @@ export default withRouter(
             <List2>
               <Item>
                 <SLink href="/mypage">
-                  내계정
+                  {/* 내계정 */}
+                  {user.userData && (
+                    <div
+                      style={{
+                        display: "flex",
+                        textAlign: "center",
+                        margin: "0px auto",
+                      }}
+                    >
+                      <img
+                        style={{
+                          display: "flex",
+                          borderRadius: "70%",
+                          overflow: "hidden",
+                          objectFit: "cover",
+                          // border: "2px solid white",
+                          justifyContent: "center",
+                        }}
+                        src={`http://localhost:5000/${user.userData.image}`}
+                        alt="haha"
+                        width="25rem"
+                        height="25rem"
+                      />
+                    </div>
+                  )}{user.userData && user.userData.name }
                 </SLink>
               </Item>
               <Item>
-                <SLink href="/" onClick={logoutHandler}>
+                <SLink href="/login" onClick={logoutHandler}>
                   로그아웃
                 </SLink>
               </Item>
