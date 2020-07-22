@@ -97,7 +97,7 @@ const Divider = styled.span`
 `;
 
 const Overview = styled.p`
-  font-size: 12px;
+  font-size: 17px;
 
   opacity: 0.9;
 

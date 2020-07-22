@@ -16,6 +16,8 @@ const globalStyles = createGlobalStyle`
         background-color:black;
         color:white;
         padding-top:50px;
+        @import url(‘https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap’);
+        font-family: ‘Do Hyeon’, sans-serif;
     }
 `;
 export default globalStyles;

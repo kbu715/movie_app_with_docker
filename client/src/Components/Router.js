@@ -17,7 +17,7 @@ import Favorite from "../Routes/Favorite";
 import Admin from "../Routes/Admin";
 import MyScore from "../Routes/MyScore";
 import MyPage from "../Routes/MyPage";
-
+import UpdateProfile from "../Routes/UpdateProfile";
 
 //hoc 불러오기
 export default () => (
@@ -35,7 +35,12 @@ export default () => (
         <Route path="/favorite" component={Auth(Favorite, true)} />
         <Route path="/admin" component={Auth(Admin, true, true)} />
         <Route path="/myscore" component={Auth(MyScore, true)} />
-        <Route path="/mypage" component={Auth(MyPage, true)} />
+        <Route path="/mypage" exact component={Auth(MyPage, true)} />
+        <Route
+          path="/mypage/update"
+          exact
+          component={Auth(UpdateProfile, true)}
+        />
         <Redirect from="*" to="/" />
       </Switch>
     </>

@@ -53,8 +53,8 @@ const Video = ({ video }) => {
       <Button onClick={openModal}>Trailer</Button>
       <Modal
         visible={visible}
-        width="30%"
-        height="30%"
+        width="20%"
+        height="20%"
         effect="fadeInUp"
         onClickAway={closeModal}
       >

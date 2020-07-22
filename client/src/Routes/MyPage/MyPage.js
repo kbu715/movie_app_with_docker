@@ -3,11 +3,12 @@ import { Typography, Button, Form, Input } from "antd";
 // import { PlusOutlined } from "@ant-design/icons";
 // import Dropzone from "react-dropzone";
 import Axios from "axios";
+import { withRouter } from "react-router-dom";
 
 const { Title } = Typography;
 // const { TextArea } = Input;
 
-function MyPage() {
+function MyPage(props) {
   // const [Email, setEmail] = useState("");
   // const [Name, setName] = useState("");
   // const [FilePath, setFilePath] = useState("");
@@ -40,7 +41,9 @@ function MyPage() {
     // setName(event.currentTarget.value);
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    props.history.push("/mypage/update");
+  };
 
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
@@ -76,30 +79,6 @@ function MyPage() {
         </div>
       )}
       <Form onSubmit={onSubmit}>
-        {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
-            {({ getRootProps, getInputProps }) => (
-              <div
-                style={{
-                  width: "100px",
-                  height: "80px",
-                  border: "1px solid lightgray",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                {...getRootProps()}
-              >
-                <input {...getInputProps()} />
-                <PlusOutlined style={{ color: "white", fontSize: "3rem" }} />
-              
-              </div>
-            )}
-          </Dropzone>
-
-
-        </div> */}
-
         <br />
         <br />
         <label>Email</label>
@@ -120,11 +99,11 @@ function MyPage() {
           size="large"
           onClick={onSubmit}
         >
-          수정
+          Update Profile
         </Button>
       </Form>
     </div>
   );
 }
 
-export default MyPage;
+export default withRouter(MyPage);

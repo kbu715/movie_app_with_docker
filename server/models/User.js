@@ -89,6 +89,23 @@ userSchema.statics.findByToken = function (token, cb) {
   });
 };
 
+userSchema.pre("updateOne", function (next) {
+  let user = this; //arrow function 대신 function을 사용한 이유
+  //password 변경시에만 실행 -다른 정보 수정할 때는 비밀번호를 암호화 하지 않음.
+  if (user._update.$set.password) {
+    bcrypt.genSalt(saltRounds, function (err, salt) {
+      if (err) return next(err);
+      bcrypt.hash(user._update.$set.password, salt, function (err, hash) {
+        if (err) return next(err);
+        user._update.$set.password = hash;
+        next();
+      });
+    });
+  } else if (user._update.$set.image) {
+    next();
+  }
+});
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = { User };
