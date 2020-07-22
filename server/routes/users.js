@@ -92,4 +92,15 @@ router.post("/removeFromUsers", (req, res) => {
   });
 });
 
+//////////////////////////////////////////////////
+router.post("/giveStarRating", (req, res) => { //별점 주기
+
+  console.log("res:", req.body);
+
+  User.save((err, doc) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true, doc });
+  });
+});
+
 module.exports = router;

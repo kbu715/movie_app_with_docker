@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Result from "../Routes/MyScore/Result"
+import Result from "./Result"
 
 const Container = styled.div`
   :not(:last-child) {
