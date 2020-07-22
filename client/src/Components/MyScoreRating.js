@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Rate } from "antd";
 import "antd/dist/antd.css";
@@ -10,36 +10,51 @@ const StarsWrapper = styled.span`
 `;
 
 const Rating = (props) => {
-  const [value, setValue] = useState(0);
-  // const onChangeHandle = (value) => {
-  //   setValue({ value });
-  //   console.log(value);
-  // };
-
-  useEffect(() => {
-    const body = {
+  console.log("props:",props); //id, title
+  const [value, setValue] = useState();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [movieId, setMovieId] = useState("");
+  
+  const fetchStarRating = (value) =>{
+    console.log(props); //id, imgUrl, title
+    
+    axios.post("/api/myscore/giveStarRating", {
+      userFrom: localStorage.getItem("userId"),
+      myScore :value,
       movieId: props.id,
-      movieTitle: props.title,
-      myScore: value,
-    };
-    axios.post("/api/myscore/giveStarRating", body).then((response) => {
-      // const response:{request:{response : res}}
-      const res = response.request.response
-      console.log("response:", res);
-    });
-  }, []);
+    }).then(response=>{
+      if (response.data.success) {
+        setValue(response.data.myscore)
+        setMovieId(response.data.movieId)
+      } else {
+        alert("평가하기를 실패하였습니다.")
+      }
+    })
+  }
 
+  // const giveStarRating=()=>{
+  //   const body = {
+  //     movieId: props.id,
+  //     movieTitle: props.title,
+  //     myScore: value,
+  //   };
+  //   axios.post("/api/myscore/giveStarRating", body).then((response) => {
+  //     const res = response.request.response
+  //     console.log("response:", res);//user정보, id 등
+  //   });
+  // }
+
+  const onClickHandler = (value) => {
+    setValue(value);
+    //별점 추가
+    fetchStarRating(value);
+  };
   return (
     <StarsWrapper>
-      <Rate />
+      <Rate onChange={onClickHandler} allowClear={false} error={error} loading={loading}/>
     </StarsWrapper>
   );
 };
 
 export default Rating;
-
-/*
-import { Rate } from 'antd';
-
-ReactDOM.render(<Rate />, mountNode);
-*/

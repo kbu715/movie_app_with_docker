@@ -3,6 +3,7 @@ const router = express.Router();
 const { MyScore } = require("../models/MyScore");
 
 router.post("/giveStarRating", (req, res) => { //별점주기
+  console.log(req.body);
   const myScore = new MyScore(req.body);
 
   myScore.save((err, doc) => {

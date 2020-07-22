@@ -101,7 +101,7 @@ const MyScorePoster = ({ id, imageUrl, title }) => (
     <RatingsWrapper>
       <Title>{title.length > 18 ? `${title.substring(0, 8)}...` : title}</Title>
     </RatingsWrapper>
-    <MyScoreRating id={id} title={title}/>
+    <MyScoreRating id={id} title={title} imageUrl={imageUrl}/>
   </Container>
 );
 MyScorePoster.propTypes = {

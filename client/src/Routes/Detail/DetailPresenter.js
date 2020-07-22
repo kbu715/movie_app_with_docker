@@ -104,11 +104,11 @@ const Overview = styled.p`
   line-height: 1.5;
 
   width: 50%;
-
   color: white;
 `;
 const RatingsWrapper = styled.div`
   display: flex;
+  color: white;
   align-items: center;
   margin-right: auto;
   margin-top: 10px;
