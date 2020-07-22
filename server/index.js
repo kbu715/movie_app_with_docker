@@ -13,14 +13,14 @@ app.use(cookieParser());
 
 const mongoose = require("mongoose");
 mongoose
-  .connect(config.mongoURL, {
+  .connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
   })
   .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
+  .catch(err => console.log(err));
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/favorite", require("./routes/favorite"));

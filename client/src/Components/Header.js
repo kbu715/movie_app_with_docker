@@ -54,7 +54,7 @@ const Item = styled.li`
   float: right;
   text-align: center;
   border-bottom: 5px solid
-    ${(props) => (props.current ? "#e50914" : "transparent")};
+    ${props => (props.current ? "#e50914" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 
   &:hover {
@@ -89,17 +89,18 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector((state) => state.user);
-  
+    const user = useSelector(state => state.user);
+
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then((response) => {
-        if (response.status === 200) {
-
+      Axios.get("/api/users/logout").then(response => {
+        if (response.data.success) {
+          console.log(response.data);
+          props.history.push("/sign-in");
         } else {
-          alert("로그 아웃 실패");
+          alert("로그아웃 하는데 실패 했습니다.");
         }
       });
     };
@@ -157,13 +158,18 @@ export default withRouter(
                           // border: "2px solid white",
                           justifyContent: "center",
                         }}
-                        src={`http://localhost:5000/${user.userData.image}`}
+                        src={
+                          user.userData.image
+                            ? `http://localhost:5000/${user.userData.image}`
+                            : "http://localhost:5000/uploads/default.png"
+                        }
                         alt="haha"
                         width="25rem"
                         height="25rem"
                       />
                     </div>
-                  )}{user.userData && user.userData.name }
+                  )}
+                  {user.userData && user.userData.name}
                 </SLink>
               </Item>
               <Item>

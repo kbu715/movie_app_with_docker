@@ -68,10 +68,14 @@ function MyPage(props) {
               borderRadius: "70%",
               overflow: "hidden",
               objectFit: "cover",
-              border: "2px solid white",
+              // border: "2px solid white",
               justifyContent: "center",
             }}
-            src={`http://localhost:5000/${currentImage}`}
+            src={
+              currentImage
+                ? `http://localhost:5000/${currentImage}`
+                : "http://localhost:5000/uploads/default.png"
+            }
             alt="haha"
             width="200rem"
             height="200rem"

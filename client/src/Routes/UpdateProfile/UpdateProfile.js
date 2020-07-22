@@ -151,9 +151,13 @@ function UpdateProfile(props) {
                 border: "2px solid white",
                 justifyContent: "center",
               }}
-              src={`http://localhost:5000/${
-                FilePath ? FilePath : currentImage
-              }`}
+              src={
+                currentImage
+                  ? `http://localhost:5000/${
+                      FilePath ? FilePath : currentImage
+                    }`
+                  : "http://localhost:5000/uploads/default.png"
+              }
               alt="haha"
               width="280px"
               height="200px"
