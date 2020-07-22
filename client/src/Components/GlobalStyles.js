@@ -16,10 +16,8 @@ const globalStyles = createGlobalStyle`
         background-color:black;
         color:white;
         padding-top:50px;
-        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@500&display=swap');
-       
-        font-family: 'Noto Sans KR', sans-serif;
-
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+  font-family: 'Noto Sans KR', sans-serif;
     }
 `;
 export default globalStyles;

@@ -5,11 +5,6 @@ import Axios from "axios";
 import { useSelector } from "react-redux";
 
 const Header = styled.header`
-  /* background-color:transparent;
-  transition: background-color 0.5s;
-  &:hover {
-    background-color: black;
-  } */
   position: fixed;
   top: 0;
   left: 0;
@@ -62,12 +57,6 @@ const Item = styled.li`
     ${(props) => (props.current ? "#e50914" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 
-  font-weight: 400;
-  padding: 2px 10px;
-  font-size: 14px;
-  -webkit-transition: background 0.125s ease;
-  transition: background 0.125s ease;
-  border-radius: 3px;
   &:hover {
     background: #e50914;
     cursor: pointer;
