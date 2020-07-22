@@ -14,14 +14,10 @@ const MovieImg = styled.img`
 `;
 
 const CastItem = ({ person }) => {
-  //const [loaded, setLoaded] = useState(false);
-
   return (
     <MovieImg
       src={`${IMAGE_BASE_URL}w185${
-        person.profile_path
-          ? person.profile_path
-          : require("./assets/noImage.png")
+        person.profile_path ? person.profile_path : "/assets/noImage.png"
       }`}
     />
   );
