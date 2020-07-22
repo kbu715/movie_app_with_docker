@@ -7,7 +7,6 @@ import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
 import Helmet from "react-helmet";
 import { withRouter } from "react-router-dom";
-import Slider from "react-slick";
 
 const Container = styled.div`
   padding: 10px;
@@ -16,7 +15,7 @@ const Container = styled.div`
 const Video = styled.div`
   position: absolute;
   width: 100%;
-  top: -50px;
+  top: -100px;
   z-index: -1;
 `;
 const Effect = styled.div`
@@ -70,12 +69,7 @@ const HeroContent = styled.div`
 const HeroContentText = styled.span`
   font-size: 60px;
 `;
-const HeroContentLogo = styled.img`
-  max-width: 400px;
-  display: block;
-  position: relative;
-  left: -5px;
-`;
+
 const HeroContentP = styled.div`
   width: 100%;
   font-size: 20px;
@@ -125,7 +119,7 @@ const HomePresenter = ({
       <Loader />
     ) : (
       <>
-        <Container onWheel={e => {}}>
+        <Container onWheel={(e) => {}}>
           <Video>
             <iframe
               width="100%"
@@ -143,7 +137,6 @@ const HomePresenter = ({
           <Hero>
             <Effect>
               <HeroContent>
-                <HeroContentLogo />
                 <HeroContentText>매드맥스: 분노의 도로</HeroContentText>
                 <HeroContentP>
                   "세상이 멸망하면서 누가 미친 건지 알 수 없어졌다. 나인지 이
@@ -170,7 +163,7 @@ const HomePresenter = ({
           <TopSection>
             {trending && trending.length > 0 && (
               <Section title="인기 상영작">
-                {trending.map(movie => (
+                {trending.map((movie) => (
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -186,7 +179,7 @@ const HomePresenter = ({
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
               <Section title="현재 상영중">
-                {nowPlaying.map(movie => (
+                {nowPlaying.map((movie) => (
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -201,7 +194,7 @@ const HomePresenter = ({
             )}
             {upcoming && upcoming.length > 0 && (
               <Section title="개봉 예정">
-                {upcoming.map(movie => (
+                {upcoming.map((movie) => (
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -216,7 +209,7 @@ const HomePresenter = ({
             )}
             {popular && popular.length > 0 && (
               <Section title="흥행순">
-                {popular.map(movie => (
+                {popular.map((movie) => (
                   <Poster
                     key={movie.id}
                     id={movie.id}

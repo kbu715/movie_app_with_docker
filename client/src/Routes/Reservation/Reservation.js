@@ -4,7 +4,9 @@ import styled from "styled-components";
 import Popup from "reactjs-popup";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import DatePicker from "react-modern-calendar-datepicker";
+import DatePicker, { utils } from "react-modern-calendar-datepicker";
+// import { Calendar, utils } from "react-modern-calendar-datepicker";
+import TimeModal from "./Modal/TimeModal";
 
 const Button = styled.button`
   -webkit-border-radius: 3px;
@@ -34,24 +36,6 @@ const Wrapper = styled.div`
   border: 1px solid red;
 `;
 
-const Container = styled.div`
-  margin: 20px 0;
-`;
-
-const Cover = styled.div`
-  width: 30%;
-
-  background-image: url(${(props) => props.bgImage});
-
-  background-position: center center;
-
-  background-size: cover;
-
-  height: 30%;
-
-  border-radius: 5px;
-`;
-
 const Select = styled.select`
   margin: 20px 0;
   background-color: #fff;
@@ -65,10 +49,33 @@ const Select = styled.select`
   appearance: none;
 `;
 
-const Reservation = ({ id, title, bgImage }) => {
+const Nav = styled.div`
+  background-color: #242333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #777;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Continents = [
+  { key: 1, value: "11:00" },
+  { key: 2, value: "13:00" },
+  { key: 3, value: "15:00" },
+  { key: 4, value: "17:00" },
+  { key: 5, value: "19:00" },
+  { key: 6, value: "21:00" },
+  { key: 7, value: "23:00" },
+  { key: 8, value: "01:00" },
+  { key: 9, value: "03:00" },
+];
+
+const Reservation = ({ id, title, bgImage, userFrom }) => {
   const [selectDay, setSelectedDay] = useState(null);
   const [theaters, setTheaters] = useState("");
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState(0);
+
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -92,6 +99,7 @@ const Reservation = ({ id, title, bgImage }) => {
       className="my-custom-input-class"
     />
   );
+
   const onTheaters = (event) => {
     setTheaters({ theaters: event.target.value });
   };
@@ -104,120 +112,50 @@ const Reservation = ({ id, title, bgImage }) => {
       <Popup
         trigger={<Button className="button">간편예매</Button>}
         modal
-        closeOnDocumentClick
+        closeOnDocumentClick={true}
+        triggerOn="click"
       >
-        <Wrapper>
+        {/* <Nav>
+          <Calendar
+            value={selectDay}
+            onChange={setSelectedDay}
+            minimumDate={utils().getToday()}
+            shouldHighlightWeekends
+          />
+        </Nav> */}
+        <Nav>
           <DatePicker
             value={selectDay}
             onChange={setSelectedDay}
+            minimumDate={utils().getToday()}
             renderInput={renderCustomInput}
             shouldHighlightWeekends
           />
 
           <Select onChange={onTheaters}>
-            <option value="1">CGV</option>
-            <option value="2">메가박스</option>
-            <option value="3">롯데시네마</option>
+            <option>CGV</option>
+            <option>메가박스</option>
+            <option>롯데시네마</option>
           </Select>
 
           <Select onChange={onTime}>
-            <option value="1">11:00</option>
-            <option value="2">13:00</option>
-            <option value="4">15:00</option>
-            <option value="5">17:00</option>
-            <option value="6">19:00</option>
-            <option value="7">21:00</option>
-            <option value="8">23:00</option>
+            {Continents.map((item) => (
+              <option key={item.key} value={item.value}>
+                {item.value}
+              </option>
+            ))}
           </Select>
-          <Container></Container>
 
-          <ul className="showcase">
-            <li>
-              <div className="seat"></div> <small>빈좌석</small>
-            </li>
-            <li>
-              <div className="seat selected"></div> <small>선택좌석</small>
-            </li>
-            <li>
-              <div className="seat occupied"></div> <small>선택완료</small>
-            </li>
-          </ul>
-
-          <div className="container">
-            <div className="screen"></div>
-
-            <div className="row">
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-            </div>
-
-            <div className="row">
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat occupied"></div>
-              <div className="seat occupied"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-            </div>
-
-            <div className="row">
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat occupied"></div>
-              <div className="seat occupied"></div>
-            </div>
-
-            <div className="row">
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-            </div>
-
-            <div className="row">
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat occupied"></div>
-              <div className="seat occupied"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-            </div>
-
-            <div className="row">
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat"></div>
-              <div className="seat occupied"></div>
-              <div className="seat occupied"></div>
-              <div className="seat occupied"></div>
-              <div className="seat"></div>
-            </div>
-          </div>
-
-          <p className="text">
-            You have selected <span id="count">0</span> seats for a price of $
-            <span id="total">0</span>
-          </p>
-        </Wrapper>
+          <TimeModal
+            selectDay={selectDay}
+            theaters={theaters}
+            time={time}
+            id={id}
+            title={title}
+            bgImage={bgImage}
+            userFrom={userFrom}
+          />
+        </Nav>
       </Popup>
     </>
   );

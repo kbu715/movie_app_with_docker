@@ -4,12 +4,11 @@ import styled from "styled-components";
 import Loader from "Components/Loader";
 import Rating from "../../Components/Rating";
 import Helmet from "react-helmet";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Cast from "./Cast/Cast";
 import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
 import Reservation from "../Reservation/Reservation";
-import TimeModal from "../Reservation/Modal/TimeModal";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -32,7 +31,7 @@ const Backdrop = styled.div`
 
   height: 100%;
 
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
 
   background-position: center center;
 
@@ -60,7 +59,7 @@ const Content = styled.div`
 const Cover = styled.div`
   width: 30%;
 
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
 
   background-position: center center;
 
@@ -132,7 +131,7 @@ const Heading = styled.h3`
   margin-top: 10px;
   color: white;
 
-  @media ${props => props.theme.mediaQueries.medium} {
+  @media ${(props) => props.theme.mediaQueries.medium} {
     font-size: 1.2rem;
   }
 `;
@@ -141,9 +140,32 @@ const ButtonsWrapper = styled.div`
   margin-top: -73px;
   display: flex;
   align-items: center;
-  @media ${props => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.small} {
     flex-direction: column;
     align-items: flex-start;
+  }
+`;
+
+const SLink = styled(Link)`
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:link {
+    text-decoration: none;
+    color: white;
+  }
+  &:visited {
+    text-decoration: none;
+    color: white;
+  }
+  &:active {
+    text-decoration: none;
+    color: white;
+  }
+  &:hover {
+    text-decoration: none;
+    color: white;
   }
 `;
 
@@ -187,13 +209,8 @@ const DetailPresenter = ({
               id={result.id}
               title={result.title}
               bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+              userFrom={localStorage.getItem("userId")}
             />
-
-            {/* <TimeModal
-              id={result.id}
-              title={result.title}
-              bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
-            /> */}
           </Title>
 
           <ItemContainer>

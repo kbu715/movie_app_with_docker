@@ -16,6 +16,8 @@ const globalStyles = createGlobalStyle`
         background-color:black;
 
         padding-top:50px;
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+  font-family: 'Noto Sans KR', sans-serif;
     }
 `;
 export default globalStyles;

@@ -1,15 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 
 const Header = styled.header`
-  /* background-color:transparent;
-  transition: background-color 0.5s;
-  &:hover {
-    background-color: black;
-  } */
   position: fixed;
   top: 0;
   left: 0;
@@ -79,7 +74,7 @@ const Item = styled.li`
 //     cursor: pointer;
 //   }
 // `;
-const SLink = styled.a`
+const SLink = styled(Link)`
   height: 50px;
   display: flex;
   align-items: center;
@@ -126,14 +121,14 @@ export default withRouter(
         <Header>
           <List1>
             <Item current={pathname === "/"}>
-              <SLink href="/">홈</SLink>
+              <SLink to="/">홈</SLink>
             </Item>
             <Item current={pathname === "/search"}>
-              <SLink href="/search">검색</SLink>
+              <SLink to="/search">검색</SLink>
             </Item>
             <Item current={pathname === "/favorite"}>
               <SLink
-                href={
+                to={
                   user.userData && !user.userData.isAuth
                     ? "/sign-in"
                     : "/favorite"
@@ -143,19 +138,19 @@ export default withRouter(
               </SLink>
             </Item>
             <Item current={pathname === "/myscore"}>
-              <SLink href="/myscore">평가</SLink>
+              <SLink to="/myscore">평가</SLink>
             </Item>
           </List1>
           {user.userData && !user.userData.isAuth ? (
             <List2>
               <Item current={pathname === "/sign-in"}>
-                <SLink href="/sign-in">로그인</SLink>
+                <SLink to="/sign-in">로그인</SLink>
               </Item>
             </List2>
           ) : (
             <List2>
               <Item>
-                <SLink href="/" onClick={logoutHandler}>
+                <SLink to="/" onClick={logoutHandler}>
                   로그아웃
                 </SLink>
               </Item>
