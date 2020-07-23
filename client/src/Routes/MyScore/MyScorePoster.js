@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import MyScoreRating from "../Components/MyScoreRating";
+import MyScoreRating from "./MyScoreRating";
 
 const Container = styled.div`
   font-size: 12px;
@@ -93,7 +93,7 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const MyScorePoster = ({ movieId, imageUrl, title, Count, setCount, select, setSelect }) => (
+const MyScorePoster = ({ movieId, imageUrl, title, count, setCount }) => (
   <Container>
     <ImageContainer>
       <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
@@ -101,7 +101,9 @@ const MyScorePoster = ({ movieId, imageUrl, title, Count, setCount, select, setS
     <RatingsWrapper>
       <Title>{title.length > 18 ? `${title.substring(0, 8)}...` : title}</Title>
     </RatingsWrapper>
-    <MyScoreRating movieId={movieId} title={title} imageUrl={imageUrl} Count={Count} setCount={setCount} select={select} setSelect={setSelect}/>
+    <MyScoreRating  movieId={movieId} 
+                    count={count}
+                    setCount={setCount}/>
   </Container>
 );
 MyScorePoster.propTypes = {

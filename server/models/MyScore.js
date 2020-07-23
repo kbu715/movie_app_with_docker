@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 const MyScoreSchema = mongoose.Schema(
   {
     userFrom: {
@@ -9,15 +10,15 @@ const MyScoreSchema = mongoose.Schema(
     movieId: {
       type: Number,
     },
-    movieTitle: {
-      type: String,
-    },
-    moviePost: {
-      type: String,
-    },
-    myScore: {
+    score: {
       type: Number,
     },
+    count: {
+      type: Number,
+    },
+    select: {
+      type: [Number],
+    }
   }
 );
 

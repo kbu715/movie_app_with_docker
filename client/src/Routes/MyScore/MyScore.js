@@ -6,8 +6,8 @@ import {
 import Helmet from "react-helmet";
 import styled from "styled-components";
 import Loader from "../../Components/Loader";
-import MyScoreSection from "../../Components/MyScoreSection";
-import MyScorePoster from "../../Components/MyScorePoster";
+import MyScoreSection from "./MyScoreSection";
+import MyScorePoster from "./MyScorePoster";
 import ProgressBar from '@ramonak/react-progress-bar'
 
 const Container = styled.div`
@@ -25,21 +25,29 @@ const Progress = styled.div`
   align-items: center;
   padding-top: 25px;
   margin-left: 200px;
-  /* position : absolute; */
+`;
+
+const Select = styled.span`
+  width: 100%;
+  height: 50px;
+  margin-left: 800px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 500;
 `;
 
 function MyScore() {
   const buttonRef = useRef(null);
 
-  const [Movies, setMovies] = useState([]); //영화목록
+  const [Movies, setMovies] = useState([]); //보여줄 영화목록
   const [Loading, setLoading] = useState(true);
-  const [CurrentPage, setCurrentPage] = useState(parseInt(Math.random() * 100));
-  const [Count, setCount] = useState(0);
-  const [select, setSelect] = useState([]);
+  const [CurrentPage, setCurrentPage] = useState(1);
+  // const [CurrentPage, setCurrentPage] = useState(parseInt(Math.random() * 100));
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     //1. 처음 api 불러오기
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage}`;
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=${CurrentPage}&region=KR`;
     fetchMovies(endpoint);
   }, []);
 
@@ -53,9 +61,9 @@ function MyScore() {
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
-        // console.log(result) //result : 전체영화결과
-        // console.log('Movies',...Movies) //movie결과(처음에는 아무것도X)
-        // console.log('result',...result.results) //result의 가져오는 영화만
+        //result : 전체영화결과
+        //movie결과(처음에는 아무것도X)
+        //result의 가져오는 영화만
         setMovies([...Movies, ...result.results]) //movies+result
 
         setCurrentPage(result.page); //페이지
@@ -94,7 +102,6 @@ function MyScore() {
     );
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom >= docHeight - 1) {
-      // loadMoreItems()
       console.log("clicked");
       buttonRef.current.click();
     }
@@ -109,8 +116,9 @@ function MyScore() {
         <Loader />
       ) : (
           <Container>
+            <Select>{count}</Select>
             <Progress>
-            <ProgressBar completed={Count} bgcolor={"#F83131"} labelColor={"black"}/>
+            <ProgressBar completed={count} bgcolor={"yellow"} labelColor={"black"}/>
             </Progress>
             {Movies && Movies.length > 0 && (
               <MyScoreSection title="My Score">
@@ -120,10 +128,8 @@ function MyScore() {
                     movieId={movie.id}
                     imageUrl={movie.poster_path}
                     title={movie.title}
-                    Count={Count}
+                    count={count}
                     setCount={setCount}
-                    select={select}
-                    setSelect={setSelect}
                   />
                 )
                 )
