@@ -9,51 +9,30 @@ const StarsWrapper = styled.span`
   margin-left: 50px;
 `;
 
-const Rating = ({movieId, select, setSelect }) => { //props:movieId, imageUrl, title, select, setSelect
-  
-  const [value, setValue] = useState(0);
-  const [movie, setMovie] = useState(movieId);
+const Rating = ({ movieId, count, setCount }) => { 
 
-  const fetchStarRating = (value) =>{
-    console.log(movie);
-
-     // if(movie !== select.map(item=>item.movieId)) { //별점 주기
-        axios.post("/api/users/giveStarRating", {
-          //DB에 들어갈 값
-          myScore :value,
-          movieId: movie,
-          select: [...select,movie]
-        }).then(response=>{
-          if (response.data.success) {
-            setValue(response.data.myscore)
-            setMovie(response.data.movieId)
-            setSelect([...select, movie])
-          } else {
-            alert("평가하기를 실패하였습니다.")
-          }
-        })
-        
-      // } else { //별점 수정하기
-      //   axios.post("/api/myscore/regiveStarRating", {
-      //     myScore: value,
-      //     movieId: movie,
-      //   }).then(response=>{
-      //     if(response.data.success) {
-      //       setValue(response.data.myscore)
-      //     } else {
-      //       alert("별점 수정을 실패하였습니다.")
-      //     }
-      //   })
-      //}
+  const giveStarRating = (value) => {
+    console.log("giving star rating");
+    axios.post("/api/myscore/giveStarRating", {
+      userFrom : localStorage.getItem("userId"),
+      movieId : movieId,
+      count : count+1,
+      score : value,
+    }).then(response => {
+      if(response.data.success) {
+        setCount(count+1)
+      } else {
+        alert("평가하기를 실패했습니다.")
+      }
+    })
   }
 
   const onClickHandler = (value) => {
-    //별점 추가
-    fetchStarRating(value);
+      giveStarRating(value);
   };
   return (
     <StarsWrapper>
-      <Rate onChange={onClickHandler} allowClear={false}/>
+      <Rate onChange={onClickHandler} allowClear={false} />
     </StarsWrapper>
   );
 };

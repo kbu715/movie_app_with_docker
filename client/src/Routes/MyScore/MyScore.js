@@ -41,12 +41,13 @@ function MyScore() {
 
   const [Movies, setMovies] = useState([]); //보여줄 영화목록
   const [Loading, setLoading] = useState(true);
-  const [CurrentPage, setCurrentPage] = useState(parseInt(Math.random() * 100));
-  const [select, setSelect] = useState([]); //내가 평가한 movie 목록
+  const [CurrentPage, setCurrentPage] = useState(1);
+  // const [CurrentPage, setCurrentPage] = useState(parseInt(Math.random() * 100));
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     //1. 처음 api 불러오기
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage}`;
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=${CurrentPage}&region=KR`;
     fetchMovies(endpoint);
   }, []);
 
@@ -115,9 +116,9 @@ function MyScore() {
         <Loader />
       ) : (
           <Container>
-            <Select>{select.length}</Select>
+            <Select>{count}</Select>
             <Progress>
-            <ProgressBar completed={select.length} bgcolor={"yellow"} labelColor={"black"}/>
+            <ProgressBar completed={count} bgcolor={"yellow"} labelColor={"black"}/>
             </Progress>
             {Movies && Movies.length > 0 && (
               <MyScoreSection title="My Score">
@@ -127,8 +128,8 @@ function MyScore() {
                     movieId={movie.id}
                     imageUrl={movie.poster_path}
                     title={movie.title}
-                    select={select}
-                    setSelect={setSelect}
+                    count={count}
+                    setCount={setCount}
                   />
                 )
                 )

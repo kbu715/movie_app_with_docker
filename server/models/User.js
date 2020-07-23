@@ -33,11 +33,6 @@ const userSchema = mongoose.Schema({
   tokenExp: {
     type: Number,
   },
-  //////////////////////////////////////////////
-  score: {
-    type:Schema.Types.ObjectId,
-    ref: "MyScore"
-  }
 });
 //-------------------------------------------------1.
 userSchema.pre("save", function (next) {
