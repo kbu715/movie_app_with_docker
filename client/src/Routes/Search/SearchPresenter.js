@@ -26,7 +26,6 @@ const Input = styled.input`
 
 const SearchPresenter = ({
   movieResults,
-  tvResults,
   loading,
   searchTerm,
   handleSubmit,

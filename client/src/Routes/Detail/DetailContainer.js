@@ -1,7 +1,6 @@
 import React from "react";
 import DetailPresenter from "./DetailPresenter";
-import { moviesApi, tvApi } from "api";
-
+import { moviesApi } from "api";
 
 export default class extends React.Component {
   constructor(props) {
@@ -17,6 +16,7 @@ export default class extends React.Component {
       isMovie: pathname.includes("/movie/"),
       modalOpened: false,
       video: null,
+      recommendations: null,
     };
   }
 
@@ -30,7 +30,7 @@ export default class extends React.Component {
       },
     } = this.props;
 
-    const { isMovie } = this.state;
+    // const { isMovie } = this.state;
     const parsedId = parseInt(id);
 
     if (isNaN(parsedId)) {
@@ -39,23 +39,37 @@ export default class extends React.Component {
     let result = null;
     let castResult = null;
     let video = null;
+    let recommendations = null;
     try {
-      if (isMovie) {
-        ({ data: result } = await moviesApi.movieDetail(parsedId)); // const = 이거랑 양쪽에 () 한거랑 같은거야
-        ({ data: castResult } = await moviesApi.cast(parsedId)); // const = 이거랑 양쪽에 () 한거랑 같은거야
-        ({ data: video } = await moviesApi.videos(parsedId)); // const = 이거랑 양쪽에 () 한거랑 같은거야
-      } else {
-        ({ data: result } = await tvApi.showDetail(parsedId));
-      }
+      ({ data: result } = await moviesApi.movieDetail(parsedId)); // const = 이거랑 양쪽에 () 한거랑 같은거야
+      ({ data: castResult } = await moviesApi.cast(parsedId));
+      ({ data: video } = await moviesApi.videos(parsedId));
+      ({ data: recommendations } = await moviesApi.recommendationMovie(
+        parsedId
+      ));
     } catch {
       this.setState({ error: "Can't find anything." });
     } finally {
-      this.setState({ loading: false, result, castResult, video });
+      this.setState({
+        loading: false,
+        result,
+        castResult,
+        video,
+        recommendations,
+      });
     }
   }
 
   render() {
-    const { result, error, loading, castResult, isMovie, video } = this.state;
+    const {
+      result,
+      error,
+      loading,
+      castResult,
+      isMovie,
+      video,
+      recommendations,
+    } = this.state;
 
     return (
       <DetailPresenter
@@ -65,6 +79,7 @@ export default class extends React.Component {
         error={error}
         loading={loading}
         video={video}
+        recommendations={recommendations}
       />
     );
   }
