@@ -30,7 +30,7 @@ function Login(props) {
 
     //redux action => loginUser는 action이름
     dispatch(loginUser(body)).then(response => {
-      console.log(response.payload);
+      // console.log(response.payload);
       if (response.payload.loginSuccess) {
         window.localStorage.setItem("userId", response.payload.userId); //
         props.history.push("/");
