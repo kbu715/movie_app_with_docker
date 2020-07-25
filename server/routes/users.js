@@ -3,6 +3,8 @@ const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
+const {OAuth2Client} = require('google-auth-library');
+
 
 router.post("/register", (req, res) => {
   //회원 가입 할떄 필요한 정보들을  client에서 가져오면
@@ -127,5 +129,25 @@ router.post("/updateProfile", (req, res) => {
     });
   });
 });
+
+const client = new OAuth2Client("929257267887-jabje0s2v9gdvfrm1avh5qr1q63j9p91.apps.googleusercontent.com");
+
+
+router.post('/googlelogin', (req,res)=>{
+  const { tokenId } = req.body;
+
+
+  client.verifyIdToken({idToken: tokenId, audience: "929257267887-jabje0s2v9gdvfrm1avh5qr1q63j9p91.apps.googleusercontent.com"})
+  .then(response => {
+    const { email_verified, name, email } = response.payload;
+
+    // console.log(response.payload)
+
+    if(email_verified){
+      
+    }
+  })
+  
+})
 
 module.exports = router;
