@@ -25,7 +25,7 @@ function Google(props) {
        <div>
             <GoogleLogin
                   clientId="929257267887-jabje0s2v9gdvfrm1avh5qr1q63j9p91.apps.googleusercontent.com"
-                  buttonText="Login"
+                  buttonText=""
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}
                   cookiePolicy={'single_host_origin'}

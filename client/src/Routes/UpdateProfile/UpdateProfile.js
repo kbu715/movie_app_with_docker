@@ -13,7 +13,6 @@ function UpdateProfile(props) {
   const [updatePassword, setUpdatePassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [FilePath, setFilePath] = useState("");
-  const [FileName, setFileName] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
   const [currentName, setCurrentName] = useState("");
   const [currentImage, setCurrentImage] = useState("");
@@ -46,19 +45,8 @@ function UpdateProfile(props) {
         console.log(response.data);
 
         setFilePath(response.data.filePath);
-        setFileName(response.data.fileName);
+    
 
-        // let variable = {
-        //     filePath: response.data.filePath,
-        //     fileName: response.data.fileName
-        // }
-
-        // let variable = {
-        //   url: response.data.url,
-        //   fileName: response.data.fileName
-        // }
-
-        //gerenate thumbnail with this filepath !
       } else {
         alert("failed to save the video in server");
       }
