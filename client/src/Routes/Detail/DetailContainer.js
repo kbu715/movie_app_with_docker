@@ -8,6 +8,7 @@ export default class extends React.Component {
     const {
       location: { pathname },
     } = props;
+
     this.state = {
       castResult: null,
       result: null,

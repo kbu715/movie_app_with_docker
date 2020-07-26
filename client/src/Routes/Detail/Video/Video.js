@@ -62,7 +62,7 @@ const Video = ({ video }) => {
           <iframe
             width="500"
             height="230"
-            src={`https://www.youtube.com/embed/${video.key}?autoplay=1`}
+            src={`https://www.youtube.com/embed/${video.key}`}
             frameBorder="0"
             allow="accelerometer; autoplay encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
