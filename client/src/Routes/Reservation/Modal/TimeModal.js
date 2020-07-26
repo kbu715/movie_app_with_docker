@@ -15,6 +15,7 @@ import {
   SeatF,
   SeatG,
 } from "./Context";
+import Reservation from "../../Booking/Reservation";
 
 const Button = styled.button`
   -webkit-border-radius: 3px;
@@ -124,7 +125,7 @@ const PriceTag = styled.div`
   font-size: 20px;
   font-weight: 30px;
 `;
-
+// -----------------------------------------------------------------------------------------------
 const TimeModal = ({
   selectDay,
   theaters,
@@ -136,11 +137,10 @@ const TimeModal = ({
 }) => {
   const [Continent, setContinent] = useState(0);
 
-  console.log("theaters", theaters);
-  console.log("time", time);
   const seats = document.querySelectorAll(".row .seat:not(.occupied)");
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
+  const [distinct, setDistinct] = useState([]);
 
   // const updateSelectedCount = () => {
   //   const selectedSeats = document.querySelectorAll(".row .seat.selected");
@@ -181,6 +181,7 @@ const TimeModal = ({
     setPrice(event.currentTarget.value * 1);
   };
 
+  //결제후 DB저장
   const transactionSuccess = (data) => {
     if (!selectDay || !theaters || !time || !id || !title) {
       return alert("모든 값을 넣어주셔야 합니다.");
@@ -201,15 +202,42 @@ const TimeModal = ({
     axios.post("/api/reservation", body).then((response) => {
       if (response.data.success) {
         alert("예매 성공");
+        window.location.href = "http://localhost:3000/";
       } else {
         alert("예매 실패");
+        return false;
       }
     });
+  };
+
+  //예매된 좌석 확인
+  const onFindSeats = () => {
+    axios.post("/api/reservation/findSeat").then((response) => {
+      if (response.data.success) {
+        alert("찾기 성공");
+
+        setDistinct(response.data.seats);
+        console.log("좌석", distinct);
+      } else {
+        alert("찾기 실패");
+      }
+    });
+  };
+
+  //좌석과 인원 맞추기
+  const onCompareSeat = (event) => {
+    if (Continent < Seat.length + 1) {
+      //인원보다 좌석지정이 많을경우
+      alert("좌석 지정이 완료 되었습니다.");
+      //클릭 못하게
+      event.stopPropagation();
+    }
   };
   return (
     <>
       <Popup trigger={<Button>다음</Button>} modal closeOnDocumentClick>
-        <Nav>
+        <Reservation />
+        {/* <Nav>
           <SideWrapper>
             <SideFlex>
               <Cover bgImage={bgImage} />
@@ -242,6 +270,7 @@ const TimeModal = ({
 
                     <tr>
                       <th>좌석</th>
+
                       <td>
                         {Seat.map((seat, index) => {
                           if (index < Seat.length - 1) {
@@ -291,7 +320,12 @@ const TimeModal = ({
 
                 <div className="row">
                   {SeatA.map((item) => (
-                    <div key={item.key} value={Seat} className="seat">
+                    <div
+                      key={item.key}
+                      value={Seat}
+                      className="seat"
+                      onClick={onCompareSeat}
+                    >
                       {item.value}
                     </div>
                   ))}
@@ -299,7 +333,12 @@ const TimeModal = ({
 
                 <div className="row">
                   {SeatB.map((item) => (
-                    <div key={item.key} value={item.key} className="seat">
+                    <div
+                      key={item.key}
+                      value={item.key}
+                      className="seat"
+                      onClick={onCompareSeat}
+                    >
                       {item.value}
                     </div>
                   ))}
@@ -307,7 +346,12 @@ const TimeModal = ({
 
                 <div className="row">
                   {SeatC.map((item) => (
-                    <div key={item.key} value={item.key} className="seat">
+                    <div
+                      key={item.key}
+                      value={item.key}
+                      className="seat"
+                      onClick={onCompareSeat}
+                    >
                       {item.value}
                     </div>
                   ))}
@@ -315,7 +359,12 @@ const TimeModal = ({
 
                 <div className="row">
                   {SeatD.map((item) => (
-                    <div key={item.key} value={item.key} className="seat">
+                    <div
+                      key={item.key}
+                      value={item.key}
+                      className="seat"
+                      onClick={onCompareSeat}
+                    >
                       {item.value}
                     </div>
                   ))}
@@ -323,7 +372,12 @@ const TimeModal = ({
 
                 <div className="row">
                   {SeatE.map((item) => (
-                    <div key={item.key} value={item.key} className="seat">
+                    <div
+                      key={item.key}
+                      value={item.key}
+                      className="seat"
+                      onClick={onCompareSeat}
+                    >
                       {item.value}
                     </div>
                   ))}
@@ -331,7 +385,12 @@ const TimeModal = ({
 
                 <div className="row">
                   {SeatF.map((item) => (
-                    <div key={item.key} value={item.key} className="seat">
+                    <div
+                      key={item.key}
+                      value={item.key}
+                      className="seat"
+                      onClick={onCompareSeat}
+                    >
                       {item.value}
                     </div>
                   ))}
@@ -339,7 +398,12 @@ const TimeModal = ({
 
                 <div className="row">
                   {SeatG.map((item) => (
-                    <div key={item.key} value={item.key} className="seat">
+                    <div
+                      key={item.key}
+                      value={item.key}
+                      className="seat"
+                      onClick={onCompareSeat}
+                    >
                       {item.value}
                     </div>
                   ))}
@@ -347,7 +411,7 @@ const TimeModal = ({
               </div>
             </Container>
           </Wrapper>
-        </Nav>
+        </Nav> */}
       </Popup>
     </>
   );

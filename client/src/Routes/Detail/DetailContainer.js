@@ -1,7 +1,7 @@
 import React from "react";
 import DetailPresenter from "./DetailPresenter";
-import { moviesApi, tvApi } from "api";
 
+import { moviesApi, tvApi } from "api";
 
 export default class extends React.Component {
   constructor(props) {
@@ -9,6 +9,7 @@ export default class extends React.Component {
     const {
       location: { pathname },
     } = props;
+
     this.state = {
       castResult: null,
       result: null,
@@ -39,6 +40,7 @@ export default class extends React.Component {
     let result = null;
     let castResult = null;
     let video = null;
+
     try {
       if (isMovie) {
         ({ data: result } = await moviesApi.movieDetail(parsedId)); // const = 이거랑 양쪽에 () 한거랑 같은거야
@@ -58,14 +60,16 @@ export default class extends React.Component {
     const { result, error, loading, castResult, isMovie, video } = this.state;
 
     return (
-      <DetailPresenter
-        isMovie={isMovie}
-        result={result}
-        castResult={castResult}
-        error={error}
-        loading={loading}
-        video={video}
-      />
+      <>
+        <DetailPresenter
+          isMovie={isMovie}
+          result={result}
+          castResult={castResult}
+          error={error}
+          loading={loading}
+          video={video}
+        />
+      </>
     );
   }
 }

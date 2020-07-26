@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Loader from "Components/Loader";
 import Rating from "../../Components/Rating";
 import Helmet from "react-helmet";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Cast from "./Cast/Cast";
 import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
@@ -146,37 +146,7 @@ const ButtonsWrapper = styled.div`
   }
 `;
 
-const SLink = styled(Link)`
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:link {
-    text-decoration: none;
-    color: white;
-  }
-  &:visited {
-    text-decoration: none;
-    color: white;
-  }
-  &:active {
-    text-decoration: none;
-    color: white;
-  }
-  &:hover {
-    text-decoration: none;
-    color: white;
-  }
-`;
-
-const DetailPresenter = ({
-  result,
-  loading,
-  error,
-  castResult,
-  isMovie,
-  video,
-}) => {
+const DetailPresenter = ({ result, loading, castResult, isMovie, video }) => {
   return loading ? (
     <>
       <Helmet>
