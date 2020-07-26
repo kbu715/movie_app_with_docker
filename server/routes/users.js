@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const { User } = require("../models/User");
+const { User } = require("../models/User"); //User model을 가져온다
 const { auth } = require("../middleware/auth");
 const { OAuth2Client } = require("google-auth-library");
 
@@ -55,8 +55,8 @@ router.post("/login", (req, res) => {
 
 // role 1 어드민    role 2 특정 부서 어드민
 // role 0 -> 일반유저   role 0이 아니면  관리자
-router.get("/auth", auth, (req, res) => {
-  //여기 까지 미들웨어를 통과해 왔다는 얘기는  Authentication 이 True 라는 말.
+router.get("/auth", auth, (req, res) => { 
+  //여기 까지 미들웨어를 통과해 왔다는 얘기는 Authentication 이 True 라는 말.
   res.status(200).json({
     _id: req.user._id,
     isAdmin: req.user.role === 0 ? false : true,
@@ -155,47 +155,30 @@ router.post("/googlelogin", (req, res) => {
             });
           } else {
             if (user) {
+              //비밀번호 까지 맞다면 토큰을 생성하기.
+              user.generateToken((err, user) => {
+                if (err) return res.status(400).send(err);
 
-            
-                  //비밀번호 까지 맞다면 토큰을 생성하기.
-                  user.generateToken((err, user) => {
-                    if (err) return res.status(400).send(err);
-            
-                    // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
-                    res
-                      .cookie("x_auth", user.token)
-                      .status(200)
-                      .json({ loginSuccess: true, userId: user._id });
-                  });
-                
-            
-
+                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ loginSuccess: true, userId: user._id });
+              });
             } else {
-
-
               let password = email + "google";
-              const newUser = new User({email, name, password});
+              const newUser = new User({ email, name, password });
 
-         
-              
-            
-  
-            
-                  //비밀번호 까지 맞다면 토큰을 생성하기.
-                  newUser.generateToken((err, user) => {
-                    if (err) return res.status(400).send(err);
-            
-                    // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
-                    res
-                      .cookie("x_auth", user.token)
-                      .status(200)
-                      .json({ loginSuccess: true, userId: user._id });
-                  });
-                
-              
+              //비밀번호 까지 맞다면 토큰을 생성하기.
+              newUser.generateToken((err, user) => {
+                if (err) return res.status(400).send(err);
 
-
-
+                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ loginSuccess: true, userId: user._id });
+              });
             }
           }
         });
