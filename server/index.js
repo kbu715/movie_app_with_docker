@@ -13,18 +13,19 @@ app.use(cookieParser());
 
 const mongoose = require("mongoose");
 mongoose
-  .connect(config.mongoURI, {
+  .connect(config.mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
   })
   .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/favorite", require("./routes/favorite"));
 app.use("/api/myscore", require("./routes/myscore"));
+app.use("/api/reservation", require("./routes/reservation"));
 
 const port = 5000;
 

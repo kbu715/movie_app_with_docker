@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import MyScoreRating from "../Components/MyScoreRating";
+import MyScoreRating from "./MyScoreRating";
 
 const Container = styled.div`
   font-size: 12px;
@@ -12,9 +12,9 @@ const Container = styled.div`
 const Image = styled.div`
   background-image: url(${(props) => props.bgUrl});
 
-  width: 250px;
+  width: 280px;
 
-  height: 380px;
+  height: 410px;
 
   margin-right: 20px;
 
@@ -93,7 +93,7 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const MyScorePoster = ({ id, imageUrl, title, select, setSelect }) => (
+const MyScorePoster = ({ movieId, imageUrl, title, count, setCount }) => (
   <Container>
     <ImageContainer>
       <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
@@ -101,17 +101,11 @@ const MyScorePoster = ({ id, imageUrl, title, select, setSelect }) => (
     <RatingsWrapper>
       <Title>{title.length > 18 ? `${title.substring(0, 8)}...` : title}</Title>
     </RatingsWrapper>
-    <MyScoreRating
-      id={id}
-      title={title}
-      imageUrl={imageUrl}
-      select={select}
-      setSelect={setSelect}
-    />
+    <MyScoreRating movieId={movieId} count={count} setCount={setCount} />
   </Container>
 );
 MyScorePoster.propTypes = {
-  id: PropTypes.number.isRequired,
+  movieId: PropTypes.number.isRequired,
   imageUrl: PropTypes.string,
   title: PropTypes.string.isRequired,
 };

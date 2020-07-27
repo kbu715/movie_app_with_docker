@@ -44,8 +44,7 @@ function SignUp(props){
             password : Password,
             name : Name
         }
-
-
+        
         //redux action => loginUser는 action이름
         dispatch(registerUser(body))
           .then(response => {

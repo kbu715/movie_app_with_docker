@@ -20,13 +20,16 @@ const Button = styled.button`
   margin-left: 5px;
 `;
 function Favorite(props) {
-  
   const isMovie = props.isMovie;
   const movieId = props.movieId;
   const userFrom = props.userFrom;
-  const movieTitle = props.movieInfo.title ? props.movieInfo.title : props.movieInfo.original_name ;
+  const movieTitle = props.movieInfo.title
+    ? props.movieInfo.title
+    : props.movieInfo.original_name;
   const moviePost = props.movieInfo.poster_path;
-  const movieYear = props.movieInfo.release_date ? props.movieInfo.release_date.substring(0, 4) : props.movieInfo.first_air_date.substring(0, 4);
+  const movieYear = props.movieInfo.release_date
+    ? props.movieInfo.release_date.substring(0, 4)
+    : props.movieInfo.first_air_date.substring(0, 4);
   const movieRating = props.movieInfo.vote_average;
   const [FavoriteNumber, setFavoriteNumber] = useState(0);
   const [Favorited, setFavorited] = useState(false);
@@ -42,8 +45,7 @@ function Favorite(props) {
   };
 
   useEffect(() => {
-    axios.post("/api/favorite/favoriteNumber", variables).then(response => {
-      console.log(response.data);
+    axios.post("/api/favorite/favoriteNumber", variables).then((response) => {
       if (response.data.success) {
         setFavoriteNumber(response.data.favoriteNumber);
       } else {
@@ -51,8 +53,7 @@ function Favorite(props) {
       }
     });
 
-    axios.post("/api/favorite/favorited", variables).then(response => {
-      console.log(response.data);
+    axios.post("/api/favorite/favorited", variables).then((response) => {
       if (response.data.success) {
         setFavorited(response.data.favorited);
       } else {
@@ -65,7 +66,7 @@ function Favorite(props) {
     if (Favorited) {
       axios
         .post("/api/favorite/removeFromFavorite", variables)
-        .then(response => {
+        .then((response) => {
           if (response.data.success) {
             setFavoriteNumber(FavoriteNumber - 1);
             setFavorited(!Favorited);
@@ -74,7 +75,7 @@ function Favorite(props) {
           }
         });
     } else {
-      axios.post("/api/favorite/addToFavorite", variables).then(response => {
+      axios.post("/api/favorite/addToFavorite", variables).then((response) => {
         if (response.data.success) {
           setFavoriteNumber(FavoriteNumber + 1);
           setFavorited(!Favorited);

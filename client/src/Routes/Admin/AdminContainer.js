@@ -19,7 +19,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Axios from "axios";
 import "./Admin.css";
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
     minWidth: 1080,
@@ -35,7 +35,7 @@ const styles = theme => ({
     marginRight: 18,
   },
   progress: {
-    margin: theme.spacing(),
+    margin: theme.spacing.unit * 2,
   },
   grow: {
     flexGrow: 1,
@@ -63,12 +63,12 @@ const styles = theme => ({
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(),
+      marginLeft: theme.spacing.unit,
       width: "auto",
     },
   },
   searchIcon: {
-    width: theme.spacing(5),
+    width: theme.spacing.unit * 9,
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
@@ -112,15 +112,15 @@ class AdminContainer extends Component {
       searchKeyword: "",
     });
     this.callApi()
-      .then(res => this.setState({ users: res }))
-      .catch(err => console.log(err));
+      .then((res) => this.setState({ users: res }))
+      .catch((err) => console.log(err));
   };
 
   componentDidMount() {
     this.timer = setInterval(this.progress, 20);
     this.callApi()
-      .then(res => this.setState({ users: res }))
-      .catch(err => console.log(err));
+      .then((res) => this.setState({ users: res }))
+      .catch((err) => console.log(err));
   }
 
   callApi = async () => {
@@ -135,17 +135,17 @@ class AdminContainer extends Component {
     const { completed } = this.state;
     this.setState({ completed: completed >= 100 ? 0 : completed + 1 });
   };
-  handleValueChange = e => {
+  handleValueChange = (e) => {
     let nextState = {};
     nextState[e.target.name] = e.target.value;
     this.setState(nextState);
   };
   render() {
-    const filteredComponents = data => {
-      data = data.filter(c => {
+    const filteredComponents = (data) => {
+      data = data.filter((c) => {
         return c.name.indexOf(this.state.searchKeyword) > -1;
       });
-      return data.map(c => {
+      return data.map((c) => {
         return (
           <User
             stateRefresh={this.stateRefresh}
@@ -200,7 +200,7 @@ class AdminContainer extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                {cellList.map(c => {
+                {cellList.map((c) => {
                   return (
                     <TableCell className={classes.tableHead}>{c}</TableCell>
                   );
