@@ -93,7 +93,7 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const MyScorePoster = ({ id, imageUrl, title }) => (
+const MyScorePoster = ({ id, imageUrl, title, select, setSelect }) => (
   <Container>
     <ImageContainer>
       <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
@@ -101,7 +101,13 @@ const MyScorePoster = ({ id, imageUrl, title }) => (
     <RatingsWrapper>
       <Title>{title.length > 18 ? `${title.substring(0, 8)}...` : title}</Title>
     </RatingsWrapper>
-    <MyScoreRating id={id} title={title} imageUrl={imageUrl}/>
+    <MyScoreRating
+      id={id}
+      title={title}
+      imageUrl={imageUrl}
+      select={select}
+      setSelect={setSelect}
+    />
   </Container>
 );
 MyScorePoster.propTypes = {

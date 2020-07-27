@@ -10,49 +10,48 @@ const StarsWrapper = styled.span`
 `;
 
 const Rating = (props) => {
-  console.log("props:",props); //id, title
+  console.log("props:", props); //id, title
   const [value, setValue] = useState();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [movieId, setMovieId] = useState("");
-  
-  const fetchStarRating = (value) =>{
-    console.log(props); //id, imgUrl, title
-    
-    axios.post("/api/myscore/giveStarRating", {
-      userFrom: localStorage.getItem("userId"),
-      myScore :value,
-      movieId: props.id,
-    }).then(response=>{
-      if (response.data.success) {
-        setValue(response.data.myscore)
-        setMovieId(response.data.movieId)
-      } else {
-        alert("평가하기를 실패하였습니다.")
-      }
-    })
-  }
+  const [select, setSelect] = useState("");
 
-  // const giveStarRating=()=>{
-  //   const body = {
-  //     movieId: props.id,
-  //     movieTitle: props.title,
-  //     myScore: value,
-  //   };
-  //   axios.post("/api/myscore/giveStarRating", body).then((response) => {
-  //     const res = response.request.response
-  //     console.log("response:", res);//user정보, id 등
-  //   });
-  // }
+  const fetchStarRating = (value) => {
+    console.log(props); //id, imgUrl, title
+
+    axios
+      .post("/api/myscore/giveStarRating", {
+        userFrom: localStorage.getItem("userId"),
+        myScore: value,
+        movieId: props.id,
+      })
+      .then((response) => {
+        if (response.data.success) {
+          setValue(response.data.myscore);
+          setMovieId(response.data.movieId);
+        } else {
+          alert("평가하기를 실패하였습니다.");
+        }
+      });
+  };
+
+  const deletePoster = () => {
+    console.log("deletePoster");
+    setMovieId(props.id);
+  };
 
   const onClickHandler = (value) => {
     setValue(value);
     //별점 추가
     fetchStarRating(value);
+
+    //포스터 삭제
+    deletePoster();
   };
   return (
     <StarsWrapper>
-      <Rate onChange={onClickHandler} allowClear={false} error={error} loading={loading}/>
+      <Rate onChange={onClickHandler} error={error} loading={loading} />
     </StarsWrapper>
   );
 };
