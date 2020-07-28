@@ -26,10 +26,10 @@ const Recommendation = ({ recommendation }) => {
   const movies = recommendation.map(movie => (
     <RecommendatinMovie movie={movie} key={movie.id} />
   ));
-
+  
   return (
     <>
-      <Title>RECOMMENDATIONS</Title>
+      {movies.length !== 0 ? <Title>RECOMMENDATIONS</Title> : ""}
       <Wrapper>
         <Test>{movies}</Test>
       </Wrapper>

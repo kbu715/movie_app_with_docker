@@ -54,11 +54,11 @@ const Item = styled.li`
   float: right;
   text-align: center;
   border-bottom: 5px solid
-    ${props => (props.current ? "#e50914" : "transparent")};
+    ${props => (props.current ? "mediumslateblue" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 
   &:hover {
-    background: #e50914;
+    background: mediumslateblue;
     cursor: pointer;
   }
 `;
@@ -145,6 +145,7 @@ export default withRouter(
                     <div
                       style={{
                         display: "flex",
+                       
                         textAlign: "center",
                         margin: "0px auto",
                       }}
@@ -153,6 +154,7 @@ export default withRouter(
                         style={{
                           display: "flex",
                           borderRadius: "70%",
+                          
                           overflow: "hidden",
                           objectFit: "cover",
                           // border: "2px solid white",

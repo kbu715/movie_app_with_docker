@@ -16,12 +16,13 @@ const MovieImg = styled.img`
 const CastItem = ({ person }) => {
   return (
     <>
-    <MovieImg
-      src={`${IMAGE_BASE_URL}w185${
-        person.profile_path ? person.profile_path : "/assets/noImage.png"
-      }`}
-    />
-
+      <MovieImg
+        src={
+          person.profile_path !== null
+            ? `${IMAGE_BASE_URL}w185${person.profile_path}`
+            : "https://www.eeweb.com/assets/themes/mobile/images/user.png"
+        }
+      />
     </>
   );
 };

@@ -71,8 +71,7 @@ const Title = styled.span`
   // align-items:flex-start
   align-items:center;
   padding: 1.5rem 3rem;
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
-  font-family: 'Noto Sans KR', sans-serif;
+  
 `;
 const Year = styled.span`
   // font-size: 10px;
