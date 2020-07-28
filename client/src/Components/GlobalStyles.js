@@ -9,13 +9,12 @@ const globalStyles = createGlobalStyle`
     *{
         color: inherit;
         box-sizing:border-box;
-        color: inherit;
     }
     body{
         font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size:12px;
         background-color:black;
-
+        color:white;
         padding-top:50px;
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
   font-family: 'Noto Sans KR', sans-serif;

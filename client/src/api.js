@@ -15,46 +15,52 @@ export const moviesApi = {
   nowPlaying: () => api.get("movie/now_playing"),
   upcoming: () => api.get("movie/upcoming"),
   popular: () => api.get("movie/popular"),
-  movieDetail: (id) =>
+  movieDetail: id =>
     api.get(`movie/${id}`, {
       params: {
         append_to_response: "videos",
       },
     }),
-  search: (term) =>
+  search: term =>
     api.get("search/movie", {
       params: {
         query: term,
       },
     }),
   trending: () => api.get("trending/movie/day"),
-  cast: (id) =>
+  cast: id =>
     api.get(`movie/${id}/credits`, {
       params: {
         append_to_response: "videos",
       },
     }),
-  videos: (id) =>
+  videos: id =>
     api.get(`movie/${id}/videos`, {
       params: {
         language: "en-US",
       },
     }),
-};
-export const tvApi = {
-  topRated: () => api.get("tv/top_rated"),
-  popular: () => api.get("tv/popular"),
-  airingToday: () => api.get("tv/airing_today"),
-  showDetail: (id) =>
-    api.get(`tv/${id}`, {
+  recommendationMovie: id =>
+    api.get(`/movie/${id}/recommendations`, {
       params: {
-        append_to_response: "videos",
-      },
-    }),
-  search: (term) =>
-    api.get("search/tv", {
-      params: {
-        query: encodeURIComponent(term),
+        page : 1,
       },
     }),
 };
+// export const tvApi = {
+//   topRated: () => api.get("tv/top_rated"),
+//   popular: () => api.get("tv/popular"),
+//   airingToday: () => api.get("tv/airing_today"),
+//   showDetail: (id) =>
+//     api.get(`tv/${id}`, {
+//       params: {
+//         append_to_response: "videos",
+//       },
+//     }),
+//   search: (term) =>
+//     api.get("search/tv", {
+//       params: {
+//         query: encodeURIComponent(term),
+//       },
+//     }),
+// };

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_action";
 import { withRouter } from "react-router-dom";
-// import { GoogleLogin } from "react-google-login";
-// import './Login.css';
+
+
+import Google from "./Google";
+
 function Login(props) {
   const dispatch = useDispatch();
 
@@ -28,7 +30,7 @@ function Login(props) {
 
     //redux action => loginUser는 action이름
     dispatch(loginUser(body)).then(response => {
-      console.log(response.payload);
+      // console.log(response.payload);
       if (response.payload.loginSuccess) {
         window.localStorage.setItem("userId", response.payload.userId); //
         props.history.push("/");
@@ -73,20 +75,13 @@ function Login(props) {
                 className="custom-control-input"
                 id="customCheck1"
               />
-
-              {/* <GoogleLogin
-                clientId="456699879153-8fq6596vepc2sm6207tn2frootqmgrku.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={"single_host_origin"}
-              /> */}
             </div>
           </div>
 
           <button type="submit" className="btn btn-primary btn-block">
             로그인
           </button>
+          <Google />
           <br />
           <a href="/sign-up">회원이 아니신가요?</a>
         </form>

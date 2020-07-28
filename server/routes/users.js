@@ -1,11 +1,14 @@
 const express = require("express");
+
 const router = express.Router();
 const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
+const { OAuth2Client } = require("google-auth-library");
 
 router.post("/register", (req, res) => {
   //회원 가입 할떄 필요한 정보들을  client에서 가져오면
   //그것들을  데이터 베이스에 넣어준다.
+
   const user = new User(req.body);
 
   user.save((err, userInfo) => {
@@ -92,5 +95,115 @@ router.post("/removeFromUsers", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+=======
+router.post("/getUserInfo", (req, res) => {
+  User.find({ _id: req.body.userId }).exec((err, user) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true, user });
+  });
+});
+
+router.post("/updateProfile", (req, res) => {
+  User.findOne({ _id: req.body.id }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if (!isMatch) {
+        return res.json({
+          loginSuccess: false,
+          message: "비밀번호를 잘못 입력했습니다.",
+        });
+      }
+      User.updateOne(
+        { _id: user._id },
+        {
+          $set: {
+            password: req.body.newPassword,
+            image: req.body.newImage,
+          },
+        },
+        (err, user) => {
+          if (err) return res.json({ success: false, err });
+          res.status(200).json({ success: true, user });
+        }
+      );
+    });
+  });
+});
+
+const client = new OAuth2Client(
+  "929257267887-jabje0s2v9gdvfrm1avh5qr1q63j9p91.apps.googleusercontent.com"
+);
+
+router.post("/googlelogin", (req, res) => {
+  const { tokenId } = req.body;
+
+  client
+    .verifyIdToken({
+      idToken: tokenId,
+      audience:
+        "929257267887-jabje0s2v9gdvfrm1avh5qr1q63j9p91.apps.googleusercontent.com",
+    })
+    .then((response) => {
+      const { email_verified, name, email } = response.payload;
+
+      console.log(response.payload);
+
+      if (email_verified) {
+        User.findOne({ email }).exec((err, user) => {
+          if (err) {
+            return res.status(400).json({
+              error: "Something went wrong...",
+            });
+          } else {
+            if (user) {
+
+            
+                  //비밀번호 까지 맞다면 토큰을 생성하기.
+                  user.generateToken((err, user) => {
+                    if (err) return res.status(400).send(err);
+            
+                    // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                    res
+                      .cookie("x_auth", user.token)
+                      .status(200)
+                      .json({ loginSuccess: true, userId: user._id });
+                  });
+                
+            
+
+            } else {
+
+
+              let password = email + "google";
+              const newUser = new User({email, name, password});
+
+         
+              
+            
+  
+            
+                  //비밀번호 까지 맞다면 토큰을 생성하기.
+                  newUser.generateToken((err, user) => {
+                    if (err) return res.status(400).send(err);
+            
+                    // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                    res
+                      .cookie("x_auth", user.token)
+                      .status(200)
+                      .json({ loginSuccess: true, userId: user._id });
+                  });
+                
+              
+
+
+
+            }
+          }
+        });
+      }
+    });
+});
+>>>>>>> 5eda806c3e315642269ef921f676c40854ee07b3
 
 module.exports = router;

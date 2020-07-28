@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -54,7 +54,7 @@ const Item = styled.li`
   float: right;
   text-align: center;
   border-bottom: 5px solid
-    ${(props) => (props.current ? "#e50914" : "transparent")};
+    ${props => (props.current ? "#e50914" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 
   &:hover {
@@ -62,18 +62,6 @@ const Item = styled.li`
     cursor: pointer;
   }
 `;
-
-//   font-weight: 400;
-//   padding: 2px 10px;
-//   font-size: 14px;
-//   -webkit-transition: background 0.125s ease;
-//   transition: background 0.125s ease;
-//   border-radius: 3px;
-//   &:hover {
-//     background: #e50914;
-//     cursor: pointer;
-//   }
-// `;
 const SLink = styled(Link)`
   height: 50px;
   display: flex;
@@ -101,17 +89,18 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector(state => state.user);
+
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then((response) => {
-        if (response.status === 200) {
-          alert("정말로 로그아웃 하시겠습니까");
-          props.history.push("/login");
+      Axios.get("/api/users/logout").then(response => {
+        if (response.data.success) {
+          console.log(response.data);
+          props.history.push("/sign-in");
         } else {
-          alert("로그 아웃 실패");
+          alert("로그아웃 하는데 실패 했습니다.");
         }
       });
     };
@@ -150,7 +139,41 @@ export default withRouter(
           ) : (
             <List2>
               <Item>
-                <SLink to="/" onClick={logoutHandler}>
+                <SLink to="/mypage">
+                  {/* 내계정 */}
+                  {user.userData && (
+                    <div
+                      style={{
+                        display: "flex",
+                        textAlign: "center",
+                        margin: "0px auto",
+                      }}
+                    >
+                      <img
+                        style={{
+                          display: "flex",
+                          borderRadius: "70%",
+                          overflow: "hidden",
+                          objectFit: "cover",
+                          // border: "2px solid white",
+                          justifyContent: "center",
+                        }}
+                        src={
+                          user.userData.image
+                            ? `http://localhost:5000/${user.userData.image}`
+                            : "http://localhost:5000/uploads/default.png"
+                        }
+                        alt="haha"
+                        width="25rem"
+                        height="25rem"
+                      />
+                    </div>
+                  )}
+                  {user.userData && user.userData.name}
+                </SLink>
+              </Item>
+              <Item>
+                <SLink to="/login" onClick={logoutHandler}>
                   로그아웃
                 </SLink>
               </Item>

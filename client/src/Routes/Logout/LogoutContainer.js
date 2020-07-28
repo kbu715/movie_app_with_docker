@@ -4,11 +4,11 @@ import { withRouter } from "react-router-dom";
 
 function LogoutContainer(props) {
   const onClickHandler = () => {
-    axios.get("/api/users/logout").then((response) => {
+    axios.get("/api/users/logout").then(response => {
       if (response.data.success) {
         console.log(response.data);
-
         props.history.push("/sign-in");
+      
       } else {
         alert("로그아웃 하는데 실패 했습니다.");
       }

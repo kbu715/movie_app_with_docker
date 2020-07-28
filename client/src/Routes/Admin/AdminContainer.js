@@ -1,231 +1,97 @@
-import User from "../../Components/User";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Layout, Menu } from "antd";
+import { Icon } from "@ant-design/compatible";
+import { ContainerOutlined } from "@ant-design/icons";
+import UserList from "./TotalUser/UserList";
+import DashBoard from "./DashBoard/DashBoard";
+import ReservationsCalendar from "./TotalReservation/ReservationsCalendar";
+import ReservationList from "./TotalReservation/ReservationList";
+import "antd/dist/antd.css";
 
-import React, { Component } from "react";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableBody from "@material-ui/core/TableBody";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import { fade } from "@material-ui/core/styles/colorManipulator";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import Axios from "axios";
-import "./Admin.css";
-const styles = (theme) => ({
-  root: {
-    width: "100%",
-    minWidth: 1080,
-  },
-  menu: {
-    marginTop: 15,
-    marginBottom: 15,
-    display: "flex",
-    justifyContent: "center",
-  },
-  paper: {
-    marginLeft: 18,
-    marginRight: 18,
-  },
-  progress: {
-    margin: theme.spacing.unit * 2,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  tableHead: {
-    fontSize: "1.0rem",
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing.unit,
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    width: theme.spacing.unit * 9,
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputRoot: {
-    color: "inherit",
-    width: "100%",
-  },
-  inputInput: {
-    paddingTop: theme.spacing(),
-    paddingRight: theme.spacing(),
-    paddingBottom: theme.spacing(),
-    paddingLeft: theme.spacing(10),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: 120,
-      "&:focus": {
-        width: 200,
-      },
-    },
-  },
-});
+function AdminContainer() {
+  const { Header, Content, Footer, Sider } = Layout;
+  const SubMenu = Menu.SubMenu;
 
-class AdminContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: "",
-      completed: 0,
-      searchKeyword: "",
-    };
-  }
-  stateRefresh = () => {
-    this.setState({
-      users: "",
-      completed: 0,
-      searchKeyword: "",
-    });
-    this.callApi()
-      .then((res) => this.setState({ users: res }))
-      .catch((err) => console.log(err));
+  const [Collapsed, setCollapsed] = useState(false);
+
+  const onCollapse = (collapsed) => {
+    setCollapsed({ collapsed });
+  };
+  const toggle = () => {
+    setCollapsed({ Collapsed: !Collapsed });
   };
 
-  componentDidMount() {
-    this.timer = setInterval(this.progress, 20);
-    this.callApi()
-      .then((res) => this.setState({ users: res }))
-      .catch((err) => console.log(err));
-  }
+  return (
+    <Router>
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sider collapsible collapsed={Collapsed} onCollapse={onCollapse}>
+          <div className="logo" />
+          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+            <Menu.Item key="1">
+              <Icon type="user" />
+              <span>Admin</span>
+              <Link to="/admin" />
+            </Menu.Item>
 
-  callApi = async () => {
-    const response = await Axios.get("/api/users/management");
-    console.log(response.data);
-    if (response.data.success === true) {
-      const users = response.data.users;
-      return users;
-    }
-  };
-  progress = () => {
-    const { completed } = this.state;
-    this.setState({ completed: completed >= 100 ? 0 : completed + 1 });
-  };
-  handleValueChange = (e) => {
-    let nextState = {};
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
-  };
-  render() {
-    const filteredComponents = (data) => {
-      data = data.filter((c) => {
-        return c.name.indexOf(this.state.searchKeyword) > -1;
-      });
-      return data.map((c) => {
-        return (
-          <User
-            stateRefresh={this.stateRefresh}
-            image={c.image}
-            email={c.email}
-            name={c.name}
-          />
-        );
-      });
-    };
-    const { classes } = this.props;
-    const cellList = ["프로필 이미지", "이메일", "이름", "설정"];
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-              User 관리 시스템
-            </Typography>
-            <div className={classes.grow} />
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="검색하기"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                name="searchKeyword"
-                value={this.state.searchKeyword}
-                onChange={this.handleValueChange}
-              />
-            </div>
-          </Toolbar>
-        </AppBar>
+            <Menu.Item key="2">
+              <Icon type="user" />
+              <span>사용자 관리</span>
+              <Link to="/UserList" />
+            </Menu.Item>
 
-        <Paper className={classes.paper}>
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                {cellList.map((c) => {
-                  return (
-                    <TableCell className={classes.tableHead}>{c}</TableCell>
-                  );
-                })}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.users ? (
-                filteredComponents(this.state.users)
-              ) : (
-                <TableRow>
-                  <TableCell colSpan="6" align="center">
-                    <CircularProgress
-                      className={classes.progress}
-                      variant="determinate"
-                      value={this.state.completed}
-                    />
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </Paper>
-      </div>
-    );
-  }
+            <SubMenu key="3" icon={<ContainerOutlined />} title="예매관리">
+              <Menu.Item key="4">
+                <span>
+                  <Icon type="pie-chart" />
+                  내역
+                </span>
+                <Link to="/reservationList" />
+              </Menu.Item>
+              <Menu.Item key="5">
+                <span>
+                  <Icon type="pie-chart" />
+                  일정
+                </span>
+                <Link to="/reservationsCalendar" />
+              </Menu.Item>
+            </SubMenu>
+          </Menu>
+        </Sider>
+
+        <Layout>
+          <Header style={{ background: "#fff", padding: 0, paddingLeft: 16 }}>
+            <Icon
+              className="trigger"
+              type={Collapsed ? "menu-unfold" : "menu-fold"}
+              style={{ cursor: "pointer" }}
+              onClick={toggle}
+            />
+          </Header>
+
+          <Content
+            style={{
+              margin: "24px 16px",
+              padding: 24,
+              background: "#fff",
+              minHeight: 280,
+            }}
+          >
+            <Route exact path="/admin" component={DashBoard} />
+            <Route exact path="/userList" component={UserList} />
+            <Route
+              path="/reservationsCalendar"
+              component={ReservationsCalendar}
+            />
+            <Route path="/reservationList" component={ReservationList} />
+          </Content>
+          <Footer style={{ textAlign: "center" }}>
+            Ant Design ©2016 Created by Ant UED
+          </Footer>
+        </Layout>
+      </Layout>
+    </Router>
+  );
 }
-export default withStyles(styles)(AdminContainer);
+
+export default AdminContainer;
