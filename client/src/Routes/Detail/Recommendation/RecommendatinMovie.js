@@ -1,7 +1,8 @@
-import React /*useState*/ from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../../../Components/Config";
+
 
 const MovieImg = styled.img`
   width: 160px;
@@ -24,21 +25,19 @@ const Title = styled.span`
   white-space: nowrap;
   overflow: hidden;
   // border: 1px solid pink;
-  
 `;
 
-const RecommendatinMovie = ({ movie }) => {
+const RecommendatinMovie = ({ movie, id }) => {
+
   return (
-    <>
-      <a href={`/movie/${movie.id}`}>
-        <MovieImg
-          src={`${IMAGE_BASE_URL}${POSTER_SIZE}${
-            movie.poster_path ? movie.poster_path : "/assets/noImage.png"
-          }`}
-        />
-        <Title>{movie.title}</Title>
-      </a>
-    </>
+    <a href={`/movie/${id}`}>
+      <MovieImg
+        src={`${IMAGE_BASE_URL}${POSTER_SIZE}${
+          movie.poster_path ? movie.poster_path : "/assets/noImage.png"
+        }`}
+      />
+      <Title>{movie.title}</Title>
+    </a>
   );
 };
 
