@@ -93,19 +93,21 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const MyScorePoster = ({ movieId, imageUrl, title, count, setCount }) => (
+const MyScorePoster = ({ movieId, imageUrl, title, count, setCount, genres }) => (
   <Container>
     <ImageContainer>
       <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
     </ImageContainer>
     <RatingsWrapper>
-      <Title>{title.length > 18 ? `${title.substring(0, 8)}...` : title}</Title>
+      <Title>{title.length > 8 ? `${title.substring(0, 4)}...` : title}</Title>
     </RatingsWrapper>
-    <MyScoreRating  movieId={movieId} 
+    <MyScoreRating  movieId={movieId}
                     count={count}
+                    genres={genres}
                     setCount={setCount}/>
   </Container>
 );
+
 MyScorePoster.propTypes = {
   movieId: PropTypes.number.isRequired,
   imageUrl: PropTypes.string,

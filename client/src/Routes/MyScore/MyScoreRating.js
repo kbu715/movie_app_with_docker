@@ -9,32 +9,32 @@ const StarsWrapper = styled.span`
   margin-left: 50px;
 `;
 
-const Rating = ({ movieId, count, setCount }) => { 
+const Rating = ({ movieId, count, setCount, genres }) => {
 
-  const giveStarRating = (value) => {
-    console.log("giving star rating");
+  const onClickHandler = (value) => {
+
+    // console.log("genres:", genres);
     axios.post("/api/myscore/giveStarRating", {
-      userFrom : localStorage.getItem("userId"),
-      movieId : movieId,
-      count : count+1,
-      score : value,
+      userFrom: localStorage.getItem("userId"),
+      movieId: movieId,
+      genres: genres,
+      score: value,
     }).then(response => {
-      if(response.data.success) {
-        setCount(count+1)
+      if (response.data.success) {
+        setCount(count + 1)
       } else {
         alert("평가하기를 실패했습니다.")
       }
     })
-  }
-
-  const onClickHandler = (value) => {
-      giveStarRating(value);
   };
+
   return (
     <StarsWrapper>
-      <Rate onChange={onClickHandler} allowClear={false} />
+      <Rate onChange={onClickHandler} />
     </StarsWrapper>
   );
-};
+
+}
+
 
 export default Rating;

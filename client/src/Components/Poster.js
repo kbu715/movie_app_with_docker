@@ -63,7 +63,7 @@ const ImageContainer = styled.div`
   }
 `;
 const Title = styled.span`
-// border: 5px solid green; 
+ /* border: 5px solid green;  */
   font-size:18px;
   display: flex;
   flex-direction: column;
@@ -111,7 +111,7 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
       </ImageContainer>
       <RatingsWrapper>
       <Title>
-        {title.length > 18 ? `${title.substring(0, 8)}...` : title}
+        {title.length > 8 ? `${title.substring(0, 4)}...` : title}
       </Title>
       <Year>
         {/* <Ratingg number = {rating/2}/>         */}

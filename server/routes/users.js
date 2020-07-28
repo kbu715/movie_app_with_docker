@@ -95,8 +95,6 @@ router.post("/removeFromUsers", (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-=======
 router.post("/getUserInfo", (req, res) => {
   User.find({ _id: req.body.userId }).exec((err, user) => {
     if (err) return res.status(400).send(err);
@@ -158,7 +156,6 @@ router.post("/googlelogin", (req, res) => {
           } else {
             if (user) {
 
-            
                   //비밀번호 까지 맞다면 토큰을 생성하기.
                   user.generateToken((err, user) => {
                     if (err) return res.status(400).send(err);
@@ -170,19 +167,11 @@ router.post("/googlelogin", (req, res) => {
                       .json({ loginSuccess: true, userId: user._id });
                   });
                 
-            
-
             } else {
-
 
               let password = email + "google";
               const newUser = new User({email, name, password});
 
-         
-              
-            
-  
-            
                   //비밀번호 까지 맞다면 토큰을 생성하기.
                   newUser.generateToken((err, user) => {
                     if (err) return res.status(400).send(err);
@@ -193,17 +182,11 @@ router.post("/googlelogin", (req, res) => {
                       .status(200)
                       .json({ loginSuccess: true, userId: user._id });
                   });
-                
-              
-
-
-
             }
           }
         });
       }
     });
 });
->>>>>>> 5eda806c3e315642269ef921f676c40854ee07b3
 
 module.exports = router;

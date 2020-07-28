@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Result from "./Result"
+import PopUp from "./PopUp"
 
 const Container = styled.div`
   :not(:last-child) {
@@ -31,7 +31,7 @@ const Grid = styled.div`
 const MyScoreSection = ({ title, children }) => (
   <Container>
     <Title>{title}</Title>
-    <Result></Result>
+    <PopUp>결과보기</PopUp>
     <Grid>{children}</Grid>
   </Container>
 );

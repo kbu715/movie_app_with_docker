@@ -66,29 +66,8 @@ function SignUp(props) {
   const onSubmitHandler = event => {
     event.preventDefault(); //페이지 refresh 방지
 
-<<<<<<< HEAD
-
-        let body = {
-            email : Email,
-            password : Password,
-            name : Name
-        }
-        
-        //redux action => loginUser는 action이름
-        dispatch(registerUser(body))
-          .then(response => {
-            if(response.payload.success) {
-              props.history.push('/sign-in')
-              alert('회원가입 성공!');
-            } else {
-              alert('회원가입 실패');
-            }
-          })
-        
-=======
     if (Password !== ConfirmPassword) {
       return alert("비밀번호와 비밀번호 확인은 같아야 합니다.");
->>>>>>> 5eda806c3e315642269ef921f676c40854ee07b3
     }
 
     let body = {
