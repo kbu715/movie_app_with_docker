@@ -1,23 +1,46 @@
 import {
-    LOGIN_USER,
-    REGISTER_USER,
-    AUTH_USER
-} from '../_actions/types'
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_USER,
+  ADD_TO_MOVIE,
+  //   LOGOUT_USER,
+  GET_MOVIE_ITEMS,
+  REMOVE_MOVIE_ITEM,
+} from "../_actions/types";
 
-
-
-export default function(state = {}, action) {
-    switch(action.type) {
-        case LOGIN_USER:
-            return { ...state, loginSuccess: action.payload }
-        case REGISTER_USER:
-            return { ...state, register: action.payload }
-        case AUTH_USER:
-            return { ...state, userData: action.payload }
-        default:
-            return state;
-    }
-}   
+export default function (state = {}, action) {
+  switch (action.type) {
+    case LOGIN_USER:
+      return { ...state, loginSuccess: action.payload };
+    case REGISTER_USER:
+      return { ...state, register: action.payload };
+    case AUTH_USER:
+      return { ...state, userData: action.payload };
+    // case LOGOUT_USER:
+    //   return { ...state };
+    case ADD_TO_MOVIE:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          movie: action.payload,
+        },
+      };
+    case GET_MOVIE_ITEMS:
+      return { ...state, movieDetail: action.payload };
+    case REMOVE_MOVIE_ITEM:
+      return {
+        ...state,
+        movieDetail: action.payload.movieInfo,
+        userData: {
+          ...state.userData,
+          movie: action.payload.movie,
+        },
+      };
+    default:
+      return state;
+  }
+}
 
 // userData : action.payload에 아래 코드들이 들어간다.
 // res.status(200).json({

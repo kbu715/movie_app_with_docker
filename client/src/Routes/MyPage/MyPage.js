@@ -5,6 +5,7 @@ import { Typography, Button, Form, Input } from "antd";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
 
+
 const { Title } = Typography;
 // const { TextArea } = Input;
 
@@ -19,7 +20,7 @@ function MyPage(props) {
   useEffect(() => {
     Axios.post("/api/users/getUserInfo", {
       userId: localStorage.getItem("userId"),
-    }).then(response => {
+    }).then((response) => {
       if (response.data.success) {
         console.log(response.data);
         setCurrentEmail(response.data.user[0].email);
@@ -31,11 +32,11 @@ function MyPage(props) {
     });
   }, []);
 
-  const handleChangeEmail = event => {
+  const handleChangeEmail = (event) => {
     // setEmail(event.currentTarget.value);
   };
 
-  const handleChangeName = event => {
+  const handleChangeName = (event) => {
     console.log(event.currentTarget.value);
 
     // setName(event.currentTarget.value);
@@ -106,6 +107,11 @@ function MyPage(props) {
           Update Profile
         </Button>
       </Form>
+
+      <div style={{}}>
+      
+      </div>
+      
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Grid, TextField, MenuItem } from "@material-ui/core";
 import axios from "axios";
 import styled from "styled-components";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
@@ -15,34 +16,21 @@ import {
   SeatF,
   SeatG,
 } from "../Reservation/Modal/Context";
+import { useDispatch } from "react-redux";
+import { addToMovie } from "../../_actions/user_action";
 
 const Nav = styled.div`
   display: flex;
   justify-content: center;
-  border: 3px solid blue;
 `;
 
 const NavSub = styled.div`
   display: flex;
   justify-content: row;
-  width: 20%;
-  background: black;
-  border: 3px solid red;
-  width: 100%;
-`;
+  //background-color: #242333;
+  background-color: white;
 
-const Select = styled.select`
-  margin: 20px 0;
-  background-color: #fff;
-  color: black;
-  border: 0;
-  border-radius: 5px;
-  font-size: 14px;
-  margin-left: 10px;
-  padding: 5px 15px 5px 15px;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
+  width: 100%;
 `;
 
 const SideFlex = styled.div`
@@ -71,7 +59,7 @@ const SideWrapper = styled.div`
 
 const Cover = styled.div`
   width: 95%;
-  height: 60%;
+  height: 50%;
   background-image: url(${(props) => props.bgImage});
 
   background-position: center center;
@@ -115,9 +103,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   margin: 20px 0;
 `;
-const Header = styled.div`
-  margin: 0 auto;
-`;
+
 const Continentss = [
   { key: 1, value: "11:00" },
   { key: 2, value: "13:00" },
@@ -129,8 +115,15 @@ const Continentss = [
   { key: 8, value: "01:00" },
   { key: 9, value: "03:00" },
 ];
+const Cinema = [
+  { key: 1, value: "CGV" },
+  { key: 2, value: "롯데시네마" },
+  { key: 3, value: "메가박스" },
+];
 //------------------------------------------------------------------------------------------
 function Booking({ id, title, bgImage, userFrom }) {
+  const dispatch = useDispatch();
+
   const [selectDay, setSelectedDay] = useState(null);
   const [theaters, setTheaters] = useState("");
   const [time, setTime] = useState(0);
@@ -138,6 +131,7 @@ function Booking({ id, title, bgImage, userFrom }) {
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
+  const [MovieId, setMovieId] = useState("");
   const movieTitle = {
     title: title,
   };
@@ -145,29 +139,39 @@ function Booking({ id, title, bgImage, userFrom }) {
   useEffect(() => {
     axios
       .post("/api/reservation/findSeat", movieTitle)
-      .then((response) => {
+      .then(async (response) => {
         if (response.data.success) {
-          for (let i = 0; i < response.data.seats.length; i++) {
-            setDistinct(response.data.seats[i].seat);
-            // console.log(response.data.seats[i].seat);
-          }
+          let seatlist = [];
+          response.data.seats.map((obj) => {
+            seatlist.push(obj.seat);
+          });
+          const flatlist = seatlist.flat();
+          setDistinct(flatlist);
         }
-        console.log(response.data.seats[0].seat);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
 
+    const movie = {
+      id: id,
+    };
+    axios.post("/api/reservation/getMovieId", movie).then((response) => {
+      if (response.data.success) {
+        setMovieId(response.data.doc);
+      } else {
+        console.log("실패");
+      }
+    });
+  }, []);
+  console.log("해당 영화의 objectID값", MovieId);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
       ref={ref}
       placeholder="날짜를 선택해주세요"
       value={
-        selectDay
-          ? `✅: ${selectDay.year}-${selectDay.month}-${selectDay.day}`
-          : ""
+        selectDay ? `${selectDay.year}-${selectDay.month}-${selectDay.day}` : ""
       }
       style={{
         textAlign: "center",
@@ -202,8 +206,8 @@ function Booking({ id, title, bgImage, userFrom }) {
   };
 
   const onCount = (event) => {
-    setContinent(event.currentTarget.value);
-    setPrice(event.currentTarget.value * 1);
+    setContinent(event.target.value);
+    setPrice(event.target.value * 100);
   };
 
   //결제후 DB저장
@@ -212,7 +216,7 @@ function Booking({ id, title, bgImage, userFrom }) {
       return alert("모든 값을 넣어주셔야 합니다.");
     }
     const body = {
-      user: userFrom,
+      userFrom: userFrom,
       id: id,
       title: title,
       theaters: theaters,
@@ -225,12 +229,16 @@ function Booking({ id, title, bgImage, userFrom }) {
     axios.post("/api/reservation", body).then((response) => {
       if (response.data.success) {
         alert("예매 성공");
-        window.location.href = "http://localhost:3000/";
+
+        // window.location.href = "http://localhost:3000/";
       } else {
         alert("예매 실패");
         return false;
       }
     });
+
+    //개인 영화 구매정보
+    dispatch(addToMovie(MovieId));
   };
 
   //좌석과 인원 맞추기
@@ -246,29 +254,94 @@ function Booking({ id, title, bgImage, userFrom }) {
   return (
     <>
       <NavSub>
-        <DatePicker
+        {/* <DatePicker
           value={selectDay}
           onChange={setSelectedDay}
           minimumDate={utils().getToday()}
           renderInput={renderCustomInput}
           shouldHighlightWeekends
         />
-
         <Select onChange={onTheaters}>
           <option>CGV</option>
           <option>메가박스</option>
           <option>롯데시네마</option>
         </Select>
-
         <Select onChange={onTime}>
           {Continentss.map((item) => (
             <option key={item.key} value={item.value}>
               {item.value}
             </option>
           ))}
-        </Select>
+        </Select> */}
+
+        <Grid container spacing={3}>
+          <Grid item xs>
+            <DatePicker
+              value={selectDay}
+              onChange={setSelectedDay}
+              minimumDate={utils().getToday()}
+              renderInput={renderCustomInput}
+              shouldHighlightWeekends
+            />
+          </Grid>
+          <Grid item xs>
+            <TextField
+              color="secondary"
+              fullWidth
+              select
+              value={theaters}
+              label="Cinema"
+              variant="filled"
+              onChange={onTheaters}
+            >
+              {Cinema.map((cinema, index) => (
+                <MenuItem key={cinema.key} value={cinema.value}>
+                  {cinema.value}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+
+          <Grid item xs>
+            <TextField
+              color="secondary"
+              fullWidth
+              select
+              value={time}
+              label="Time"
+              variant="filled"
+              onChange={onTime}
+            >
+              {Continentss.map((item) => (
+                <MenuItem key={item.key} value={item.value}>
+                  {item.value}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+
+          <Grid item xs>
+            <TextField
+              color="secondary"
+              fullWidth
+              select
+              value={Continents}
+              label="Numbers"
+              variant="filled"
+              onChange={onCount}
+            >
+              {Continents.map((item) => (
+                <MenuItem key={item.key} value={item.key}>
+                  {item.value}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+        </Grid>
       </NavSub>
+
       {/*  */}
+
       <Nav>
         <SideWrapper>
           <SideFlex>
@@ -311,6 +384,8 @@ function Booking({ id, title, bgImage, userFrom }) {
                         }
                       })}
                     </td>
+
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -323,16 +398,6 @@ function Booking({ id, title, bgImage, userFrom }) {
         </SideWrapper>
 
         <Wrapper>
-          <Small>인원</Small>
-          <Header>
-            <Select onChange={onCount} value={Continent}>
-              {Continents.map((item) => (
-                <option key={item.key} value={item.key}>
-                  {item.value}
-                </option>
-              ))}
-            </Select>
-          </Header>
           <hr style={{ color: "white", borderColor: "white" }} />
 
           <ul className="showcase">

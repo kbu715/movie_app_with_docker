@@ -18,6 +18,7 @@ import Admin from "../Routes/Admin";
 import MyScore from "../Routes/MyScore";
 import MyPage from "../Routes/MyPage";
 import UpdateProfile from "../Routes/UpdateProfile";
+import MyMovie from "../Routes/MyMovie";
 
 //hoc 불러오기
 export default () => (
@@ -43,6 +44,7 @@ export default () => (
           exact
           component={Auth(UpdateProfile, true)}
         />
+        <Route path="/mymovie" component={Auth(MyMovie, true)} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

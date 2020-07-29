@@ -23,7 +23,16 @@ const userSchema = mongoose.Schema({
   },
   role: {
     type: Number,
-    default: 0,
+    default: 2,
+  },
+
+  movie: {
+    type: Array,
+    default: [],
+  },
+  history: {
+    type: Array,
+    default: [],
   },
   image: String,
   token: {
