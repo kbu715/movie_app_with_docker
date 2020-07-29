@@ -5,27 +5,34 @@ import Popup from "reactjs-popup";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import Booking from "../Booking/Booking";
+import Button from "@material-ui/core/Button";
 
-const Button = styled.button`
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -ms-transition: all 0.5s;
-  transition: all 0.5s;
-  color: white;
-  border-color: white;
-  background: transparent;
-  margin-left: 5px;
-`;
+// const Button = styled.button`
+//   -webkit-border-radius: 3px;
+//   -moz-border-radius: 3px;
+//   -ms-border-radius: 3px;
+//   border-radius: 3px;
+//   -webkit-transition: all 0.5s;
+//   -moz-transition: all 0.5s;
+//   -ms-transition: all 0.5s;
+//   transition: all 0.5s;
+//   color: white;
+//   border-color: white;
+//   background: transparent;
+//   margin-left: 5px;
+// `;
 
 const Reservation = ({ id, title, bgImage, userFrom }) => {
   return (
     <>
       <Popup
-        trigger={<Button className="button">간편예매</Button>}
+        trigger={
+          // <Button className="button">
+          <Button variant="contained" color="primary">
+            간편예매
+          </Button>
+          // </Button>
+        }
         modal
         closeOnDocumentClick={true}
         triggerOn="click"

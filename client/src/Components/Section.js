@@ -21,7 +21,7 @@ const Title = styled.span`
 const TitleSub = styled.a`
   font-size: 15px;
   font-weight: 400;
-  color: mediumslateblue;
+  color: lime;
   margin-left: 30px;
   padding: 0px 10px 2px;
   border-width: 2px;
@@ -43,9 +43,10 @@ const Grid = styled.div`
   height: 10%;
   overflow-x: auto;
   overflow-y: hidden;
+  overflow-style: none;
 
   &::-webkit-scrollbar {
-    display:none;
+    display: none;
     width: 10px;
     height: 8px;
     background-color: #a0a0a0;

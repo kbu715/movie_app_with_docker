@@ -59,7 +59,7 @@ const Video = ({ video }) => {
   // const closeModal = () => {
   //   setVisible(false);
   // };
-
+  console.log(video);
   return (
     <div>
       {/* <Button onClick={openModal}>Trailer</Button> */}
@@ -70,19 +70,23 @@ const Video = ({ video }) => {
         effect="fadeInUp"
         onClickAway={closeModal}
       > */}
-        <div>
-          <Heading>Trailer</Heading>
-          <iframe
-            width="500"
-            height="230"
-            src={`https://www.youtube.com/embed/${video.key}`}
-            frameBorder="0"
-            allow="accelerometer; autoplay encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+      <div>
+        {video && video.key && (
+          <>
+            <Heading>Trailer</Heading>
+            <iframe
+              width="500"
+              height="230"
+              src={`https://www.youtube.com/embed/${video.key}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </>
+        )}
 
-          {/* <button onClick={closeModal}>닫기</button> */}
-        </div>
+        {/* <button onClick={closeModal}>닫기</button> */}
+      </div>
       {/* </Modal> */}
     </div>
   );

@@ -10,6 +10,7 @@ import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
 import Reservation from "../Reservation/Reservation";
 import Recommendation from "./Recommendation/Recommendation";
+
 const Container = styled.div`
   height: calc(100vh - 50px);
 
@@ -18,6 +19,8 @@ const Container = styled.div`
   position: relative;
 
   padding: 50px;
+
+  overflow: hidden;
 `;
 
 const Backdrop = styled.div`

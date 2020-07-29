@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../../../Components/Config";
-
 
 const MovieImg = styled.img`
   width: 160px;
@@ -28,15 +27,23 @@ const Title = styled.span`
 `;
 
 const RecommendatinMovie = ({ movie, id }) => {
-
   return (
+    // <Link to={`/movie/${id}`}>
     <a href={`/movie/${id}`}>
       <MovieImg
-        src={`${IMAGE_BASE_URL}${POSTER_SIZE}${
-          movie.poster_path ? movie.poster_path : "/assets/noImage.png"
-        }`}
+        src={
+          movie.poster_path
+            ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+            : "https://www.movienewz.com/img/films/poster-holder.jpg"
+        }
       />
-      <Title>{movie.title}</Title>
+      <Title>
+        {movie.title.length > 12
+          ? `${movie.title.substring(0, 8)}...`
+          : movie.title}
+      </Title>
+      {/* {title.length > 18 ? `${title.substring(0, 8)}...` : title} */}
+      {/* </Link> */}
     </a>
   );
 };

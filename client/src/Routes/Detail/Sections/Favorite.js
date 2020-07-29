@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    color: "red",
+  },
+});
 
 const Button = styled.button`
   -webkit-border-radius: 3px;
@@ -19,6 +27,7 @@ const Button = styled.button`
   outline: 0;
   margin-left: 5px;
 `;
+
 function Favorite(props) {
   const isMovie = props.isMovie;
   const movieId = props.movieId;
@@ -45,7 +54,7 @@ function Favorite(props) {
   };
 
   useEffect(() => {
-    axios.post("/api/favorite/favoriteNumber", variables).then((response) => {
+    axios.post("/api/favorite/favoriteNumber", variables).then(response => {
       if (response.data.success) {
         setFavoriteNumber(response.data.favoriteNumber);
       } else {
@@ -53,7 +62,7 @@ function Favorite(props) {
       }
     });
 
-    axios.post("/api/favorite/favorited", variables).then((response) => {
+    axios.post("/api/favorite/favorited", variables).then(response => {
       if (response.data.success) {
         setFavorited(response.data.favorited);
       } else {
@@ -66,7 +75,7 @@ function Favorite(props) {
     if (Favorited) {
       axios
         .post("/api/favorite/removeFromFavorite", variables)
-        .then((response) => {
+        .then(response => {
           if (response.data.success) {
             setFavoriteNumber(FavoriteNumber - 1);
             setFavorited(!Favorited);
@@ -75,7 +84,7 @@ function Favorite(props) {
           }
         });
     } else {
-      axios.post("/api/favorite/addToFavorite", variables).then((response) => {
+      axios.post("/api/favorite/addToFavorite", variables).then(response => {
         if (response.data.success) {
           setFavoriteNumber(FavoriteNumber + 1);
           setFavorited(!Favorited);
@@ -85,14 +94,22 @@ function Favorite(props) {
       });
     }
   };
-
+  const classes = useStyles();
   return (
     <div>
-      <Button onClick={onClickFavorite}>
-        {Favorited
-          ? `Not Favorite ${FavoriteNumber}`
-          : `Add to Favorite ${FavoriteNumber}`}
-      </Button>
+      <span onClick={onClickFavorite}>
+        {Favorited ? (
+          <>
+            <FavoriteIcon className={classes.root} />
+            {FavoriteNumber}
+          </>
+        ) : (
+          <>
+            <FavoriteIcon />
+            {FavoriteNumber}
+          </>
+        )}
+      </span>
     </div>
   );
 }
