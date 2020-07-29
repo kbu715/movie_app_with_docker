@@ -15,6 +15,7 @@ export const moviesApi = {
   nowPlaying: () => api.get("movie/now_playing"),
   upcoming: () => api.get("movie/upcoming"),
   popular: () => api.get("movie/popular"),
+  genre: () => api.get("genre/movie/list"),
   movieDetail: id =>
     api.get(`movie/${id}`, {
       params: {
@@ -46,6 +47,7 @@ export const moviesApi = {
         page : 1,
       },
     }),
+ 
 };
 // export const tvApi = {
 //   topRated: () => api.get("tv/top_rated"),

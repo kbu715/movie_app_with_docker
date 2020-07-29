@@ -60,7 +60,7 @@ function MyScore() {
         console.log('fail');
       }
     })
-  }, []);
+  }, [count]);
 
   const fetchMovies = (endpoint) => {
     //2. 영화불러오는 func
@@ -127,7 +127,7 @@ function MyScore() {
                   <MyScorePoster
                     key={index}
                     movieId={movie.id}
-                    genres={movie}
+                    genres={movie.genre_ids[0]}
                     imageUrl={movie.poster_path}
                     title={movie.title}
                     count={count}

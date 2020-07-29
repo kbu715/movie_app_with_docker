@@ -104,13 +104,16 @@ const MyScorePoster = ({ movieId, imageUrl, title, count, setCount, genres }) =>
     <MyScoreRating  movieId={movieId}
                     count={count}
                     genres={genres}
-                    setCount={setCount}/>
+                    setCount={setCount}
+                    imageUrl={imageUrl}
+                    title={title}/>
   </Container>
 );
 
 MyScorePoster.propTypes = {
-  movieId: PropTypes.number.isRequired,
+  movieId: PropTypes.number,
   imageUrl: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
+
 export default MyScorePoster;

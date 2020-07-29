@@ -9,9 +9,10 @@ const StarsWrapper = styled.span`
   margin-left: 50px;
 `;
 
-const Rating = ({ movieId, count, setCount, genres }) => {
+const Rating = ({ movieId, count, setCount, genres, imageUrl, title }) => {//{ movieId, count, setCount, genres, imageUrl, title }
 
-  const onClickHandler = (value) => {
+const onClickHandler = (value) => {
+  // console.log("props:", props);
 
     // console.log("genres:", genres);
     axios.post("/api/myscore/giveStarRating", {
@@ -19,9 +20,13 @@ const Rating = ({ movieId, count, setCount, genres }) => {
       movieId: movieId,
       genres: genres,
       score: value,
+      imageUrl: imageUrl,
+      title: title,
     }).then(response => {
-      if (response.data.success) {
-        setCount(count + 1)
+      if (response.data.success && response.data.exist) {
+        setCount(count)
+      } else if(response.data.success && !response.data.exist) {
+        setCount(count+1)  
       } else {
         alert("평가하기를 실패했습니다.")
       }

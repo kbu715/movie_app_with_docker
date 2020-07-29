@@ -18,6 +18,12 @@ const MyScoreSchema = mongoose.Schema(
     },
     genres: {
       type: Number,
+    },
+    title: {
+      type: String,
+    },
+    imageUrl: {
+      type: String,
     }
   }
 );
