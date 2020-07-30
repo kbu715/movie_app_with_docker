@@ -3,7 +3,7 @@ import axios from "axios";
 import classnames from "classnames";
 import { makeStyles } from "@material-ui/styles";
 import { Card, CardContent, Grid, Typography, Avatar } from "@material-ui/core";
-import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
+import FastfoodOutlinedIcon from "@material-ui/icons/FastfoodOutlined";
 import { green } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
@@ -40,23 +40,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function TotalReservation() {
+function TotalProduct() {
   const classes = useStyles();
-  const [ReservationCount, setReservationCount] = useState(0);
+  const [ProductCount, setProductCount] = useState(0);
 
   useEffect(() => {
-    axios
-      .post("/api/reservation/getList")
-      .then(response => {
-        if (response.data.success) {
-          setReservationCount(response.data.doc.length);
-        } else {
-          console.log("실패");
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    axios.get("/api/product/getCountOfProduct").then(response => {
+      if (response.data.success) {
+          console.log()
+        setProductCount(response.data.products.length);
+      } else {
+        console.log("불러오기 실패");
+      }
+    });
   }, []);
 
   return (
@@ -70,13 +66,13 @@ function TotalReservation() {
               gutterBottom
               variant="body2"
             >
-              TOTAL RESERVATION
+              TOTAL PRODUCT
             </Typography>
-            <Typography variant="h3">{ReservationCount}</Typography>
+            <Typography variant="h3">{ProductCount}</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-              <MovieCreationOutlinedIcon className={classes.icon} />
+              <FastfoodOutlinedIcon className={classes.icon} />
             </Avatar>
           </Grid>
         </Grid>
@@ -85,4 +81,4 @@ function TotalReservation() {
   );
 }
 
-export default TotalReservation;
+export default TotalProduct;

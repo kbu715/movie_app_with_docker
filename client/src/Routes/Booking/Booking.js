@@ -60,7 +60,7 @@ const SideWrapper = styled.div`
 const Cover = styled.div`
   width: 95%;
   height: 50%;
-  background-image: url(${(props) => props.bgImage});
+  background-image: url(${props => props.bgImage});
 
   background-position: center center;
 
@@ -139,17 +139,17 @@ function Booking({ id, title, bgImage, userFrom }) {
   useEffect(() => {
     axios
       .post("/api/reservation/findSeat", movieTitle)
-      .then(async (response) => {
+      .then(async response => {
         if (response.data.success) {
           let seatlist = [];
-          response.data.seats.map((obj) => {
+          response.data.seats.map(obj => {
             seatlist.push(obj.seat);
           });
           const flatlist = seatlist.flat();
           setDistinct(flatlist);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
 
@@ -158,7 +158,7 @@ function Booking({ id, title, bgImage, userFrom }) {
     };
 
     //영화 ObjectID 가져오기
-    axios.post("/api/reservation/getMovieId", movie).then((response) => {
+    axios.post("/api/reservation/getMovieId", movie).then(response => {
       if (response.data.success) {
         console.log("data", response.data);
         setMovieId(response.data.doc);
@@ -190,16 +190,16 @@ function Booking({ id, title, bgImage, userFrom }) {
       className="my-custom-input-class"
     />
   );
-  const onTheaters = (event) => {
+  const onTheaters = event => {
     setTheaters({ theaters: event.target.value });
   };
 
-  const onTime = (event) => {
+  const onTime = event => {
     setTime({ time: event.target.value });
   };
 
   //seat 색 변경
-  const onSeatChange = (e) => {
+  const onSeatChange = e => {
     if (
       e.target.classList.contains("seat") &&
       !e.target.classList.contains("occupied")
@@ -209,7 +209,7 @@ function Booking({ id, title, bgImage, userFrom }) {
     }
   };
 
-  const onCount = (event) => {
+  const onCount = event => {
     setContinent(event.target.value);
     setPrice(event.target.value * 100);
   };
@@ -231,11 +231,11 @@ function Booking({ id, title, bgImage, userFrom }) {
       seat: Seat,
       price: Price,
     };
-    axios.post("/api/reservation", body).then((response) => {
+    axios.post("/api/reservation", body).then(response => {
       if (response.data.success) {
         alert("예매 성공");
 
-        // window.location.href = "http://localhost:3000/";
+        window.location.href = "http://localhost:3000/";
       } else {
         alert("예매 실패");
         return false;
@@ -247,7 +247,7 @@ function Booking({ id, title, bgImage, userFrom }) {
   };
 
   //좌석과 인원 맞추기
-  const onCompareSeat = (event) => {
+  const onCompareSeat = event => {
     if (Continent < Seat.length + 1) {
       //인원보다 좌석지정이 많을경우
       alert("좌석 지정이 완료 되었습니다.");
@@ -317,7 +317,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               variant="filled"
               onChange={onTime}
             >
-              {Continentss.map((item) => (
+              {Continentss.map(item => (
                 <MenuItem key={item.key} value={item.value}>
                   {item.value}
                 </MenuItem>
@@ -335,7 +335,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               variant="filled"
               onChange={onCount}
             >
-              {Continents.map((item) => (
+              {Continents.map(item => (
                 <MenuItem key={item.key} value={item.key}>
                   {item.value}
                 </MenuItem>
@@ -422,7 +422,7 @@ function Booking({ id, title, bgImage, userFrom }) {
 
               {/* 좌석 */}
               <div className="row">
-                {SeatA.map((item) => {
+                {SeatA.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -448,7 +448,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               </div>
 
               <div className="row">
-                {SeatB.map((item) => {
+                {SeatB.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -474,7 +474,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               </div>
 
               <div className="row">
-                {SeatC.map((item) => {
+                {SeatC.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -500,7 +500,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               </div>
 
               <div className="row">
-                {SeatD.map((item) => {
+                {SeatD.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -526,7 +526,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               </div>
 
               <div className="row">
-                {SeatE.map((item) => {
+                {SeatE.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -552,7 +552,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               </div>
 
               <div className="row">
-                {SeatF.map((item) => {
+                {SeatF.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -578,7 +578,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               </div>
 
               <div className="row">
-                {SeatG.map((item) => {
+                {SeatG.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div

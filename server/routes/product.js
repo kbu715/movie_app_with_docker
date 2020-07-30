@@ -18,7 +18,7 @@ var upload = multer({ storage: storage }).single("file");
 
 router.post("/image", (req, res) => {
   //가져온 이미지를 저장을 해주면 된다.
-  upload(req, res, (err) => {
+  upload(req, res, err => {
     if (err) {
       return req.json({ success: false, err });
     }
@@ -34,7 +34,7 @@ router.post("/", auth, (req, res) => {
   //받아온 정보들을 DB에 넣어준다.
   const product = new Product(req.body);
 
-  product.save((err) => {
+  product.save(err => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true });
   });
@@ -48,6 +48,14 @@ router.post("/products", auth, (req, res) => {
       if (err) return res.status(400).json({ success: false, err });
       return res.status(200).json({ success: true, productInfo });
     });
+});
+
+router.get("/getCountOfProduct", (req, res) => {
+  Product.find({}).exec((err, item) => {
+    if (err) return res.status(400).send(err);
+
+    res.status(200).json({ success: true, products: item });
+  });
 });
 
 module.exports = router;
