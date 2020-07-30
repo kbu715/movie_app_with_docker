@@ -243,7 +243,7 @@ function Booking({ id, title, bgImage, userFrom }) {
     });
 
     //개인 영화 구매정보
-    dispatch(addToMovie(movieId));
+    dispatch(addToMovie(id));
   };
 
   //좌석과 인원 맞추기

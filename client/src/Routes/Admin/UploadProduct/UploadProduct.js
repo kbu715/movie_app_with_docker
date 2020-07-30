@@ -12,102 +12,106 @@ const Continents = [
   { key: 3, value: "스낵" },
 ];
 
-function UploadProduct(props) {
+function UploadProductPage(props) {
   const userFrom = localStorage.getItem("userId");
+  const [TitleValue, setTitleValue] = useState("");
+  const [DescriptionValue, setDescriptionValue] = useState("");
+  const [PriceValue, setPriceValue] = useState(0);
+  const [ContinentValue, setContinentValue] = useState(1);
 
-  const [Title, setTitle] = useState("");
-  const [Description, setDescription] = useState("");
-  const [Price, setPrice] = useState(0);
-  const [Continent, setContinent] = useState(1);
   const [Images, setImages] = useState([]);
 
-  const titleChangeHandler = (event) => {
-    setTitle(event.currentTarget.value);
+  const onTitleChange = (event) => {
+    setTitleValue(event.currentTarget.value);
   };
 
-  const decsriptionChangeHandler = (event) => {
-    setDescription(event.currentTarget.value);
+  const onDescriptionChange = (event) => {
+    setDescriptionValue(event.currentTarget.value);
   };
 
-  const priceChangeHandler = (event) => {
-    setPrice(event.currentTarget.value);
+  const onPriceChange = (event) => {
+    setPriceValue(event.currentTarget.value);
   };
 
-  const continentChangeHandler = (event) => {
-    setContinent(event.currentTarget.value);
+  const onContinentsSelectChange = (event) => {
+    setContinentValue(event.currentTarget.value);
   };
 
   const updateImages = (newImages) => {
     setImages(newImages);
   };
-
-  const submitHandler = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
-    if (!Title || !Description || !Price || !Continent || !Images) {
-      return alert("모든 값을 넣어주셔야 합니다.");
+    if (
+      !TitleValue ||
+      !DescriptionValue ||
+      !PriceValue ||
+      !ContinentValue ||
+      !Images
+    ) {
+      return alert("fill all the fields first!");
     }
 
-    //서버에 채운 값들을 request로 보낸다.
     const body = {
-      //로그인 된 사람의 ID(hoc-auth.js에서 props로 받아온다.)
       writer: userFrom,
-      title: Title,
-      description: Description,
-      price: Price,
+      title: TitleValue,
+      description: DescriptionValue,
+      price: PriceValue,
       images: Images,
-      continents: Continent,
+      continents: ContinentValue,
     };
 
-    Axios.post("/api/product", body).then((response) => {
+    Axios.post("/api/product/uploadProduct", body).then((response) => {
       if (response.data.success) {
-        alert("상품 업로드에 성공 했습니다.");
+        alert("Product Successfully Uploaded");
         props.history.push("/");
       } else {
-        alert("상품 업로드에 실패 했습니다.");
+        alert("Failed to upload Product");
       }
     });
   };
+
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <h2> 매점 상품 업로드</h2>
+        <Title level={2}> 매점 상품 등록</Title>
       </div>
 
-      <Form onSubmit={submitHandler}>
+      <Form onSubmit={onSubmit}>
         {/* DropZone */}
-        {/* refreshFuction은 fileUpload의 image state값을 가져오기 위해 생성 */}
         <FileUpload refreshFunction={updateImages} />
 
         <br />
         <br />
-        <label style={{ color: "black" }}>이름</label>
-        <Input onChange={titleChangeHandler} value={Title} />
+        <label style={{ color: "black" }}>상품명</label>
+        <Input onChange={onTitleChange} value={TitleValue} />
         <br />
         <br />
         <label style={{ color: "black" }}>설명</label>
-        <TextArea onChange={decsriptionChangeHandler} value={Description} />
+        <TextArea onChange={onDescriptionChange} value={DescriptionValue} />
         <br />
         <br />
         <label style={{ color: "black" }}>가격($)</label>
-        <Input type="number" onChange={priceChangeHandler} value={Price} />
+        <Input onChange={onPriceChange} value={PriceValue} type="number" />
         <br />
         <br />
-        <select onChange={continentChangeHandler} value={Continent}>
+        <select onChange={onContinentsSelectChange} value={ContinentValue}>
           {Continents.map((item) => (
             <option key={item.key} value={item.key}>
-              {item.value}
+              {item.value}{" "}
             </option>
           ))}
         </select>
         <br />
         <br />
-        <Button onClick={submitHandler} style={{ color: "black" }}>
-          확인
+
+        <Button onClick={onSubmit} style={{ color: "black" }}>
+          등록
         </Button>
       </Form>
     </div>
   );
 }
 
-export default UploadProduct;
+export default UploadProductPage;
