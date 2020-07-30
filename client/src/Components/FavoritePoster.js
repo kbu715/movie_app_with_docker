@@ -2,6 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Ratingg from "../Components/Rating";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1),
+    background: "mediumslateblue",
+    "&:hover": {
+      background: "gray",
+    },
+  },
+}));
 
 const Container = styled.div`
   font-size: 12px;
@@ -113,42 +126,8 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const DelBtn = styled.button`
-  padding: 0px 5px;
-  box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);
-  line-height: 1.25;
-  background: #e50914;
-  text-decoration: none;
-  color: white;
-  font-size: 16px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  position: relative;
-  transition: background-color 0.6s ease;
-  overflow: hidden;
-  &:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    top: 50%;
-    left: 50%;
-    transform-style: flat;
-    transform: translate3d(-50%, -50%, 0);
-    background: rgba(white, 0.1);
-    border-radius: 100%;
-    transition: width 0.3s ease, height 0.3s ease;
-  }
-  &:focus,
-  &:hover {
-    background: darken(#fc6e51, 7%);
-  }
-  &:active {
-    &:after {
-      width: 200px;
-      height: 200px;
-    }
-  }
+const DelBtnContainer = styled.div`
+  text-align: center;
 `;
 
 const FavoritePoster = ({
@@ -161,6 +140,7 @@ const FavoritePoster = ({
   isMovie = false,
 }) => {
   // console.log(id);
+  const classes = useStyles();
   return (
     <Container>
       <ImageContainer>
@@ -175,17 +155,29 @@ const FavoritePoster = ({
       </ImageContainer>
       <RatingsWrapper>
         <Title>
-          <DelBtn
+          {/* <DelBtn
             onClick={() => onClickDelete(id, localStorage.getItem("userId"))}
           >
             del
-          </DelBtn>
+          </DelBtn> */}
+
           {title.length > 18 ? `${title.substring(0, 8)}...` : title}
         </Title>
         <Year>
           <Ratingg number={rating / 2} />
         </Year>
       </RatingsWrapper>
+      <DelBtnContainer>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          startIcon={<DeleteIcon />}
+          onClick={() => onClickDelete(id, localStorage.getItem("userId"))}
+        >
+          Delete
+        </Button>
+      </DelBtnContainer>
     </Container>
   );
 };

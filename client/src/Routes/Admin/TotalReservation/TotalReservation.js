@@ -3,10 +3,10 @@ import axios from "axios";
 import classnames from "classnames";
 import { makeStyles } from "@material-ui/styles";
 import { Card, CardContent, Grid, Typography, Avatar } from "@material-ui/core";
-import PeopleIcon from "@material-ui/icons/PeopleOutlined";
+import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import { green } from "@material-ui/core/colors";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
   },
@@ -47,14 +47,14 @@ function TotalReservation() {
   useEffect(() => {
     axios
       .post("/api/reservation/getList")
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           setReservationCount(response.data.doc.length);
         } else {
           console.log("실패");
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }, []);
@@ -76,7 +76,7 @@ function TotalReservation() {
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-              <PeopleIcon className={classes.icon} />
+              <MovieCreationOutlinedIcon className={classes.icon} />
             </Avatar>
           </Grid>
         </Grid>

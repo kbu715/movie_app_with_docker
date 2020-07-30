@@ -1,17 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import TotalUsers from "../TotalUser/TotalUsers";
 import TotleReservation from "../TotalReservation/TotalReservation";
 import { Doughnut, Line } from "react-chartjs-2";
 import { Typography } from "@material-ui/core";
+import axios from "axios";
+import TotalProduct from "../TotalProduct/TotalProduct";
 
 function DashBoard() {
+  const [numOfCGV, setNumOfCGV] = useState(0);
+  const [numOfLotte, setNumOfLotte] = useState(0);
+  const [numOfMega, setNumOfMega] = useState(0);
+
+  const fetchTheaters = function () {
+    axios.post("/api/reservation/getList").then(response => {
+      if (response.data.success) {
+        console.log(response.data.doc);
+        console.log(response.data.doc);
+        // console.log(response.data.doc[0].theaters[0].theaters);
+        // console.log(response.data.doc[1].theaters[0].theaters);
+        // console.log(response.data.doc[2].theaters[0].theaters);
+        const countTheaters = response.data.doc.map(r => {
+          return r.theaters[0].theaters;
+        });
+        console.log(countTheaters);
+        countTheaters.forEach(element => {
+          switch (element) {
+            case "CGV":
+              setNumOfCGV(numOfCGV => numOfCGV + 1);
+              break;
+            case "롯데시네마":
+              setNumOfLotte(numOfLotte => numOfLotte + 1);
+              break;
+            case "메가박스":
+              setNumOfMega(numOfMega => numOfMega + 1);
+              break;
+            default:
+              break;
+          }
+        });
+      } else {
+        alert("실패했습니다");
+      }
+    });
+  };
+
+  useEffect(() => {
+    fetchTheaters();
+  }, []);
+
   const expData = {
     labels: ["메가박스", "CGV", "롯데시네마"],
     datasets: [
       {
         labels: ["메가박스", "CGV", "롯데시네마"],
-        data: [60, 13, 27],
+        data: [numOfMega, numOfCGV, numOfLotte],
         borderWidth: 3,
         hoverBorderWidth: 4,
         backgroundColor: [
@@ -115,7 +158,7 @@ function DashBoard() {
           </Grid>
 
           <Grid item lg={4} sm={6} xl={3} xs={12}>
-            <TotalUsers />
+            <TotalProduct />
           </Grid>
         </Grid>
       </div>

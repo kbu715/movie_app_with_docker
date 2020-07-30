@@ -17,53 +17,40 @@ function SignUp(props) {
   const [FilePath, setFilePath] = useState("");
   const [FileName, setFileName] = useState("");
 
-  const onEmailHandler = event => {
+  const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
 
-  const onNameHandler = event => {
+  const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   };
 
-  const onPasswordHandler = event => {
+  const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
 
-  const onConfirmPasswordHandler = event => {
+  const onConfirmPasswordHandler = (event) => {
     setConfirmPassword(event.currentTarget.value);
   };
-  const onDrop = files => {
+  const onDrop = (files) => {
     let formData = new FormData();
     const config = {
       header: { "content-type": "multipart/form-data" },
     };
-    console.log(files);
+
     formData.append("file", files[0]);
 
-    Axios.post("/api/image/uploadfiles", formData, config).then(response => {
+    Axios.post("/api/image/uploadfiles", formData, config).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
-
         setFilePath(response.data.filePath);
         setFileName(response.data.fileName);
 
-        // let variable = {
-        //     filePath: response.data.filePath,
-        //     fileName: response.data.fileName
-        // }
-
-        // let variable = {
-        //   url: response.data.url,
-        //   fileName: response.data.fileName
-        // }
-
-        //gerenate thumbnail with this filepath !
       } else {
         alert("failed to save the video in server");
       }
     });
   };
-  const onSubmitHandler = event => {
+  const onSubmitHandler = (event) => {
     event.preventDefault(); //페이지 refresh 방지
 
     if (Password !== ConfirmPassword) {
@@ -78,7 +65,7 @@ function SignUp(props) {
     };
 
     // redux action => loginUser는 action이름
-    dispatch(registerUser(body)).then(response => {
+    dispatch(registerUser(body)).then((response) => {
       if (response.payload.success) {
         props.history.push("/sign-in");
         alert("회원가입 성공!");

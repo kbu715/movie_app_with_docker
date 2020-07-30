@@ -12,12 +12,14 @@ const globalStyles = createGlobalStyle`
     }
     body{
         font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-size:12px;
+        font-size:14px;
         background-color:black;
         color:white;
         padding-top:50px;
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
-  font-family: 'Noto Sans KR', sans-serif;
+        // @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+        @font-face { font-family: 'BMHANNAAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff'); font-weight: normal; font-style: normal; }
+        //   font-family: 'Noto Sans KR', sans-serif;
+      
     }
 `;
 export default globalStyles;
