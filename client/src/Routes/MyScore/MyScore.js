@@ -47,19 +47,21 @@ function MyScore() {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=${CurrentPage}&region=KR`;
     fetchMovies(endpoint);
     window.addEventListener("scroll", handleScroll);
-    
-    axios.post("/api/myscore/myCount", {
-      userFrom: localStorage.getItem("userId")
-    }).then(response => {
-      if (response.data.success) {
-        setCount(response.data.obj.length)
-      } else {
-        console.log('fail');
-      }
-    })
+
+    axios
+      .post("/api/myscore/myCount", {
+        userFrom: localStorage.getItem("userId"),
+      })
+      .then(response => {
+        if (response.data.success) {
+          setCount(response.data.obj.length);
+        } else {
+          console.log("fail");
+        }
+      });
   }, []);
 
-  const fetchMovies = (endpoint) => {
+  const fetchMovies = endpoint => {
     //2. 영화불러오는 func
     fetch(endpoint)
       .then(result => result.json())
