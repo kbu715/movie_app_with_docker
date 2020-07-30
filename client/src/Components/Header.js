@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
 import Axios from "axios";
+import { Badge } from "antd";
+import { MediumOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 const Header = styled.header`
@@ -9,7 +11,7 @@ const Header = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 70px;
   display: flex;
   align-items: center;
   z-index: 10;
@@ -54,15 +56,16 @@ const Item = styled.li`
   float: right;
   text-align: center;
   border-bottom: 5px solid
-    ${props => (props.current ? "#e50914" : "transparent")};
+    ${props => (props.current ? "mediumslateblue" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 
   &:hover {
-    background: #e50914;
+    background: mediumslateblue;
     cursor: pointer;
   }
 `;
 const SLink = styled(Link)`
+  font-size: 10px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -129,6 +132,9 @@ export default withRouter(
             <Item current={pathname === "/myscore"}>
               <SLink to="/myscore">평가</SLink>
             </Item>
+            <Item current={pathname === "/product"}>
+              <SLink to="/product">매점</SLink>
+            </Item>
           </List1>
           {user.userData && !user.userData.isAuth ? (
             <List2>
@@ -145,6 +151,7 @@ export default withRouter(
                     <div
                       style={{
                         display: "flex",
+
                         textAlign: "center",
                         margin: "0px auto",
                       }}
@@ -153,6 +160,7 @@ export default withRouter(
                         style={{
                           display: "flex",
                           borderRadius: "70%",
+
                           overflow: "hidden",
                           objectFit: "cover",
                           // border: "2px solid white",
@@ -167,10 +175,29 @@ export default withRouter(
                         width="25rem"
                         height="25rem"
                       />
+                      {user.userData && user.userData.name}
                     </div>
                   )}
-                  {user.userData && user.userData.name}
                 </SLink>
+              </Item>
+              <Item>
+                {user.userData && (
+                  <div
+                    style={{
+                      display: "flex",
+                      textAlign: "center",
+                      margin: "0px auto",
+                    }}
+                  >
+                    <Badge count={5} style={{ marginBottom: -10 }}>
+                      <SLink to="/mymovie" className="head-example">
+                        <MediumOutlined
+                          style={{ fontSize: 25, marginBottom: 1 }}
+                        />
+                      </SLink>
+                    </Badge>
+                  </div>
+                )}
               </Item>
               <Item>
                 <SLink to="/login" onClick={logoutHandler}>

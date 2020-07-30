@@ -21,12 +21,12 @@ const Title = styled.span`
 const TitleSub = styled.a`
   font-size: 15px;
   font-weight: 400;
-  color: tomato;
+  color: lime;
   margin-left: 30px;
   padding: 0px 10px 2px;
   border-width: 2px;
   border-style: solid;
-  border-color: tomato;
+  border-color: mediumslateblue;
   border-image: initial;
   border-radius: 5px;
   transition: all 0.2s ease 0s;
@@ -43,22 +43,27 @@ const Grid = styled.div`
   height: 10%;
   overflow-x: auto;
   overflow-y: hidden;
+  overflow-style: none;
 
   &::-webkit-scrollbar {
+   
     width: 10px;
     height: 8px;
-    background: none;
+    background-color: #a0a0a0;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #ff0000;
-    opacity: 0.4;
+    background-color: #a0a0a0;
+
+    opacity: 1;
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track {
-    background: none;
+    background-color: #a0a0a0;
+
     box-shadow: inset 0px 0px 10px;
     overflow: auto;
+    opacity: 100%;
 
     transform: translate3d(3px, 0px, 0px);
     transition-duration: 0ms;
