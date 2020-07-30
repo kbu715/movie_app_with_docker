@@ -1,7 +1,6 @@
 import React from "react";
 import "./UserMovie.css";
 function UserMovie(props) {
-  console.log("제발", props);
   const renderItems = () =>
     props.movies &&
     props.movies.map((movie, index) => (

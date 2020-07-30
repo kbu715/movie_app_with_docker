@@ -30,6 +30,7 @@ app.use("/api/image", require("./routes/image"));
 
 app.use("/uploads", express.static("uploads")); //이거 했더니 안돼던 이미지 보여주기가 됐다. araboza...
 app.use("/api/reservation", require("./routes/reservation"));
+app.use("/api/product", require("./routes/product"));
 
 const port = 5000;
 

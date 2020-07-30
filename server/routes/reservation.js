@@ -19,7 +19,6 @@ router.post("/findSeat", (req, res) => {
 });
 
 router.post("/getMovieId", (req, res) => {
-  console.log(2222, req.body.id);
   Reservation.find({ id: req.body.id }, ["_id"]).exec((err, doc) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true, doc });

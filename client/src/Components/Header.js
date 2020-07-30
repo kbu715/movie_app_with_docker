@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
 import Axios from "axios";
-import { Menu, Icon, Badge } from "antd";
-import { MediumOutlined, AppleOutlined } from "@ant-design/icons";
+import { Badge } from "antd";
+import { MediumOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 const Header = styled.header`
@@ -132,6 +132,9 @@ export default withRouter(
             <Item current={pathname === "/myscore"}>
               <SLink to="/myscore">평가</SLink>
             </Item>
+            <Item current={pathname === "/product"}>
+              <SLink to="/product">매점</SLink>
+            </Item>
           </List1>
           {user.userData && !user.userData.isAuth ? (
             <List2>
@@ -190,7 +193,7 @@ export default withRouter(
                       <Badge count={5} style={{ marginBottom: -10 }}>
                         <SLink to="/mymovie" className="head-example">
                           {/* <Icon type="MediumOutlined" style={{ fontSize:30, marginBottom:3 }} /> */}
-                          <AppleOutlined
+                          <MediumOutlined
                             style={{ fontSize: 25, marginBottom: 1 }}
                           />
                         </SLink>

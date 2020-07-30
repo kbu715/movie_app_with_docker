@@ -156,8 +156,11 @@ function Booking({ id, title, bgImage, userFrom }) {
     const movie = {
       id: id,
     };
+
+    //영화 ObjectID 가져오기
     axios.post("/api/reservation/getMovieId", movie).then((response) => {
       if (response.data.success) {
+        console.log("data", response.data);
         setMovieId(response.data.doc);
       } else {
         console.log("실패");
@@ -165,6 +168,7 @@ function Booking({ id, title, bgImage, userFrom }) {
     });
   }, []);
   console.log("해당 영화의 objectID값", MovieId);
+
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -212,6 +216,7 @@ function Booking({ id, title, bgImage, userFrom }) {
 
   //결제후 DB저장
   const transactionSuccess = (data, e) => {
+    const movieId = MovieId;
     if (!selectDay || !theaters || !time || !id || !title) {
       return alert("모든 값을 넣어주셔야 합니다.");
     }
@@ -238,7 +243,7 @@ function Booking({ id, title, bgImage, userFrom }) {
     });
 
     //개인 영화 구매정보
-    dispatch(addToMovie(MovieId));
+    dispatch(addToMovie(movieId));
   };
 
   //좌석과 인원 맞추기

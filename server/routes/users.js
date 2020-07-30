@@ -12,7 +12,7 @@ router.post("/addToMovie", auth, (req, res) => {
     let duplicate = false;
 
     userInfo.movie.forEach((item) => {
-      if (item.id === req.body.movieId) {
+      if (item.id === req.body._id) {
         duplicate = true;
       }
     });
@@ -20,12 +20,12 @@ router.post("/addToMovie", auth, (req, res) => {
     //상품이 이미 있을때
     if (duplicate) {
       User.findOneAndUpdate(
-        { _id: req.user._id, "movie.id": req.body.movieId },
+        { _id: req.user._id, "movie.id": req.body._id },
         { $inc: { "movie.$.quantity": 1 } },
         { new: true },
         (err, userInfo) => {
           if (err) return res.json({ success: false, err });
-          res.status(200).send(userInfo.cart);
+          res.status(200).send(userInfo.movie);
         }
       );
     }
@@ -36,7 +36,7 @@ router.post("/addToMovie", auth, (req, res) => {
         {
           $push: {
             movie: {
-              id: req.body.movieId,
+              id: req.body._id,
               quantity: 1,
               date: Date.now(),
             },

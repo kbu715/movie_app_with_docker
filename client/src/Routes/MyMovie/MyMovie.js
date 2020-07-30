@@ -4,7 +4,6 @@ import { getMovieItems, removeMovieItem } from "../../_actions/user_action";
 import UserMovie from "./Sections/UserMovie";
 import { Empty } from "antd";
 function MyMovie(props) {
-  console.log(1, props);
   const dispatch = useDispatch();
   const [ShowTotal, setShowTotal] = useState(true);
   useEffect(() => {
