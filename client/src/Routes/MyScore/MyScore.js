@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Loader from "../../Components/Loader";
 import MyScoreSection from "./MyScoreSection";
 import MyScorePoster from "./MyScorePoster";
-import ProgressBar from '@ramonak/react-progress-bar'
+import ProgressBar from "@ramonak/react-progress-bar";
 import axios from "axios";
 
 const Container = styled.div`
@@ -13,8 +13,8 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
-background-color:black;
-border: 1px solid black;
+  background-color: black;
+  border: 1px solid black;
 `;
 
 const Progress = styled.div`
@@ -47,28 +47,30 @@ function MyScore() {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=${CurrentPage}&region=KR`;
     fetchMovies(endpoint);
     window.addEventListener("scroll", handleScroll);
-    
-    axios.post("/api/myscore/myCount", {
-      userFrom: localStorage.getItem("userId")
-    }).then(response => {
-      if (response.data.success) {
-        setCount(response.data.obj.length)
-      } else {
-        console.log('fail');
-      }
-    })
+
+    axios
+      .post("/api/myscore/myCount", {
+        userFrom: localStorage.getItem("userId"),
+      })
+      .then(response => {
+        if (response.data.success) {
+          setCount(response.data.obj.length);
+        } else {
+          console.log("fail");
+        }
+      });
   }, []);
 
-  const fetchMovies = (endpoint) => {
+  const fetchMovies = endpoint => {
     //2. 영화불러오는 func
     fetch(endpoint)
-      .then((result) => result.json())
-      .then((result) => {
-        setMovies([...Movies, ...result.results])
+      .then(result => result.json())
+      .then(result => {
+        setMovies([...Movies, ...result.results]);
 
         setCurrentPage(result.page);
       }, setLoading(false))
-      .catch((error) => console.error("Error:", error));
+      .catch(error => console.error("Error:", error));
   };
 
   const loadMoreItems = () => {
@@ -77,14 +79,15 @@ function MyScore() {
     if (CurrentPage < 101) {
       endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
         CurrentPage + 1
-        }`;
+      }`;
     } else {
       endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=0`;
     }
     fetchMovies(endpoint);
   };
 
-  const handleScroll = () => { //scroll처리
+  const handleScroll = () => {
+    //scroll처리
     const windowHeight =
       "innerHeight" in window
         ? window.innerHeight
@@ -113,38 +116,38 @@ function MyScore() {
       {Loading ? (
         <Loader />
       ) : (
-          <Container>
-            <Select>{count}</Select>
-            <Progress>
-              <ProgressBar completed={count} bgcolor={"yellow"} labelColor={"black"} />
-            </Progress>
-            {Movies && Movies.length > 0 && (
-              <MyScoreSection title="My Score">
-                {Movies.map((movie,index) => (
-                  <MyScorePoster
-                    key={index}
-                    movieId={movie.id}
-                    genres={movie.genre_ids[0]}
-                    imageUrl={movie.poster_path}
-                    title={movie.title}
-                    count={count}
-                    setCount={setCount}
-                  />
-                ))}
-              </MyScoreSection>
-            )}
+        <Container>
+          <Select>{count}</Select>
+          <Progress>
+            <ProgressBar
+              completed={count}
+              bgcolor={"yellow"}
+              labelColor={"black"}
+            />
+          </Progress>
+          {Movies && Movies.length > 0 && (
+            <MyScoreSection title="My Score">
+              {Movies.map((movie, index) => (
+                <MyScorePoster
+                  key={index}
+                  movieId={movie.id}
+                  genres={movie.genre_ids[0]}
+                  imageUrl={movie.poster_path}
+                  title={movie.title}
+                  count={count}
+                  setCount={setCount}
+                />
+              ))}
+            </MyScoreSection>
+          )}
 
-            {Loading && <div>Loading...</div>}
-            <br />
-            <Button
-              ref={buttonRef}
-              className="loadMore"
-              onClick={loadMoreItems}
-            >
-              Load More
-            </Button>
-          </Container>
-        )}
+          {Loading && <div>Loading...</div>}
+          <br />
+          <Button ref={buttonRef} className="loadMore" onClick={loadMoreItems}>
+            Load More
+          </Button>
+        </Container>
+      )}
     </>
   );
 }
