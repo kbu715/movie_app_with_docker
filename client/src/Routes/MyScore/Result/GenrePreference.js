@@ -24,7 +24,7 @@ const SectionTitle = styled.div`
 `;
 
 const GenrePreference = ({ user, topGenre, result }) => {
-  console.log(topGenre);
+  // console.log(topGenre);
   const expData = {
     labels: topGenre.map(item => item.name),
     datasets: [

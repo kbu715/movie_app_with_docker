@@ -1,18 +1,20 @@
 import React from "react";
 import "./UserMovie.css";
-function UserMovie(props) {
-  const renderItems = () =>
-    props.movies &&
-    props.movies.map((movie, index) => (
+function UserMovie({ movies, removeItem }) {
+ console.log("asdfsadf",movies)
+  const renderItems = () =>(
+    movies &&
+    (movies.map((movie, index) => (
       <tr key={index}>
         <td>{movie.title}</td>
         <td>{movie.continent}명</td>
         <td>${movie.price}</td>
         <td>
-          <button onClick={() => props.removeItem(movie.id)}>환불</button>
+          <button onClick={() => removeItem(movie.id)}>환불</button>
         </td>
       </tr>
-    ));
+    ))));
+
   return (
     <div>
       <table>
@@ -28,6 +30,7 @@ function UserMovie(props) {
       </table>
     </div>
   );
+
 }
 
 export default UserMovie;
