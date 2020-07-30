@@ -60,7 +60,7 @@ function MyScore() {
         console.log('fail');
       }
     })
-  }, [count]);
+  }, []);
 
   const fetchMovies = (endpoint) => {
     //2. 영화불러오는 func

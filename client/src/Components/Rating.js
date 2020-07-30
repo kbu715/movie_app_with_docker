@@ -10,9 +10,8 @@ const StarsWrapper = styled(Stars)`
 const FontAwesome = styled(FontAwesomeIcon)`
   color: #fff000;
   transition: color 300ms cubic-bezier(0.600, 0.045, 0.355, 1);
-  margin-right: 10px;
-
-
+  margin-right: 4px;
+  margin-left: 4px;
 `;
 
 

@@ -3,89 +3,101 @@ import styled from "styled-components";
 import Rating from "../../../Components/Rating";
 
 const Chart = styled.div`
-    float: left;
-    width: 400px;
-    height: 400px;
-    margin-top: 16px;   
-    background-color: gray;
-    margin-left: 10px;
-`;
-
-const SectionContainer = styled.div`
-  font-size: 20px;
+  float: bottom;
   width: 100%;
-  height: 100%;
+  height: 270px;  
+  /* border: 1px solid black; */
+  border-radius: 5px;
+  /* margin-left: 10px; */
 `;
 
-const SectionTitle = styled.span`
-  font-size: 20px;
-  margin-top: 10px;
+const SectionTitle = styled.div`
+text-align: center;
+  font-size: 23px;
+  font-weight: 500;
+  margin-top: 5px;
+  margin-bottom: 10px;
   color: black;
   position: relative;
+
 `;
 
 const SectionGrid = styled.div`
 margin-top: 3px;
-margin-left: 5px;
-  display: grid;
+  display: flex;
+  margin-left: 20px;
   /* border: 1px solid red; */
-  grid-template-columns: repeat(auto-fill, 290px);
-  grid-gap: 10px;
-  width: 380px;
-  height:100%;
+  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
+  /* grid-gap: 10px; */
+  width: 100%;
+  height:95%;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
 `;
 
 const PosterContainer = styled.div`
 font-size: 12px;
-  align-content: center;
+  text-align: center;
   /* border: 1px solid green; */
 width: 100%;
 `;
 
 const PosterImage = styled.div`
 background-image: url(${(props) => props.bgUrl});
-width: 100px;
-height: 140px;
+width: 130px;
+height: 180px;
 background-size: cover;
 transition: all 0.1s linear 0s;
   position: relative;
-  float: left;
+  /* float: left; */
+  /* border: 1px solid black; */
+  /* display: inline-block; */
+  border-radius: 3px;
+  margin: 0 auto;
 `;
 
-const PosterTitle = styled.span`
-  font-size: 20px;
+const PosterTitle = styled.div`
+  font-size: 15px;
   color: black;
-`;
-const PosterRatingsWrapper = styled.div`
-  margin-left: 20px;
-  margin-top: 20px;
-  float: bottom;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
 `;
 
-const RecentRating = ({recent}) => {
+const RatingWapper = styled.div`
+  margin: 0 auto;
+`;
+
+const Some =  styled.div`
+background-color: gray;
+width: 145px;
+height: 230px;
+padding-top: 5px;
+border-radius: 5px;
+`;
+
+const RecentRating = ({recent, user}) => {
     return (
-        <div>
             <Chart>
+              <SectionTitle>{user.userData && user.userData.name}님의 최근 별점 목록</SectionTitle>
                 {recent && recent.length > 0 && (
-                    <SectionContainer>
-                        <SectionTitle>최근 별점 목록</SectionTitle>
                         <SectionGrid>
                             {recent.map((item, index) => (
                                 <PosterContainer key={index}>
                                     {/* <PosterImageContainer> */}
+                                    <Some>
                                     <PosterImage bgUrl={`https://image.tmdb.org/t/p/w300${item.imageUrl}`} />
                                     {/* </PosterImageContainer> */}
-                                    <PosterRatingsWrapper>
-                                        <PosterTitle>{item.title}</PosterTitle>
-                                        <Rating number = {item.score}/>
-                                    </PosterRatingsWrapper>
+                                    <PosterTitle>{item.title}</PosterTitle>
+                                    <RatingWapper>
+                                      <Rating number = {item.score}/>
+                                    </RatingWapper>
+                                    </Some>
                                 </PosterContainer>
                             ))}
                         </SectionGrid>
-                    </SectionContainer>
                 )}
                 </Chart>
-        </div>
     );
 };
 
