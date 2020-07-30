@@ -50,7 +50,7 @@ export function auth() {
 
 export function addToMovie(id) {
   let body = {
-    _id: id,
+    movieId: id,
   };
   console.log("body", body); //body 안넘어옴
   //node로 정보 보내기

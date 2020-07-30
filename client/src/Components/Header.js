@@ -179,28 +179,28 @@ export default withRouter(
                 </SLink>
               </Item>
               <Item>
-                <SLink to="/mymovie">
-                  {/* 영화예매내역 */}
-                  {user.userData && (
-                    <div
-                      style={{
-                        display: "flex",
-                        textAlign: "center",
-                        margin: "0px auto",
-                      }}
-                    >
-                      {/* 아이콘 */}
-                      <Badge count={5} style={{ marginBottom: -10 }}>
-                        <SLink to="/mymovie" className="head-example">
-                          {/* <Icon type="MediumOutlined" style={{ fontSize:30, marginBottom:3 }} /> */}
-                          <MediumOutlined
-                            style={{ fontSize: 25, marginBottom: 1 }}
-                          />
-                        </SLink>
-                      </Badge>
-                    </div>
-                  )}
-                </SLink>
+                {/* <SLink to="/mymovie"> */}
+                {/* 영화예매내역 */}
+                {user.userData && (
+                  <div
+                    style={{
+                      display: "flex",
+                      textAlign: "center",
+                      margin: "0px auto",
+                    }}
+                  >
+                    {/* 아이콘 */}
+                    <Badge count={5} style={{ marginBottom: -10 }}>
+                      <SLink to="/mymovie" className="head-example">
+                        {/* <Icon type="MediumOutlined" style={{ fontSize:30, marginBottom:3 }} /> */}
+                        <MediumOutlined
+                          style={{ fontSize: 25, marginBottom: 1 }}
+                        />
+                      </SLink>
+                    </Badge>
+                  </div>
+                )}
+                {/* </SLink> */}
               </Item>
               <Item>
                 <SLink to="/login" onClick={logoutHandler}>
