@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  API_URL,
-  API_KEY,
-} from "../../Components/Config";
+import { API_URL, API_KEY } from "../../Components/Config";
 import Helmet from "react-helmet";
 import styled from "styled-components";
 import Loader from "../../Components/Loader";
@@ -84,7 +81,6 @@ function MyScore() {
     } else {
       endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=0`;
     }
-
     fetchMovies(endpoint);
   };
 
@@ -103,7 +99,8 @@ function MyScore() {
       html.offsetHeight
     );
     const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight - 1) {
+
+    if (windowBottom > docHeight - 1) {
       buttonRef.current.click();
     }
   };
