@@ -18,6 +18,8 @@ import Admin from "../Routes/Admin";
 import MyScore from "../Routes/MyScore";
 import MyPage from "../Routes/MyPage";
 import UpdateProfile from "../Routes/UpdateProfile";
+import MyMovie from "../Routes/MyMovie";
+import Product from "../Routes/Product";
 
 //hoc 불러오기
 export default () => (
@@ -35,7 +37,7 @@ export default () => (
         <Route path="/favorite" component={Auth(Favorite, true)} />
         {/* <Route path="/admin" component={Auth(Admin, true, true)} /> */}
         <Route path="/admin" component={Admin} />
-
+        <Route path="/product" component={Auth(Product, null)} />
         <Route path="/myscore" component={Auth(MyScore, true)} />
         <Route path="/mypage" exact component={Auth(MyPage, true)} />
         <Route
@@ -43,6 +45,7 @@ export default () => (
           exact
           component={Auth(UpdateProfile, true)}
         />
+        <Route path="/mymovie" component={Auth(MyMovie, true)} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
 import Axios from "axios";
+import { Badge } from "antd";
+import { MediumOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 const Header = styled.header`
@@ -9,7 +11,7 @@ const Header = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 70px;
   display: flex;
   align-items: center;
   z-index: 10;
@@ -63,6 +65,7 @@ const Item = styled.li`
   }
 `;
 const SLink = styled(Link)`
+  font-size: 10px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -89,13 +92,13 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector(state => state.user);
+    const user = useSelector((state) => state.user);
 
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then(response => {
+      Axios.get("/api/users/logout").then((response) => {
         if (response.data.success) {
           console.log(response.data);
           props.history.push("/sign-in");
@@ -128,6 +131,9 @@ export default withRouter(
             </Item>
             <Item current={pathname === "/myscore"}>
               <SLink to="/myscore">평가</SLink>
+            </Item>
+            <Item current={pathname === "/product"}>
+              <SLink to="/product">매점</SLink>
             </Item>
           </List1>
           {user.userData && !user.userData.isAuth ? (
@@ -169,9 +175,33 @@ export default withRouter(
                         width="25rem"
                         height="25rem"
                       />
+                      {user.userData && user.userData.name}
                     </div>
                   )}
-                  {user.userData && user.userData.name}
+                </SLink>
+              </Item>
+              <Item>
+                <SLink to="/mymovie">
+                  {/* 영화예매내역 */}
+                  {user.userData && (
+                    <div
+                      style={{
+                        display: "flex",
+                        textAlign: "center",
+                        margin: "0px auto",
+                      }}
+                    >
+                      {/* 아이콘 */}
+                      <Badge count={5} style={{ marginBottom: -10 }}>
+                        <SLink to="/mymovie" className="head-example">
+                          {/* <Icon type="MediumOutlined" style={{ fontSize:30, marginBottom:3 }} /> */}
+                          <MediumOutlined
+                            style={{ fontSize: 25, marginBottom: 1 }}
+                          />
+                        </SLink>
+                      </Badge>
+                    </div>
+                  )}
                 </SLink>
               </Item>
               <Item>

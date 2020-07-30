@@ -1,9 +1,61 @@
 const express = require("express");
 
 const router = express.Router();
-const { User } = require("../models/User"); //User model을 가져온다
+const { User } = require("../models/User");
+const { Reservation } = require("../models/Reservation");
 const { auth } = require("../middleware/auth");
 const { OAuth2Client } = require("google-auth-library");
+
+router.post("/addToMovie", auth, (req, res) => {
+  //User Collection에 해당 유저 정보를 가져오기(auth에 저장된 user._id를 불러올수있다.)
+  User.findOne({ _id: req.user._id }, (err, userInfo) => {
+    let duplicate = false;
+
+    userInfo.movie.forEach((item) => {
+      if (item.id === req.body._id) {
+        duplicate = true;
+      }
+    });
+
+    //상품이 이미 있을때
+    if (duplicate) {
+      User.findOneAndUpdate(
+        { _id: req.user._id, "movie.id": req.body._id },
+        { $inc: { "movie.$.quantity": 1 } },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.json({ success: false, err });
+          res.status(200).send(userInfo.movie);
+        }
+      );
+    }
+    //상품이 있지 않을때
+    else {
+      User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $push: {
+            movie: {
+              id: req.body._id,
+              quantity: 1,
+              date: Date.now(),
+            },
+          },
+        },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.status(400).json({ success: false, err });
+          res.status(200).send(userInfo.movie);
+        }
+      );
+    }
+  });
+  //가져온 정보에서 결제내역에 넣으려 하는 영화가 이미 들어 있는지 확인
+
+  //영화가 이미 있을때
+
+  //영확가 이미 있지 않을때
+});
 
 router.post("/register", (req, res) => {
   //회원 가입 할떄 필요한 정보들을  client에서 가져오면
@@ -66,6 +118,8 @@ router.get("/auth", auth, (req, res) => {
     lastname: req.user.lastname,
     role: req.user.role,
     image: req.user.image,
+    movie: req.user.movie,
+    history: req.user.history,
   });
 });
 
@@ -184,6 +238,36 @@ router.post("/googlelogin", (req, res) => {
         });
       }
     });
+});
+
+router.get("/removeFromMovie", auth, (req, res) => {
+  //먼저 내역안에 내가 지우려고 한 영화를 지워주기
+  //action에서 넘어온${movieId} 값은 string처리되어 넘어오기 때문에 parseInㅅ
+  let id2 = parseInt(req.query.id);
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      $pull: { movie: { id: id2 } },
+    },
+    { new: true },
+    (err, userInfo) => {
+      let movie = userInfo.movie;
+      let array = movie.map((item) => {
+        return item.id;
+      });
+
+      //
+      //$in: [ "apples", "oranges" ] },
+      //reservation collection에서 현재 남아있는 영화들의 정보를 가져오기
+      Reservation.find({ id: { $in: array } }).exec((err, movieInfo) => {
+        if (err) return res.status(400).send(err);
+        return res.status(200).json({
+          movieInfo,
+          movie,
+        });
+      });
+    }
+  );
 });
 
 module.exports = router;
