@@ -92,13 +92,13 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector(state => state.user);
 
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then((response) => {
+      Axios.get("/api/users/logout").then(response => {
         if (response.data.success) {
           console.log(response.data);
           props.history.push("/sign-in");
@@ -151,7 +151,7 @@ export default withRouter(
                     <div
                       style={{
                         display: "flex",
-                       
+
                         textAlign: "center",
                         margin: "0px auto",
                       }}
@@ -160,7 +160,7 @@ export default withRouter(
                         style={{
                           display: "flex",
                           borderRadius: "70%",
-                          
+
                           overflow: "hidden",
                           objectFit: "cover",
                           // border: "2px solid white",
@@ -181,28 +181,23 @@ export default withRouter(
                 </SLink>
               </Item>
               <Item>
-                <SLink to="/mymovie">
-                  {/* 영화예매내역 */}
-                  {user.userData && (
-                    <div
-                      style={{
-                        display: "flex",
-                        textAlign: "center",
-                        margin: "0px auto",
-                      }}
-                    >
-                      {/* 아이콘 */}
-                      <Badge count={5} style={{ marginBottom: -10 }}>
-                        <SLink to="/mymovie" className="head-example">
-                          {/* <Icon type="MediumOutlined" style={{ fontSize:30, marginBottom:3 }} /> */}
-                          <MediumOutlined
-                            style={{ fontSize: 25, marginBottom: 1 }}
-                          />
-                        </SLink>
-                      </Badge>
-                    </div>
-                  )}
-                </SLink>
+                {user.userData && (
+                  <div
+                    style={{
+                      display: "flex",
+                      textAlign: "center",
+                      margin: "0px auto",
+                    }}
+                  >
+                    <Badge count={5} style={{ marginBottom: -10 }}>
+                      <SLink to="/mymovie" className="head-example">
+                        <MediumOutlined
+                          style={{ fontSize: 25, marginBottom: 1 }}
+                        />
+                      </SLink>
+                    </Badge>
+                  </div>
+                )}
               </Item>
               <Item>
                 <SLink to="/login" onClick={logoutHandler}>

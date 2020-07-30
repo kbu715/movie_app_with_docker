@@ -46,7 +46,7 @@ const Grid = styled.div`
   overflow-style: none;
 
   &::-webkit-scrollbar {
-    display: none;
+   
     width: 10px;
     height: 8px;
     background-color: #a0a0a0;
