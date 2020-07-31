@@ -160,7 +160,7 @@ const DetailPresenter = ({
   video,
   recommendations,
 }) => {
-  console.log(recommendations && recommendations.results);
+  console.log("result:", result);
   return loading ? (
     <>
       <Helmet>

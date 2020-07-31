@@ -7,6 +7,7 @@ const config = require("./config/key");
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 //application/json
 app.use(bodyParser.json());
 

@@ -1,3 +1,3 @@
-import MyScoreContainer from "./MyScoreContainer";
+import MyScore from "./MyScore";
 
-export default MyScoreContainer;
+export default MyScore;
