@@ -12,6 +12,7 @@ function DashBoard() {
   const [numOfLotte, setNumOfLotte] = useState(0);
   const [numOfMega, setNumOfMega] = useState(0);
 
+  // 19개 장르
   const [action, setAction] = useState(0)
   const [adventure, setAdventure] = useState(0)
   const [ani, setAni] = useState(0)

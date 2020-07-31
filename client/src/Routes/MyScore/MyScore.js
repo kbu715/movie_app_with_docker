@@ -103,8 +103,13 @@ function MyScore() {
       html.offsetHeight
     );
     const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight - 1) {
-      buttonRef.current.click();
+    if (windowBottom > docHeight - 1) {
+      // console.log("click:", buttonRef.current);
+      if (buttonRef.current === null) {
+        return 0;
+      } else {
+        buttonRef.current.click();
+      }
     }
   };
 

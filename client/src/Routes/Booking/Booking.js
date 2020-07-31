@@ -127,7 +127,7 @@ function Booking({ id, title, bgImage, userFrom }) {
   const [selectDay, setSelectedDay] = useState(null);
   const [theaters, setTheaters] = useState("");
   const [time, setTime] = useState(0);
-  const [Continent, setContinent] = useState(0);
+  const [Continent, setContinent] = useState(0); //인원
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
@@ -145,7 +145,8 @@ function Booking({ id, title, bgImage, userFrom }) {
           response.data.seats.map(obj => {
             seatlist.push(obj.seat);
           });
-          const flatlist = seatlist.flat();
+          console.log("sdafkljsajfkasdf", seatlist);
+          const flatlist = seatlist.flat(); //평탄화 함수!!!
           setDistinct(flatlist);
         }
       })
@@ -169,6 +170,7 @@ function Booking({ id, title, bgImage, userFrom }) {
   }, []);
   console.log("해당 영화의 objectID값", MovieId);
 
+  //날짜
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -190,6 +192,7 @@ function Booking({ id, title, bgImage, userFrom }) {
       className="my-custom-input-class"
     />
   );
+
   const onTheaters = event => {
     setTheaters({ theaters: event.target.value });
   };
@@ -416,7 +419,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               <div className="seat occupied"></div> <Small>선택완료</Small>
             </li>
           </ul>
-          <Container onClick={onSeatChange}>
+          <Container onClick={onSeatChange} style={{border:"1px solid white"}}>
             <div className="container">
               <div className="screen"></div>
 

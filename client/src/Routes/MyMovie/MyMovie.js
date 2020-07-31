@@ -13,7 +13,7 @@ function MyMovie(props) {
     if (props.user.userData && props.user.userData.movie) {
       console.log(4, props.user.userData.movie);
       if (props.user.userData.movie.length > 0) {
-        props.user.userData.movie.forEach((item) => {
+        props.user.userData.movie.forEach(item => {
           movieItem.push(item.id);
         });
         console.log(123123, movieItem);
@@ -22,8 +22,8 @@ function MyMovie(props) {
     }
   }, [props.user.userData]);
 
-  const removeFromCart = (movieId) => {
-    dispatch(removeMovieItem(movieId)).then((response) => {
+  const removeFromCart = movieId => {
+    dispatch(removeMovieItem(movieId)).then(response => {
       if (response.payload.movieInfo.length <= 0) {
         setShowTotal(false);
       }
