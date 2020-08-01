@@ -62,12 +62,12 @@ function UploadProductPage(props) {
       continents: ContinentValue,
     };
 
-    Axios.post("/api/product/uploadProduct", body).then((response) => {
+    Axios.post("/api/product", body).then((response) => {
       if (response.data.success) {
-        alert("Product Successfully Uploaded");
+        alert("상품등록 완료");
         props.history.push("/");
       } else {
-        alert("Failed to upload Product");
+        alert("상품등록 실패");
       }
     });
   };

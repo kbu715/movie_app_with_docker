@@ -107,7 +107,7 @@ const Container = styled.div`
 const Continentss = [
   { key: 1, value: "11:00" },
   { key: 2, value: "13:00" },
-  { key: 3, value: "15:00" },
+  { key: 3, value: "15:00" }, 
   { key: 4, value: "17:00" },
   { key: 5, value: "19:00" },
   { key: 6, value: "21:00" },
@@ -116,7 +116,7 @@ const Continentss = [
   { key: 9, value: "03:00" },
 ];
 const Cinema = [
-  { key: 1, value: "CGV" },
+  { key: 1, value: "CGV" }, 
   { key: 2, value: "롯데시네마" },
   { key: 3, value: "메가박스" },
 ];
