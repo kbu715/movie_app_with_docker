@@ -1,7 +1,7 @@
 import React from "react";
 import "./UserMovie.css";
 function UserMovie({ movies, removeItem }) {
- console.log("asdfsadf",movies)
+ console.log("UserMovie Test",movies)
   const renderItems = () =>(
     movies &&
     (movies.map((movie, index) => (
