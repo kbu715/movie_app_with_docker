@@ -1,6 +1,6 @@
 import React from "react";
 import SearchPresenter from "./SearchPresenter";
-import { moviesApi, tvApi } from "../../api";
+import { moviesApi } from "../../api";
 
 export default class extends React.Component {
   state = {
@@ -35,12 +35,9 @@ export default class extends React.Component {
       const {
         data: { results: movieResults }
       } = await moviesApi.search(searchTerm);
-      const {
-        data: { results: tvResults }
-      } = await tvApi.search(searchTerm);
+
       this.setState({
-        movieResults,
-        tvResults
+        movieResults
       });
     } catch {
       this.setState({ error: "Can't find results." });
@@ -50,11 +47,10 @@ export default class extends React.Component {
   };
 
   render() {
-    const { movieResults, tvResults, searchTerm, loading, error } = this.state;
+    const { movieResults, searchTerm, loading, error } = this.state;
     return (
       <SearchPresenter
         movieResults={movieResults}
-        tvResults={tvResults}
         loading={loading}
         error={error}
         searchTerm={searchTerm}

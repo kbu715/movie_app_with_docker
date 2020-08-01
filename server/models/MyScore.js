@@ -16,8 +16,14 @@ const MyScoreSchema = mongoose.Schema(
     count: {
       type: Number,
     },
-    select: {
-      type: [Number],
+    genres: {
+      type: Number,
+    },
+    title: {
+      type: String,
+    },
+    imageUrl: {
+      type: String,
     }
   }
 );

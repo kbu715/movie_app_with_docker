@@ -16,6 +16,10 @@ import Auth from "../hoc/auth";
 import Favorite from "../Routes/Favorite";
 import Admin from "../Routes/Admin";
 import MyScore from "../Routes/MyScore";
+import MyPage from "../Routes/MyPage";
+import UpdateProfile from "../Routes/UpdateProfile";
+import MyMovie from "../Routes/MyMovie";
+import Product from "../Routes/Product";
 
 //hoc 불러오기
 export default () => (
@@ -24,16 +28,24 @@ export default () => (
       {" "}
       <Header />
       <Switch>
-        <Route path="/" exact component={Auth(Home, null)} />
+        <Route path="/" exact component={Auth(Home, true)} />
         <Route path="/search" component={Auth(Search, null)} />
-        <Route path="/movie/:id" component={Auth(Detail, true)} />
+        <Route path="/movie/:id" component={Auth(Detail, true)} exact />
         <Route path="/sign-in" component={Auth(Login, false)} />
         <Route path="/sign-up" component={Auth(SignUp, false)} />
         <Route path="/logout" component={Auth(Logout, true)} />
         <Route path="/favorite" component={Auth(Favorite, true)} />
-        <Route path="/admin" component={Auth(Admin, true, true)} />
-
+        {/* <Route path="/admin" component={Auth(Admin, true, true)} /> */}
+        <Route path="/admin" component={Admin} />
+        <Route path="/product" component={Auth(Product, null)} />
         <Route path="/myscore" component={Auth(MyScore, true)} />
+        <Route path="/mypage" exact component={Auth(MyPage, true)} />
+        <Route
+          path="/mypage/update"
+          exact
+          component={Auth(UpdateProfile, true)}
+        />
+        <Route path="/mymovie" component={Auth(MyMovie, true)} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

@@ -63,7 +63,7 @@ const ImageContainer = styled.div`
   }
 `;
 const Title = styled.span`
-// border: 5px solid green; 
+ /* border: 5px solid green;  */
   font-size:18px;
   display: flex;
   flex-direction: column;
@@ -71,8 +71,7 @@ const Title = styled.span`
   // align-items:flex-start
   align-items:center;
   padding: 1.5rem 3rem;
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
-  font-family: 'Noto Sans KR', sans-serif;
+  
 `;
 const Year = styled.span`
   // font-size: 10px;
@@ -111,7 +110,7 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
       </ImageContainer>
       <RatingsWrapper>
       <Title>
-        {title.length > 18 ? `${title.substring(0, 8)}...` : title}
+        {title.length > 8 ? `${title.substring(0, 4)}...` : title}
       </Title>
       <Year>
         {/* <Ratingg number = {rating/2}/>         */}

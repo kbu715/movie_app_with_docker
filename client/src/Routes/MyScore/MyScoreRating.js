@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Rate } from "antd";
 import "antd/dist/antd.css";
@@ -9,32 +9,37 @@ const StarsWrapper = styled.span`
   margin-left: 50px;
 `;
 
-const Rating = ({ movieId, count, setCount }) => { 
+const Rating = ({ movieId, count, setCount, genres, imageUrl, title }) => {//{ movieId, count, setCount, genres, imageUrl, title }
 
-  const giveStarRating = (value) => {
-    console.log("giving star rating");
+const onClickHandler = (value) => {
+  // console.log("props:", props);
+
+    // console.log("genres:", genres);
     axios.post("/api/myscore/giveStarRating", {
-      userFrom : localStorage.getItem("userId"),
-      movieId : movieId,
-      count : count+1,
-      score : value,
+      userFrom: localStorage.getItem("userId"),
+      movieId: movieId,
+      genres: genres,
+      score: value,
+      imageUrl: imageUrl,
+      title: title,
     }).then(response => {
-      if(response.data.success) {
-        setCount(count+1)
+      if (response.data.success && response.data.exist) {
+        setCount(count)
+      } else if(response.data.success && !response.data.exist) {
+        setCount(count+1)  
       } else {
         alert("평가하기를 실패했습니다.")
       }
     })
-  }
-
-  const onClickHandler = (value) => {
-      giveStarRating(value);
   };
+
   return (
     <StarsWrapper>
-      <Rate onChange={onClickHandler} allowClear={false} />
+      <Rate onChange={onClickHandler} />
     </StarsWrapper>
   );
-};
+
+}
+
 
 export default Rating;

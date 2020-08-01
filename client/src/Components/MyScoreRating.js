@@ -9,15 +9,14 @@ const StarsWrapper = styled.span`
   margin-left: 50px;
 `;
 
-const Rating = (props) => {
-  console.log("props:", props); //id, title
+const Rating = props => {
+  // console.log("props:",props); //id, title
   const [value, setValue] = useState();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [movieId, setMovieId] = useState("");
-  const [select, setSelect] = useState("");
 
-  const fetchStarRating = (value) => {
+  const fetchStarRating = value => {
     console.log(props); //id, imgUrl, title
 
     axios
@@ -26,7 +25,7 @@ const Rating = (props) => {
         myScore: value,
         movieId: props.id,
       })
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           setValue(response.data.myscore);
           setMovieId(response.data.movieId);
@@ -36,22 +35,31 @@ const Rating = (props) => {
       });
   };
 
-  const deletePoster = () => {
-    console.log("deletePoster");
-    setMovieId(props.id);
-  };
+  // const giveStarRating=()=>{
+  //   const body = {
+  //     movieId: props.id,
+  //     movieTitle: props.title,
+  //     myScore: value,
+  //   };
+  //   axios.post("/api/myscore/giveStarRating", body).then((response) => {
+  //     const res = response.request.response
+  //     console.log("response:", res);//user정보, id 등
+  //   });
+  // }
 
-  const onClickHandler = (value) => {
+  const onClickHandler = value => {
     setValue(value);
     //별점 추가
     fetchStarRating(value);
-
-    //포스터 삭제
-    deletePoster();
   };
   return (
     <StarsWrapper>
-      <Rate onChange={onClickHandler} error={error} loading={loading} />
+      <Rate
+        onChange={onClickHandler}
+        allowClear={false}
+        error={error}
+        loading={loading}
+      />
     </StarsWrapper>
   );
 };

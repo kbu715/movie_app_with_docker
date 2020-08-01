@@ -5,7 +5,8 @@ import styled from "styled-components";
 import Loader from "../../Components/Loader";
 import MyScoreSection from "./MyScoreSection";
 import MyScorePoster from "./MyScorePoster";
-import ProgressBar from "@ramonak/react-progress-bar";
+import ProgressBar from '@ramonak/react-progress-bar'
+import axios from "axios";
 
 const Container = styled.div`
   padding: 20px;
@@ -36,21 +37,26 @@ const Select = styled.span`
 function MyScore() {
   const buttonRef = useRef(null);
 
-  const [Movies, setMovies] = useState([]); //보여줄 영화목록
+  const [Movies, setMovies] = useState([]);
   const [Loading, setLoading] = useState(true);
-  const [CurrentPage, setCurrentPage] = useState(1);
-  // const [CurrentPage, setCurrentPage] = useState(parseInt(Math.random() * 100));
+  const [CurrentPage, setCurrentPage] = useState(parseInt(Math.random() * 100));
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     //1. 처음 api 불러오기
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=${CurrentPage}&region=KR`;
     fetchMovies(endpoint);
-  }, []);
-
-  useEffect(() => {
-    //3. scroll 이벤트
     window.addEventListener("scroll", handleScroll);
+    
+    axios.post("/api/myscore/myCount", {
+      userFrom: localStorage.getItem("userId")
+    }).then(response => {
+      if (response.data.success) {
+        setCount(response.data.obj.length)
+      } else {
+        console.log('fail');
+      }
+    })
   }, []);
 
   const fetchMovies = (endpoint) => {
@@ -58,21 +64,16 @@ function MyScore() {
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
-        //result : 전체영화결과
-        //movie결과(처음에는 아무것도X)
-        //result의 가져오는 영화만
-        setMovies([...Movies, ...result.results]); //movies+result
+        setMovies([...Movies, ...result.results])
 
-        setCurrentPage(result.page); //페이지
+        setCurrentPage(result.page);
       }, setLoading(false))
       .catch((error) => console.error("Error:", error));
   };
 
   const loadMoreItems = () => {
-    //item load(fetchMovie 연장선)
     let endpoint = "";
     setLoading(true);
-    console.log("CurrentPage", CurrentPage);
     if (CurrentPage < 101) {
       endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
         CurrentPage + 1
@@ -101,7 +102,6 @@ function MyScore() {
     );
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom >= docHeight - 1) {
-      console.log("clicked");
       buttonRef.current.click();
     }
   };
@@ -114,37 +114,38 @@ function MyScore() {
       {Loading ? (
         <Loader />
       ) : (
-        <Container>
-          <Select>{count}</Select>
-          <Progress>
-            <ProgressBar
-              completed={count}
-              bgcolor={"yellow"}
-              labelColor={"black"}
-            />
-          </Progress>
-          {Movies && Movies.length > 0 && (
-            <MyScoreSection title="My Score">
-              {Movies.map((movie) => (
-                <MyScorePoster
-                  key={movie.id}
-                  movieId={movie.id}
-                  imageUrl={movie.poster_path}
-                  title={movie.title}
-                  count={count}
-                  setCount={setCount}
-                />
-              ))}
-            </MyScoreSection>
-          )}
+          <Container>
+            <Select>{count}</Select>
+            <Progress>
+              <ProgressBar completed={count} bgcolor={"yellow"} labelColor={"black"} />
+            </Progress>
+            {Movies && Movies.length > 0 && (
+              <MyScoreSection title="My Score">
+                {Movies.map((movie,index) => (
+                  <MyScorePoster
+                    key={index}
+                    movieId={movie.id}
+                    genres={movie.genre_ids[0]}
+                    imageUrl={movie.poster_path}
+                    title={movie.title}
+                    count={count}
+                    setCount={setCount}
+                  />
+                ))}
+              </MyScoreSection>
+            )}
 
-          {Loading && <div>Loading...</div>}
-          <br />
-          <Button ref={buttonRef} className="loadMore" onClick={loadMoreItems}>
-            Load More
-          </Button>
-        </Container>
-      )}
+            {Loading && <div>Loading...</div>}
+            <br />
+            <Button
+              ref={buttonRef}
+              className="loadMore"
+              onClick={loadMoreItems}
+            >
+              Load More
+            </Button>
+          </Container>
+        )}
     </>
   );
 }

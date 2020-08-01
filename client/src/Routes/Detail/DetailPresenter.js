@@ -4,20 +4,23 @@ import styled from "styled-components";
 import Loader from "Components/Loader";
 import Rating from "../../Components/Rating";
 import Helmet from "react-helmet";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Cast from "./Cast/Cast";
 import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
 import Reservation from "../Reservation/Reservation";
+import Recommendation from "./Recommendation/Recommendation";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
 
-  width: 100%;
+  width: 100vw;
 
   position: relative;
 
   padding: 50px;
+
+  overflow: hidden;
 `;
 
 const Backdrop = styled.div`
@@ -29,9 +32,9 @@ const Backdrop = styled.div`
 
   width: 100%;
 
-  height: 100%;
+  height: 100vh;
 
-  background-image: url(${(props) => props.bgImage});
+  background-image: url(${props => props.bgImage});
 
   background-position: center center;
 
@@ -46,7 +49,8 @@ const Backdrop = styled.div`
 
 const Content = styled.div`
   display: flex;
-
+  // grid-template-columns: 1fr 1fr 1fr;
+  // grid-template-rows: 50px 50px;
   width: 100%;
 
   position: relative;
@@ -59,7 +63,7 @@ const Content = styled.div`
 const Cover = styled.div`
   width: 30%;
 
-  background-image: url(${(props) => props.bgImage});
+  background-image: url(${props => props.bgImage});
 
   background-position: center center;
 
@@ -70,9 +74,10 @@ const Cover = styled.div`
   border-radius: 5px;
 `;
 const Data = styled.div`
-  width: 70%;
-
+  width: 65%;
+  height: 100%;
   margin-left: 10px;
+  overflow: auto;
 `;
 
 const Title = styled.h3`
@@ -97,7 +102,7 @@ const Divider = styled.span`
 `;
 
 const Overview = styled.p`
-  font-size: 12px;
+  font-size: 17px;
 
   opacity: 0.9;
 
@@ -131,7 +136,7 @@ const Heading = styled.h3`
   margin-top: 10px;
   color: white;
 
-  @media ${(props) => props.theme.mediaQueries.medium} {
+  @media ${props => props.theme.mediaQueries.medium} {
     font-size: 1.2rem;
   }
 `;
@@ -140,32 +145,9 @@ const ButtonsWrapper = styled.div`
   margin-top: -73px;
   display: flex;
   align-items: center;
-  @media ${(props) => props.theme.mediaQueries.small} {
+  @media ${props => props.theme.mediaQueries.small} {
     flex-direction: column;
     align-items: flex-start;
-  }
-`;
-
-const SLink = styled(Link)`
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:link {
-    text-decoration: none;
-    color: white;
-  }
-  &:visited {
-    text-decoration: none;
-    color: white;
-  }
-  &:active {
-    text-decoration: none;
-    color: white;
-  }
-  &:hover {
-    text-decoration: none;
-    color: white;
   }
 `;
 
@@ -176,7 +158,9 @@ const DetailPresenter = ({
   castResult,
   isMovie,
   video,
+  recommendations,
 }) => {
+  console.log("result:", result);
   return loading ? (
     <>
       <Helmet>
@@ -258,6 +242,7 @@ const DetailPresenter = ({
           <ButtonsWrapper>
             <Video video={video.results[0]} />
           </ButtonsWrapper>
+          <Recommendation recommendation={recommendations.results} />
         </Data>
       </Content>
     </Container>
