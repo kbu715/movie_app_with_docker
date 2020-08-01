@@ -52,7 +52,7 @@ function MyScore() {
       .post("/api/myscore/myCount", {
         userFrom: localStorage.getItem("userId"),
       })
-      .then(response => {
+      .then((response) => {
         if (response.data.success) {
           setCount(response.data.obj.length);
         } else {
@@ -61,16 +61,16 @@ function MyScore() {
       });
   }, []);
 
-  const fetchMovies = endpoint => {
+  const fetchMovies = (endpoint) => {
     //2. 영화불러오는 func
     fetch(endpoint)
-      .then(result => result.json())
-      .then(result => {
+      .then((result) => result.json())
+      .then((result) => {
         setMovies([...Movies, ...result.results]);
 
         setCurrentPage(result.page);
       }, setLoading(false))
-      .catch(error => console.error("Error:", error));
+      .catch((error) => console.error("Error:", error));
   };
 
   const loadMoreItems = () => {
@@ -102,9 +102,15 @@ function MyScore() {
       html.scrollHeight,
       html.offsetHeight
     );
+
     const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight - 1) {
-      buttonRef.current.click();
+    if (windowBottom > docHeight - 1) {
+      // console.log("click:", buttonRef.current);
+      if (buttonRef.current === null) {
+        return 0;
+      } else {
+        buttonRef.current.click();
+      }
     }
   };
 

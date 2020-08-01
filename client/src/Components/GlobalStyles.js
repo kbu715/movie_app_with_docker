@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+
 const globalStyles = createGlobalStyle`
     ${reset};
     a{
@@ -9,6 +10,7 @@ const globalStyles = createGlobalStyle`
     *{
         color: inherit;
         box-sizing:border-box;
+        
     }
     body{
         font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -19,6 +21,7 @@ const globalStyles = createGlobalStyle`
         // @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
         @font-face { font-family: 'BMHANNAAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff'); font-weight: normal; font-style: normal; }
         //   font-family: 'Noto Sans KR', sans-serif;
+        
       
     }
 `;

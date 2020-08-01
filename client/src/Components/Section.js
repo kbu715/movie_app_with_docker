@@ -1,9 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-// import Slider from "react-slick";
-// import "../../node_modules/slick-carousel/slick/slick.css";
-// import "../../node_modules/slick-carousel/slick/slick-theme.css";
 
 const Container = styled.div`
   :not(:last-child) {
@@ -34,8 +31,7 @@ const TitleSub = styled.a`
 const Grid = styled.div`
   margin-top: 30px;
   display: flex;
-  //flex-direction: column;
-  //justify-content:center
+
   border-radius: 0.8rem;
 
   align-items: center;
@@ -46,7 +42,6 @@ const Grid = styled.div`
   overflow-style: none;
 
   &::-webkit-scrollbar {
-   
     width: 10px;
     height: 8px;
     background-color: #a0a0a0;

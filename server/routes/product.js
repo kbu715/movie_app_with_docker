@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { Product } = require("../models/Product");
 const multer = require("multer");
-
 const { auth } = require("../middleware/auth");
 
 var storage = multer.diskStorage({
@@ -16,9 +15,9 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single("file");
 
-router.post("/image", (req, res) => {
+router.post("/image", auth, (req, res) => {
   //가져온 이미지를 저장을 해주면 된다.
-  upload(req, res, err => {
+  upload(req, res, (err) => {
     if (err) {
       return req.json({ success: false, err });
     }
@@ -34,7 +33,7 @@ router.post("/", auth, (req, res) => {
   //받아온 정보들을 DB에 넣어준다.
   const product = new Product(req.body);
 
-  product.save(err => {
+  product.save((err) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true });
   });
@@ -47,7 +46,7 @@ router.post("/products", (req, res) => {
 
   if (term) {
     Product.find()
-      .find({ $text: {$search: term}})
+      .find({ $text: { $search: term } })
       .populate("writer")
       .skip(skip)
       .limit(limit)
@@ -83,6 +82,20 @@ router.get("/getCountOfProduct", (req, res) => {
 
     res.status(200).json({ success: true, products: item });
   });
+});
+
+router.get("/products_by_id", (req, res) => {
+  //axios 주소에 걸린 조건은 타입이라 query로 받는다.
+  let type = req.query.type;
+  let productId = req.query.id;
+
+  //productId를 이용해서 DB에서 ProductId와 같은 상품의 정보를 가져온다.
+  Product.find({ _id: productId })
+    .populate("writer")
+    .exec((err, product) => {
+      if (err) return res.status(400).send(err);
+      return res.status(200).send({ success: true, product });
+    });
 });
 
 module.exports = router;
