@@ -20,6 +20,7 @@ import MyPage from "../Routes/MyPage";
 import UpdateProfile from "../Routes/UpdateProfile";
 import MyMovie from "../Routes/MyMovie";
 import Product from "../Routes/Product";
+import DetailProductPage from "../Routes/DetailProductPage/DetailProductPage";
 
 //hoc 불러오기
 export default () => (
@@ -37,9 +38,15 @@ export default () => (
         <Route path="/favorite" component={Auth(Favorite, true)} />
         {/* <Route path="/admin" component={Auth(Admin, true, true)} /> */}
         <Route path="/admin" component={Admin} />
-        <Route path="/product" component={Auth(Product, null)} />
+        <Route path="/product" component={Auth(Product, null)} exact/>
+        <Route
+          path="/product/:productId"
+          component={Auth(DetailProductPage, null)}
+          exact
+        />
         <Route path="/myscore" component={Auth(MyScore, true)} />
         <Route path="/mypage" exact component={Auth(MyPage, true)} />
+
         <Route
           path="/mypage/update"
           exact
