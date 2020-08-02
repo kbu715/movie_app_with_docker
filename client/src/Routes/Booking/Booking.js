@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Grid, TextField, MenuItem } from "@material-ui/core";
 import axios from "axios";
 import styled from "styled-components";
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Paypal from "../../utils/Paypal";
 import "../Reservation/style.css";
 import {
@@ -104,36 +102,25 @@ const Container = styled.div`
   margin: 20px 0;
 `;
 
-const Continentss = [
-  { key: 1, value: "11:00" },
-  { key: 2, value: "13:00" },
-  { key: 3, value: "15:00" }, 
-  { key: 4, value: "17:00" },
-  { key: 5, value: "19:00" },
-  { key: 6, value: "21:00" },
-  { key: 7, value: "23:00" },
-  { key: 8, value: "01:00" },
-  { key: 9, value: "03:00" },
-];
-const Cinema = [
-  { key: 1, value: "CGV" }, 
-  { key: 2, value: "롯데시네마" },
-  { key: 3, value: "메가박스" },
-];
+
 //------------------------------------------------------------------------------------------
-function Booking({ id, title, bgImage, userFrom }) {
+function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
+  console.log("selectDay", selectDay);
+  console.log("time", time);
+  console.log("theaters", theaters);
+
   const dispatch = useDispatch();
 
-  const [selectDay, setSelectedDay] = useState(null);
-  const [theaters, setTheaters] = useState("");
-  const [time, setTime] = useState(0);
+
   const [Continent, setContinent] = useState(0);
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
-  const [MovieId, setMovieId] = useState("");
+
   const movieTitle = {
     title: title,
+    // selectDay : selectDay,
+    // time : time,
   };
 
   useEffect(() => {
@@ -141,62 +128,35 @@ function Booking({ id, title, bgImage, userFrom }) {
       .post("/api/reservation/findSeat", movieTitle)
       .then(async response => {
         if (response.data.success) {
+          console.log(123, response.data.seats);
           let seatlist = [];
+          let time = "";
+          let DBselectDay = "";
           response.data.seats.map(obj => {
+            time = obj.time[0].time;
+            DBselectDay = obj.selectDay[0].year + "-" + obj.selectDay[0].month + "-" + obj.selectDay[0].day;
             seatlist.push(obj.seat);
+
           });
           const flatlist = seatlist.flat();
           setDistinct(flatlist);
+
+
+
+
         }
       })
       .catch(err => {
         console.log(err);
       });
 
-    const movie = {
-      id: id,
-    };
 
-    //영화 ObjectID 가져오기
-    axios.post("/api/reservation/getMovieId", movie).then(response => {
-      if (response.data.success) {
-        console.log("data", response.data);
-        setMovieId(response.data.doc);
-      } else {
-        console.log("실패");
-      }
-    });
+
+
   }, []);
-  console.log("해당 영화의 objectID값", MovieId);
 
-  const renderCustomInput = ({ ref }) => (
-    <input
-      readOnly
-      ref={ref}
-      placeholder="날짜를 선택해주세요"
-      value={
-        selectDay ? `${selectDay.year}-${selectDay.month}-${selectDay.day}` : ""
-      }
-      style={{
-        textAlign: "center",
-        padding: "1rem 1.5rem",
-        fontSize: "1.1rem",
-        border: "1px solid #9c88ff",
-        borderRadius: "70px",
-        boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
-        color: "#9c88ff",
-        outline: "none",
-      }}
-      className="my-custom-input-class"
-    />
-  );
-  const onTheaters = event => {
-    setTheaters({ theaters: event.target.value });
-  };
 
-  const onTime = event => {
-    setTime({ time: event.target.value });
-  };
+
 
   //seat 색 변경
   const onSeatChange = e => {
@@ -216,7 +176,7 @@ function Booking({ id, title, bgImage, userFrom }) {
 
   //결제후 DB저장
   const transactionSuccess = (data, e) => {
-    const movieId = MovieId;
+
     if (!selectDay || !theaters || !time || !id || !title) {
       return alert("모든 값을 넣어주셔야 합니다.");
     }
@@ -242,7 +202,7 @@ function Booking({ id, title, bgImage, userFrom }) {
       }
     });
 
-    //개인 영화 구매정보
+
     dispatch(addToMovie(id));
   };
 
@@ -280,50 +240,10 @@ function Booking({ id, title, bgImage, userFrom }) {
         </Select> */}
 
         <Grid container spacing={3}>
-          <Grid item xs>
-            <DatePicker
-              value={selectDay}
-              onChange={setSelectedDay}
-              minimumDate={utils().getToday()}
-              renderInput={renderCustomInput}
-              shouldHighlightWeekends
-            />
-          </Grid>
-          <Grid item xs>
-            <TextField
-              color="secondary"
-              fullWidth
-              select
-              value={theaters}
-              label="Cinema"
-              variant="filled"
-              onChange={onTheaters}
-            >
-              {Cinema.map((cinema, index) => (
-                <MenuItem key={cinema.key} value={cinema.value}>
-                  {cinema.value}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
 
-          <Grid item xs>
-            <TextField
-              color="secondary"
-              fullWidth
-              select
-              value={time}
-              label="Time"
-              variant="filled"
-              onChange={onTime}
-            >
-              {Continentss.map(item => (
-                <MenuItem key={item.key} value={item.value}>
-                  {item.value}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
+
+
+
 
           <Grid item xs>
             <TextField
@@ -354,7 +274,7 @@ function Booking({ id, title, bgImage, userFrom }) {
             <Title>
               <table>
                 <tbody>
-                  <tr>
+                  {/* <tr>
                     <th>영화관</th>
                     <td>{theaters.theaters}</td>
                   </tr>
@@ -370,7 +290,7 @@ function Booking({ id, title, bgImage, userFrom }) {
                   <tr>
                     <th>시간</th>
                     <td>{time.time}</td>
-                  </tr>
+                  </tr> */}
 
                   <tr>
                     <th>인원</th>
@@ -398,7 +318,7 @@ function Booking({ id, title, bgImage, userFrom }) {
               가격<PriceTag>{Price}</PriceTag>
             </Title>
 
-            <Paypal onSuccess={transactionSuccess} Price={Price} />
+            {/* <Paypal onSuccess={transactionSuccess} Price={Price} /> */}
           </SideFlex>
         </SideWrapper>
 
@@ -422,7 +342,9 @@ function Booking({ id, title, bgImage, userFrom }) {
 
               {/* 좌석 */}
               <div className="row">
+
                 {SeatA.map(item => {
+
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -444,6 +366,8 @@ function Booking({ id, title, bgImage, userFrom }) {
                       </div>
                     );
                   }
+
+
                 })}
               </div>
 
