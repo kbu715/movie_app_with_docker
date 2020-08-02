@@ -143,7 +143,7 @@ function Booking({ id, title, bgImage, userFrom }) {
         if (response.data.success) {
           let seatlist = [];
           response.data.seats.map(obj => {
-            seatlist.push(obj.seat);
+            return seatlist.push(obj.seat);
           });
           console.log("sdafkljsajfkasdf", seatlist);
           const flatlist = seatlist.flat(); //평탄화 함수!!!
@@ -239,14 +239,17 @@ function Booking({ id, title, bgImage, userFrom }) {
         alert("예매 성공");
 
         window.location.href = "http://localhost:3000/";
+
+        //개인 영화 구매정보
+        dispatch(addToMovie(response.data.doc._id));
+
       } else {
         alert("예매 실패");
         return false;
       }
     });
 
-    //개인 영화 구매정보
-    dispatch(addToMovie(id));
+
   };
 
   //좌석과 인원 맞추기

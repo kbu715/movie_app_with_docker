@@ -46,9 +46,9 @@ export function auth() {
   };
 }
 
-export function addToMovie(id) {
+export function addToMovie(objectId) {
   let body = {
-    movieId: id,
+    objId: objectId,
   };
 
   //node로 정보 보내기
@@ -63,20 +63,20 @@ export function addToMovie(id) {
   };
 }
 
-export function getMovieItems(movieItems, userMovie) {
+export function getMovieItems(movieObjIds, userMovie) {
   //node로 정보 보내기
   const request = axios
-    .get(`/api/reservation/reservation_by_id?id=${movieItems}&type=array`)
+    .get(`/api/reservation/reservation_by_id?id=${movieObjIds}&type=array`)
     .then(response => {
-      // movieItem들에 해당하는 정보들을 Reservation Collection에서 가져온후에
-      // Quantity 정보를 넣어 준다.
-      userMovie.forEach(movieItem => {
-        response.data.forEach((reservationDetail, index) => {
-          if (movieItem._id === reservationDetail._id) {
-            response.data[index].quantity = movieItem.quantity;
-          }
-        });
-      });
+      // // movieItem들에 해당하는 정보들을 Reservation Collection에서 가져온후에
+      // // Quantity 정보를 넣어 준다.
+      // userMovie.forEach(movieItem => {
+      //   response.data.forEach((reservationDetail, index) => {
+      //     if (movieItem._id === reservationDetail._id) {
+      //       response.data[index].quantity = movieItem.quantity;
+      //     }
+      //   });
+      // });
 
       return response.data;
     });
@@ -88,19 +88,19 @@ export function getMovieItems(movieItems, userMovie) {
   };
 }
 
-export function removeMovieItem(movieId) {
+export function removeMovieItem(movieObjId) {
   //node로 정보 보내기
   const request = axios
-    .get(`/api/users/removeFromMovie?id=${movieId}`)
+    .get(`/api/users/removeFromMovie?id=${movieObjId}`)
     .then(response => {
       //movieInfo, movie 정보를 조합해서 movieDetail을 만든다.
-      response.data.movie.forEach(item => {
-        response.data.movieInfo.forEach((movie, index) => {
-          if (item.id === movie.id) {
-            response.data.movieInfo[index].quantity = item.quantity;
-          }
-        });
-      });
+      // response.data.movie.forEach(item => {
+      //   response.data.movieInfo.forEach((movie, index) => {
+      //     if (item.id === movie.id) {
+      //       response.data.movieInfo[index].quantity = item.quantity;
+      //     }
+      //   });
+      // });
 
       return response.data;
     });
