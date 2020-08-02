@@ -59,7 +59,7 @@ const Video = ({ video }) => {
   // const closeModal = () => {
   //   setVisible(false);
   // };
-  console.log(video);
+  // console.log(video);
   return (
     <div>
       {/* <Button onClick={openModal}>Trailer</Button> */}
