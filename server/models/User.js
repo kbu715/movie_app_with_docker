@@ -22,6 +22,10 @@ const userSchema = mongoose.Schema({
     type: String,
     maxlength: 50,
   },
+  gender : {
+    type: String,
+    maxlength: 10,
+  },
   role: {
     type: Number,
     default: 2,

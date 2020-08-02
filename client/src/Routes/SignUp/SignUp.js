@@ -16,6 +16,7 @@ function SignUp(props) {
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [FilePath, setFilePath] = useState("");
   const [FileName, setFileName] = useState("");
+  const [Gender, setGender] = useState("");
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
@@ -32,6 +33,11 @@ function SignUp(props) {
   const onConfirmPasswordHandler = (event) => {
     setConfirmPassword(event.currentTarget.value);
   };
+
+  const onGenderHandler = (event) => {
+    setGender(event.currentTarget.value);
+  }
+
   const onDrop = (files) => {
     let formData = new FormData();
     const config = {
@@ -62,6 +68,7 @@ function SignUp(props) {
       password: Password,
       name: Name,
       image: FilePath,
+      gender: Gender,
     };
 
     // redux action => loginUser는 action이름
@@ -79,49 +86,9 @@ function SignUp(props) {
     <div className="auth-wrapper">
       <div className="auth-inner">
         <form onSubmit={onSubmitHandler} style={{ margin: "0" }}>
-          <div className="form-group">
-            <label style={{ marginBottom: "5px" }}>이메일</label>
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Enter Email"
-              value={Email}
-              onChange={onEmailHandler}
-            />
-          </div>
-          <div className="form-group">
-            <label style={{ marginBottom: "5px" }}>이름</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter Name"
-              value={Name}
-              onChange={onNameHandler}
-            />
-          </div>
-          <div className="form-group">
-            <label style={{ marginBottom: "5px" }}>비밀번호</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-              value={Password}
-              onChange={onPasswordHandler}
-            />
-          </div>
-          <div className="form-group">
-            <label style={{ marginBottom: "5px" }}>비밀번호 확인</label>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-              value={ConfirmPassword}
-              onChange={onConfirmPasswordHandler}
-            />
-          </div>
-          <div className="form-group">
-            <label style={{ marginBottom: "10px" }}>프로필 이미지</label>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div className="form-group" style={{ textAlign:"center"}}>
+            <label style={{ marginBottom: "10px", display:"inline-block" }}>프로필 이미지</label><br/>
+            <div style={{ display: "flex", justifyContent: "space-between", display:"inline-block" }}>
               <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
                 {({ getRootProps, getInputProps }) => (
                   <div
@@ -171,6 +138,67 @@ function SignUp(props) {
             <div>{FilePath ? FilePath : "undefined"}</div>
             <div>{FileName ? FileName : "undefined"}</div>
           </div>
+          <div className="form-group">
+            <label style={{ marginBottom: "5px" }}>이메일</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter Email"
+              value={Email}
+              onChange={onEmailHandler}
+            />
+          </div>
+          <div className="form-group">
+            <label style={{ marginBottom: "5px" }}>이름</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter Name"
+              value={Name}
+              onChange={onNameHandler}
+            />
+          </div>
+          <div className="form-group">
+            <label style={{ marginBottom: "5px" }}>비밀번호</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={Password}
+              onChange={onPasswordHandler}
+            />
+          </div>
+          <div className="form-group">
+            <label style={{ marginBottom: "5px" }}>비밀번호 확인</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={ConfirmPassword}
+              onChange={onConfirmPasswordHandler}
+            />
+          </div>
+          <div className="form-group">
+            <label style={{ marginBottom: "5px" }}>성별</label><br/>
+            <label style={{ marginRight: "10px", fontSize:"20px"}}>남자</label>
+            <input
+              type="radio"
+              className="form-control-radio"
+              value={"male"}
+              name={Gender}
+              onClick={onGenderHandler}
+              style={{marginRight: "20px"}}
+            />
+              <label style={{ marginRight: "10px", fontSize:"20px"}}>여자</label>
+          <input
+              type="radio"
+              className="form-control-radio"
+              value={"female"}
+              name={Gender}
+              onClick={onGenderHandler}
+            />
+          </div>
+          
 
           <button type="submit" className="btn btn-primary btn-block">
             회원 가입

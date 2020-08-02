@@ -22,7 +22,7 @@ export default class extends React.Component {
   }
 
   async componentDidMount() {
-    console.log("첫렌더링");
+    // console.log("첫렌더링");
 
     const {
       match: {

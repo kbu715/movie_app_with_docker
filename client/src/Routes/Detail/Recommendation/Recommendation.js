@@ -41,7 +41,7 @@ const Recommendation = ({ recommendation }) => {
   const movies = recommendation.map(movie => (
     <RecommendatinMovie movie={movie} key={movie.id} id={movie.id} />
   ));
-  console.log(movies)
+  // console.log(movies)
   return (
     <>
       {movies.length !== 0 ? <Heading>RECOMMENDATIONS</Heading> : ""}

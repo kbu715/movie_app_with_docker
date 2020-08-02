@@ -80,7 +80,9 @@ const RecentRating = ({recent, user}) => {
     return (
             <Chart>
               <SectionTitle>{user.userData && user.userData.name}님의 최근 별점 목록</SectionTitle>
-                {recent && recent.length > 0 && (
+                { recent.length === 0
+                ? <div style={{ fontSize: "20px", color:"black"}}>최근 목록 없음</div>
+                :(recent && recent.length > 0 && (
                         <SectionGrid>
                             {recent.map((item, index) => (
                                 <PosterContainer key={index}>
@@ -96,7 +98,7 @@ const RecentRating = ({recent, user}) => {
                                 </PosterContainer>
                             ))}
                         </SectionGrid>
-                )}
+                ))}
                 </Chart>
     );
 };

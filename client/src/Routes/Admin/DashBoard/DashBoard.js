@@ -11,29 +11,27 @@ function DashBoard() {
   const [numOfCGV, setNumOfCGV] = useState(0);
   const [numOfLotte, setNumOfLotte] = useState(0);
   const [numOfMega, setNumOfMega] = useState(0);
+  const [user, setUser] = useState([]);
 
   const fetchTheaters = function () {
-    axios.post("/api/reservation/getList").then(response => {
+    axios.post("/api/reservation/getList").then((response) => {
       if (response.data.success) {
         console.log(response.data.doc);
         console.log(response.data.doc);
-        // console.log(response.data.doc[0].theaters[0].theaters);
-        // console.log(response.data.doc[1].theaters[0].theaters);
-        // console.log(response.data.doc[2].theaters[0].theaters);
-        const countTheaters = response.data.doc.map(r => {
+        const countTheaters = response.data.doc.map((r) => {
           return r.theaters[0].theaters;
         });
         console.log(countTheaters);
-        countTheaters.forEach(element => {
+        countTheaters.forEach((element) => {
           switch (element) {
             case "CGV":
-              setNumOfCGV(numOfCGV => numOfCGV + 1);
+              setNumOfCGV((numOfCGV) => numOfCGV + 1);
               break;
             case "롯데시네마":
-              setNumOfLotte(numOfLotte => numOfLotte + 1);
+              setNumOfLotte((numOfLotte) => numOfLotte + 1);
               break;
             case "메가박스":
-              setNumOfMega(numOfMega => numOfMega + 1);
+              setNumOfMega((numOfMega) => numOfMega + 1);
               break;
             default:
               break;
@@ -45,9 +43,32 @@ function DashBoard() {
     });
   };
 
+  const fetchUsers = function () {
+    axios.get("/api/users/management").then((response) => {
+      if (response.data.success) {
+        console.log(response.data.users);
+        setUser(response.data.users);
+      } else {
+        console.log("불러오기 실패");
+      }
+    });
+  };
+
   useEffect(() => {
     fetchTheaters();
+    fetchUsers();
   }, []);
+
+  const userGender = user.map((item) => item.gender);
+  let male = 0,
+    female = 0;
+  userGender.forEach((element) => {
+    if (element === "male") {
+      male++;
+    } else {
+      female++;
+    }
+  });
 
   const expData = {
     labels: ["메가박스", "CGV", "롯데시네마"],
@@ -55,6 +76,24 @@ function DashBoard() {
       {
         labels: ["메가박스", "CGV", "롯데시네마"],
         data: [numOfMega, numOfCGV, numOfLotte],
+        borderWidth: 3,
+        hoverBorderWidth: 4,
+        backgroundColor: [
+          "rgba(238, 102, 121, 1)",
+          "rgba(98, 181, 229, 1)",
+          "rgba(255, 198, 0, 1)",
+        ],
+        fill: true,
+      },
+    ],
+  };
+
+  const expDataUserGender = {
+    labels: ["남자", "여자"],
+    datasets: [
+      {
+        labels: ["남자", "여자"],
+        data: [male, female],
         borderWidth: 3,
         hoverBorderWidth: 4,
         backgroundColor: [
@@ -203,7 +242,7 @@ function DashBoard() {
                 position: "right",
               },
             }}
-            data={expData}
+            data={expDataUserGender}
             height={80}
           />
         </div>
