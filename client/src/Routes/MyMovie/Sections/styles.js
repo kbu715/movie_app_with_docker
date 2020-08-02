@@ -1,14 +1,15 @@
 export default theme => ({
     root: {},
     tableRow: {
-      height: '64px'
+      height: '64px',
     },
     tableCell: {
-      whiteSpace: 'nowrap'
+      whiteSpace: 'nowrap',
+      color:'white'
     },
     tableCellInner: {
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     avatar: {
       backgroundColor: theme.palette.primary.main,

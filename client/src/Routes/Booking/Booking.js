@@ -219,7 +219,7 @@ function Booking({ id, title, bgImage, userFrom }) {
 
   //결제후 DB저장
   const transactionSuccess = (data, e) => {
-    const movieId = MovieId;
+    // const movieId = MovieId;
     if (!selectDay || !theaters || !time || !id || !title) {
       return alert("모든 값을 넣어주셔야 합니다.");
     }
