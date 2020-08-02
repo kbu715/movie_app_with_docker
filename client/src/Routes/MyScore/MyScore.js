@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Loader from "../../Components/Loader";
 import MyScoreSection from "./MyScoreSection";
 import MyScorePoster from "./MyScorePoster";
-import ProgressBar from '@ramonak/react-progress-bar'
+import ProgressBar from "@ramonak/react-progress-bar";
 import axios from "axios";
 
 const Container = styled.div`
@@ -47,16 +47,18 @@ function MyScore() {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=${CurrentPage}&region=KR`;
     fetchMovies(endpoint);
     window.addEventListener("scroll", handleScroll);
-    
-    axios.post("/api/myscore/myCount", {
-      userFrom: localStorage.getItem("userId")
-    }).then(response => {
-      if (response.data.success) {
-        setCount(response.data.obj.length)
-      } else {
-        console.log('fail');
-      }
-    })
+
+    axios
+      .post("/api/myscore/myCount", {
+        userFrom: localStorage.getItem("userId"),
+      })
+      .then((response) => {
+        if (response.data.success) {
+          setCount(response.data.obj.length);
+        } else {
+          console.log("fail");
+        }
+      });
   }, []);
 
   const fetchMovies = (endpoint) => {
@@ -64,8 +66,9 @@ function MyScore() {
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
-        setMovies([...Movies, ...result.results])
-
+        let temp = result.results;
+        let newResult = temp.filter((item) => item.adult === false);
+        setMovies([...Movies, ...newResult]);
         setCurrentPage(result.page);
       }, setLoading(false))
       .catch((error) => console.error("Error:", error));
@@ -102,6 +105,9 @@ function MyScore() {
     );
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom >= docHeight - 1) {
+      if(buttonRef.current === null) {
+        return 0
+      } 
       buttonRef.current.click();
     }
   };
@@ -114,38 +120,38 @@ function MyScore() {
       {Loading ? (
         <Loader />
       ) : (
-          <Container>
-            <Select>{count}</Select>
-            <Progress>
-              <ProgressBar completed={count} bgcolor={"yellow"} labelColor={"black"} />
-            </Progress>
-            {Movies && Movies.length > 0 && (
-              <MyScoreSection title="My Score">
-                {Movies.map((movie,index) => (
-                  <MyScorePoster
-                    key={index}
-                    movieId={movie.id}
-                    genres={movie.genre_ids[0]}
-                    imageUrl={movie.poster_path}
-                    title={movie.title}
-                    count={count}
-                    setCount={setCount}
-                  />
-                ))}
-              </MyScoreSection>
-            )}
+        <Container>
+          <Select>{count}</Select>
+          <Progress>
+            <ProgressBar
+              completed={count}
+              bgcolor={"yellow"}
+              labelColor={"black"}
+            />
+          </Progress>
+          {Movies && Movies.length > 0 && (
+            <MyScoreSection title="My Score">
+              {Movies.map((movie, index) => (
+                <MyScorePoster
+                  key={index}
+                  movieId={movie.id}
+                  genres={movie.genre_ids[0]}
+                  imageUrl={movie.poster_path}
+                  title={movie.title}
+                  count={count}
+                  setCount={setCount}
+                />
+              ))}
+            </MyScoreSection>
+          )}
 
-            {Loading && <div>Loading...</div>}
-            <br />
-            <Button
-              ref={buttonRef}
-              className="loadMore"
-              onClick={loadMoreItems}
-            >
-              Load More
-            </Button>
-          </Container>
-        )}
+          {Loading && <div>Loading...</div>}
+          <br />
+          <Button ref={buttonRef} className="loadMore" onClick={loadMoreItems}>
+            Load More
+          </Button>
+        </Container>
+      )}
     </>
   );
 }
