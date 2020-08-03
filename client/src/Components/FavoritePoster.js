@@ -144,7 +144,11 @@ const FavoritePoster = ({
   return (
     <Container>
       <ImageContainer>
-        <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
+        <Image bgUrl={
+          imageUrl
+            ? `https://image.tmdb.org/t/p/w300${imageUrl}`
+            : "https://www.movienewz.com/img/films/poster-holder.jpg"
+        } />
 
         <Rating>
           <span role="img" aria-label="rating">

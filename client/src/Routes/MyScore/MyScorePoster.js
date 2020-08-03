@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import MyScoreRating from "./MyScoreRating";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   font-size: 12px;
@@ -93,21 +94,39 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const MyScorePoster = ({ movieId, imageUrl, title, count, setCount, genres }) => (
+const MyScorePoster = ({
+  movieId,
+  imageUrl,
+  title,
+  count,
+  setCount,
+  genres,
+  isMovie=false
+}) => (
+  <Link to={isMovie ? `/movie/${movieId}` : `/show/${movieId}`}>
   <Container>
     <ImageContainer>
-      <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
+      <Image
+        bgUrl={
+          imageUrl
+            ? `https://image.tmdb.org/t/p/w300${imageUrl}`
+            : "https://www.movienewz.com/img/films/poster-holder.jpg"
+        }
+      />
     </ImageContainer>
     <RatingsWrapper>
       <Title>{title.length > 8 ? `${title.substring(0, 4)}...` : title}</Title>
     </RatingsWrapper>
-    <MyScoreRating  movieId={movieId}
-                    count={count}
-                    genres={genres}
-                    setCount={setCount}
-                    imageUrl={imageUrl}
-                    title={title}/>
+    <MyScoreRating
+      movieId={movieId}
+      count={count}
+      genres={genres}
+      setCount={setCount}
+      imageUrl={imageUrl}
+      title={title}
+    />
   </Container>
+  </Link>
 );
 
 MyScorePoster.propTypes = {

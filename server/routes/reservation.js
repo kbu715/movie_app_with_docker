@@ -11,6 +11,7 @@ router.post("/", (req, res) => {
   });
 });
 
+//select * from reservation where title = title
 router.post("/findSeat", (req, res) => {
   Reservation.find({ title: req.body.title }).exec((err, seats) => {
     if (err) return res.status(400).json({ success: false, err });
@@ -18,6 +19,7 @@ router.post("/findSeat", (req, res) => {
   });
 });
 
+//해다영화ID값의 _id필드값 (select _id from reservation where id:req.bod.id)
 router.post("/getMovieId", (req, res) => {
   Reservation.find({ id: req.body.id }, ["_id"]).exec((err, doc) => {
     if (err) return res.status(400).json({ success: false, err });

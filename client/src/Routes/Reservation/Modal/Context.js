@@ -18,7 +18,7 @@ export const SeatA = [
   { key: 5, value: "A5" },
   { key: 6, value: "A6" },
   { key: 7, value: "A7" },
-  { key: 8, value: "A8" },
+  
 ];
 
 export const SeatB = [

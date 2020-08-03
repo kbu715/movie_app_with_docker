@@ -8,6 +8,7 @@ import Poster from "../../Components/Poster";
 import Helmet from "react-helmet";
 import { withRouter } from "react-router-dom";
 
+
 const Container = styled.div`
   padding: 10px;
   scroll-behavior: smooth;
@@ -57,7 +58,6 @@ const Hero = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  /* background-size: cover; */
 `;
 const HeroContent = styled.div`
   position: relative;
@@ -102,6 +102,8 @@ const AButton = styled.a`
     color: gray;
   }
 `;
+
+
 
 const HomePresenter = ({
   nowPlaying,
@@ -161,7 +163,7 @@ const HomePresenter = ({
             </Effect>
           </Hero>
           <TopSection>
-            {trending && trending.length > 0 && (
+            {/* {trending && trending.length > 0 && (
               <Section title="인기 상영작">
                 {trending.map((movie) => (
                   <Poster
@@ -175,7 +177,10 @@ const HomePresenter = ({
                   />
                 ))}
               </Section>
-            )}
+            )} */}
+
+
+            
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
               <Section title="현재 상영중">
@@ -207,7 +212,7 @@ const HomePresenter = ({
                 ))}
               </Section>
             )}
-            {popular && popular.length > 0 && (
+            {/* {popular && popular.length > 0 && (
               <Section title="흥행순">
                 {popular.map((movie) => (
                   <Poster
@@ -221,7 +226,7 @@ const HomePresenter = ({
                   />
                 ))}
               </Section>
-            )}
+            )} */}
           </TopSection>
           {error && <Message color="#e74c3c" text={error} />}
         </Container>
@@ -229,6 +234,9 @@ const HomePresenter = ({
     )}
   </>
 );
+
+
+
 class HeroButton extends React.Component {
   render() {
     return (

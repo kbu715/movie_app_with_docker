@@ -5,7 +5,6 @@ import Dropzone from "react-dropzone";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
 
-
 const { Title } = Typography;
 // const { TextArea } = Input;
 
@@ -90,38 +89,108 @@ function UpdateProfile(props) {
 
   return (
     <>
-      <div
-        style={{
-          maxWidth: "700px",
-          margin: "2rem auto",
-        }}
-      >
+      <div style={{ margin: "2rem auto" }}>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <Title style={{ color: "white" }} level={2}>
+          {/* <Title style={{ color: "white" }} level={2}>
             {" "}
             Update
-          </Title>
+          </Title> */}
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
-            {({ getRootProps, getInputProps }) => (
-              <div
-                style={{
-                  width: "280px",
-                  height: "200px",
-                  border: "1px solid lightgray",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                {...getRootProps()}
-              >
-                <input {...getInputProps()} />
-                <PlusOutlined style={{ color: "white", fontSize: "3rem" }} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            float: "left",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#151515",
+              width: "570px",
+              height: "200px",
+                borderRadius:"5px",
+                marginLeft: "60px",
+            }}
+          >
+            <div
+              style={{
+                width: "200px",
+                height: "80px",
+                border: "1px solid red",
+                float: "left",
+                marginTop: "10px",
+                marginLeft: "10px",
+              }}
+            >
+              이름
+            </div>
+            <div
+              style={{
+                border: "1px solid red",
+                width: "125x",
+                height: "125px",
+                marginLeft: "240px",
+                marginTop: "10px",
+                marginRight: "10px",
+              }}
+            >
+              {" "}
+              이미지 업로드
+            </div>
+            <div
+              style={{
+                border: "1px solid #5F5F5F",
+                width: "570px",
+                marginTop: "25px",
+              }}
+            ></div>
+            <div>
+              <div>
+                <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
+                  {({ getRootProps, getInputProps }) => (
+                    <div
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        border: "1px solid lightgray",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        position: "relative",
+                        top: "5px",
+                        left: "5px",
+                      }}
+                      {...getRootProps()}
+                    >
+                      <input {...getInputProps()} />
+                      <PlusOutlined
+                        style={{ color: "white", fontSize: "1rem" }}
+                      />
+                    </div>
+                  )}
+                </Dropzone>
               </div>
-            )}
-          </Dropzone>
-
+              <div>
+                <Button
+                  style={{
+                    // backgroundColor:"#151515",
+                    backgroundColor: "transparent",
+                    borderColor: "transparent",
+                    // borderRadius:"5px",
+                    color: "mediumslateblue",
+                    zIndex: "10",
+                    position: "relative",
+                    bottom: "27px",
+                  }}
+                  type="primary"
+                  size="medium"
+                  // onClick={onSubmit}
+                >
+                  Upload Profile
+                </Button>
+              </div>
+            </div>
+          </div>
           {currentImage !== "" && (
             <div
               style={{
@@ -153,73 +222,170 @@ function UpdateProfile(props) {
             </div>
           )}
         </div>
-
+        {/* ///////////////////////////////////////////////////////////////////////////////////////////// */}
         <Form onSubmit={onSubmit}>
-          <br />
-          <br />
-          <label>Email</label>
-          <br />
-          <Input
-            style={{ height: "56px", width: "460px", borderRadius: "2%" }}
-            value={currentEmail}
-          />
-          <br />
-          <br />
-          <label>Name</label>
-          <br />
-          <Input
-            style={{ height: "56px", width: "460px", borderRadius: "2%" }}
-            value={currentName}
-          />
-          <br />
-          <br />
-
-          <label>currentPassword</label>
-          <br />
-          <Input
-            type="password"
-            style={{ height: "56px", width: "460px", borderRadius: "2%" }}
-            onChange={handleChangeCurrentPassword}
-            value={currentPassword}
-            placeholder="기존 비밀번호"
-            required
-          />
-          <br />
-          <br />
-          <label>New Password</label>
-          <br />
-          <Input
-            type="password"
-            style={{ height: "56px", width: "460px", borderRadius: "2%" }}
-            onChange={handleChangeUpdatePassword}
-            value={updatePassword}
-            placeholder="새 비밀번호"
-          />
-          <br />
-          <br />
-          <label>New Password Confirm</label>
-          <br />
-          <Input
-            type="password"
-            style={{ height: "56px", width: "460px", borderRadius: "2%" }}
-            onChange={handleChangeUpdatePasswordConfirm}
-            value={updatePasswordConfirm}
-            placeholder="새 비밀번호 확인"
-          />
-          <br />
-          <br />
-          <br />
-          <Button
-            style={{ backgroundColor: "red", borderColor: "red" }}
-            type="primary"
-            size="large"
-            onClick={onSubmit}
+          <div
+            style={{
+              // border: "1px solid green",
+              backgroundColor: "#151515",
+              marginLeft: "680px",
+              width: "1150px",
+              height: "350px",
+                borderRadius:"5px",
+                marginTop:"100px"
+            }}
           >
-            Update Profile
-          </Button>
+            <span
+              style={{
+                fontSize: "40px",
+                marginLeft: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              Profile
+            </span>
+            <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
+            {/* <div style={{ width: "700px", height: "270px", border:"1px solid pink" }}> */}
+              <div
+                style={{
+                  // border: "1px solid red",
+                  width: "1050px",
+                  height: "220px",
+                }}
+              >
+                <div
+                  style={{
+                    marginTop: "30px",
+                    marginLeft: "40px",
+                    float: "left",
+                    // border:"1px solid red"
+                  }}
+                >
+                  <div>
+                    <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
+                      Email
+                    </label>
+                    <br />
+                    <Input
+                      style={{
+                        height: "40px",
+                        width: "480px",
+                        borderRadius: "5px",
+                        backgroundColor: "transparent",
+                        color: "#D8D8D8",
+                        borderColor: "#5F5F5F",
+                      }}
+                      value={currentEmail}
+                    />
+                  </div>
+                  <div style={{ marginTop: "30px" }}>
+                    
+                    <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
+                    New Password
+                  </label>
+                  <br />
+                  <Input
+                    type="password"
+                    style={{
+                      height: "40px",
+                      width: "480px",
+                      borderRadius: "5px",
+                      backgroundColor: "transparent",
+                      color: "#D8D8D8",
+                      borderColor: "#5F5F5F",
+                    }}
+                    onChange={handleChangeUpdatePassword}
+                    value={updatePassword}
+                    placeholder="새 비밀번호"
+                  />
+                  </div>
+                </div>
+
+              {/* //          <label>currentPassword</label>
+          // <br />
+          // <Input
+          //   type="password"
+          //   style={{ height: "56px", width: "460px", borderRadius: "2%" }}
+          //   onChange={handleChangeCurrentPassword}
+          //   value={currentPassword}
+          //   placeholder="기존 비밀번호"
+          //   required
+        //   />  */}
+
+
+              <div style={{marginTop: "30px",
+                    marginLeft: "40px",
+                    // border:"1px solid green",
+                    float: "left"}}>
+                <div>
+                <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
+                      Name
+                    </label>
+                    <br />
+                    <Input
+                      style={{
+                        height: "40px",
+                        width: "480px",
+                        borderRadius: "5px",
+                        backgroundColor: "transparent",
+                        color: "#D8D8D8",
+                        borderColor: "#5F5F5F",
+                      }}
+                      value={currentName}
+                    />
+                </div>
+                <div style={{ marginTop: "30px" }}>
+                  <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
+                    New Password Confirm
+                  </label>
+                  <br />
+                  <Input
+                    type="password"
+                    style={{
+                      height: "40px",
+                      width: "480px",
+                      borderRadius: "5px",
+                      backgroundColor: "transparent",
+                      color: "#D8D8D8",
+                      borderColor: "#5F5F5F",
+                    }}
+                    onChange={handleChangeUpdatePasswordConfirm}
+                    value={updatePasswordConfirm}
+                    placeholder="새 비밀번호 확인"
+                  />
+                </div>
+              </div>
+              </div>
+
+              {/* //////////////////////////////////////////////////////////// */}
+
+              <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
+
+              <div
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  marginLeft: "20px",
+                  marginTop: "10px",
+                }}
+              >
+                <Button
+                  style={{
+                    backgroundColor: "mediumslateblue",
+                    borderColor: "mediumslateblue",
+                    borderRadius: "5px",
+                  }}
+                  type="primary"
+                  size="large"
+                  onClick={onSubmit}
+                >
+                  Update Profile
+                </Button>
+            </div>
+              {/* </div> */}
+          </div>
         </Form>
       </div>
-      
     </>
   );
 }
