@@ -93,20 +93,35 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const MyScorePoster = ({ movieId, imageUrl, title, count, setCount, genres }) => (
+const MyScorePoster = ({
+  movieId,
+  imageUrl,
+  title,
+  count,
+  setCount,
+  genres,
+}) => (
   <Container>
     <ImageContainer>
-      <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
+      <Image
+        bgUrl={
+          imageUrl
+            ? `https://image.tmdb.org/t/p/w300${imageUrl}`
+            : require("./그림1.png")
+        }
+      />
     </ImageContainer>
     <RatingsWrapper>
       <Title>{title.length > 8 ? `${title.substring(0, 4)}...` : title}</Title>
     </RatingsWrapper>
-    <MyScoreRating  movieId={movieId}
-                    count={count}
-                    genres={genres}
-                    setCount={setCount}
-                    imageUrl={imageUrl}
-                    title={title}/>
+    <MyScoreRating
+      movieId={movieId}
+      count={count}
+      genres={genres}
+      setCount={setCount}
+      imageUrl={imageUrl}
+      title={title}
+    />
   </Container>
 );
 

@@ -13,7 +13,7 @@ const Test = styled.div`
 `;
 
 const Credits = ({ cast }) => {
-  console.log(cast)
+  // console.log(cast)
   const items = cast.map((person) => (
     <CastItem person={person} key={person.id} />
   ));

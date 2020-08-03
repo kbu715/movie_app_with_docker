@@ -11,14 +11,14 @@ const Header = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 45px;
+  height: 50px;
   display: flex;
   align-items: center;
   z-index: 10;
   top: 0;
   left: 0;
   justify-content: center;
-  background-color: #151515;
+  background-color: #171717;
 `;
 
 const List1 = styled.ul`
@@ -57,7 +57,7 @@ const Item = styled.li`
   float: right;
   text-align: center;
   border-bottom: 5px solid
-    ${props => (props.current ? "mediumslateblue" : "transparent")};
+    ${(props) => (props.current ? "mediumslateblue" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 
   &:hover {
@@ -93,13 +93,13 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector(state => state.user);
+    const user = useSelector((state) => state.user);
 
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then(response => {
+      Axios.get("/api/users/logout").then((response) => {
         if (response.data.success) {
           console.log(response.data);
           props.history.push("/sign-in");
@@ -146,7 +146,7 @@ export default withRouter(
           ) : (
             <List2>
               <Item>
-                <SLink to="/mypage">
+                <SLink to="/mypage/update">
                   {/* 내계정 */}
                   {user.userData && (
                     <div

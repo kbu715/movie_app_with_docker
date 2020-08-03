@@ -53,6 +53,14 @@ html,
   border-radius: 15px;
   transition: all 0.3s;
 }
+
+.form-control-radio:focus {
+  border-color: #167bff;
+  box-shadow: none;
+  font-size: 30px;
+}
+/* .form-control-radio {
+} */
 .auth-wrapper .form-control:focus {
   border-color: #167bff;
   box-shadow: none;

@@ -42,36 +42,28 @@ const GenrePreference = ({ user, topGenre, result }) => {
     ],
   };
 
-  return (
-    <Container>
-      <SectionTitle>
-        {user.userData && user.userData.name}님이 좋아하는 장르
-      </SectionTitle>
-      <div
-        style={{
-          height: "90%",
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
-        <div style={{ display: "flex", width: "100%" }}>
-          <div style={{ display: "flex", width: "100%" }}>
-            <Doughnut
-              options={{
-                legend: {
-                  display: true,
-                  position: "bottom",
-                },
-              }}
-              data={expData}
-              height={200}
-            />
-          </div>
-        </div>
-      </div>
-    </Container>
-  );
+    return (
+        <Container>
+            <SectionTitle>{user.userData && user.userData.name}님이 좋아하는 장르</SectionTitle>
+            <div style={{ height: "90%", display: "flex", justifyContent: "center", flexDirection: "column", }}>
+                <div style={{ display: "flex", width: "100%" }}>
+                    <div style={{ display: "flex", width: "100%", }}>
+                        { result.length === 0 
+                        ? <div style={{ fontSize: "20px", color:"black"}}>분석 결과 없음</div>
+                        : <Doughnut options={{
+                            legend: {
+                                display: true,
+                                position: "bottom",
+                            },
+                        }}
+                        data={expData}
+                        height={200} />
+                    }
+                    </div>
+                </div>
+            </div>
+        </Container>
+    );
 };
 
 export default GenrePreference;

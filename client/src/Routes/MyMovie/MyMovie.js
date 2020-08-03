@@ -11,12 +11,11 @@ function MyMovie(props) {
 
     //리덕스 User state안에 movie안에 결재내역이 있는지 확인
     if (props.user.userData && props.user.userData.movie) {
-      console.log(4, props.user.userData.movie);
       if (props.user.userData.movie.length > 0) {
         props.user.userData.movie.forEach((item) => {
           movieItem.push(item.id);
         });
-        console.log(123123, movieItem);
+
         dispatch(getMovieItems(movieItem, props.user.userData.movie));
       }
     }

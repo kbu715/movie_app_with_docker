@@ -15,14 +15,14 @@ app.use(cookieParser());
 
 const mongoose = require("mongoose");
 mongoose
-  .connect(config.mongoURI, {
+  .connect(config.mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
   })
   .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
   module.exports = { mongoose };
 
