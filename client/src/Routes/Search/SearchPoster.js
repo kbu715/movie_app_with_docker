@@ -84,7 +84,7 @@ const RatingsWrapper = styled.div`
 
 const SearchPoster = ({id, imageUrl, title, rating, year, isMovie = false
 }) => (
-  <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
+  <Link to={`/movie/${id}`}>
   <Container>
     <ImageContainer>
       <Image

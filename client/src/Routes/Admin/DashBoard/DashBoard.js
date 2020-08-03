@@ -13,25 +13,126 @@ function DashBoard() {
   const [numOfMega, setNumOfMega] = useState(0);
   const [user, setUser] = useState([]);
 
-  const fetchTheaters = function () {
-    axios.post("/api/reservation/getList").then((response) => {
+  // 19개 장르
+  const [action, setAction] = useState(0)
+  const [adventure, setAdventure] = useState(0)
+  const [ani, setAni] = useState(0)
+  const [comedy, setComedy] = useState(0)
+  const [crime, setCrime] = useState(0)
+  const [docu, setDocu] = useState(0)
+  const [drama, setDrama] = useState(0)
+  const [family, setFamily] = useState(0)
+  const [fantasy, setFantasy] = useState(0)
+  const [history, setHistory] = useState(0)
+  const [horror, setHorror] = useState(0)
+  const [music, setMusic] = useState(0)
+  const [mystery, setMystery] = useState(0)
+  const [romance, setRomance] = useState(0)
+  const [sf, setSF] = useState(0)
+  const [tv, setTV] = useState(0)
+  const [thriller, setThriller] = useState(0)
+  const [war, setWar] = useState(0)
+  const [western, setWestern] = useState(0)
+
+
+  // const fetchTheaters = function () {
+  //   axios.post("/api/reservation/getList").then(response => {
+  //     if (response.data.success) {
+  //       console.log(response.data.doc);
+  //       // console.log(response.data.doc[0].theaters[0].theaters);
+  //       // console.log(response.data.doc[1].theaters[0].theaters);
+  //       // console.log(response.data.doc[2].theaters[0].theaters);
+  //       const countTheaters = response.data.doc.map(r => {
+  //         return r.theaters[0].theaters;
+  //       });
+  //       console.log(countTheaters);
+  //       countTheaters.forEach(element => {
+  //         switch (element) {
+  //           case "CGV":
+  //             setNumOfCGV(numOfCGV => numOfCGV + 1);
+  //             break;
+  //           case "롯데시네마":
+  //             setNumOfLotte(numOfLotte => numOfLotte + 1);
+  //             break;
+  //           case "메가박스":
+  //             setNumOfMega(numOfMega => numOfMega + 1);
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       });
+  //     } else {
+  //       alert("실패했습니다");
+  //     }
+  //   });
+  // };
+
+  const fetchGenres = function(){
+    axios.post("/api/myscore/getAllGenres").then(response => {
       if (response.data.success) {
-        console.log(response.data.doc);
-        console.log(response.data.doc);
-        const countTheaters = response.data.doc.map((r) => {
-          return r.theaters[0].theaters;
+        // console.log(response.data.genres);
+        const listOfGenreNum = response.data.genres.map(g => {
+          return g.genres;
         });
-        console.log(countTheaters);
-        countTheaters.forEach((element) => {
+        // console.log(typeof listOfGenreNum[0])
+        listOfGenreNum.forEach(element => {
           switch (element) {
-            case "CGV":
-              setNumOfCGV((numOfCGV) => numOfCGV + 1);
+            case 28:
+              setAction(action => action + 1);
               break;
-            case "롯데시네마":
-              setNumOfLotte((numOfLotte) => numOfLotte + 1);
+            case 12:
+              setAdventure(adventure => adventure + 1);
               break;
-            case "메가박스":
-              setNumOfMega((numOfMega) => numOfMega + 1);
+            case 16:
+              setAni(ani => ani + 1);
+              break;
+            case 35:
+              setComedy(comedy => comedy + 1);
+              break;
+            case 80:
+              setCrime(crime => crime + 1);
+              break;
+            case 99:
+              setDocu(docu => docu + 1);
+              break;
+            case 18:
+              setDrama(drama => drama + 1);
+              break;
+            case 10751:
+              setFamily(family => family + 1);
+              break;
+            case 14:
+              setFantasy(fantasy => fantasy + 1);
+              break;
+            case 36:
+              setHistory(history => history + 1);
+              break;
+            case 27:
+              setHorror(horror => horror + 1);
+              break;
+            case 10402:
+              setMusic(music => music + 1);
+              break;
+            case 9648:
+              setMystery(mystery => mystery + 1);
+              break;
+            case 10749:
+              setRomance(romance => romance + 1);
+              break;
+            case 878:
+              setSF(sf => sf + 1);
+              break;
+            case 10770:
+              setTV(tv => tv + 1);
+              break;
+            case 53:
+              setThriller(thriller => thriller + 1);
+              break;
+            case 10752:
+              setWar(war => war + 1);
+              break;
+            case 37:
+              setWestern(western => western + 1);
               break;
             default:
               break;
@@ -41,7 +142,7 @@ function DashBoard() {
         alert("실패했습니다");
       }
     });
-  };
+  }
 
   const fetchUsers = function () {
     axios.get("/api/users/management").then((response) => {
@@ -54,8 +155,13 @@ function DashBoard() {
     });
   };
 
+
+
+
+
   useEffect(() => {
-    fetchTheaters();
+    // fetchTheaters();
+    fetchGenres();
     fetchUsers();
   }, []);
 
@@ -112,7 +218,7 @@ function DashBoard() {
     margin: "70px 10px 10px 10px",
   };
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul"],
+    labels: ["액션", "모험", "애니", "코미디", "범죄", "다큐", "드라마", "가족", "판타지", "역사", "공포", "음악", "미스터리", "로맨스", "SF", "TV", "스릴러", "전쟁", "서부"],
     datasets: [
       {
         label: "My First dataset",
@@ -133,7 +239,7 @@ function DashBoard() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: [1, 2, 3, 4, 5, 6, 7],
+        data: [action, adventure, ani, comedy, crime, docu, drama, family, fantasy, history, horror, music, mystery, romance, sf, tv, thriller, war, western],
       },
     ],
   };

@@ -127,6 +127,7 @@ const MyScorePoster = ({
       title={title}
     />
   </Container>
+  
 );
 
 MyScorePoster.propTypes = {

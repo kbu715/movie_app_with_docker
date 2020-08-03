@@ -5,6 +5,7 @@ import Ratingg from "../Components/Rating";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -143,6 +144,7 @@ const FavoritePoster = ({
   const classes = useStyles();
   return (
     <Container>
+      <Link to={`/movie/${id}`}>
       <ImageContainer>
         <Image bgUrl={
           imageUrl
@@ -157,6 +159,7 @@ const FavoritePoster = ({
           {rating}/10
         </Rating>
       </ImageContainer>
+      </Link>
       <RatingsWrapper>
         <Title>
           {/* <DelBtn
