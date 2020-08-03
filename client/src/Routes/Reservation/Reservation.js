@@ -1,3 +1,4 @@
+import "date-fns";
 import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import { Grid, TextField, MenuItem } from "@material-ui/core";
@@ -11,26 +12,12 @@ import DatePicker, { utils } from "react-modern-calendar-datepicker";
 const Continentss = [
   { key: 1, value: "11:00" },
   { key: 2, value: "13:00" },
-  { key: 3, value: "15:00" }, 
+  { key: 3, value: "15:00" },
   { key: 4, value: "17:00" },
-  { key: 5, value: "19:00" },
-  { key: 6, value: "21:00" },
-  { key: 7, value: "23:00" },
-  { key: 8, value: "01:00" },
-  { key: 9, value: "03:00" },
 ];
-const Cinema = [
-  { key: 1, value: "CGV" }, 
-  { key: 2, value: "롯데시네마" },
-  { key: 3, value: "메가박스" },
-];
-
-
 
 const Reservation = ({ id, title, bgImage, userFrom }) => {
-
   const [selectDay, setSelectedDay] = useState(null);
-  const [theaters, setTheaters] = useState("");
   const [time, setTime] = useState(0);
 
   const renderCustomInput = ({ ref }) => (
@@ -54,28 +41,23 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       className="my-custom-input-class"
     />
   );
-  const onTheaters = event => {
-    setTheaters({ theaters: event.target.value });
-  };
 
-  const onTime = event => {
+  const onTime = (event) => {
     setTime({ time: event.target.value });
   };
   return (
     <>
       <Popup
         trigger={
-          // <Button className="button">
           <Button variant="contained" color="primary">
             간편예매
           </Button>
-          // </Button>
         }
         modal
         closeOnDocumentClick={true}
         triggerOn="click"
       >
-        <Grid container spacing={3}>
+        <Grid container spacing={2} style={{ background: "#242333" }}>
           <Grid item xs>
             <DatePicker
               value={selectDay}
@@ -91,39 +73,19 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
               color="secondary"
               fullWidth
               select
-              value={theaters}
-              label="Cinema"
-              variant="filled"
-              onChange={onTheaters}
-            >
-              {Cinema.map((cinema, index) => (
-                <MenuItem key={cinema.key} value={cinema.value}>
-                  {cinema.value}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-
-          <Grid item xs>
-            <TextField
-              color="secondary"
-              fullWidth
-              select
               value={time}
               label="Time"
               variant="filled"
               onChange={onTime}
             >
-              {Continentss.map(item => (
+              {Continentss.map((item) => (
                 <MenuItem key={item.key} value={item.value}>
                   {item.value}
                 </MenuItem>
               ))}
             </TextField>
           </Grid>
-
         </Grid>
-
 
         {/* ------------------------------------------------------------------------------------ */}
         <Popup
@@ -131,18 +93,23 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
             // <Button className="button">
             <Button variant="contained" color="primary">
               다음
-          </Button>
+            </Button>
             // </Button>
           }
           modal
           closeOnDocumentClick={true}
           triggerOn="click"
         >
-          <Booking id={id} title={title} bgImage={bgImage} userFrom={userFrom} selectDay={selectDay} time={time} theaters={theaters} />
+          <Booking
+            id={id}
+            title={title}
+            bgImage={bgImage}
+            userFrom={userFrom}
+            selectDay={selectDay}
+            time={time}
+          />
         </Popup>
       </Popup>
-
-
     </>
   );
 };

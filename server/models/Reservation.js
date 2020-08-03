@@ -12,10 +12,7 @@ const reservationSchema = mongoose.Schema(
     title: {
       type: String,
     },
-    theaters: {
-      type: Array,
-      default: [],
-    },
+
     selectDay: {
       type: Array,
       default: [],
