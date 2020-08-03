@@ -58,7 +58,7 @@ const SideWrapper = styled.div`
 const Cover = styled.div`
   width: 95%;
   height: 50%;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
 
   background-position: center center;
 
@@ -102,64 +102,52 @@ const Container = styled.div`
   margin: 20px 0;
 `;
 
-
 //------------------------------------------------------------------------------------------
-function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
-  console.log("selectDay", selectDay);
-  console.log("time", time);
-  console.log("theaters", theaters);
-
+function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   const dispatch = useDispatch();
-
-
+  console.log("selectDay", selectDay);
   const [Continent, setContinent] = useState(0);
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
+  const [DBtime, setDBtime] = useState("");
+  const [DBselectDay, setDBselectDay] = useState("");
 
   const movieTitle = {
     title: title,
-    // selectDay : selectDay,
-    // time : time,
   };
 
   useEffect(() => {
     axios
       .post("/api/reservation/findSeat", movieTitle)
-      .then(async response => {
+      .then(async (response) => {
         if (response.data.success) {
-          console.log(123, response.data.seats);
           let seatlist = [];
-          let time = "";
+          let DBtime = "";
           let DBselectDay = "";
-          response.data.seats.map(obj => {
-            time = obj.time[0].time;
-            DBselectDay = obj.selectDay[0].year + "-" + obj.selectDay[0].month + "-" + obj.selectDay[0].day;
+          response.data.seats.map((obj) => {
+            DBtime = obj.time[0].time;
+            DBselectDay =
+              obj.selectDay[0].year +
+              "-" +
+              obj.selectDay[0].month +
+              "-" +
+              obj.selectDay[0].day;
             seatlist.push(obj.seat);
-
           });
           const flatlist = seatlist.flat();
           setDistinct(flatlist);
-
-
-
-
+          setDBtime(DBtime);
+          setDBselectDay(DBselectDay);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
-
-
-
-
   }, []);
 
-
-
-
   //seat 색 변경
-  const onSeatChange = e => {
+  const onSeatChange = (e) => {
     if (
       e.target.classList.contains("seat") &&
       !e.target.classList.contains("occupied")
@@ -169,29 +157,27 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
     }
   };
 
-  const onCount = event => {
+  const onCount = (event) => {
     setContinent(event.target.value);
     setPrice(event.target.value * 100);
   };
 
   //결제후 DB저장
   const transactionSuccess = (data, e) => {
-
-    if (!selectDay || !theaters || !time || !id || !title) {
+    if (!selectDay || !time || !id || !title) {
       return alert("모든 값을 넣어주셔야 합니다.");
     }
     const body = {
       userFrom: userFrom,
       id: id,
       title: title,
-      theaters: theaters,
       selectDay: selectDay,
       time: time,
       continent: Continent,
       seat: Seat,
       price: Price,
     };
-    axios.post("/api/reservation", body).then(response => {
+    axios.post("/api/reservation", body).then((response) => {
       if (response.data.success) {
         alert("예매 성공");
 
@@ -202,12 +188,11 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
       }
     });
 
-
     dispatch(addToMovie(id));
   };
 
   //좌석과 인원 맞추기
-  const onCompareSeat = event => {
+  const onCompareSeat = (event) => {
     if (Continent < Seat.length + 1) {
       //인원보다 좌석지정이 많을경우
       alert("좌석 지정이 완료 되었습니다.");
@@ -219,43 +204,18 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
   return (
     <>
       <NavSub>
-        {/* <DatePicker
-          value={selectDay}
-          onChange={setSelectedDay}
-          minimumDate={utils().getToday()}
-          renderInput={renderCustomInput}
-          shouldHighlightWeekends
-        />
-        <Select onChange={onTheaters}>
-          <option>CGV</option>
-          <option>메가박스</option>
-          <option>롯데시네마</option>
-        </Select>
-        <Select onChange={onTime}>
-          {Continentss.map((item) => (
-            <option key={item.key} value={item.value}>
-              {item.value}
-            </option>
-          ))}
-        </Select> */}
-
         <Grid container spacing={3}>
-
-
-
-
-
           <Grid item xs>
             <TextField
               color="secondary"
               fullWidth
               select
               value={Continents}
-              label="Numbers"
+              label="인원"
               variant="filled"
               onChange={onCount}
             >
-              {Continents.map(item => (
+              {Continents.map((item) => (
                 <MenuItem key={item.key} value={item.key}>
                   {item.value}
                 </MenuItem>
@@ -274,11 +234,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
             <Title>
               <table>
                 <tbody>
-                  {/* <tr>
-                    <th>영화관</th>
-                    <td>{theaters.theaters}</td>
-                  </tr>
-
                   <tr>
                     <th>날짜</th>
                     <td>
@@ -290,7 +245,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
                   <tr>
                     <th>시간</th>
                     <td>{time.time}</td>
-                  </tr> */}
+                  </tr>
 
                   <tr>
                     <th>인원</th>
@@ -318,7 +273,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
               가격<PriceTag>{Price}</PriceTag>
             </Title>
 
-            {/* <Paypal onSuccess={transactionSuccess} Price={Price} /> */}
+            <Paypal onSuccess={transactionSuccess} Price={Price} />
           </SideFlex>
         </SideWrapper>
 
@@ -336,54 +291,44 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
               <div className="seat occupied"></div> <Small>선택완료</Small>
             </li>
           </ul>
+
+          {/* {DBtime === time.time && ( */}
           <Container onClick={onSeatChange}>
             <div className="container">
               <div className="screen"></div>
 
               {/* 좌석 */}
-              <div className="row">
-
-                {SeatA.map(item => {
-
-                  if (Distinct.includes(item.value)) {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat occupied"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  }
-
-
-                })}
-              </div>
-
-              <div className="row">
-                {SeatB.map(item => {
-                  if (Distinct.includes(item.value)) {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat occupied"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  } else {
+              {DBtime === time.time &&
+              DBselectDay ===
+                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+                <div className="row">
+                  {SeatA.map((item) => {
+                    if (Distinct.includes(item.value)) {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat occupied"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              ) : (
+                <div className="row">
+                  {SeatA.map((item) => {
                     return (
                       <div
                         key={item.key}
@@ -393,23 +338,41 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
                         {item.value}
                       </div>
                     );
-                  }
-                })}
-              </div>
+                  })}
+                </div>
+              )}
 
-              <div className="row">
-                {SeatC.map(item => {
-                  if (Distinct.includes(item.value)) {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat occupied"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  } else {
+              {DBtime === time.time &&
+              DBselectDay ===
+                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+                <div className="row">
+                  {SeatB.map((item) => {
+                    if (Distinct.includes(item.value)) {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat occupied"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              ) : (
+                <div className="row">
+                  {SeatB.map((item) => {
                     return (
                       <div
                         key={item.key}
@@ -419,23 +382,41 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
                         {item.value}
                       </div>
                     );
-                  }
-                })}
-              </div>
+                  })}
+                </div>
+              )}
 
-              <div className="row">
-                {SeatD.map(item => {
-                  if (Distinct.includes(item.value)) {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat occupied"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  } else {
+              {DBtime === time.time &&
+              DBselectDay ===
+                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+                <div className="row">
+                  {SeatC.map((item) => {
+                    if (Distinct.includes(item.value)) {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat occupied"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              ) : (
+                <div className="row">
+                  {SeatC.map((item) => {
                     return (
                       <div
                         key={item.key}
@@ -445,23 +426,41 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
                         {item.value}
                       </div>
                     );
-                  }
-                })}
-              </div>
+                  })}
+                </div>
+              )}
 
-              <div className="row">
-                {SeatE.map(item => {
-                  if (Distinct.includes(item.value)) {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat occupied"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  } else {
+              {DBtime === time.time &&
+              DBselectDay ===
+                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+                <div className="row">
+                  {SeatD.map((item) => {
+                    if (Distinct.includes(item.value)) {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat occupied"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              ) : (
+                <div className="row">
+                  {SeatD.map((item) => {
                     return (
                       <div
                         key={item.key}
@@ -471,23 +470,41 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
                         {item.value}
                       </div>
                     );
-                  }
-                })}
-              </div>
+                  })}
+                </div>
+              )}
 
-              <div className="row">
-                {SeatF.map(item => {
-                  if (Distinct.includes(item.value)) {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat occupied"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  } else {
+              {DBtime === time.time &&
+              DBselectDay ===
+                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+                <div className="row">
+                  {SeatE.map((item) => {
+                    if (Distinct.includes(item.value)) {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat occupied"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              ) : (
+                <div className="row">
+                  {SeatE.map((item) => {
                     return (
                       <div
                         key={item.key}
@@ -497,23 +514,41 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
                         {item.value}
                       </div>
                     );
-                  }
-                })}
-              </div>
+                  })}
+                </div>
+              )}
 
-              <div className="row">
-                {SeatG.map(item => {
-                  if (Distinct.includes(item.value)) {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat occupied"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  } else {
+              {DBtime === time.time &&
+              DBselectDay ===
+                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+                <div className="row">
+                  {SeatF.map((item) => {
+                    if (Distinct.includes(item.value)) {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat occupied"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              ) : (
+                <div className="row">
+                  {SeatF.map((item) => {
                     return (
                       <div
                         key={item.key}
@@ -523,11 +558,56 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theaters }) {
                         {item.value}
                       </div>
                     );
-                  }
-                })}
-              </div>
+                  })}
+                </div>
+              )}
+
+              {DBtime === time.time &&
+              DBselectDay ===
+                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+                <div className="row">
+                  {SeatG.map((item) => {
+                    if (Distinct.includes(item.value)) {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat occupied"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={item.key}
+                          className="seat"
+                          onClick={onCompareSeat}
+                        >
+                          {item.value}
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              ) : (
+                <div className="row">
+                  {SeatG.map((item) => {
+                    return (
+                      <div
+                        key={item.key}
+                        className="seat"
+                        onClick={onCompareSeat}
+                      >
+                        {item.value}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </Container>
+          {/* )} */}
         </Wrapper>
       </Nav>
     </>
