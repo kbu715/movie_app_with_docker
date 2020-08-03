@@ -38,7 +38,7 @@ function ReservationList() {
           <Table dataSource={Reservation}>
             <Column title="영화번호" dataIndex="id" key="id" />
             <Column title="제목" dataIndex="title" key="title" />
-            <Column
+            {/* <Column
               title="상영관"
               dataIndex="theaters"
               key="theaters"
@@ -49,7 +49,7 @@ function ReservationList() {
                   ))}
                 </>
               )}
-            />
+            /> */}
             <Column
               title="예매날짜"
               dataIndex="selectDay"

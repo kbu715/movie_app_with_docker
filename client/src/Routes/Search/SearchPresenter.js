@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
-import Section from "../MyScore/MyScoreSection";
 import Message from "../../Components/Message";
 import Poster from "./SearchPoster";
+import SearchSection from "./SearchSection";
 
 const Container = styled.div`
   padding: 20px;
@@ -47,7 +47,7 @@ const SearchPresenter = ({
     ) : (
       <>
         {movieResults && movieResults.length > 0 && (
-          <Section title="Movie Results">
+          <SearchSection title="Movie Results">
             {movieResults.map((movie, index) => (
               <Poster
               key={index}
@@ -59,7 +59,7 @@ const SearchPresenter = ({
                 isMovie={true}
               />
             ))}
-          </Section>
+          </SearchSection>
         )}
         {error && <Message color="#e74c3c" text={error} />}
         {movieResults &&

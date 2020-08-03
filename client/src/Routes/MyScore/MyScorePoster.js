@@ -103,8 +103,8 @@ const MyScorePoster = ({
   genres,
   isMovie=false
 }) => (
-  <Link to={isMovie ? `/movie/${movieId}` : `/show/${movieId}`}>
   <Container>
+    <Link to={isMovie ? `/movie/${movieId}` : `/show/${movieId}`}>
     <ImageContainer>
       <Image
         bgUrl={
@@ -114,6 +114,7 @@ const MyScorePoster = ({
         }
       />
     </ImageContainer>
+    </Link>
     <RatingsWrapper>
       <Title>{title.length > 8 ? `${title.substring(0, 4)}...` : title}</Title>
     </RatingsWrapper>
@@ -126,7 +127,7 @@ const MyScorePoster = ({
       title={title}
     />
   </Container>
-  </Link>
+  
 );
 
 MyScorePoster.propTypes = {
