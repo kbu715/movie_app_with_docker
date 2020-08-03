@@ -106,9 +106,10 @@ function UpdateProfile(props) {
           <div
             style={{
               backgroundColor: "#151515",
-              width: "380px",
+              width: "570px",
               height: "200px",
-              marginLeft: "30px",
+                borderRadius:"5px",
+                marginLeft: "60px",
             }}
           >
             <div
@@ -139,7 +140,7 @@ function UpdateProfile(props) {
             <div
               style={{
                 border: "1px solid #5F5F5F",
-                width: "380px",
+                width: "570px",
                 marginTop: "25px",
               }}
             ></div>
@@ -227,9 +228,11 @@ function UpdateProfile(props) {
             style={{
               // border: "1px solid green",
               backgroundColor: "#151515",
-              marginLeft: "430px",
-              width: "850px",
-              height: "360px",
+              marginLeft: "680px",
+              width: "1150px",
+              height: "350px",
+                borderRadius:"5px",
+                marginTop:"100px"
             }}
           >
             <span
@@ -241,19 +244,19 @@ function UpdateProfile(props) {
             >
               Profile
             </span>
-            <div style={{ border: "1px solid #5F5F5F", width: "850px" }}></div>
+            <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
             {/* <div style={{ width: "700px", height: "270px", border:"1px solid pink" }}> */}
               <div
                 style={{
                   // border: "1px solid red",
-                  width: "850px",
-                  height: "230px",
+                  width: "1050px",
+                  height: "220px",
                 }}
               >
                 <div
                   style={{
                     marginTop: "30px",
-                    marginLeft: "20px",
+                    marginLeft: "40px",
                     float: "left",
                     // border:"1px solid red"
                   }}
@@ -265,8 +268,8 @@ function UpdateProfile(props) {
                     <br />
                     <Input
                       style={{
-                        height: "36px",
-                        width: "370px",
+                        height: "40px",
+                        width: "480px",
                         borderRadius: "5px",
                         backgroundColor: "transparent",
                         color: "#D8D8D8",
@@ -284,8 +287,8 @@ function UpdateProfile(props) {
                   <Input
                     type="password"
                     style={{
-                      height: "36px",
-                      width: "370px",
+                      height: "40px",
+                      width: "480px",
                       borderRadius: "5px",
                       backgroundColor: "transparent",
                       color: "#D8D8D8",
@@ -311,7 +314,8 @@ function UpdateProfile(props) {
 
 
               <div style={{marginTop: "30px",
-                    marginLeft: "50px",
+                    marginLeft: "40px",
+                    // border:"1px solid green",
                     float: "left"}}>
                 <div>
                 <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
@@ -320,8 +324,8 @@ function UpdateProfile(props) {
                     <br />
                     <Input
                       style={{
-                        height: "36px",
-                        width: "370px",
+                        height: "40px",
+                        width: "480px",
                         borderRadius: "5px",
                         backgroundColor: "transparent",
                         color: "#D8D8D8",
@@ -338,8 +342,8 @@ function UpdateProfile(props) {
                   <Input
                     type="password"
                     style={{
-                      height: "36px",
-                      width: "370px",
+                      height: "40px",
+                      width: "480px",
                       borderRadius: "5px",
                       backgroundColor: "transparent",
                       color: "#D8D8D8",
@@ -355,7 +359,7 @@ function UpdateProfile(props) {
 
               {/* //////////////////////////////////////////////////////////// */}
 
-              <div style={{ border: "1px solid #5F5F5F", width: "850px" }}></div>
+              <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
 
               <div
                 style={{

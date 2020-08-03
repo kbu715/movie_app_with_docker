@@ -142,6 +142,7 @@ function MyScore() {
                   title={movie.title}
                   count={count}
                   setCount={setCount}
+                  isMovie={true}
                 />
               ))}
             </MyScoreSection>
