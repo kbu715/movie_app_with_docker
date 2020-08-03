@@ -34,38 +34,37 @@ function DashBoard() {
   const [western, setWestern] = useState(0)
 
 
-  const fetchTheaters = function () {
-    axios.post("/api/reservation/getList").then(response => {
-      if (response.data.success) {
-        console.log(response.data.doc);
-        console.log(response.data.doc);
-        // console.log(response.data.doc[0].theaters[0].theaters);
-        // console.log(response.data.doc[1].theaters[0].theaters);
-        // console.log(response.data.doc[2].theaters[0].theaters);
-        const countTheaters = response.data.doc.map(r => {
-          return r.theaters[0].theaters;
-        });
-        console.log(countTheaters);
-        countTheaters.forEach(element => {
-          switch (element) {
-            case "CGV":
-              setNumOfCGV(numOfCGV => numOfCGV + 1);
-              break;
-            case "롯데시네마":
-              setNumOfLotte(numOfLotte => numOfLotte + 1);
-              break;
-            case "메가박스":
-              setNumOfMega(numOfMega => numOfMega + 1);
-              break;
-            default:
-              break;
-          }
-        });
-      } else {
-        alert("실패했습니다");
-      }
-    });
-  };
+  // const fetchTheaters = function () {
+  //   axios.post("/api/reservation/getList").then(response => {
+  //     if (response.data.success) {
+  //       console.log(response.data.doc);
+  //       // console.log(response.data.doc[0].theaters[0].theaters);
+  //       // console.log(response.data.doc[1].theaters[0].theaters);
+  //       // console.log(response.data.doc[2].theaters[0].theaters);
+  //       const countTheaters = response.data.doc.map(r => {
+  //         return r.theaters[0].theaters;
+  //       });
+  //       console.log(countTheaters);
+  //       countTheaters.forEach(element => {
+  //         switch (element) {
+  //           case "CGV":
+  //             setNumOfCGV(numOfCGV => numOfCGV + 1);
+  //             break;
+  //           case "롯데시네마":
+  //             setNumOfLotte(numOfLotte => numOfLotte + 1);
+  //             break;
+  //           case "메가박스":
+  //             setNumOfMega(numOfMega => numOfMega + 1);
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       });
+  //     } else {
+  //       alert("실패했습니다");
+  //     }
+  //   });
+  // };
 
   const fetchGenres = function(){
     axios.post("/api/myscore/getAllGenres").then(response => {
@@ -144,7 +143,7 @@ function DashBoard() {
     });
   }
   useEffect(() => {
-    fetchTheaters();
+    // fetchTheaters();
     fetchGenres();
   }, []);
 

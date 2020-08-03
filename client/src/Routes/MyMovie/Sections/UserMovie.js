@@ -97,7 +97,7 @@ class UserMovie extends Component {
             <TableHead>
               <TableRow>
                 <TableCell align="left" style={{color:'white'}}>Movie</TableCell>
-                <TableCell align="left" style={{color:'white'}}>Cinema</TableCell>
+                {/* <TableCell align="left" style={{color:'white'}}>Cinema</TableCell> */}
                 <TableCell align="left" style={{color:'white'}}>Date</TableCell>
                 <TableCell align="left" style={{color:'white'}}>Start At</TableCell>
                 <TableCell align="left" style={{color:'white'}}>Ticket Price</TableCell>
@@ -116,9 +116,9 @@ class UserMovie extends Component {
                     <TableCell className={classes.tableCell}>
                       {movie.title}
                     </TableCell>
-                    <TableCell className={classes.tableCell}>
+                    {/* <TableCell className={classes.tableCell}>
                       {movie.theaters[0].theaters}
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell className={classes.tableCell}>
                       {movie.selectDay[0].day}/{movie.selectDay[0].month}/{movie.selectDay[0].year}
                     </TableCell>
