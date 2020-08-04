@@ -6,6 +6,7 @@ import {
   ADD_TO_MOVIE,
   GET_MOVIE_ITEMS,
   REMOVE_MOVIE_ITEM,
+  ADD_TO_CART,
 } from "./types";
 
 export function loginUser(dataToSubmit) {
@@ -52,7 +53,7 @@ export function addToMovie(id) {
   let body = {
     movieId: id,
   };
-  console.log("body", body); //body 안넘어옴
+
   //node로 정보 보내기
   const request = axios
     .post("/api/users/addToMovie", body)
@@ -61,6 +62,22 @@ export function addToMovie(id) {
   return {
     //request를 reducer로 넘기는 작업
     type: ADD_TO_MOVIE,
+    payload: request,
+  };
+}
+
+export function addToCart(id) {
+  let body = {
+    productId: id,
+  };
+
+  const request = axios
+    .post("/api/users/addToCart", body)
+    .then((response) => response.data);
+
+  return {
+    //request를 reducer로 넘기는 작업
+    type: ADD_TO_CART,
     payload: request,
   };
 }
