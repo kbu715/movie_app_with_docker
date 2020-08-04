@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 const mongoose = require("mongoose");
 mongoose
-  .connect(config.mongoURL, {
+  .connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -23,6 +23,8 @@ mongoose
   })
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
+
+  module.exports = { mongoose };
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/favorite", require("./routes/favorite"));
@@ -36,3 +38,5 @@ app.use("/api/product", require("./routes/product"));
 const port = 5000;
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+

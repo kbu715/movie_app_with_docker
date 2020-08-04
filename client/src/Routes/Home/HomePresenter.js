@@ -58,7 +58,6 @@ const Hero = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  /* background-size: cover; */
 `;
 const HeroContent = styled.div`
   position: relative;

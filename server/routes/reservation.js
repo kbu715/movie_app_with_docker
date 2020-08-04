@@ -40,13 +40,14 @@ router.get("/reservation_by_id", auth, (req, res) => {
 
   if (type === "array") {
     let ids = req.query.id.split(",");
-    movieIds = ids.map((item) => {
+
+    movieIds = ids.map(item => {
       return item;
     });
   }
-
+  console.log(222, movieIds);
   // Reservation.find({ userFrom: req.user._id })
-  Reservation.find({ id: { $in: movieIds } })
+  Reservation.find({ _id: { $in: movieIds } })
     .populate("userForm")
     .exec((err, movie) => {
       if (err) return res.status(400).send(err);

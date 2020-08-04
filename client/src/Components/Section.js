@@ -15,11 +15,11 @@ const Title = styled.span`
   font-weight: 600;
   padding: 0px 0px 30px;
 `;
-const TitleSub = styled.a`
-  font-size: 15px;
+const TitleSub = styled.span`
+  font-size: 30px;
   font-weight: 400;
   color: lime;
-  margin-left: 30px;
+  /* margin-left: 30px; */
   padding: 0px 10px 2px;
   border-width: 2px;
   border-style: solid;
@@ -80,8 +80,7 @@ const Section = (
   return (
     <Container>
       <Title>
-        {title}
-        <TitleSub href="#/movie">View More</TitleSub>
+        <TitleSub>{title}</TitleSub>
       </Title>
       <Grid>{children}</Grid>
     </Container>

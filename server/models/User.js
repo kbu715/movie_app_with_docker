@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //비밀번호를 암호화 해줘서 데이터베이스에 저장해야한다.
 const saltRounds = 10; // 10자리인 salt를 만들어서 이 salt를 이용해서 비밀번호를 암호화한다.
 const jwt = require("jsonwebtoken");
-const Schema = mongoose.Schema;
+// const Schema = mongoose.Schema;
 
 const userSchema = mongoose.Schema({
   name: {
@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema({
   lastname: {
     type: String,
     maxlength: 50,
+  },
+  gender : {
+    type: String,
+    maxlength: 10,
   },
   role: {
     type: Number,

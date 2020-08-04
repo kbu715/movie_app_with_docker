@@ -5,6 +5,7 @@ import Ratingg from "../Components/Rating";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -143,8 +144,13 @@ const FavoritePoster = ({
   const classes = useStyles();
   return (
     <Container>
+      <Link to={`/movie/${id}`}>
       <ImageContainer>
-        <Image bgUrl={`https://image.tmdb.org/t/p/w300${imageUrl}`} />
+        <Image bgUrl={
+          imageUrl
+            ? `https://image.tmdb.org/t/p/w300${imageUrl}`
+            : "https://www.movienewz.com/img/films/poster-holder.jpg"
+        } />
 
         <Rating>
           <span role="img" aria-label="rating">
@@ -153,6 +159,7 @@ const FavoritePoster = ({
           {rating}/10
         </Rating>
       </ImageContainer>
+      </Link>
       <RatingsWrapper>
         <Title>
           {/* <DelBtn

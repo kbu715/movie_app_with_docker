@@ -135,7 +135,8 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               obj.selectDay[0].day;
             seatlist.push(obj.seat);
           });
-          const flatlist = seatlist.flat();
+          console.log("sdafkljsajfkasdf", seatlist);
+          const flatlist = seatlist.flat(); //평탄화 함수!!!
           setDistinct(flatlist);
           setDBtime(DBtime);
           setDBselectDay(DBselectDay);
@@ -182,13 +183,16 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         alert("예매 성공");
 
         window.location.href = "http://localhost:3000/";
+
+        //개인 영화 구매정보
+        dispatch(addToMovie(response.data.doc._id));
+
       } else {
         alert("예매 실패");
         return false;
       }
     });
 
-    dispatch(addToMovie(id));
   };
 
   //좌석과 인원 맞추기

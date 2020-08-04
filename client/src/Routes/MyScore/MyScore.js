@@ -66,8 +66,9 @@ function MyScore() {
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
-        setMovies([...Movies, ...result.results]);
-
+        let temp = result.results;
+        let newResult = temp.filter((item) => item.adult === false);
+        setMovies([...Movies, ...newResult]);
         setCurrentPage(result.page);
       }, setLoading(false))
       .catch((error) => console.error("Error:", error));
@@ -83,7 +84,6 @@ function MyScore() {
     } else {
       endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=0`;
     }
-
     fetchMovies(endpoint);
   };
 
@@ -142,6 +142,7 @@ function MyScore() {
                   title={movie.title}
                   count={count}
                   setCount={setCount}
+                  isMovie={true}
                 />
               ))}
             </MyScoreSection>

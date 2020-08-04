@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
-import Section from "Components/Section";
 import Message from "../../Components/Message";
-import Poster from "../../Components/Poster";
-// import MyScoreRating from 'Components/MyScoreRating';
+import Poster from "./SearchPoster";
+import SearchSection from "./SearchSection";
 
 const Container = styled.div`
   padding: 20px;
@@ -48,11 +47,10 @@ const SearchPresenter = ({
     ) : (
       <>
         {movieResults && movieResults.length > 0 && (
-          <Section title="Movie Results">
-            {movieResults.map(movie => (
-              <>
+          <SearchSection title="Movie Results">
+            {movieResults.map((movie, index) => (
               <Poster
-                key={movie.id}
+              key={index}
                 id={movie.id}
                 imageUrl={movie.poster_path}
                 title={movie.original_title}
@@ -60,9 +58,8 @@ const SearchPresenter = ({
                 year={movie.release_date && movie.release_date.substring(0, 4)}
                 isMovie={true}
               />
-              </>
             ))}
-          </Section>
+          </SearchSection>
         )}
         {error && <Message color="#e74c3c" text={error} />}
         {movieResults &&
