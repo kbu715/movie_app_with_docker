@@ -8,7 +8,6 @@ import Poster from "../../Components/Poster";
 import Helmet from "react-helmet";
 import { withRouter } from "react-router-dom";
 
-
 const Container = styled.div`
   padding: 10px;
   scroll-behavior: smooth;
@@ -103,8 +102,6 @@ const AButton = styled.a`
   }
 `;
 
-
-
 const HomePresenter = ({
   nowPlaying,
   popular,
@@ -123,7 +120,7 @@ const HomePresenter = ({
       <>
         <Container onWheel={(e) => {}}>
           <Video>
-            <iframe
+            {/* <iframe
               width="100%"
               height="800"
               src="http://videos.hd-trailers.net/Mad_Max_Fury_Road_2015_Trailer_F4_5.1-1080p-HDTN.mp4"
@@ -131,7 +128,7 @@ const HomePresenter = ({
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               title="movie-trailer"
-            ></iframe>
+            ></iframe> */}
           </Video>
           <Helmet>
             <title>Movies | Nomflix</title>
@@ -179,8 +176,6 @@ const HomePresenter = ({
               </Section>
             )} */}
 
-
-            
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
               <Section title="현재 상영중">
@@ -234,8 +229,6 @@ const HomePresenter = ({
     )}
   </>
 );
-
-
 
 class HeroButton extends React.Component {
   render() {

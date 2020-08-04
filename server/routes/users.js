@@ -125,7 +125,7 @@ router.post("/login", (req, res) => {
 
 // role 1 어드민    role 2 특정 부서 어드민
 // role 0 -> 일반유저   role 0이 아니면  관리자
-router.get("/auth", auth, (req, res) => { 
+router.get("/auth", auth, (req, res) => {
   //여기 까지 미들웨어를 통과해 왔다는 얘기는 Authentication 이 True 라는 말.
   res.status(200).json({
     _id: req.user._id,
@@ -137,6 +137,7 @@ router.get("/auth", auth, (req, res) => {
     role: req.user.role,
     image: req.user.image,
     movie: req.user.movie,
+    cart: req.user.cart,
     history: req.user.history,
   });
 });
@@ -258,6 +259,57 @@ router.post("/googlelogin", (req, res) => {
     });
 });
 
+router.post("/addToMovie", auth, (req, res) => {
+  //User Collection에 해당 유저 정보를 가져오기(auth에 저장된 user._id를 불러올수있다.)
+  User.findOne({ _id: req.user._id }, (err, userInfo) => {
+    let duplicate = false;
+
+    userInfo.movie.forEach((item) => {
+      if (item.id === req.body.movieId) {
+        duplicate = true;
+      }
+    });
+
+    //상품이 이미 있을때
+    if (duplicate) {
+      User.findOneAndUpdate(
+        { _id: req.user._id, "movie.id": req.body.movieId },
+        { $inc: { "movie.$.quantity": 1 } },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.json({ success: false, err });
+          res.status(200).send(userInfo.movie);
+        }
+      );
+    }
+    //상품이 있지 않을때
+    else {
+      User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $push: {
+            movie: {
+              id: req.body.movieId,
+              quantity: 1,
+              date: Date.now(),
+            },
+          },
+        },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.status(400).json({ success: false, err });
+          res.status(200).send(userInfo.movie);
+        }
+      );
+    }
+  });
+  //가져온 정보에서 결제내역에 넣으려 하는 영화가 이미 들어 있는지 확인
+
+  //영화가 이미 있을때
+
+  //영확가 이미 있지 않을때
+});
+
 router.get("/removeFromMovie", auth, (req, res) => {
   //먼저 내역안에 내가 지우려고 한 영화를 지워주기
   //action에서 넘어온${movieId} 값은 string처리되어 넘어오기 때문에 parseInㅅ
@@ -288,6 +340,51 @@ router.get("/removeFromMovie", auth, (req, res) => {
       });
     }
   );
+});
+
+router.post("/addToCart", auth, (req, res) => {
+  //User Collection에 해당 유저 정보를 가져오기(auth에 저장된 user._id를 불러올수있다.)
+  User.findOne({ _id: req.user._id }, (err, userInfo) => {
+    // 가져온 정보에서 카트에다 넣으려 하는 상품이 이미 들어 있는지 확인
+    let duplicate = false;
+    userInfo.cart.forEach((item) => {
+      if (item.id === req.body.productId) {
+        duplicate = true;
+      }
+    });
+    //상품이 이미 있을때
+    if (duplicate) {
+      User.findOneAndUpdate(
+        { _id: req.user._id, "cart.id": req.body.productId },
+        { $inc: { "cart.$.quantity": 1 } },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.status(400).json({ success: false, err });
+          res.status(200).send(userInfo.cart);
+        }
+      );
+    }
+    //상품이 이미 있지 않을때
+    else {
+      User.findByIdAndUpdate(
+        { _id: req.user._id },
+        {
+          $push: {
+            cart: {
+              id: req.body.productId,
+              quantity: 1,
+              date: Date.now(),
+            },
+          },
+        },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.status(400).json({ success: false, err });
+          res.status(200).send(userInfo.cart);
+        }
+      );
+    }
+  });
 });
 
 module.exports = router;

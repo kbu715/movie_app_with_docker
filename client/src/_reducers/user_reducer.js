@@ -6,6 +6,8 @@ import {
   //   LOGOUT_USER,
   GET_MOVIE_ITEMS,
   REMOVE_MOVIE_ITEM,
+  ADD_TO_CART,
+  GET_CART_ITEMS,
 } from "../_actions/types";
 
 export default function (state = {}, action) {
@@ -37,6 +39,16 @@ export default function (state = {}, action) {
           movie: action.payload.movie,
         },
       };
+    case ADD_TO_CART:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          cart: action.payload,
+        },
+      };
+    case GET_CART_ITEMS:
+      return { ...state, cartDetail: action.payload };
     default:
       return state;
   }
