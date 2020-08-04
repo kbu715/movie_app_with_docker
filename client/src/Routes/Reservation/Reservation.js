@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import { Grid, TextField, MenuItem } from "@material-ui/core";
 import "./style.css";
@@ -8,18 +8,29 @@ import Booking from "../Booking/Booking";
 import Button from "@material-ui/core/Button";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
-
-const Continentss = [
-  { key: 1, value: "11:00" },
-  { key: 2, value: "13:00" },
-  { key: 3, value: "15:00" },
-  { key: 4, value: "17:00" },
-];
+import Axios from "axios";
 
 const Reservation = ({ id, title, bgImage, userFrom }) => {
   const [selectDay, setSelectedDay] = useState(null);
   const [time, setTime] = useState(0);
-
+  const [timeTable, setTimeTable] = useState([]);
+  // const Continentss = [
+  //   { key: 1, value: "11:00" },
+  //   { key: 2, value: "13:00" },
+  //   { key: 3, value: "15:00" },
+  //   { key: 4, value: "17:00" },
+  // ];
+  const arr = [];
+  useEffect(() => {
+    Axios.get("/api/getTimeData").then(response => {
+      console.log("넘어오나", response.data.timeData);
+      response.data.timeData.forEach(element => {
+        arr.push(element);
+      });
+      setTimeTable(arr);
+    });
+    console.log("timeTable", timeTable);
+  }, []);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -42,7 +53,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
     />
   );
 
-  const onTime = (event) => {
+  const onTime = event => {
     setTime({ time: event.target.value });
   };
   return (
@@ -78,7 +89,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
               variant="filled"
               onChange={onTime}
             >
-              {Continentss.map((item) => (
+              {timeTable.map(item => (
                 <MenuItem key={item.key} value={item.value}>
                   {item.value}
                 </MenuItem>

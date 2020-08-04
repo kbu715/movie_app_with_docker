@@ -58,7 +58,7 @@ const SideWrapper = styled.div`
 const Cover = styled.div`
   width: 95%;
   height: 50%;
-  background-image: url(${(props) => props.bgImage});
+  background-image: url(${props => props.bgImage});
 
   background-position: center center;
 
@@ -120,12 +120,13 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   useEffect(() => {
     axios
       .post("/api/reservation/findSeat", movieTitle)
-      .then(async (response) => {
+      .then(response => {
         if (response.data.success) {
+          console.log("seats", response.data.seats);
           let seatlist = [];
           let DBtime = "";
           let DBselectDay = "";
-          response.data.seats.map((obj) => {
+          response.data.seats.forEach(obj => {
             DBtime = obj.time[0].time;
             DBselectDay =
               obj.selectDay[0].year +
@@ -142,13 +143,13 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           setDBselectDay(DBselectDay);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }, []);
 
   //seat 색 변경
-  const onSeatChange = (e) => {
+  const onSeatChange = e => {
     if (
       e.target.classList.contains("seat") &&
       !e.target.classList.contains("occupied")
@@ -158,7 +159,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     }
   };
 
-  const onCount = (event) => {
+  const onCount = event => {
     setContinent(event.target.value);
     setPrice(event.target.value * 100);
   };
@@ -178,7 +179,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       seat: Seat,
       price: Price,
     };
-    axios.post("/api/reservation", body).then((response) => {
+    axios.post("/api/reservation", body).then(response => {
       if (response.data.success) {
         alert("예매 성공");
 
@@ -186,17 +187,15 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
         //개인 영화 구매정보
         dispatch(addToMovie(response.data.doc._id));
-
       } else {
         alert("예매 실패");
         return false;
       }
     });
-
   };
 
   //좌석과 인원 맞추기
-  const onCompareSeat = (event) => {
+  const onCompareSeat = event => {
     if (Continent < Seat.length + 1) {
       //인원보다 좌석지정이 많을경우
       alert("좌석 지정이 완료 되었습니다.");
@@ -204,7 +203,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       event.stopPropagation();
     }
   };
-
+  // console.log("비교해보자", typeof DBtime, typeof time.time);
   return (
     <>
       <NavSub>
@@ -219,7 +218,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               variant="filled"
               onChange={onCount}
             >
-              {Continents.map((item) => (
+              {Continents.map(item => (
                 <MenuItem key={item.key} value={item.key}>
                   {item.value}
                 </MenuItem>
@@ -306,7 +305,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               DBselectDay ===
                 selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
                 <div className="row">
-                  {SeatA.map((item) => {
+                  {SeatA.map(item => {
                     if (Distinct.includes(item.value)) {
                       return (
                         <div
@@ -332,7 +331,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                 </div>
               ) : (
                 <div className="row">
-                  {SeatA.map((item) => {
+                  {SeatA.map(item => {
                     return (
                       <div
                         key={item.key}
@@ -350,7 +349,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               DBselectDay ===
                 selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
                 <div className="row">
-                  {SeatB.map((item) => {
+                  {SeatB.map(item => {
                     if (Distinct.includes(item.value)) {
                       return (
                         <div
@@ -376,7 +375,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                 </div>
               ) : (
                 <div className="row">
-                  {SeatB.map((item) => {
+                  {SeatB.map(item => {
                     return (
                       <div
                         key={item.key}
@@ -394,7 +393,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               DBselectDay ===
                 selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
                 <div className="row">
-                  {SeatC.map((item) => {
+                  {SeatC.map(item => {
                     if (Distinct.includes(item.value)) {
                       return (
                         <div
@@ -420,7 +419,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                 </div>
               ) : (
                 <div className="row">
-                  {SeatC.map((item) => {
+                  {SeatC.map(item => {
                     return (
                       <div
                         key={item.key}
@@ -438,7 +437,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               DBselectDay ===
                 selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
                 <div className="row">
-                  {SeatD.map((item) => {
+                  {SeatD.map(item => {
                     if (Distinct.includes(item.value)) {
                       return (
                         <div
@@ -464,7 +463,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                 </div>
               ) : (
                 <div className="row">
-                  {SeatD.map((item) => {
+                  {SeatD.map(item => {
                     return (
                       <div
                         key={item.key}
@@ -482,7 +481,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               DBselectDay ===
                 selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
                 <div className="row">
-                  {SeatE.map((item) => {
+                  {SeatE.map(item => {
                     if (Distinct.includes(item.value)) {
                       return (
                         <div
@@ -508,7 +507,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                 </div>
               ) : (
                 <div className="row">
-                  {SeatE.map((item) => {
+                  {SeatE.map(item => {
                     return (
                       <div
                         key={item.key}
@@ -526,7 +525,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               DBselectDay ===
                 selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
                 <div className="row">
-                  {SeatF.map((item) => {
+                  {SeatF.map(item => {
                     if (Distinct.includes(item.value)) {
                       return (
                         <div
@@ -552,7 +551,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                 </div>
               ) : (
                 <div className="row">
-                  {SeatF.map((item) => {
+                  {SeatF.map(item => {
                     return (
                       <div
                         key={item.key}
@@ -570,7 +569,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               DBselectDay ===
                 selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
                 <div className="row">
-                  {SeatG.map((item) => {
+                  {SeatG.map(item => {
                     if (Distinct.includes(item.value)) {
                       return (
                         <div
@@ -596,7 +595,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                 </div>
               ) : (
                 <div className="row">
-                  {SeatG.map((item) => {
+                  {SeatG.map(item => {
                     return (
                       <div
                         key={item.key}
