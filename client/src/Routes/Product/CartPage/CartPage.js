@@ -6,19 +6,16 @@ function CartPage(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     let cartItems = [];
-
     //redux User state안에 Cart 안에 상품이 들어 있는지 확인
-    if (props.movies.userData && props.user.userData.cart) {
-      if (props.user.userData.cart.length > 0) {
-        props.user.userData.cart.forEach((item) => {
+    if (props && props.cart) {
+      if (props.cart.length > 0) {
+        props.cart.forEach((item) => {
           cartItems.push(item.id);
         });
-
-        dispatch(getCartItems(cartItems, props.user.userData.cart));
+        dispatch(getCartItems(cartItems, props.cart));
       }
     }
-  }, [props.user.userData]);
+  }, [props]);
   return <div>asd</div>;
 }
-
 export default CartPage;
