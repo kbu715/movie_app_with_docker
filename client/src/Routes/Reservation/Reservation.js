@@ -1,19 +1,67 @@
 import "date-fns";
 import React, { useState } from "react";
 import Popup from "reactjs-popup";
-import { Grid, TextField, MenuItem } from "@material-ui/core";
+// import { Grid, TextField, MenuItem, createMuiTheme } from "@material-ui/core";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import Booking from "../Booking/Booking";
-import Button from "@material-ui/core/Button";
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
+// import Button from "@material-ui/core/Button";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
+import Select from 'react-select';
+import styled from "styled-components";
+
+const Grid = styled.div`
+/* margin-top: 3px; */
+  display: grid;
+  /* margin-left: 20px; */
+  /* border: 1px solid red; */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 10px;
+  width: 100%;
+  height:100%;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
+`;
+
+const Button1 = styled.button`
+ color: #9c88ff;
+  border: 3px solid #9c88ff;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight:600;
+  background-color: #151515;
+  margin-left: 20px;
+  padding: 5px;
+`;
+
+const Wrapper = styled.div`
+  padding: 5px;
+  margin: 0 auto;
+`;
+const Button2 = styled.button`
+ color: #9c88ff;
+  border: 3px solid #9c88ff;
+  border-radius: 5px;
+  font-size: 15px;
+  height:40px;
+  font-weight:1000;
+  background-color: transparent;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+`;
 
 const Continentss = [
-  { key: 1, value: "11:00" },
-  { key: 2, value: "13:00" },
-  { key: 3, value: "15:00" },
-  { key: 4, value: "17:00" },
+  { key: 1, label: "11:00", value: "11:00" },
+  { key: 2, label: "13:00", value: "13:00" },
+  { key: 3, label: "15:00", value: "15:00" },
+  { key: 4, label: "17:00", value: "17:00" },
+];
+
+const groupedOptions = [
+  {
+    options: Continentss,
+  }
 ];
 
 const Reservation = ({ id, title, bgImage, userFrom }) => {
@@ -30,13 +78,17 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       }
       style={{
         textAlign: "center",
-        padding: "1rem 1.5rem",
+        borderRadius:"1rem",
         fontSize: "1.1rem",
         border: "1px solid #9c88ff",
-        borderRadius: "70px",
         boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
         color: "#9c88ff",
         outline: "none",
+        marginLeft:"10px",
+        width:"250px",
+        height:"40px",
+        marginTop:"10px",
+        marginBottom:"10px",
       }}
       className="my-custom-input-class"
     />
@@ -46,19 +98,18 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
     setTime({ time: event.target.value });
   };
   return (
-    <>
       <Popup
         trigger={
-          <Button variant="contained" color="primary">
+          <Button1 variant="contained" color="primary">
             간편예매
-          </Button>
+          </Button1>
         }
         modal
         closeOnDocumentClick={true}
         triggerOn="click"
+        // style={{background:"black"}}
       >
-        <Grid container spacing={2} style={{ background: "#242333" }}>
-          <Grid item xs>
+        <Grid container style={{ background: "#242333"}}>
             <DatePicker
               value={selectDay}
               onChange={setSelectedDay}
@@ -66,40 +117,23 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
               renderInput={renderCustomInput}
               shouldHighlightWeekends
             />
-          </Grid>
+            <Select
+    options={groupedOptions}
+    defaultValue={groupedOptions[0]}
+    />
 
-          <Grid item xs>
-            <TextField
-              color="secondary"
-              fullWidth
-              select
-              value={time}
-              label="Time"
-              variant="filled"
-              onChange={onTime}
-            >
-              {Continentss.map((item) => (
-                <MenuItem key={item.key} value={item.value}>
-                  {item.value}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-        </Grid>
+<Wrapper>
 
-        {/* ------------------------------------------------------------------------------------ */}
-        <Popup
-          trigger={
-            // <Button className="button">
-            <Button variant="contained" color="primary">
-              다음
-            </Button>
-            // </Button>
-          }
-          modal
-          closeOnDocumentClick={true}
-          triggerOn="click"
-        >
+            <Popup
+              trigger={
+                <Button2 variant="contained" color="primary" >
+                 다음
+                </Button2>
+              }
+              modal
+              closeOnDocumentClick={true}
+              triggerOn="click"
+              >
           <Booking
             id={id}
             title={title}
@@ -107,10 +141,11 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
             userFrom={userFrom}
             selectDay={selectDay}
             time={time}
-          />
+            />
         </Popup>
+            </Wrapper>
+        </Grid>
       </Popup>
-    </>
   );
 };
 
