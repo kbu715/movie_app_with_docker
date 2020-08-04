@@ -100,6 +100,7 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   margin: 20px 0;
+  border: 1px solid pink;
 `;
 
 //------------------------------------------------------------------------------------------
@@ -110,37 +111,37 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
-  const [DBtime, setDBtime] = useState("");
-  const [DBselectDay, setDBselectDay] = useState("");
-
   const movieTitle = {
     title: title,
   };
 
   useEffect(() => {
+
     axios
       .post("/api/reservation/findSeat", movieTitle)
       .then(response => {
         if (response.data.success) {
           console.log("seats", response.data.seats);
           let seatlist = [];
-          let DBtime = "";
-          let DBselectDay = "";
+          // let DBtime = "";
+          // let DBselectDay = "";
           response.data.seats.forEach(obj => {
-            DBtime = obj.time[0].time;
-            DBselectDay =
-              obj.selectDay[0].year +
-              "-" +
-              obj.selectDay[0].month +
-              "-" +
-              obj.selectDay[0].day;
-            seatlist.push(obj.seat);
-          });
+            if(obj.time[0].time === time.time 
+              && obj.selectDay[0].day === selectDay.day 
+              && obj.selectDay[0].month === selectDay.month
+              && obj.selectDay[0].year === selectDay.year){
+            seatlist.push(obj.seat)
+        }
+      });
+          
+        
           console.log("sdafkljsajfkasdf", seatlist);
           const flatlist = seatlist.flat(); //평탄화 함수!!!
           setDistinct(flatlist);
-          setDBtime(DBtime);
-          setDBselectDay(DBselectDay);
+          // setDBtime(DBtime);
+          // setDBselectDay(DBselectDay);
+          
+
         }
       })
       .catch(err => {
@@ -150,6 +151,14 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
   //seat 색 변경
   const onSeatChange = e => {
+    
+    if (Continent < Seat.length + 1) {
+      //인원보다 좌석지정이 많을경우
+      alert("좌석 지정이 완료 되었습니다.");
+      //클릭 못하게
+      e.stopPropagation();
+      return;
+    }
     if (
       e.target.classList.contains("seat") &&
       !e.target.classList.contains("occupied")
@@ -157,6 +166,14 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       e.target.classList.toggle("selected");
       setSeat([...Seat, e.target.innerText]);
     }
+    else if (
+      e.target.classList.contains("selected") &&
+      !e.target.classList.contains("occupied")
+    ) {
+      e.target.classList.toggle("seat");
+      setSeat(Seat => Seat.filter(seat=>seat !==e.target.innerText));
+    }
+    console.log(222222222, Continent, Seat.length)
   };
 
   const onCount = event => {
@@ -195,15 +212,10 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   };
 
   //좌석과 인원 맞추기
-  const onCompareSeat = event => {
-    if (Continent < Seat.length + 1) {
-      //인원보다 좌석지정이 많을경우
-      alert("좌석 지정이 완료 되었습니다.");
-      //클릭 못하게
-      event.stopPropagation();
-    }
-  };
-  // console.log("비교해보자", typeof DBtime, typeof time.time);
+  // const onCompareSeat = event => {
+
+  // };
+
   return (
     <>
       <NavSub>
@@ -296,14 +308,12 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           </ul>
 
           {/* {DBtime === time.time && ( */}
-          <Container onClick={onSeatChange}>
+          <Container>
             <div className="container">
               <div className="screen"></div>
 
               {/* 좌석 */}
-              {DBtime === time.time &&
-              DBselectDay ===
-                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+              {(
                 <div className="row">
                   {SeatA.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -311,7 +321,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat occupied"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -321,7 +331,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -329,25 +339,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              ) : (
-                <div className="row">
-                  {SeatA.map(item => {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+              )} 
 
-              {DBtime === time.time &&
-              DBselectDay ===
-                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+              {(
                 <div className="row">
                   {SeatB.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -355,7 +349,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat occupied"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -365,7 +359,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -373,25 +367,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              ) : (
-                <div className="row">
-                  {SeatB.map(item => {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+              ) }
 
-              {DBtime === time.time &&
-              DBselectDay ===
-                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+              {(
                 <div className="row">
                   {SeatC.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -399,7 +377,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat occupied"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -409,7 +387,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -417,25 +395,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              ) : (
-                <div className="row">
-                  {SeatC.map(item => {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
               )}
 
-              {DBtime === time.time &&
-              DBselectDay ===
-                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+              {(
                 <div className="row">
                   {SeatD.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -443,7 +405,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat occupied"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -453,7 +415,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -461,25 +423,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              ) : (
-                <div className="row">
-                  {SeatD.map(item => {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
               )}
 
-              {DBtime === time.time &&
-              DBselectDay ===
-                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+              {(
                 <div className="row">
                   {SeatE.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -487,7 +433,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat occupied"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -497,7 +443,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -505,25 +451,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              ) : (
-                <div className="row">
-                  {SeatE.map(item => {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
               )}
 
-              {DBtime === time.time &&
-              DBselectDay ===
-                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+              {(
                 <div className="row">
                   {SeatF.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -531,7 +461,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat occupied"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -541,7 +471,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -549,25 +479,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              ) : (
-                <div className="row">
-                  {SeatF.map(item => {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
-                  })}
-                </div>
               )}
 
-              {DBtime === time.time &&
-              DBselectDay ===
-                selectDay.year + "-" + selectDay.month + "-" + selectDay.day ? (
+              {(
                 <div className="row">
                   {SeatG.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -575,7 +489,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat occupied"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
@@ -585,26 +499,12 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                         <div
                           key={item.key}
                           className="seat"
-                          onClick={onCompareSeat}
+                          onClick={onSeatChange}
                         >
                           {item.value}
                         </div>
                       );
                     }
-                  })}
-                </div>
-              ) : (
-                <div className="row">
-                  {SeatG.map(item => {
-                    return (
-                      <div
-                        key={item.key}
-                        className="seat"
-                        onClick={onCompareSeat}
-                      >
-                        {item.value}
-                      </div>
-                    );
                   })}
                 </div>
               )}
