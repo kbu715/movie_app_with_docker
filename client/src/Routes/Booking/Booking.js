@@ -138,8 +138,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           console.log("sdafkljsajfkasdf", seatlist);
           const flatlist = seatlist.flat(); //평탄화 함수!!!
           setDistinct(flatlist);
-          // setDBtime(DBtime);
-          // setDBselectDay(DBselectDay);
+
           
 
         }
@@ -151,15 +150,14 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
   //seat 색 변경
   const onSeatChange = e => {
-    
+    console.log(222222222, Continent, Seat.length)
     if (Continent < Seat.length + 1) {
       //인원보다 좌석지정이 많을경우
       alert("좌석 지정이 완료 되었습니다.");
       //클릭 못하게
       e.stopPropagation();
-      return;
     }
-    if (
+    else if (
       e.target.classList.contains("seat") &&
       !e.target.classList.contains("occupied")
     ) {
@@ -173,7 +171,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       e.target.classList.toggle("seat");
       setSeat(Seat => Seat.filter(seat=>seat !==e.target.innerText));
     }
-    console.log(222222222, Continent, Seat.length)
   };
 
   const onCount = event => {
