@@ -8,6 +8,7 @@ import DashBoard from "./DashBoard/DashBoard";
 import ReservationsCalendar from "./TotalReservation/ReservationsCalendar";
 import ReservationList from "./TotalReservation/ReservationList";
 import UploadProduct from "./UploadProduct/UploadProduct";
+import ProductList from "./ProductList/ProductList";
 import "antd/dist/antd.css";
 
 function AdminContainer() {
@@ -45,7 +46,7 @@ function AdminContainer() {
               <Menu.Item key="4">
                 <span>
                   <Icon type="pie-chart" />
-                  내역
+                  예매내역
                 </span>
                 <Link to="/reservationList" />
               </Menu.Item>
@@ -57,11 +58,23 @@ function AdminContainer() {
                 <Link to="/reservationsCalendar" />
               </Menu.Item>
             </SubMenu>
-            <Menu.Item key="6">
-              <Icon type="user" />
-              <span>상품 관리</span>
-              <Link to="/UploadProduct" />
-            </Menu.Item>
+
+            <SubMenu key="6" icon={<ContainerOutlined />} title="상품관리">
+              <Menu.Item key="7">
+                <span>
+                  <Icon type="pie-chart" />
+                  결제내역
+                </span>
+                <Link to="/productList" />
+              </Menu.Item>
+              <Menu.Item key="8">
+                <span>
+                  <Icon type="pie-chart" />
+                  상품 등록
+                </span>
+                <Link to="/UploadProduct" />
+              </Menu.Item>
+            </SubMenu>
           </Menu>
         </Sider>
 
@@ -91,6 +104,7 @@ function AdminContainer() {
             />
             <Route path="/reservationList" component={ReservationList} />
             <Route path="/UploadProduct" component={UploadProduct} />
+            <Route path="/productList" component={ProductList} />
           </Content>
           <Footer style={{ textAlign: "center" }}>
             Ant Design ©2016 Created by Ant UED

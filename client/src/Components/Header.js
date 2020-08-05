@@ -190,7 +190,10 @@ export default withRouter(
                       margin: "0px auto",
                     }}
                   >
-                    <Badge count={5} style={{ marginBottom: -10 }}>
+                    <Badge
+                      count={user.userData && user.userData.cart.length}
+                      style={{ marginBottom: -10 }}
+                    >
                       <SLink to="/mymovie" className="head-example">
                         <MediumOutlined
                           style={{ fontSize: 25, marginBottom: 1 }}
@@ -200,7 +203,7 @@ export default withRouter(
                   </div>
                 )}
               </Item>
-              
+
               <Item>
                 <SLink to="/login" onClick={logoutHandler}>
                   로그아웃
