@@ -1,11 +1,9 @@
 import "date-fns";
 import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
-// import { Grid, TextField, MenuItem, createMuiTheme } from "@material-ui/core";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import Booking from "../Booking/Booking";
-// import Button from "@material-ui/core/Button";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Axios from "axios";
 import Select from 'react-select';
@@ -225,5 +223,5 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
     </Popup>
   );
 };
-
+}
 export default Reservation;
