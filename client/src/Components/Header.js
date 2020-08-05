@@ -200,6 +200,7 @@ export default withRouter(
                   </div>
                 )}
               </Item>
+              
               <Item>
                 <SLink to="/login" onClick={logoutHandler}>
                   로그아웃
