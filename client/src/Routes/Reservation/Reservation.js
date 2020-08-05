@@ -14,12 +14,6 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
   const [selectDay, setSelectedDay] = useState(null);
   const [time, setTime] = useState(0);
   const [timeTable, setTimeTable] = useState([]);
-  // const Continentss = [
-  //   { key: 1, value: "11:00" },
-  //   { key: 2, value: "13:00" },
-  //   { key: 3, value: "15:00" },
-  //   { key: 4, value: "17:00" },
-  // ];
   const arr = [];
   useEffect(() => {
     Axios.get("/api/getTimeData").then(response => {
