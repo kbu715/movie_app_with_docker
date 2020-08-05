@@ -3,20 +3,21 @@ import PaypalExpressBtn from "react-paypal-express-checkout";
 
 export default class Paypal extends React.Component {
   render() {
-    const onSuccess = (payment) => {
+    const onSuccess = payment => {
+      // Congratulation, it came here means everything's fine!
       console.log("The payment was succeeded!", payment);
 
       //부모 컴포넌트에 payment 넘겨주기
       this.props.onSuccess(payment);
     };
 
-    const onCancel = (data) => {
+    const onCancel = data => {
       // User pressed "cancel" or close Paypal's popup!
       console.log("The payment was cancelled!", data);
       // You can bind the "data" object's value to your state or props or whatever here, please see below for sample returned data
     };
 
-    const onError = (err) => {
+    const onError = err => {
       // The main Paypal's script cannot be loaded or somethings block the loading of that script!
       console.log("Error!", err);
       // Because the Paypal's main script is loaded asynchronously from "https://www.paypalobjects.com/api/checkout.js"

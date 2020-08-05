@@ -62,7 +62,9 @@ class UserMovie extends Component {
                 <TableCell align="left" style={{ color: "white" }}>
                   Movie
                 </TableCell>
-                {/* <TableCell align="left" style={{color:'white'}}>Cinema</TableCell> */}
+                <TableCell align="left" style={{ color: "white" }}>
+                  Seats
+                </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
                   Date
                 </TableCell>
@@ -83,14 +85,14 @@ class UserMovie extends Component {
             <TableBody>
               {movies
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((movie) => (
+                .map(movie => (
                   <TableRow className={classes.tableRow} hover key={movie._id}>
                     <TableCell className={classes.tableCell}>
                       {movie.title}
                     </TableCell>
-                    {/* <TableCell className={classes.tableCell}>
-                      {movie.theaters[0].theaters}
-                    </TableCell> */}
+                    <TableCell className={classes.tableCell}>
+                      {movie.seat ? movie.seat.sort() : "not found"}
+                    </TableCell>
                     <TableCell className={classes.tableCell}>
                       {movie.selectDay[0].day}/{movie.selectDay[0].month}/
                       {movie.selectDay[0].year}
