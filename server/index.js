@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require("body-parser"); //body 데이터를 분석(parse)해서 req.body로 출력해주는 것
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
-const { TimeData } = require("./models/TimeData");
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -34,12 +33,6 @@ app.use("/uploads", express.static("uploads")); //이거 했더니 안돼던 이
 app.use("/api/reservation", require("./routes/reservation"));
 app.use("/api/product", require("./routes/product"));
 
-app.get("/api/getTimeData", (req, res) => {
-  TimeData.find({}).exec((err, data) => {
-    if (err) return res.status(400).send(err);
-    res.status(200).json({ success: true, timeData: data });
-  });
-});
 
 
 const port = 5000;

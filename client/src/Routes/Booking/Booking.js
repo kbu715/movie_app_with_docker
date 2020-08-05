@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, TextField, MenuItem } from "@material-ui/core";
+// import { Grid, TextField, MenuItem } from "@material-ui/core";
 import axios from "axios";
 import styled from "styled-components";
 import Paypal from "../../utils/Paypal";
@@ -18,20 +18,20 @@ import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
 import Select from 'react-select';
 
-const Nav = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+// const Nav = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `;
 
-const SideFlex = styled.div`
-  width: 100%;
-  background-position: center center;
-  box-shadow: 2px 6px 20px 0 rgba(0, 0, 0, 0.65);
-  margin: 0 auto;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-`;
+// const SideFlex = styled.div`
+//   width: 100%;
+//   background-position: center center;
+//   box-shadow: 2px 6px 20px 0 rgba(0, 0, 0, 0.65);
+//   margin: 0 auto;
+//   margin-top: 20px;
+//   display: flex;
+//   flex-direction: column;
+// `;
 
 // const Cover = styled.div`
 //   width: 95%;
@@ -174,7 +174,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   }, []);
 
   //seat 색 변경
-  const onSeatChange = async e => {
+  const onSeatChange = e => {
     console.log("Seat.length", Seat.length);
     if (Continent >= Seat.length + 1) {
       //인원이 좌석수보다 크거나 같을때
@@ -230,8 +230,8 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   //   setPrice(event.target.value * 100);
   // };
   const onCount = (event) => {
-    // console.log(event);
-    setContinent(event.value);
+    console.log("event",event);
+    setContinent(event.key);
     setPrice(event.key * 100);
   };
 

@@ -50,7 +50,7 @@ function MyMovie(props) {
 
   let calculateTotal = cartDetail => {
     let total = 0;
-    cartDetail.map(item => {
+    cartDetail.forEach(item => {
       total += parseInt(item.price, 10) * item.quantity;
     });
 
@@ -120,7 +120,7 @@ function MyMovie(props) {
               width: "20%",
             }}
           >
-            <h1>총 금액: 💰{Total}</h1>
+            <h1>총 금액: <span role="img" aria-label="cute">💰</span>{Total}</h1>
           </div>
         ) : ShowSuccess ? (
           <Result status="success" title="Success!" />

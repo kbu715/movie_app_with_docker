@@ -1,11 +1,10 @@
 import "date-fns";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import Booking from "../Booking/Booking";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
-import Axios from "axios";
 import Select from "react-select";
 import styled from "styled-components";
 
@@ -60,6 +59,10 @@ const Continentss = [
   { key: 2, label: "13:00", value: "13:00" },
   { key: 3, label: "15:00", value: "15:00" },
   { key: 4, label: "17:00", value: "17:00" },
+  { key: 5, label: "19:00", value: "19:00" },
+  { key: 6, label: "21:00", value: "21:00" },
+  { key: 7, label: "23:00", value: "23:00" },
+  { key: 8, label: "01:00", value: "01:00" },
 ];
 
 const groupedOptions = [
@@ -71,19 +74,7 @@ const groupedOptions = [
 const Reservation = ({ id, title, bgImage, userFrom }) => {
   const [selectDay, setSelectedDay] = useState(null);
   const [time, setTime] = useState(0);
-  const [timeTable, setTimeTable] = useState([]);
-  const arr = [];
 
-  useEffect(() => {
-    Axios.get("/api/getTimeData").then(response => {
-      console.log("넘어오나", response.data.timeData);
-      response.data.timeData.forEach(element => {
-        arr.push(element);
-      });
-      setTimeTable(arr);
-    });
-    console.log("timeTable", timeTable);
-  }, []);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly

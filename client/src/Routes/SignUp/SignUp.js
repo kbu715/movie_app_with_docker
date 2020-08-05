@@ -88,7 +88,7 @@ function SignUp(props) {
         <form onSubmit={onSubmitHandler} style={{ margin: "0" }}>
         <div className="form-group" style={{ textAlign:"center"}}>
             <label style={{ marginBottom: "10px", display:"inline-block" }}>프로필 이미지</label><br/>
-            <div style={{ display: "flex", justifyContent: "space-between", display:"inline-block" }}>
+            <div style={{ display: "flex", justifyContent: "space-between",}}>
               <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
                 {({ getRootProps, getInputProps }) => (
                   <div

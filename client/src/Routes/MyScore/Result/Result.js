@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import styled from "styled-components";
+// import styled from "styled-components";
 import RecentRating from './RecentRating';
 import GenrePreference from './GenrePreference';
 import { moviesApi } from '../../../api';
 
-const Header = styled.div`
-    font-size : 30px;
-    font-weight: bold;
-    color : #1C1C1C;
-    text-align: center;
-    margin-bottom: 10px;
-`;
+// const Header = styled.div`
+//     font-size : 30px;
+//     font-weight: bold;
+//     color : #1C1C1C;
+//     text-align: center;
+//     margin-bottom: 10px;
+// `;
 
 const Result = () => {
     const user = useSelector(state => state.user);
