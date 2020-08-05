@@ -70,3 +70,7 @@ p.text {
 p.text span {
   color: #6feaf6;
 }
+
+.MuiTextField-root{
+  color: red;
+}

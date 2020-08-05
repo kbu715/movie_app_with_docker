@@ -190,6 +190,7 @@ const DetailPresenter = ({
               ? result.title //movie : title, tv show : name
               : result.name}
             <Reservation
+            // style={{border:"1px solid red"}}
               id={result.id}
               title={result.title}
               bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
