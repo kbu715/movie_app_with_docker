@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Button, Form, Input } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Typography, Form, Input } from "antd";
+import { PlusOutlined, CameraOutlined } from "@ant-design/icons";
+import Button from "@material-ui/core/Button";
 import Dropzone from "react-dropzone";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
@@ -101,12 +102,13 @@ function UpdateProfile(props) {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            float: "left",
+            float: "left",border:"1px solid yellow",
           }}
         >
           <div
             style={{
               backgroundColor: "#151515",
+              border:"1px solid pink",
               width: "570px",
               height: "200px",
               borderRadius: "5px",
@@ -153,42 +155,47 @@ function UpdateProfile(props) {
                       style={{
                         width: "30px",
                         height: "30px",
-                        border: "1px solid lightgray",
+                        border: "1px solid white",
+                        borderRadius:"20px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         position: "relative",
                         top: "5px",
                         left: "5px",
+                        margin:"0 auto"
                       }}
                       {...getRootProps()}
                     >
                       <input {...getInputProps()} />
-                      <PlusOutlined
-                        style={{ color: "white", fontSize: "1rem" }}
-                      />
+                      
+                        
+                    <CameraOutlined style={{ color: "white", fontSize: "1rem" }}/>
                     </div>
                   )}
                 </Dropzone>
               </div>
               <div>
-                <Button
+                {/* <div
                   style={{
                     // backgroundColor:"#151515",
                     backgroundColor: "transparent",
-                    borderColor: "transparent",
+                    border: "1px solid mediumslateblue",
                     // borderRadius:"5px",
                     color: "mediumslateblue",
                     zIndex: "10",
                     position: "relative",
+                    width:"100px",
+                    height:"50px",
                     bottom: "27px",
+                    margin: "0 auto"
                   }}
                   type="primary"
                   size="medium"
                   // onClick={onSubmit}
                 >
                   Upload Profile
-                </Button>
+                </div> */}
               </div>
             </div>
           </div>
@@ -229,11 +236,12 @@ function UpdateProfile(props) {
             style={{
               // border: "1px solid green",
               backgroundColor: "#151515",
-              marginLeft: "680px",
-              width: "1150px",
+              marginLeft: "30%",
+              width: "80%",
               height: "350px",
               borderRadius: "5px",
-              marginTop: "100px",
+              marginTop: "50%",
+              border: "3px solid red",
             }}
           >
             <span
@@ -382,6 +390,21 @@ function UpdateProfile(props) {
                 size="large"
                 onClick={onSubmit}
               >
+                <Button
+                  style={{
+                    backgroundColor: "mediumslateblue",
+                 
+                    borderRadius: "5px",
+                  }}
+                  type="primary"
+                  size="large"
+                  onClick={onSubmit}
+                >
+                  Update Profile
+                </Button>
+                <Button variant="contained" color="primary">
+            간편예매
+          </Button>
                 Update Profile
               </Button>
             </div>

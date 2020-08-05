@@ -8,6 +8,8 @@ import {
   REMOVE_MOVIE_ITEM,
   ADD_TO_CART,
   GET_CART_ITEMS,
+  REMOVE_CART_ITEM,
+  ON_SUCCESS_BUY,
 } from "./types";
 
 export function loginUser(dataToSubmit) {
@@ -88,16 +90,6 @@ export function getMovieItems(movieObjIds, userMovie) {
   const request = axios
     .get(`/api/reservation/reservation_by_id?id=${movieObjIds}&type=array`)
     .then((response) => {
-      // // movieItem들에 해당하는 정보들을 Reservation Collection에서 가져온후에
-      // // Quantity 정보를 넣어 준다.
-      // userMovie.forEach(movieItem => {
-      //   response.data.forEach((reservationDetail, index) => {
-      //     if (movieItem._id === reservationDetail._id) {
-      //       response.data[index].quantity = movieItem.quantity;
-      //     }
-      //   });
-      // });
-
       return response.data;
     });
 
@@ -110,15 +102,15 @@ export function getMovieItems(movieObjIds, userMovie) {
 
 export function getCartItems(cartItems, userCart) {
   const request = axios
-    .post(`/api/product/products_by_id?id=${cartItems}&type=array`)
+    .get(`/api/product/products_by_id?id=${cartItems}&type=array`)
     .then((response) => {
       //CartItem들에 해당하는 정보들을
       //product collection에서 가져온후에
       //Quantity 정보를 넣어 준다.
       userCart.forEach((cartItem) => {
-        response.data.product.forEach((productDetail, index) => {
+        response.data.forEach((productDetail, index) => {
           if (cartItem.id === productDetail._id) {
-            response.data.product[index].quantity = cartItem.quantity;
+            response.data[index].quantity = cartItem.quantity;
           }
         });
       });
@@ -152,6 +144,43 @@ export function removeMovieItem(movieObjId) {
   return {
     //request를 reducer로 넘기는 작업
     type: REMOVE_MOVIE_ITEM,
+    payload: request,
+  };
+}
+
+export function removeCartItem(productId) {
+  //node로 정보 보내기
+  const request = axios
+    .get(`/api/users/removeFromCart?id=${productId}`)
+    .then((response) => {
+      //productInfo, cart 정보를 조합해서 CartDetail을 만든다.
+      response.data.cart.forEach((item) => {
+        response.data.productInfo.forEach((product, index) => {
+          if (item.id === product._id) {
+            response.data.productInfo[index].quantity = item.quantity;
+          }
+        });
+      });
+
+      return response.data;
+    });
+
+  return {
+    //request를 reducer로 넘기는 작업
+    type: REMOVE_CART_ITEM,
+    payload: request,
+  };
+}
+
+export function onSuccessBuy(data) {
+  //node로 정보 보내기
+  const request = axios
+    .post(`/api/users/successBuy`, data)
+    .then((response) => response.data);
+
+  return {
+    //request를 reducer로 넘기는 작업
+    type: ON_SUCCESS_BUY,
     payload: request,
   };
 }
