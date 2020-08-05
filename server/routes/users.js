@@ -3,14 +3,17 @@ const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
 const { Reservation } = require("../models/Reservation");
+const { Product } = require("../models/Product");
+const { Payment } = require("../models/Payment");
 const { auth } = require("../middleware/auth");
 const { OAuth2Client } = require("google-auth-library");
+const async = require("async");
 
 router.post("/addToMovie", auth, (req, res) => {
   //User Collection에 해당 유저 정보를 가져오기(auth에 저장된 user._id를 불러올수있다.)
   User.findOne({ _id: req.user._id }, (err, userInfo) => {
     // let duplicate = false;
-    
+
     // userInfo.movie.forEach((item) => {
     //   if (item.id === req.body.movieId) {
     //     duplicate = true;
@@ -49,24 +52,22 @@ router.post("/addToMovie", auth, (req, res) => {
     //     }
     //   );
     // }
-    
 
-
-      User.findOneAndUpdate(
-        { _id: req.user._id },
-        {
-          $push: {
-            movie: {
-              _id: req.body.objId,
-            },
+    User.findOneAndUpdate(
+      { _id: req.user._id },
+      {
+        $push: {
+          movie: {
+            _id: req.body.objId,
           },
         },
-        { new: true },
-        (err, userInfo) => {
-          if (err) return res.status(400).json({ success: false, err });
-          res.status(200).send(userInfo.movie);
-        }
-      );
+      },
+      { new: true },
+      (err, userInfo) => {
+        if (err) return res.status(400).json({ success: false, err });
+        res.status(200).send(userInfo.movie);
+      }
+    );
   });
   //가져온 정보에서 결제내역에 넣으려 하는 영화가 이미 들어 있는지 확인
 
@@ -322,7 +323,6 @@ router.get("/removeFromMovie", auth, (req, res) => {
     },
     { new: true },
     (err, userInfo) => {
-
       let movie = userInfo.movie;
       let array = movie.map((item) => {
         return item._id;
@@ -387,4 +387,105 @@ router.post("/addToCart", auth, (req, res) => {
   });
 });
 
+router.get("/removeFromCart", auth, (req, res) => {
+  //먼저 cart안에 내가 지우려고한 상품 지우기
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      $pull: { cart: { id: req.query.id } },
+    },
+    { new: true },
+    (err, userInfo) => {
+      let cart = userInfo.cart;
+      let array = cart.map((item) => {
+        return item.id;
+      });
+
+      //product collection에서 현재 남아있는 상품들의 정보를 가져오기
+      Product.find({ _id: { $in: array } })
+        .populate("writer")
+        .exec((err, productInfo) => {
+          return res.status(200).json({
+            productInfo,
+            cart,
+          });
+        });
+    }
+  );
+});
+
+router.post("/successBuy", auth, (req, res) => {
+  //1. User Collection안에 History필드 안에 간단한 결제 정보 넣어주기
+  let history = [];
+  let transactionData = {};
+
+  req.body.cartDetail.forEach((item) => {
+    history.push({
+      dateOfPurchase: Date.now(),
+      name: item.title,
+      id: item._id,
+      price: item.price,
+      quantity: item.quantity,
+      paymentId: req.body.paymentData.paymentID,
+    });
+  });
+
+  //2. Payment Collection 안에 자세한 결제 정보들 넣어주기
+  transactionData.user = {
+    id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+  };
+
+  transactionData.data = req.body.paymentData;
+  transactionData.product = history;
+
+  //history 정보 저장
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $push: { history: history }, $set: { cart: [] } },
+    { new: true },
+    (err, user) => {
+      if (err) return res.json({ success: false, err });
+
+      //payment에다가 transactionData정보 저장
+      const payment = new Payment(transactionData);
+      payment.save((err, doc) => {
+        if (err) return res.json({ success: false, err });
+
+        //3. Product Collection 안에 있는 sold 필드 정보 업데이트 시켜주기
+
+        //상품당 몇개의 quantity를 샀는지
+        let products = [];
+        doc.product.forEach((item) => {
+          products.push({ id: item.id, quantity: item.quantity });
+        });
+
+        async.eachSeries(
+          products,
+          (item, callback) => {
+            Product.update(
+              { _id: item.id },
+              {
+                $inc: {
+                  sold: item.quantity,
+                },
+              },
+              { new: false },
+              callback
+            );
+          },
+          (err) => {
+            if (err) return res.json({ success: false, err });
+            res.status(200).json({
+              success: true,
+              cart: user.cart,
+              cartDetail: [],
+            });
+          }
+        );
+      });
+    }
+  );
+});
 module.exports = router;

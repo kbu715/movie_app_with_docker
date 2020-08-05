@@ -39,7 +39,7 @@ class UserMovie extends Component {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = event => {
+  handleChangeRowsPerPage = (event) => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
@@ -50,6 +50,7 @@ class UserMovie extends Component {
 
   render() {
     const { classes, className, movies, removeItem } = this.props;
+
     const { rowsPerPage, page } = this.state;
     const rootClassName = classNames(classes.root, className);
     return (

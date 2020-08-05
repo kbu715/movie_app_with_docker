@@ -229,11 +229,12 @@ function UpdateProfile(props) {
             style={{
               // border: "1px solid green",
               backgroundColor: "#151515",
-              marginLeft: "680px",
-              width: "1150px",
+              marginLeft: "30%",
+              width: "80%",
               height: "350px",
               borderRadius: "5px",
-              marginTop: "100px",
+              marginTop: "50%",
+              border: "3px solid red",
             }}
           >
             <span
