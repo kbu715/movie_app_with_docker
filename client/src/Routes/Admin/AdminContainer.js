@@ -19,14 +19,15 @@ function AdminContainer() {
   const onCollapse = (collapsed) => {
     setCollapsed({ collapsed });
   };
+  
   const toggle = () => {
-    setCollapsed({ Collapsed: !Collapsed });
+    Collapsed ? setCollapsed(false) : setCollapsed(true)
   };
 
   return (
     <Router>
       <Layout style={{ minHeight: "100vh" }}>
-        <Sider collapsible collapsed={Collapsed} onCollapse={onCollapse}>
+        <Sider collapsed={Collapsed} onCollapse={onCollapse}>
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
             <Menu.Item key="1">
