@@ -6,17 +6,18 @@ import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import Booking from "../Booking/Booking";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Axios from "axios";
-import Select from 'react-select';
+import Select from "react-select";
 import styled from "styled-components";
 
 const colourStyles = {
   control: styles => ({
-    ...styles, 
-    backgroundColor: 'white', 
+    ...styles,
+    backgroundColor: "white",
     borderRadius: "1rem",
-    fontSize: "1.1rem", width: "250px",
-    marginTop:"25px",
-    height: "40px", 
+    fontSize: "1.1rem",
+    width: "250px",
+    marginTop: "25px",
+    height: "40px",
     border: "1px solid #9c88ff",
     boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
     color: "#2e2e2e",
@@ -25,21 +26,21 @@ const colourStyles = {
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,
-      backgroundColor: isDisabled ? 'red' : '#f7f7f7',
-      backgroundColor: isFocused ? '#D8CEF6' : '#f7f7f7',
-      color: '#151515',
+      backgroundColor: isDisabled ? "red" : "#f7f7f7",
+      backgroundColor: isFocused ? "#D8CEF6" : "#f7f7f7",
+      color: "#151515",
       fontSize: "1.1rem",
-      cursor: isDisabled ? 'not-allowed' : 'default',
+      cursor: isDisabled ? "not-allowed" : "default",
     };
   },
 };
 
 const Button1 = styled.button`
- color: #9c88ff;
+  color: #9c88ff;
   border: 3px solid #9c88ff;
   border-radius: 5px;
   font-size: 18px;
-  font-weight:600;
+  font-weight: 600;
   background-color: #151515;
   margin-left: 20px;
   padding: 5px;
@@ -64,7 +65,7 @@ const Continentss = [
 const groupedOptions = [
   {
     options: Continentss,
-  }
+  },
 ];
 
 const Reservation = ({ id, title, bgImage, userFrom }) => {
@@ -72,6 +73,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
   const [time, setTime] = useState(0);
   const [timeTable, setTimeTable] = useState([]);
   const arr = [];
+
   useEffect(() => {
     Axios.get("/api/getTimeData").then(response => {
       console.log("넘어오나", response.data.timeData);
@@ -92,26 +94,26 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       }
       style={{
         textAlign: "center",
-        borderRadius:"1rem",
+        borderRadius: "1rem",
         fontSize: "1.1rem",
         border: "1px solid #9c88ff",
         boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
         color: "#9c88ff",
         outline: "none",
-        marginLeft:"10px",
-        width:"250px",
-        height:"40px",
-        marginTop:"10px",
-        marginBottom:"10px",
+        marginLeft: "10px",
+        width: "250px",
+        height: "40px",
+        marginTop: "10px",
+        marginBottom: "10px",
       }}
       className="my-custom-input-class"
     />
   );
 
   const onTime = event => {
-    setTime({ time: event.target.value });
+    setTime({ time: event.value });
+  };
 
-    
   //===================================================================================================================================
   //========================================================================CSS 겹침===================================================
   //===================================================================================================================================
@@ -153,13 +155,19 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       trigger={
         <Button1 variant="contained" color="primary">
           간편예매
-          </Button1>
+        </Button1>
       }
       modal
       closeOnDocumentClick={true}
       triggerOn="click"
-      contentStyle={{ backgroundColor: "#242333", width: "500px", borderRadius: "10px", padding: "1%", border: "2px solid #848484" }}
-    // style={{background:"black"}}
+      contentStyle={{
+        backgroundColor: "#242333",
+        width: "500px",
+        borderRadius: "10px",
+        padding: "1%",
+        border: "2px solid #848484",
+      }}
+      // style={{background:"black"}}
     >
       {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
@@ -185,21 +193,29 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       <Wrapper>
         <Popup
           trigger={
-            <Button1 variant="contained" color="primary" style={{
-              height:"40px",
-              width:"80px",
-              backgroundColor: "transparent",
-              fontWeight:"1000",
-              fontSize: "15px",
-              padding: "0px",
-              marginLeft: "0px"
-              }} >
+            <Button1
+              variant="contained"
+              color="primary"
+              style={{
+                height: "40px",
+                width: "80px",
+                backgroundColor: "transparent",
+                fontWeight: "1000",
+                fontSize: "15px",
+                padding: "0px",
+                marginLeft: "0px",
+              }}
+            >
               다음
             </Button1>
           }
           modal
-      contentStyle={{ backgroundColor: "#242333", borderRadius: "10px", padding: "1%", border: "2px solid #848484" }}
-
+          contentStyle={{
+            backgroundColor: "#242333",
+            borderRadius: "10px",
+            padding: "1%",
+            border: "2px solid #848484",
+          }}
           closeOnDocumentClick={true}
           triggerOn="click"
         >
@@ -217,5 +233,5 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
     </Popup>
   );
 };
-}
+
 export default Reservation;
