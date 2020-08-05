@@ -13,7 +13,7 @@ function MyMovie(props) {
     //리덕스 User state안에 movie안에 결재내역이 있는지 확인
     if (props.user.userData && props.user.userData.movie) {
       if (props.user.userData.movie.length > 0) {
-        props.user.userData.movie.forEach((item) => {
+        props.user.userData.movie.forEach(item => {
           movieObjIds.push(item._id);
         });
 
@@ -22,8 +22,8 @@ function MyMovie(props) {
     }
   }, [props.user.userData]);
 
-  const removeFromCart = (movieObjId) => {
-    dispatch(removeMovieItem(movieObjId)).then((response) => {
+  const removeFromCart = movieObjId => {
+    dispatch(removeMovieItem(movieObjId)).then(response => {
       if (response.payload.movieInfo.length <= 0) {
         setShowTotal(false);
       }

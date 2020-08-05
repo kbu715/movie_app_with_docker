@@ -116,7 +116,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   };
 
   useEffect(() => {
-
     axios
       .post("/api/reservation/findSeat", movieTitle)
       .then(response => {
@@ -126,22 +125,21 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           // let DBtime = "";
           // let DBselectDay = "";
           response.data.seats.forEach(obj => {
-            if(obj.time[0].time === time.time 
-              && obj.selectDay[0].day === selectDay.day 
-              && obj.selectDay[0].month === selectDay.month
-              && obj.selectDay[0].year === selectDay.year){
-            seatlist.push(obj.seat)
-        }
-      });
-          
-        
+            if (
+              obj.time[0].time === time.time &&
+              obj.selectDay[0].day === selectDay.day &&
+              obj.selectDay[0].month === selectDay.month &&
+              obj.selectDay[0].year === selectDay.year
+            ) {
+              seatlist.push(obj.seat);
+            }
+          });
+
           console.log("sdafkljsajfkasdf", seatlist);
           const flatlist = seatlist.flat(); //평탄화 함수!!!
           setDistinct(flatlist);
           // setDBtime(DBtime);
           // setDBselectDay(DBselectDay);
-          
-
         }
       })
       .catch(err => {
@@ -150,30 +148,53 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   }, []);
 
   //seat 색 변경
-  const onSeatChange = e => {
-    
-    if (Continent < Seat.length + 1) {
+  const onSeatChange = async e => {
+    console.log("Seat.length", Seat.length);
+    if (Continent >= Seat.length + 1) {
+      //인원이 좌석수보다 크거나 같을때
+
+      if (
+        //빈좌석
+        !e.target.classList.contains("occupied") &&
+        !e.target.classList.contains("selected")
+      ) {
+        e.target.classList.add("selected"); //누른게 선택좌석으로
+        setSeat([...Seat, e.target.textContent]); //저장
+      } else if (e.target.classList.contains("selected")) {
+        //인원수와 좌석수가 같을때
+        //선택된좌석은 삭제
+        e.target.classList.remove("selected");
+        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
+        setSeat(SeatFiltered);
+      }
+    } else {
+      if (Continent === Seat.length) {
+        e.target.classList.remove("selected");
+
+        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
+        setSeat(SeatFiltered);
+        console.log("Seat", Seat);
+        console.log("e.target.textContent", e.target.textContent);
+        console.log(
+          "Seat.includes(e.target.textContent)",
+          Seat.includes(e.target.textContent)
+        );
+        console.log(
+          "e.target.classList.contains",
+          e.target.classList.contains("selected")
+        );
+        if (!Seat.includes(e.target.textContent)) {
+          alert("선택한 인원수보다 좌석을 많이 선택하셨습니다.");
+        }
+      }
+
       //인원보다 좌석지정이 많을경우
-      alert("좌석 지정이 완료 되었습니다.");
+
       //클릭 못하게
       e.stopPropagation();
-      return;
     }
-    if (
-      e.target.classList.contains("seat") &&
-      !e.target.classList.contains("occupied")
-    ) {
-      e.target.classList.toggle("selected");
-      setSeat([...Seat, e.target.innerText]);
-    }
-    else if (
-      e.target.classList.contains("selected") &&
-      !e.target.classList.contains("occupied")
-    ) {
-      e.target.classList.toggle("seat");
-      setSeat(Seat => Seat.filter(seat=>seat !==e.target.innerText));
-    }
-    console.log(222222222, Continent, Seat.length)
+
+    // console.log(222222222, Continent, Seat.length);
   };
 
   const onCount = event => {
@@ -183,9 +204,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
   //결제후 DB저장
   const transactionSuccess = (data, e) => {
-    if (!selectDay || !time || !id || !title) {
-      return alert("모든 값을 넣어주셔야 합니다.");
-    }
     const body = {
       userFrom: userFrom,
       id: id,
@@ -211,7 +229,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     });
   };
 
-  //좌석과 인원 맞추기
+  // // 좌석과 인원 맞추기
   // const onCompareSeat = event => {
 
   // };
@@ -313,7 +331,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               <div className="screen"></div>
 
               {/* 좌석 */}
-              {(
+              {
                 <div className="row">
                   {SeatA.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -339,9 +357,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              )} 
+              }
 
-              {(
+              {
                 <div className="row">
                   {SeatB.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -367,9 +385,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              ) }
+              }
 
-              {(
+              {
                 <div className="row">
                   {SeatC.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -395,9 +413,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              )}
+              }
 
-              {(
+              {
                 <div className="row">
                   {SeatD.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -423,9 +441,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              )}
+              }
 
-              {(
+              {
                 <div className="row">
                   {SeatE.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -451,9 +469,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              )}
+              }
 
-              {(
+              {
                 <div className="row">
                   {SeatF.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -479,9 +497,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              )}
+              }
 
-              {(
+              {
                 <div className="row">
                   {SeatG.map(item => {
                     if (Distinct.includes(item.value)) {
@@ -507,7 +525,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
                     }
                   })}
                 </div>
-              )}
+              }
             </div>
           </Container>
           {/* )} */}
