@@ -11,28 +11,18 @@ import {
   TablePagination,
 } from "@material-ui/core";
 
-import Portlet from "./Portlet";
-import PortletContent from "./PortletContent";
-import styles from "./styles";
+import Portlet from "../../MyMovie/Sections/Portlet";
+import PortletContent from "../../MyMovie/Sections/PortletContent";
+import styles from "../../MyMovie/Sections/styles";
 
-class UserMovie extends Component {
+class CartPage extends Component {
   state = {
     rowsPerPage: 10,
     page: 0,
   };
 
-  // static propTypes = {
-  //   className: PropTypes.string,
-  //   classes: PropTypes.object.isRequired,
-  //   onSelect: PropTypes.func,
-  //   onShowDetails: PropTypes.func,
-  //   reservations: PropTypes.array.isRequired,
-  //   movies: PropTypes.array.isRequired,
-  //   cinemas: PropTypes.array.isRequired
-  // };
-
   static defaultProps = {
-    movies: [],
+    products: [],
   };
 
   handleChangePage = (event, page) => {
@@ -43,16 +33,19 @@ class UserMovie extends Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  // onFindAttr = (id, list, attr) => {
-  //   const item = list.find(item => item._id === id);
-  //   return item ? item[attr] : `Not ${attr} Found`;
-  // };
-
   render() {
-    const { classes, className, movies, removeItem } = this.props;
+    const { classes, className, products, removeItem } = this.props;
 
     const { rowsPerPage, page } = this.state;
     const rootClassName = classNames(classes.root, className);
+
+    const renderCartImage = (images) => {
+      if (images.length > 0) {
+        let image = images[0];
+        return `http://localhost:5000/${image}`;
+      }
+    };
+
     return (
       <Portlet className={rootClassName} style={{ backgroundColor: "#2D2D2D" }}>
         <PortletContent noPadding>
@@ -60,20 +53,17 @@ class UserMovie extends Component {
             <TableHead>
               <TableRow>
                 <TableCell align="left" style={{ color: "white" }}>
-                  Movie
+                  Product Image
                 </TableCell>
-                {/* <TableCell align="left" style={{color:'white'}}>Cinema</TableCell> */}
+
                 <TableCell align="left" style={{ color: "white" }}>
-                  Date
-                </TableCell>
-                <TableCell align="left" style={{ color: "white" }}>
-                  Start At
+                  Product Name
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
-                  Ticket Price
+                  Product Quantity
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
-                  Total
+                  Product Price
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
                   환불
@@ -81,35 +71,42 @@ class UserMovie extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {movies
+              {products
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((movie) => (
-                  <TableRow className={classes.tableRow} hover key={movie._id}>
+                .map((product) => (
+                  <TableRow
+                    className={classes.tableRow}
+                    hover
+                    key={product._id}
+                  >
                     <TableCell className={classes.tableCell}>
-                      {movie.title}
+                      {/* 이미지 */}
+                      <img
+                        style={{ width: "70px" }}
+                        alt="product"
+                        src={renderCartImage(product.images)}
+                      />
                     </TableCell>
-                    {/* <TableCell className={classes.tableCell}>
-                      {movie.theaters[0].theaters}
-                    </TableCell> */}
+
                     <TableCell className={classes.tableCell}>
-                      {movie.selectDay[0].day}/{movie.selectDay[0].month}/
-                      {movie.selectDay[0].year}
-                    </TableCell>
-                    <TableCell className={classes.tableCell}>
-                      {movie.time[0].time}
-                    </TableCell>
-                    <TableCell className={classes.tableCell}>
-                      {movie.price}
+                      {/* 타이틀 */}
+                      {product.title}
                     </TableCell>
                     <TableCell className={classes.tableCell}>
-                      {movie.continent}
+                      {/* 갯수 */}
+                      {product.quantity} EA
                     </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {/* 가격 */}
+                      {product.price}원
+                    </TableCell>
+
                     <TableCell
                       className={classes.tableCell}
                       style={{ color: "#2d2d2d" }}
                     >
-                      <button onClick={() => removeItem(movie._id)}>
-                        환불
+                      <button onClick={() => removeItem(product._id)}>
+                        삭제
                       </button>
                     </TableCell>
                   </TableRow>
@@ -122,7 +119,7 @@ class UserMovie extends Component {
               "aria-label": "Previous Page",
             }}
             component="div"
-            count={movies.length}
+            count={products.length}
             nextIconButtonProps={{
               "aria-label": "Next Page",
             }}
@@ -138,4 +135,4 @@ class UserMovie extends Component {
   }
 }
 
-export default withStyles(styles)(UserMovie);
+export default withStyles(styles)(CartPage);

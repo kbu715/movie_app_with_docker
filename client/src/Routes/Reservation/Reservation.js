@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 // import { Grid, TextField, MenuItem, createMuiTheme } from "@material-ui/core";
 import "./style.css";
@@ -7,67 +7,29 @@ import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import Booking from "../Booking/Booking";
 // import Button from "@material-ui/core/Button";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
-import Select from 'react-select';
-import styled from "styled-components";
-
-const Grid = styled.div`
-/* margin-top: 3px; */
-  display: grid;
-  /* margin-left: 20px; */
-  /* border: 1px solid red; */
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-gap: 10px;
-  width: 100%;
-  height:100%;
-  /* overflow-x: auto;
-  overflow-y: hidden; */
-`;
-
-const Button1 = styled.button`
- color: #9c88ff;
-  border: 3px solid #9c88ff;
-  border-radius: 5px;
-  font-size: 18px;
-  font-weight:600;
-  background-color: #151515;
-  margin-left: 20px;
-  padding: 5px;
-`;
-
-const Wrapper = styled.div`
-  padding: 5px;
-  margin: 0 auto;
-`;
-const Button2 = styled.button`
- color: #9c88ff;
-  border: 3px solid #9c88ff;
-  border-radius: 5px;
-  font-size: 15px;
-  height:40px;
-  font-weight:1000;
-  background-color: transparent;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-`;
-
-const Continentss = [
-  { key: 1, label: "11:00", value: "11:00" },
-  { key: 2, label: "13:00", value: "13:00" },
-  { key: 3, label: "15:00", value: "15:00" },
-  { key: 4, label: "17:00", value: "17:00" },
-];
-
-const groupedOptions = [
-  {
-    options: Continentss,
-  }
-];
+import Axios from "axios";
 
 const Reservation = ({ id, title, bgImage, userFrom }) => {
   const [selectDay, setSelectedDay] = useState(null);
   const [time, setTime] = useState(0);
-
+  const [timeTable, setTimeTable] = useState([]);
+  // const Continentss = [
+  //   { key: 1, value: "11:00" },
+  //   { key: 2, value: "13:00" },
+  //   { key: 3, value: "15:00" },
+  //   { key: 4, value: "17:00" },
+  // ];
+  const arr = [];
+  useEffect(() => {
+    Axios.get("/api/getTimeData").then(response => {
+      console.log("넘어오나", response.data.timeData);
+      response.data.timeData.forEach(element => {
+        arr.push(element);
+      });
+      setTimeTable(arr);
+    });
+    console.log("timeTable", timeTable);
+  }, []);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -94,7 +56,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
     />
   );
 
-  const onTime = (event) => {
+  const onTime = event => {
     setTime({ time: event.target.value });
   };
   return (
@@ -122,8 +84,31 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
     defaultValue={groupedOptions[0]}
     />
 
+{/* ==================================================================================================== */}
+{/* ============================================ Css랑 겹침 ============================================ */}
+{/* ==================================================================================================== */}
 <Wrapper>
-
+          {/* <Grid item xs>
+            <TextField
+              color="secondary"
+              fullWidth
+              select
+              value={time}
+              label="Time"
+              variant="filled"
+              onChange={onTime}
+            >
+              {timeTable.map(item => (
+                <MenuItem key={item.key} value={item.value}>
+                  {item.value}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+        </Grid> */}
+{/* ==================================================================================================== */}
+{/* ============================================ Css랑 겹침 ============================================ */}
+{/* ==================================================================================================== */}
             <Popup
               trigger={
                 <Button2 variant="contained" color="primary" >

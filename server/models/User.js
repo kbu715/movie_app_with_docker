@@ -35,6 +35,10 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
+  cart: {
+    type: Array,
+    default: [],
+  },
   history: {
     type: Array,
     default: [],
@@ -48,17 +52,20 @@ const userSchema = mongoose.Schema({
   },
 });
 //-------------------------------------------------1.
-userSchema.pre("save", function (next) { // pre : mongoose에서 가져옴
+userSchema.pre("save", function (next) {
+  // pre : mongoose에서 가져옴
   //User -> password를 가져오기 위해
   var user = this;
-  if (user.isModified("password")) { //비밀번호를 바꿀때만 암호화를 해줘야 하기 때문에
+  if (user.isModified("password")) {
+    //비밀번호를 바꿀때만 암호화를 해줘야 하기 때문에
     //비밀번호 암호화 시킨다
     bcrypt.genSalt(saltRounds, function (err, salt) {
       if (err) return next(err);
 
-      bcrypt.hash(user.password, salt, function (err, hash) {// user.password : myPlainTextPassword
+      bcrypt.hash(user.password, salt, function (err, hash) {
+        // user.password : myPlainTextPassword
         if (err) return next(err);
-        user.password = hash; 
+        user.password = hash;
         next();
       });
     });
@@ -95,7 +102,8 @@ userSchema.statics.findByToken = function (token, cb) {
 
   //user._id + 'secretToken' = token
   //토큰을 decode 한다
-  jwt.verify(token, "secretToken", function (err, decoded) { //decoded : user._id
+  jwt.verify(token, "secretToken", function (err, decoded) {
+    //decoded : user._id
     //유저 아이디를 이용해서 유저를 찾은 다음에
     //클라이언트에서 가져온 token과 DB에 보관된 토큰이 일치하는지 확인
     user.findOne({ _id: decoded, token: token }, function (err, user) {

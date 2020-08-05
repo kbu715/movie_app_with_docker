@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Dropzone from "react-dropzone";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
+import { CredentialListPage } from "twilio/lib/rest/api/v2010/account/sip/credentialList";
 
 const { Title } = Typography;
 // const { TextArea } = Input;
@@ -110,8 +111,8 @@ function UpdateProfile(props) {
               border:"1px solid pink",
               width: "570px",
               height: "200px",
-                borderRadius:"5px",
-                marginLeft: "60px",
+              borderRadius: "5px",
+              marginLeft: "60px",
             }}
           >
             <div
@@ -235,11 +236,12 @@ function UpdateProfile(props) {
             style={{
               // border: "1px solid green",
               backgroundColor: "#151515",
-              marginLeft: "680px",
-              width: "1150px",
+              marginLeft: "30%",
+              width: "80%",
               height: "350px",
-                borderRadius:"5px",
-                marginTop:"100px"
+              borderRadius: "5px",
+              marginTop: "50%",
+              border: "3px solid red",
             }}
           >
             <span
@@ -253,41 +255,40 @@ function UpdateProfile(props) {
             </span>
             <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
             {/* <div style={{ width: "700px", height: "270px", border:"1px solid pink" }}> */}
+            <div
+              style={{
+                // border: "1px solid red",
+                width: "1050px",
+                height: "220px",
+              }}
+            >
               <div
                 style={{
-                  // border: "1px solid red",
-                  width: "1050px",
-                  height: "220px",
+                  marginTop: "30px",
+                  marginLeft: "40px",
+                  float: "left",
+                  // border:"1px solid red"
                 }}
               >
-                <div
-                  style={{
-                    marginTop: "30px",
-                    marginLeft: "40px",
-                    float: "left",
-                    // border:"1px solid red"
-                  }}
-                >
-                  <div>
-                    <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
-                      Email
-                    </label>
-                    <br />
-                    <Input
-                      style={{
-                        height: "40px",
-                        width: "480px",
-                        borderRadius: "5px",
-                        backgroundColor: "transparent",
-                        color: "#D8D8D8",
-                        borderColor: "#5F5F5F",
-                      }}
-                      value={currentEmail}
-                    />
-                  </div>
-                  <div style={{ marginTop: "30px" }}>
-                    
-                    <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
+                <div>
+                  <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
+                    Email
+                  </label>
+                  <br />
+                  <Input
+                    style={{
+                      height: "40px",
+                      width: "480px",
+                      borderRadius: "5px",
+                      backgroundColor: "transparent",
+                      color: "#D8D8D8",
+                      borderColor: "#5F5F5F",
+                    }}
+                    value={currentEmail}
+                  />
+                </div>
+                <div style={{ marginTop: "30px" }}>
+                  <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
                     New Password
                   </label>
                   <br />
@@ -305,8 +306,8 @@ function UpdateProfile(props) {
                     value={updatePassword}
                     placeholder="새 비밀번호"
                   />
-                  </div>
                 </div>
+              </div>
 
               {/* //          <label>currentPassword</label>
           // <br />
@@ -319,27 +320,30 @@ function UpdateProfile(props) {
           //   required
         //   />  */}
 
-
-              <div style={{marginTop: "30px",
-                    marginLeft: "40px",
-                    // border:"1px solid green",
-                    float: "left"}}>
+              <div
+                style={{
+                  marginTop: "30px",
+                  marginLeft: "40px",
+                  // border:"1px solid green",
+                  float: "left",
+                }}
+              >
                 <div>
-                <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
-                      Name
-                    </label>
-                    <br />
-                    <Input
-                      style={{
-                        height: "40px",
-                        width: "480px",
-                        borderRadius: "5px",
-                        backgroundColor: "transparent",
-                        color: "#D8D8D8",
-                        borderColor: "#5F5F5F",
-                      }}
-                      value={currentName}
-                    />
+                  <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
+                    Name
+                  </label>
+                  <br />
+                  <Input
+                    style={{
+                      height: "40px",
+                      width: "480px",
+                      borderRadius: "5px",
+                      backgroundColor: "transparent",
+                      color: "#D8D8D8",
+                      borderColor: "#5F5F5F",
+                    }}
+                    value={currentName}
+                  />
                 </div>
                 <div style={{ marginTop: "30px" }}>
                   <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
@@ -362,19 +366,29 @@ function UpdateProfile(props) {
                   />
                 </div>
               </div>
-              </div>
+            </div>
 
-              {/* //////////////////////////////////////////////////////////// */}
+            {/* //////////////////////////////////////////////////////////// */}
 
-              <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
+            <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
 
-              <div
+            <div
+              style={{
+                width: "100px",
+                height: "100px",
+                marginLeft: "20px",
+                marginTop: "10px",
+              }}
+            >
+              <Button
                 style={{
-                  width: "100px",
-                  height: "100px",
-                  marginLeft: "20px",
-                  marginTop: "10px",
+                  backgroundColor: "mediumslateblue",
+                  borderColor: "mediumslateblue",
+                  borderRadius: "5px",
                 }}
+                type="primary"
+                size="large"
+                onClick={onSubmit}
               >
                 <Button
                   style={{
@@ -391,8 +405,10 @@ function UpdateProfile(props) {
                 <Button variant="contained" color="primary">
             간편예매
           </Button>
+                Update Profile
+              </Button>
             </div>
-              {/* </div> */}
+            {/* </div> */}
           </div>
         </Form>
       </div>
