@@ -15,6 +15,7 @@ const colourStyles = {
     borderRadius: "1rem",
     fontSize: "1.1rem",
     width: "250px",
+    textAlign: "center",
     marginTop: "25px",
     height: "40px",
     border: "1px solid #9c88ff",
@@ -22,7 +23,7 @@ const colourStyles = {
     color: "#2e2e2e",
     fontWeight: "400",
   }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+  option: (styles, { isDisabled, isFocused }) => {
     return {
       ...styles,
       backgroundColor: isDisabled ? "red" : "#f7f7f7",
@@ -79,17 +80,17 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
     <input
       readOnly
       ref={ref}
-      placeholder="날짜를 선택해주세요"
+      placeholder="  날짜를 선택해주세요"
       value={
-        selectDay ? `${selectDay.year}-${selectDay.month}-${selectDay.day}` : ""
+        selectDay ? `  ${selectDay.year}-${selectDay.month}-${selectDay.day}` : ""
       }
       style={{
-        textAlign: "center",
+        // textAlign: "center",
         borderRadius: "1rem",
         fontSize: "1.1rem",
         border: "1px solid #9c88ff",
         boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
-        color: "#9c88ff",
+        color: "#2e2e2e",
         outline: "none",
         marginLeft: "10px",
         width: "250px",
@@ -104,42 +105,6 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
   const onTime = event => {
     setTime({ time: event.value });
   };
-
-  //===================================================================================================================================
-  //========================================================================CSS 겹침===================================================
-  //===================================================================================================================================
-  // const renderCustomInput = ({ ref }) => {
-
-  //   return (
-  //     <input
-  //       readOnly
-  //       ref={ref}
-  //       placeholder="날짜를 선택해주세요"
-  //       value={
-  //         selectDay ? `${selectDay.year}-${selectDay.month}-${selectDay.day}` : ""
-  //       }
-  //       style={{
-  //         textAlign: "center",
-  //         borderRadius: "1rem",
-  //         fontSize: "1.1rem",
-  //         border: "1px solid #9c88ff",
-  //         boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
-  //         color: "#2e2e2e",
-  //         outline: "none",
-  //         // marginLeft:"10px",
-  //         width: "250px",
-  //         height: "40px",
-  //         marginTop:"20px",
-  //         // marginBottom:"10px",
-  //       }}
-  //       className="my-custom-input-class"
-  //     />
-  //   )
-  // };
-
-  // const onTime = (event) => {
-  //   setTime({ time: event.value });
-  // };
 
   return (
     <Popup
@@ -202,6 +167,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
           }
           modal
           contentStyle={{
+            width:"770px",
             backgroundColor: "#242333",
             borderRadius: "10px",
             padding: "1%",
