@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_action";
 import { withRouter } from "react-router-dom";
 
-
 import Google from "./Google";
+import Kakao from "./Kakao";
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -82,6 +82,7 @@ function Login(props) {
             로그인
           </button>
           <Google />
+          <Kakao />
           <br />
           <a href="/sign-up">회원이 아니신가요?</a>
         </form>
