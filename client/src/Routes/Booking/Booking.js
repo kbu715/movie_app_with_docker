@@ -18,26 +18,7 @@ import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
 import Select from 'react-select';
 
-// const Nav = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `;
 
-// const SideFlex = styled.div`
-//   width: 100%;
-//   background-position: center center;
-//   box-shadow: 2px 6px 20px 0 rgba(0, 0, 0, 0.65);
-//   margin: 0 auto;
-//   margin-top: 20px;
-//   display: flex;
-//   flex-direction: column;
-// `;
-
-// const Cover = styled.div`
-//   width: 95%;
-//   height: 50%;
-//   background-image: url(${props => props.bgImage})
-// `;
 
 
 const PriceTag = styled.div`
@@ -49,18 +30,7 @@ const Small = styled.div`
   font-size: 20px;
   color: white;
 `;
-// const Wrapper = styled.div`
-//   background-color: #242333;
-//   //color: #fff;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: flex-start;
-//   height: 80vh;
-//   width: 70%;
-//   font-family: "Lato", sans-serif;
-//   margin: 0;
-// `;
+
 const Container = styled.div`
   margin: 20px 0;
 `;
@@ -103,31 +73,7 @@ const Title = styled.div`
   margin-top: 30px;
 `;
 
-// const PriceTag = styled.div`
-//   font-size: 20px;
-//   font-weight: 30px;
-// `;
 
-// const Small = styled.div`
-//   font-size: 20px;
-//   color: white;
-// `;
-// const Wrapper = styled.div`
-//   background-color: #242333;
-//   //color: #fff;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: flex-start;
-//   height: 80vh;
-//   width: 70%;
-//   font-family: "Lato", sans-serif;
-//   margin: 0;
-// `;
-// const Container = styled.div`
-//   margin: 20px 0;
-//   border: 1px solid pink;
-// `;
 
 //------------------------------------------------------------------------------------------
 function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
@@ -144,11 +90,8 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     axios
       .post("/api/reservation/findSeat", movieTitle)
       .then(response => {
-        if (response.data.success) {
-          console.log("seats", response.data.seats);
-          let seatlist = [];
-          // let DBtime = "";
-          // let DBselectDay = "";
+        if (response.data.success) {          
+          let seatlist = [];          
           response.data.seats.forEach(obj => {
             if (
               obj.time[0].time === time.time &&
@@ -158,14 +101,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
             ) {
               seatlist.push(obj.seat);
             }
-          });
-
-          console.log("sdafkljsajfkasdf", seatlist);
+          });          
           const flatlist = seatlist.flat(); //평탄화 함수!!!
           setDistinct(flatlist);
-
-          
-
         }
       })
       .catch(err => {
