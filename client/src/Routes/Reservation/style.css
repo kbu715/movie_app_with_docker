@@ -1,6 +1,8 @@
 .container {
   perspective: 2000px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  height: 120px;
 }
 .seat {
   /* background-color: #444451; */
@@ -35,7 +37,7 @@
   transform: scale(1);
 }
 .showcase {
-  background: rgba(0, 0, 0, 0.1);
+  /* background: rgba(0, 0, 0, 0.1); */
   padding: 5px 10px;
   border-radius: 5px;
   color: #777;
@@ -59,8 +61,9 @@
 .screen {
   background-color: #fff;
   height: 70px;
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
+  margin-bottom: 30px;
   transform: rotateX(-45deg);
   box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
 }
