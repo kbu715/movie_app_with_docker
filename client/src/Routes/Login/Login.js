@@ -4,7 +4,7 @@ import { loginUser } from "../../_actions/user_action";
 import { withRouter } from "react-router-dom";
 
 
-import Google from "./Google";
+import SocialLogin from "./SocialLogin";
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ function Login(props) {
           <button type="submit" className="btn btn-primary btn-block">
             로그인
           </button>
-          <Google />
+          <SocialLogin />
           <br />
           <a href="/sign-up">회원이 아니신가요?</a>
         </form>

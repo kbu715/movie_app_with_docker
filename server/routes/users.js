@@ -260,6 +260,23 @@ router.post("/googlelogin", (req, res) => {
     });
 });
 
+
+
+
+
+
+
+// router.get("/kakaologin", (req, res) => {
+//   console.log(req.headers);
+
+// });
+
+
+
+
+
+
+
 router.post("/addToMovie", auth, (req, res) => {
   //User Collection에 해당 유저 정보를 가져오기(auth에 저장된 user._id를 불러올수있다.)
   User.findOne({ _id: req.user._id }, (err, userInfo) => {
