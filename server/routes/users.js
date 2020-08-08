@@ -264,13 +264,51 @@ router.post("/googlelogin", (req, res) => {
 
 
 
+router.post("/kakaologin", (req, res) => {
+  const data = req.body;
 
+  console.log(data)
+  const { profile : { id, kakao_account : { email, gender,  is_email_verified }, properties : { nickname } } } = data;
+      if (is_email_verified) {
+        User.findOne({ email:email+"(kakao)" }).exec((err, user) => {
+          if (err) {
+            return res.status(400).json({
+              error: "Something went wrong...",
+            });
+          } else {
+            if (user) {
+              //비밀번호 까지 맞다면 토큰을 생성하기.
+              user.generateToken((err, user) => {
+                if (err) return res.status(400).send(err);
 
-// router.get("/kakaologin", (req, res) => {
-//   console.log(req.headers);
+                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ loginSuccess: true, userId: user._id });
+              });
+            } else {
+              
+              let password = id + "kakao";
+              let name = nickname;
+              let kakao_email = email + "(kakao)"
+              const newUser = new User({ email:kakao_email, name, password, gender });
 
-// });
+              //비밀번호 까지 맞다면 토큰을 생성하기.
+              newUser.generateToken((err, user) => {
+                if (err) return res.status(400).send(err);
 
+                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ loginSuccess: true, userId: user._id });
+              });
+            }
+          }
+        });
+      }
+    });
 
 
 
