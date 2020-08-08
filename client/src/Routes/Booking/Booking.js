@@ -28,10 +28,6 @@ const Small = styled.div`
   color: white;
 `;
 
-const Container = styled.div`
-  margin: 20px 0;
-`;
-
 //------------------------------------------------------------------------------------------
 const Wrapper = styled.div`
   float: left;
@@ -60,51 +56,6 @@ const Cover = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Title = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  margin-top: 30px;
-`;
-// const Nav = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `;
-
-// const SideFlex = styled.div`
-//   width: 100%;
-//   background-position: center center;
-//   box-shadow: 2px 6px 20px 0 rgba(0, 0, 0, 0.65);
-//   margin: 0 auto;
-//   margin-top: 20px;
-//   display: flex;
-//   flex-direction: column;
-// `;
-
-// const Cover = styled.div`
-//   width: 95%;
-//   height: 50%;
-//   background-image: url(${props => props.bgImage})
-// `;
-// const Wrapper = styled.div`
-//   background-color: #242333;
-//   //color: #fff;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: flex-start;
-//   height: 80vh;
-//   width: 70%;
-//   font-family: "Lato", sans-serif;
-//   margin: 0;
-// `;
-
-// const PriceTag = styled.span`
-//   font-size : 30px;
-//   font-weight : 30px;
-//   text-align: right;
-//   margin-right: 10px;
-// `;
 
 //------------------------------------------------------------------------------------------
 function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
