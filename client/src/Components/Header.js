@@ -18,7 +18,6 @@ const Header = styled.header`
   top: 0;
   left: 0;
   justify-content: center;
-  background-color: #171717;
 `;
 
 const List1 = styled.ul`
@@ -66,7 +65,7 @@ const Item = styled.li`
   }
 `;
 const SLink = styled(Link)`
-  font-size: 10px;
+  font-size: 13px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -89,6 +88,36 @@ const SLink = styled(Link)`
   }
 `;
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const handleScroll = () => {
+  //scroll처리
+  const windowHeight =
+    "innerHeight" in window
+      ? window.innerHeight
+      : document.documentElement.offsetHeight;
+  const body = document.body;
+  const html = document.documentElement;
+  const docHeight = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
+  );
+  const windowBottom = windowHeight + window.pageYOffset;
+
+  var x = document.getElementById("header");
+
+  if (windowBottom < docHeight - 1400) {
+    console.log(windowBottom < docHeight - 1400);
+    x.style.backgroundColor="transparent"
+  } else if (windowBottom > docHeight - 1400){
+    x.style.backgroundColor="#171717"
+  }
+};
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
@@ -109,9 +138,11 @@ export default withRouter(
       });
     };
 
+    window.addEventListener("scroll", handleScroll);
+
     return (
       <>
-        <Header>
+        <Header id="header">
           <List1>
             <Item current={pathname === "/"}>
               <SLink to="/">홈</SLink>
@@ -145,25 +176,30 @@ export default withRouter(
             </List2>
           ) : (
             <List2>
-              <Item>
+              <Item style={{width:"95px"}}>
                 <SLink to="/mypage/update">
                   {/* 내계정 */}
                   {user.userData && (
                     <div
                       style={{
                         display: "flex",
-
-                        textAlign: "center",
+                        // textAlign: "right",
                         margin: "0px auto",
                       }}
                     >
+                      <span style={{textAlign:"center", verticalAlign:"middle"}}>
+                      {user.userData && user.userData.name.length>7? `${user.userData.name.substring(0, 4)}...` : user.userData.name}
+                      </span>
                       <img
                         style={{
                           display: "flex",
                           borderRadius: "70%",
-
+                          // position:"absolute",
+                          // right:"0",
+                          // bottom:"0",
                           overflow: "hidden",
                           objectFit: "cover",
+                          marginLeft:"10px",
                           // border: "2px solid white",
                           justifyContent: "center",
                         }}
@@ -176,27 +212,27 @@ export default withRouter(
                         width="25rem"
                         height="25rem"
                       />
-                      {user.userData && user.userData.name}
                     </div>
                   )}
                 </SLink>
               </Item>
-              <Item>
+              <Item style={{width:"50px"}}>
                 {user.userData && (
                   <div
                     style={{
                       display: "flex",
-                      textAlign: "center",
+                      itemAlign: "center",
                       margin: "0px auto",
                     }}
                   >
                     <Badge
                       count={user.userData && user.userData.cart.length}
-                      style={{ marginBottom: -10 }}
+                      style={{ marginBottom:-10 }}
+                      offset={[10,10]}
                     >
                       <SLink to="/mymovie" className="head-example">
                         <MediumOutlined
-                          style={{ fontSize: 25, marginBottom: 1 }}
+                          style={{ fontSize: 25, marginLeft:"10px" }}
                         />
                       </SLink>
                     </Badge>

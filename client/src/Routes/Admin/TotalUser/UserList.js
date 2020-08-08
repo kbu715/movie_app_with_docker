@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, PageHeader, Tag } from "antd";
+import { Table, PageHeader, Tag, Space, Button } from "antd";
 
 import axios from "axios";
 const { Column } = Table;
@@ -16,6 +16,27 @@ function UserList() {
       }
     });
   }, []);
+
+  const onRoleAdminHandler = () => {
+    axios.get("/api/users/roleAdmin").then((response) => {
+      if (response.data.success) {
+        alert("관리자 변경완료");
+      } else {
+        console.log("실패");
+      }
+    });
+  };
+  const onRoleUserHandler = () => {
+    axios.get("/api/users/roleUser").then((response) => {
+      if (response.data.success) {
+        alert("회원등급 변경완료");
+      } else {
+        console.log("실패");
+      }
+    });
+  };
+
+  const onUserDeleteHandler = () => {};
 
   return (
     <PageHeader
@@ -35,6 +56,31 @@ function UserList() {
             <Column title="이름" dataIndex="name" key="name" />
             <Column title="이메일" dataIndex="email" key="email" />
             <Column title="등급" dataIndex="role" key="role" />
+            <Column
+              title="회원수정"
+              key="action"
+              render={(text, record) => (
+                <Space size="middle">
+                  <Button type="primary" danger onClick={onRoleAdminHandler}>
+                    관리자
+                  </Button>
+                  <Button type="primary" onClick={onRoleUserHandler}>
+                    일반회원
+                  </Button>
+                </Space>
+              )}
+            />
+            <Column
+              title="회원탈퇴"
+              key="action"
+              render={(text, record) => (
+                <Space size="middle">
+                  <Button type="primary" danger onClick={onUserDeleteHandler}>
+                    삭제
+                  </Button>
+                </Space>
+              )}
+            />
           </Table>
         </div>
       </div>
