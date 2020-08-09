@@ -153,17 +153,19 @@ router.get("/logout", auth, (req, res) => {
 });
 
 router.get("/management", (req, res) => {
-  User.find({}).exec((err, info) => {
-    if (err) return res.status(400).send(err);
+  User.find({})
+    .sort({ role: 1 })
+    .exec((err, info) => {
+      if (err) return res.status(400).send(err);
 
-    res.status(200).json({ success: true, users: info });
-  });
+      res.status(200).json({ success: true, users: info });
+    });
 });
 
 router.post("/removeFromUsers", (req, res) => {
   User.findOneAndDelete({
     email: req.body.email,
-  }).exec((err, result) => {
+  }).exec((err) => {
     if (err) return res.status(400).send(err);
     return res.status(200).json({ success: true });
   });
@@ -259,6 +261,59 @@ router.post("/googlelogin", (req, res) => {
       }
     });
 });
+
+
+
+
+
+router.post("/kakaologin", (req, res) => {
+  const data = req.body;
+  const { profile : { id, kakao_account : { email, gender,  is_email_verified }, properties : { nickname } } } = data;
+      if (is_email_verified) {
+        User.findOne({ email:email+"(kakao)" }).exec((err, user) => {
+          if (err) {
+            return res.status(400).json({
+              error: "Something went wrong...",
+            });
+          } else {
+            if (user) {
+              //비밀번호 까지 맞다면 토큰을 생성하기.
+              user.generateToken((err, user) => {
+                if (err) return res.status(400).send(err);
+
+                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ loginSuccess: true, userId: user._id });
+              });
+            } else {
+              
+              let password = id + "kakao";
+              let name = nickname;
+              let kakao_email = email + "(kakao)"
+              const newUser = new User({ email:kakao_email, name, password, gender });
+
+              //비밀번호 까지 맞다면 토큰을 생성하기.
+              newUser.generateToken((err, user) => {
+                if (err) return res.status(400).send(err);
+
+                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ loginSuccess: true, userId: user._id });
+              });
+            }
+          }
+        });
+      }
+    });
+
+
+
+
+
 
 router.post("/addToMovie", auth, (req, res) => {
   //User Collection에 해당 유저 정보를 가져오기(auth에 저장된 user._id를 불러올수있다.)
@@ -488,4 +543,44 @@ router.post("/successBuy", auth, (req, res) => {
     }
   );
 });
+
+router.get("/history", auth, (req, res) => {
+  User.find({}, ["history"]).exec((err, doc) => {
+    if (err) return res.status(400).json({ success: false, err });
+    return res.status(200).json({ success: true, doc });
+  });
+});
+module.exports = router;
+
+router.get("/roleAdmin", auth, (req, res) => {
+  User.findOneAndUpdate(
+    { role: "일반회원" },
+    { $set: { role: "관리자" } },
+    { new: true }
+  ).exec((err, doc) => {
+    if (err) return res.status(400).json({ success: false, err });
+    return res.status(200).json({ success: true, doc });
+  });
+});
+
+router.get("/roleUser", auth, (req, res) => {
+  User.findOneAndUpdate(
+    { role: "관리자" },
+    { $set: { role: "일반회원" } },
+    { new: true }
+  ).exec((err, doc) => {
+    if (err) return res.status(400).json({ success: false, err });
+    return res.status(200).json({ success: true, doc });
+  });
+});
+
+router.post("/removeFromUser", auth, (req, res) => {
+  User.findOneAndDelete({
+    _id: req.body._id,
+  }).exec((err, result) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true, result });
+  });
+});
+
 module.exports = router;

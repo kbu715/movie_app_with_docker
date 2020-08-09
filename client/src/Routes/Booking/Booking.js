@@ -16,75 +16,33 @@ import {
 } from "../Reservation/Modal/Context";
 import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
-import Select from 'react-select';
+import Select from "react-select";
 
-// const Nav = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `;
-
-// const SideFlex = styled.div`
-//   width: 100%;
-//   background-position: center center;
-//   box-shadow: 2px 6px 20px 0 rgba(0, 0, 0, 0.65);
-//   margin: 0 auto;
-//   margin-top: 20px;
-//   display: flex;
-//   flex-direction: column;
-// `;
-
-// const Cover = styled.div`
-//   width: 95%;
-//   height: 50%;
-//   background-image: url(${props => props.bgImage})
-// `;
-// const Wrapper = styled.div`
-//   background-color: #242333;
-//   //color: #fff;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: flex-start;
-//   height: 80vh;
-//   width: 70%;
-//   font-family: "Lato", sans-serif;
-//   margin: 0;
-// `;
-
-// const PriceTag = styled.div`
-//   font-size: 20px;
-//   font-weight: 30px;
-// `;
-
-// const Small = styled.div`
-//   font-size: 20px;
-//   color: white;
-// `;
-// const Wrapper = styled.div`
-//   background-color: #242333;
-//   //color: #fff;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: flex-start;
-//   height: 80vh;
-//   width: 70%;
-//   font-family: "Lato", sans-serif;
-//   margin: 0;
-// `;
-// const Container = styled.div`
-//   margin: 20px 0;
-//   border: 1px solid pink;
-// `;
-
+const PriceTag = styled.div`
+  font-size: 20px;
+  font-weight: 30px;
+`;
 
 const Small = styled.div`
   font-size: 20px;
   color: white;
 `;
 
-const Container = styled.div`
-  margin: 20px 0;
+//------------------------------------------------------------------------------------------
+const Wrapper = styled.div`
+  float: left;
+  height: 100%;
+`;
+const InnerWrapper = styled.div`
+  background-color: #242333;
+  color: #fff;
+  /* display: flex;
+  flex-direction: row;
+  //align-items: center;
+  justify-content: flex-end; */
+  /* width: 50%; */
+  font-family: "Lato", sans-serif;
+  /* border: 2px solid red; */
 `;
 const Cover = styled.div`
   width: 90%;
@@ -98,39 +56,6 @@ const Cover = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Title = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  margin-top: 30px;
-`;
-
-
-
-//------------------------------------------------------------------------------------------
-const Wrapper = styled.div`
-  float: left;
-  height: 100%;
-`
-const InnerWrapper = styled.div`
-  background-color: #242333;
-  color: #fff;
-  /* display: flex;
-  flex-direction: row;
-  //align-items: center;
-  justify-content: flex-end; */
-  /* width: 50%; */
-  font-family: "Lato", sans-serif;
-  /* border: 2px solid red; */
-`;
-
-const PriceTag = styled.span`
-  font-size : 30px;
-  font-weight : 30px;
-  text-align: right;
-  margin-right: 10px;
-`;
-
 
 //------------------------------------------------------------------------------------------
 function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
@@ -146,13 +71,10 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   useEffect(() => {
     axios
       .post("/api/reservation/findSeat", movieTitle)
-      .then(response => {
+      .then((response) => {
         if (response.data.success) {
-          console.log("seats", response.data.seats);
           let seatlist = [];
-          // let DBtime = "";
-          // let DBselectDay = "";
-          response.data.seats.forEach(obj => {
+          response.data.seats.forEach((obj) => {
             if (
               obj.time[0].time === time.time &&
               obj.selectDay[0].day === selectDay.day &&
@@ -162,21 +84,17 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               seatlist.push(obj.seat);
             }
           });
-
-          console.log("sdafkljsajfkasdf", seatlist);
           const flatlist = seatlist.flat(); //평탄화 함수!!!
           setDistinct(flatlist);
-
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, []);
 
   //seat 색 변경
-  const onSeatChange = e => {
-    console.log("Seat.length", Seat.length);
+  const onSeatChange = (e) => {
     if (Continent >= Seat.length + 1) {
       //인원이 좌석수보다 크거나 같을때
 
@@ -191,25 +109,19 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         //인원수와 좌석수가 같을때
         //선택된좌석은 삭제
         e.target.classList.remove("selected");
-        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
+        const SeatFiltered = Seat.filter(
+          (seat) => seat !== e.target.textContent
+        ); //text삭제
         setSeat(SeatFiltered);
       }
     } else {
       if (Continent === Seat.length) {
         e.target.classList.remove("selected");
 
-        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
-        setSeat(SeatFiltered);
-        console.log("Seat", Seat);
-        console.log("e.target.textContent", e.target.textContent);
-        console.log(
-          "Seat.includes(e.target.textContent)",
-          Seat.includes(e.target.textContent)
-        );
-        console.log(
-          "e.target.classList.contains",
-          e.target.classList.contains("selected")
-        );
+        const SeatFiltered = Seat.filter(
+          (seat) => seat !== e.target.textContent
+        ); //text삭제
+        setSeat(SeatFiltered);        
         if (!Seat.includes(e.target.textContent)) {
           alert("선택한 인원수보다 좌석을 많이 선택하셨습니다.");
         }
@@ -220,7 +132,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       //클릭 못하게
       e.stopPropagation();
     }
-
   };
 
   const onCount = (event) => {
@@ -228,7 +139,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     setContinent(event.key);
     setPrice(event.key * 100);
   };
-
 
   //결제후 DB저장
   const transactionSuccess = (data, e) => {
@@ -242,7 +152,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       seat: Seat,
       price: Price,
     };
-    axios.post("/api/reservation", body).then(response => {
+    axios.post("/api/reservation", body).then((response) => {
       if (response.data.success) {
         alert("예매 성공");
 
@@ -259,11 +169,12 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   ////////////////////////////////////////////////////////////////
 
   const colourStyles = {
-    control: styles => ({
+    control: (styles) => ({
       ...styles,
-      backgroundColor: 'white',
+      backgroundColor: "white",
       borderRadius: "1rem",
-      fontSize: "1.1rem", width: "250px",
+      fontSize: "1.1rem",
+      width: "250px",
       // marginTop: "25px",
       height: "35px",
       border: "1px solid #9c88ff",
@@ -274,18 +185,18 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     option: (styles, { data, isDisabled, isFocused }) => {
       return {
         ...styles,
-        backgroundColor: isDisabled ? 'red' : '#f7f7f7',
-        backgroundColor: isFocused ? '#D8CEF6' : '#f7f7f7',
-        color: '#151515',
+        backgroundColor: isDisabled ? "red" : "#f7f7f7",
+        backgroundColor: isFocused ? "#D8CEF6" : "#f7f7f7",
+        color: "#151515",
         fontSize: "1.1rem",
-        cursor: isDisabled ? 'not-allowed' : 'default',
+        cursor: isDisabled ? "not-allowed" : "default",
       };
     },
   };
   const groupedOptions = [
     {
       options: Continents,
-    }
+    },
   ];
 
   //===================================================================================================================================
@@ -293,8 +204,8 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   //===================================================================================================================================
   return (
     <>
-      <Wrapper style={{ marginRight: "20px", }}>
-        <InnerWrapper style={{ height: "50px", }}>
+      <Wrapper style={{ marginRight: "20px" }}>
+        <InnerWrapper style={{ height: "50px" }}>
           <Select
             options={groupedOptions}
             // defaultValue="인원을 선택해주세요"
@@ -309,15 +220,17 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           <Cover bgImage={bgImage} />
         </InnerWrapper>
 
-        <InnerWrapper style={{
-          height: "200px",
-          display: "flex",
-          flexDirection: "column",
-          fontSize: "17px",
-          padding: "10px",
-          color: "#D8D8D8",
-        }}>
-          <table style={{ height: "50%", }}>
+        <InnerWrapper
+          style={{
+            height: "200px",
+            display: "flex",
+            flexDirection: "column",
+            fontSize: "17px",
+            padding: "10px",
+            color: "#D8D8D8",
+          }}
+        >
+          <table style={{ height: "50%" }}>
             <tbody>
               <tr>
                 <th style={{ color: "white" }}>날짜</th>
@@ -361,8 +274,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         </InnerWrapper>
       </Wrapper>
       <Wrapper>
-        <InnerWrapper style={{marginBottom:"30px", marginTop:"2px"}}>
-
+        <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}>
           <ul className="showcase">
             <li>
               <div className="seat"></div> <Small>빈좌석</Small>
@@ -376,7 +288,9 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           </ul>
         </InnerWrapper>
 
-        <hr style={{ color: "white", borderColor: "white", marginLeft:"20px" }} />
+        <hr
+          style={{ color: "white", borderColor: "white", marginLeft: "20px" }}
+        />
         {/* {DBtime === time.time && ( */}
         <InnerWrapper>
           <div className="container">
@@ -385,7 +299,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
             {/* 좌석 */}
             {
               <div className="row">
-                {SeatA.map(item => {
+                {SeatA.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -413,7 +327,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatB.map(item => {
+                {SeatB.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -441,7 +355,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatC.map(item => {
+                {SeatC.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -469,7 +383,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatD.map(item => {
+                {SeatD.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -497,7 +411,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatE.map(item => {
+                {SeatE.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -525,7 +439,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatF.map(item => {
+                {SeatF.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -553,7 +467,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatG.map(item => {
+                {SeatG.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -581,10 +495,11 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           </div>
         </InnerWrapper>
         {/* )} */}
-        <InnerWrapper style={{position:"absolute", bottom:"45px", right:"35px"}}>
+        <InnerWrapper
+          style={{ position: "absolute", bottom: "45px", right: "35px" }}
+        >
           <Paypal onSuccess={transactionSuccess} Price={Price} />
         </InnerWrapper>
-
       </Wrapper>
       {/* </Nav> */}
     </>

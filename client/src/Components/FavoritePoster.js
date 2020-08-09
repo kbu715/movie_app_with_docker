@@ -92,8 +92,6 @@ const ImageContainer = styled.div`
 `;
 
 const Title = styled.span`
-  // display: block;
-  // margin-bottom: 3px;
   font-size: 12px;
   display: flex;
   flex-direction: column;
@@ -103,17 +101,12 @@ const Title = styled.span`
   padding: 1.5rem 3rem;
 `;
 const Year = styled.span`
-  // font-size: 10px;
-  // color: rgba(255, 255, 255, 0.5);
-
   display: flex;
   justify-content: center;
   position: relative;
   align-items: center;
   margin-bottom: 0.5rem;
   color: var(--color-primary);
-
-  // margin-left: 10px;
 `;
 
 const RatingsWrapper = styled.div`
@@ -140,7 +133,6 @@ const FavoritePoster = ({
   year,
   isMovie = false,
 }) => {
-  // console.log(id);
   const classes = useStyles();
   return (
     <Container>
