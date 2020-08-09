@@ -19,7 +19,6 @@ const Header = styled.header`
   left: 0;
   justify-content: center;
 `;
-
 const List1 = styled.ul`
   justify-content: flex-start;
   width: 100%;
@@ -109,14 +108,12 @@ const handleScroll = () => {
   var x = document.getElementById("header");
 
   if (windowBottom < docHeight - 1400) {
-    console.log(windowBottom < docHeight - 1400);
-    x.style.backgroundColor="transparent"
-  } else if (windowBottom > docHeight - 1400){
-    x.style.backgroundColor="#171717"
+    x.style.backgroundColor = "transparent";
+  } else if (windowBottom > docHeight - 1400) {
+    x.style.backgroundColor = "#171717";
   }
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 export default withRouter(
   (
@@ -127,6 +124,15 @@ export default withRouter(
     const {
       location: { pathname },
     } = props;
+
+    // componentDidUpdate(prevProps, prevState){
+    //   if (windowBottom < docHeight - 1400) {
+    //     x.style.backgroundColor="transparent"
+    //   } else if (windowBottom > docHeight - 1400){
+    //     x.style.backgroundColor="#171717"
+    //   }
+    // };
+
     const logoutHandler = () => {
       Axios.get("/api/users/logout").then((response) => {
         if (response.data.success) {
@@ -176,7 +182,7 @@ export default withRouter(
             </List2>
           ) : (
             <List2>
-              <Item style={{width:"95px"}}>
+              <Item style={{ width: "95px" }}>
                 <SLink to="/mypage/update">
                   {/* 내계정 */}
                   {user.userData && (
@@ -187,8 +193,12 @@ export default withRouter(
                         margin: "0px auto",
                       }}
                     >
-                      <span style={{textAlign:"center", verticalAlign:"middle"}}>
-                      {user.userData && user.userData.name.length>7? `${user.userData.name.substring(0, 4)}...` : user.userData.name}
+                      <span
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {user.userData && user.userData.name.length > 7
+                          ? `${user.userData.name.substring(0, 4)}...`
+                          : user.userData.name}
                       </span>
                       <img
                         style={{
@@ -199,7 +209,7 @@ export default withRouter(
                           // bottom:"0",
                           overflow: "hidden",
                           objectFit: "cover",
-                          marginLeft:"10px",
+                          marginLeft: "10px",
                           // border: "2px solid white",
                           justifyContent: "center",
                         }}
@@ -216,7 +226,7 @@ export default withRouter(
                   )}
                 </SLink>
               </Item>
-              <Item style={{width:"50px"}}>
+              <Item style={{ width: "50px" }}>
                 {user.userData && (
                   <div
                     style={{
@@ -227,12 +237,12 @@ export default withRouter(
                   >
                     <Badge
                       count={user.userData && user.userData.cart.length}
-                      style={{ marginBottom:-10 }}
-                      offset={[10,10]}
+                      style={{ marginBottom: -10 }}
+                      offset={[10, 10]}
                     >
                       <SLink to="/mymovie" className="head-example">
                         <MediumOutlined
-                          style={{ fontSize: 25, marginLeft:"10px" }}
+                          style={{ fontSize: 25, marginLeft: "10px" }}
                         />
                       </SLink>
                     </Badge>

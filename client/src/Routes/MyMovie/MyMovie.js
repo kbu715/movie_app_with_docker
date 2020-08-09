@@ -24,7 +24,7 @@ function MyMovie(props) {
     //리덕스 User state안에 movie안에 결재내역이 있는지 확인
     if (props.user.userData && props.user.userData.movie) {
       if (props.user.userData.movie.length > 0) {
-        props.user.userData.movie.forEach(item => {
+        props.user.userData.movie.forEach((item) => {
           movieObjIds.push(item._id);
         });
 
@@ -35,12 +35,12 @@ function MyMovie(props) {
     //redux User state안에 Cart 안에 상품이 들어 있는지 확인
     if (props.user.userData && props.user.userData.cart) {
       if (props.user.userData.cart.length > 0) {
-        props.user.userData.cart.forEach(item => {
+        props.user.userData.cart.forEach((item) => {
           cartItems.push(item.id);
         });
 
         dispatch(getCartItems(cartItems, props.user.userData.cart)).then(
-          response => {
+          (response) => {
             calculateTotal(response.payload);
           }
         );
@@ -48,38 +48,38 @@ function MyMovie(props) {
     }
   }, [props.user.userData]);
 
-  let calculateTotal = cartDetail => {
+  let calculateTotal = (cartDetail) => {
     let total = 0;
-    cartDetail.forEach(item => {
+    cartDetail.forEach((item) => {
       total += parseInt(item.price, 10) * item.quantity;
     });
 
     setTotal(total);
   };
 
-  const removeFromMovie = movieObjId => {
-    dispatch(removeMovieItem(movieObjId)).then(response => {
+  const removeFromMovie = (movieObjId) => {
+    dispatch(removeMovieItem(movieObjId)).then((response) => {
       if (response.payload.movieInfo.length <= 0) {
         setShowTotalMovie(false);
       }
     });
   };
 
-  let removeFromCart = productId => {
-    dispatch(removeCartItem(productId)).then(response => {
+  let removeFromCart = (productId) => {
+    dispatch(removeCartItem(productId)).then((response) => {
       if (response.payload.productInfo.length <= 0) {
         setShowTotalProduct(false);
       }
     });
   };
 
-  const transactionSuccess = data => {
+  const transactionSuccess = (data) => {
     dispatch(
       onSuccessBuy({
         paymentData: data,
         cartDetail: props.user.cartDetail,
       })
-    ).then(response => {
+    ).then((response) => {
       if (response.payload.success) {
         setShowTotalProduct(false);
         setShowSuccess(true);
@@ -115,12 +115,19 @@ function MyMovie(props) {
               marginTop: "1rem",
               fontSize: "35px",
               color: "white",
-              border: "2px solid white",
-              backgroundColor: "white",
-              width: "20%",
+              textAlign: "right",
+              // border: "2px solid white",
+              // backgroundColor: "white",
+              width: "100%",
             }}
           >
-            <h1>총 금액: <span role="img" aria-label="cute">💰</span>{Total}</h1>
+            <h3 style={{ color: "#f7f7f7" }}>
+              총 금액:{" "}
+              <span role="img" aria-label="cute">
+                💰
+              </span>
+              {Total}
+            </h3>
           </div>
         ) : ShowSuccess ? (
           <Result status="success" title="Success!" />
@@ -130,10 +137,11 @@ function MyMovie(props) {
             <Empty description={false} />
           </>
         )}
-
-        {ShowTotalProduct && (
-          <Paypal onSuccess={transactionSuccess} Price={Total} />
-        )}
+        <div style={{ textAlign: "right", paddingTop: "2%" }}>
+          {ShowTotalProduct && (
+            <Paypal onSuccess={transactionSuccess} Price={Total} />
+          )}
+        </div>
       </div>
     </div>
   );
