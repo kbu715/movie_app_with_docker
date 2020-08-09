@@ -268,8 +268,6 @@ router.post("/googlelogin", (req, res) => {
 
 router.post("/kakaologin", (req, res) => {
   const data = req.body;
-
-  console.log(data)
   const { profile : { id, kakao_account : { email, gender,  is_email_verified }, properties : { nickname } } } = data;
       if (is_email_verified) {
         User.findOne({ email:email+"(kakao)" }).exec((err, user) => {
