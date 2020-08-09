@@ -95,7 +95,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
   //seat 색 변경
   const onSeatChange = (e) => {
-    console.log("Seat.length", Seat.length);
     if (Continent >= Seat.length + 1) {
       //인원이 좌석수보다 크거나 같을때
 
@@ -122,17 +121,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         const SeatFiltered = Seat.filter(
           (seat) => seat !== e.target.textContent
         ); //text삭제
-        setSeat(SeatFiltered);
-        console.log("Seat", Seat);
-        console.log("e.target.textContent", e.target.textContent);
-        console.log(
-          "Seat.includes(e.target.textContent)",
-          Seat.includes(e.target.textContent)
-        );
-        console.log(
-          "e.target.classList.contains",
-          e.target.classList.contains("selected")
-        );
+        setSeat(SeatFiltered);        
         if (!Seat.includes(e.target.textContent)) {
           alert("선택한 인원수보다 좌석을 많이 선택하셨습니다.");
         }

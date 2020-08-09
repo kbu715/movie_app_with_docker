@@ -153,17 +153,19 @@ router.get("/logout", auth, (req, res) => {
 });
 
 router.get("/management", (req, res) => {
-  User.find({}).exec((err, info) => {
-    if (err) return res.status(400).send(err);
+  User.find({})
+    .sort({ role: 1 })
+    .exec((err, info) => {
+      if (err) return res.status(400).send(err);
 
-    res.status(200).json({ success: true, users: info });
-  });
+      res.status(200).json({ success: true, users: info });
+    });
 });
 
 router.post("/removeFromUsers", (req, res) => {
   User.findOneAndDelete({
     email: req.body.email,
-  }).exec((err, result) => {
+  }).exec((err) => {
     if (err) return res.status(400).send(err);
     return res.status(200).json({ success: true });
   });
@@ -498,17 +500,34 @@ router.get("/history", auth, (req, res) => {
 module.exports = router;
 
 router.get("/roleAdmin", auth, (req, res) => {
-  User.findOneAndUpdate({ role: 2 }, { $set: { role: 1 } }).exec((err, doc) => {
+  User.findOneAndUpdate(
+    { role: "일반회원" },
+    { $set: { role: "관리자" } },
+    { new: true }
+  ).exec((err, doc) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true, doc });
   });
 });
-module.exports = router;
 
 router.get("/roleUser", auth, (req, res) => {
-  User.findOneAndUpdate({ role: 1 }, { $set: { role: 2 } }).exec((err, doc) => {
+  User.findOneAndUpdate(
+    { role: "관리자" },
+    { $set: { role: "일반회원" } },
+    { new: true }
+  ).exec((err, doc) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true, doc });
   });
 });
+
+router.post("/removeFromUser", auth, (req, res) => {
+  User.findOneAndDelete({
+    _id: req.body._id,
+  }).exec((err, result) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true, result });
+  });
+});
+
 module.exports = router;
