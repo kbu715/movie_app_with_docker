@@ -262,6 +262,61 @@ router.post("/googlelogin", (req, res) => {
     });
 });
 
+
+
+
+
+router.post("/kakaologin", (req, res) => {
+  const data = req.body;
+
+  console.log(data)
+  const { profile : { id, kakao_account : { email, gender,  is_email_verified }, properties : { nickname } } } = data;
+      if (is_email_verified) {
+        User.findOne({ email:email+"(kakao)" }).exec((err, user) => {
+          if (err) {
+            return res.status(400).json({
+              error: "Something went wrong...",
+            });
+          } else {
+            if (user) {
+              //비밀번호 까지 맞다면 토큰을 생성하기.
+              user.generateToken((err, user) => {
+                if (err) return res.status(400).send(err);
+
+                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ loginSuccess: true, userId: user._id });
+              });
+            } else {
+              
+              let password = id + "kakao";
+              let name = nickname;
+              let kakao_email = email + "(kakao)"
+              const newUser = new User({ email:kakao_email, name, password, gender });
+
+              //비밀번호 까지 맞다면 토큰을 생성하기.
+              newUser.generateToken((err, user) => {
+                if (err) return res.status(400).send(err);
+
+                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+                res
+                  .cookie("x_auth", user.token)
+                  .status(200)
+                  .json({ loginSuccess: true, userId: user._id });
+              });
+            }
+          }
+        });
+      }
+    });
+
+
+
+
+
+
 router.post("/addToMovie", auth, (req, res) => {
   //User Collection에 해당 유저 정보를 가져오기(auth에 저장된 user._id를 불러올수있다.)
   User.findOne({ _id: req.user._id }, (err, userInfo) => {
