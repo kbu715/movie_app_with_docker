@@ -82,7 +82,10 @@ function UserList() {
               key="action"
               render={() => (
                 <Space size="middle">
-                  <Button type="primary" danger onClick={onRoleAdminHandler}>
+                  <Button type="primary" 
+                  style={{backgroundColor:"#9c88ff", borderColor:"#9c88ff"}}
+                  // danger
+                  onClick={onRoleAdminHandler}>
                     관리자
                   </Button>
                   <Button type="primary" onClick={onRoleUserHandler}>
@@ -100,6 +103,7 @@ function UserList() {
                   <Button
                     type="primary"
                     danger
+                    // style={{backgroundColor:"white", borderColor:"red", fontColor:"red"}}
                     onClick={() => onUserDeleteHandler(dataIndex)}
                   >
                     삭제

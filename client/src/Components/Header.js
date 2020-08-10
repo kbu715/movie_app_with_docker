@@ -87,9 +87,9 @@ const SLink = styled(Link)`
   }
 `;
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//헤더 색 scroll에따라 변화/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const handleScroll = () => {
-  //scroll처리
+  // //scroll처리
   const windowHeight =
     "innerHeight" in window
       ? window.innerHeight
@@ -106,32 +106,44 @@ const handleScroll = () => {
   const windowBottom = windowHeight + window.pageYOffset;
 
   var x = document.getElementById("header");
+  var y = 0;
 
-  if (windowBottom < docHeight - 1400) {
+  // console.log("wind:", windowBottom); //308~1542
+  // console.log("doc", docHeight); 
+
+  //메인-1542 // 평가-2520 // 찜 - 600 //검색-2270 //매점 - 500 => 페이지마다 docHeight가 변함
+  
+  if(docHeight > 2000) {
+    y = 1800
+    // console.log("doc", docHeight);
+  } else if(docHeight > 1000) {
+    y = 500
+  } else {
+    y = 1
+  }
+
+  if (windowBottom < docHeight - y) {
     x.style.backgroundColor = "transparent";
-  } else if (windowBottom > docHeight - 1400) {
+    console.log("trans");
+  } else if (windowBottom > docHeight - y) {
     x.style.backgroundColor = "#171717";
+    console.log("black");
   }
 };
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
-  ) => {
+    ) => {
+
     const user = useSelector((state) => state.user);
+    window.addEventListener("scroll", handleScroll);
 
     const {
       location: { pathname },
     } = props;
-
-    // componentDidUpdate(prevProps, prevState){
-    //   if (windowBottom < docHeight - 1400) {
-    //     x.style.backgroundColor="transparent"
-    //   } else if (windowBottom > docHeight - 1400){
-    //     x.style.backgroundColor="#171717"
-    //   }
-    // };
 
     const logoutHandler = () => {
       Axios.get("/api/users/logout").then((response) => {
@@ -144,7 +156,6 @@ export default withRouter(
       });
     };
 
-    window.addEventListener("scroll", handleScroll);
 
     return (
       <>

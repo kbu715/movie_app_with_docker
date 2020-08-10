@@ -178,7 +178,10 @@ function DashBoard() {
     fontFamily: "sans-serif",
     textAlign: "center",
     width: "50%",
-    margin: "70px 10px 10px 10px",
+    height:"100%",
+    marginTop: "70px",
+    // border: "1px solid green",
+    float:"right"
   };
   const data = {
     labels: [
@@ -290,12 +293,13 @@ function DashBoard() {
     <div
       style={{
         height: "100%",
-        display: "flex",
+        // display: "flex",
         justifyContent: "center",
         flexDirection: "column",
+        // border: "2px solid pink",
       }}
     >
-      <div style={{ display: "flex", width: "100%" }}>
+      <div style={{ display: "flex", width: "100%", float:"bottom" }}>
         <Grid container spacing={4}>
           <Grid item lg={4} sm={6} xl={3} xs={12}>
             <TotalUsers />
@@ -310,37 +314,45 @@ function DashBoard() {
           </Grid>
         </Grid>
       </div>
-
+<div style={{display: "flex"}}>
       <div
         style={{
-          display: "flex",
-          width: "100%",
+          // display: "flex",
+          width: "40%",
+          // border: "1px solid red",
+          // float: "left",
+          // height: "100%",
         }}
       >
         <div
           style={{
-            display: "flex",
-            width: "50%",
-
+            // display: "flex",
+            width: "80%",
+            float:"bottom",
+          // border: "1px solid blue",
             backgroundColor: "skyblue",
+            padding:"1%",
+            margin:"3%",
           }}
         >
           <Doughnut
             options={{
               legend: {
                 display: true,
-                position: "right",
+                position: "bottom",
               },
             }}
             data={expData}
-            height={80}
+            // height={180}
           />
         </div>
         <div
           style={{
-            display: "flex",
-            width: "50%",
-
+            // display: "flex",
+            margin:"3%",
+            padding:"1%",
+            width: "80%",
+            // border: "1px solid yellow",
             backgroundColor: "pink",
           }}
         >
@@ -348,11 +360,11 @@ function DashBoard() {
             options={{
               legend: {
                 display: true,
-                position: "right",
+                position: "bottom",
               },
             }}
             data={expDataUserGender}
-            height={80}
+            // height={180}
           />
         </div>
       </div>
@@ -360,6 +372,7 @@ function DashBoard() {
       <div style={styles}>
         <Line data={data} options={lineOptions} />
       </div>
+    </div>
     </div>
   );
 }

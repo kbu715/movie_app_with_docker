@@ -88,21 +88,6 @@ function MyMovie(props) {
   };
   return (
     <div style={{ width: "85%", margin: "4rem auto" }}>
-      <h1>My Movie</h1>
-      <div>
-        <UserMovie
-          movies={props.user.movieDetail && props.user.movieDetail}
-          removeItem={removeFromMovie}
-        />
-        {ShowTotalMovie ? <br /> : <Empty description={false} />}
-      </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <hr />
       <h1>My Product</h1>
       <div>
         <CartPage
@@ -142,6 +127,21 @@ function MyMovie(props) {
             <Paypal onSuccess={transactionSuccess} Price={Total} />
           )}
         </div>
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <hr />
+      <h1>My Movie</h1>
+      <div>
+        <UserMovie
+          movies={props.user.movieDetail && props.user.movieDetail}
+          removeItem={removeFromMovie}
+        />
+        {ShowTotalMovie ? <br /> : <Empty description={false} />}
       </div>
     </div>
   );
