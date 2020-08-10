@@ -109,25 +109,25 @@ const handleScroll = () => {
   var y = 0;
 
   // console.log("wind:", windowBottom); //308~1542
-  // console.log("doc", docHeight); 
+  // console.log("doc", docHeight);
 
   //메인-1542 // 평가-2520 // 찜 - 600 //검색-2270 //매점 - 500 => 페이지마다 docHeight가 변함
-  
-  if(docHeight > 2000) {
-    y = 1800
+
+  if (docHeight > 2000) {
+    y = 1800;
     // console.log("doc", docHeight);
-  } else if(docHeight > 1000) {
-    y = 500
+  } else if (docHeight > 1000) {
+    y = 500;
   } else {
-    y = 1
+    y = 1;
   }
 
   if (windowBottom < docHeight - y) {
     x.style.backgroundColor = "transparent";
-    console.log("trans");
+    // console.log("trans");
   } else if (windowBottom > docHeight - y) {
     x.style.backgroundColor = "#171717";
-    console.log("black");
+    // console.log("black");
   }
 };
 
@@ -136,8 +136,7 @@ const handleScroll = () => {
 export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
-    ) => {
-
+  ) => {
     const user = useSelector((state) => state.user);
     window.addEventListener("scroll", handleScroll);
 
@@ -155,7 +154,6 @@ export default withRouter(
         }
       });
     };
-
 
     return (
       <>

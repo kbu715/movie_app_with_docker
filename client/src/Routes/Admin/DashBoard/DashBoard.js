@@ -178,10 +178,10 @@ function DashBoard() {
     fontFamily: "sans-serif",
     textAlign: "center",
     width: "50%",
-    height:"100%",
+    height: "100%",
     marginTop: "70px",
     // border: "1px solid green",
-    float:"right"
+    float: "right",
   };
   const data = {
     labels: [
@@ -299,7 +299,14 @@ function DashBoard() {
         // border: "2px solid pink",
       }}
     >
-      <div style={{ display: "flex", width: "100%", float:"bottom" }}>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          float: "bottom",
+          // border: "1px solid red",
+        }}
+      >
         <Grid container spacing={4}>
           <Grid item lg={4} sm={6} xl={3} xs={12}>
             <TotalUsers />
@@ -314,65 +321,67 @@ function DashBoard() {
           </Grid>
         </Grid>
       </div>
-<div style={{display: "flex"}}>
-      <div
-        style={{
-          // display: "flex",
-          width: "40%",
-          // border: "1px solid red",
-          // float: "left",
-          // height: "100%",
-        }}
-      >
+      <div style={{ display: "flex" }}>
         <div
           style={{
             // display: "flex",
-            width: "80%",
-            float:"bottom",
-          // border: "1px solid blue",
-            backgroundColor: "skyblue",
-            padding:"1%",
-            margin:"3%",
+            width: "40%",
+            // border: "1px solid blue",
+            // float: "left",
+            // height: "100%",
           }}
         >
-          <Doughnut
-            options={{
-              legend: {
-                display: true,
-                position: "bottom",
-              },
+          <div
+            style={{
+              // display: "flex",
+              width: "80%",
+              float: "bottom",
+              // border: "1px solid blue",
+              backgroundColor: "skyblue",
+              padding: "1%",
+              margin: "3%",
+              marginLeft: "0%",
             }}
-            data={expData}
-            // height={180}
-          />
-        </div>
-        <div
-          style={{
-            // display: "flex",
-            margin:"3%",
-            padding:"1%",
-            width: "80%",
-            // border: "1px solid yellow",
-            backgroundColor: "pink",
-          }}
-        >
-          <Doughnut
-            options={{
-              legend: {
-                display: true,
-                position: "bottom",
-              },
+          >
+            <Doughnut
+              options={{
+                legend: {
+                  display: true,
+                  position: "bottom",
+                },
+              }}
+              data={expData}
+              // height={180}
+            />
+          </div>
+          <div
+            style={{
+              // display: "flex",
+              margin: "3%",
+              marginLeft: "0%",
+              padding: "1%",
+              width: "80%",
+              // border: "1px solid yellow",
+              backgroundColor: "pink",
             }}
-            data={expDataUserGender}
-            // height={180}
-          />
+          >
+            <Doughnut
+              options={{
+                legend: {
+                  display: true,
+                  position: "bottom",
+                },
+              }}
+              data={expDataUserGender}
+              // height={180}
+            />
+          </div>
         </div>
-      </div>
 
-      <div style={styles}>
-        <Line data={data} options={lineOptions} />
+        <div style={styles}>
+          <Line data={data} options={lineOptions} />
+        </div>
       </div>
-    </div>
     </div>
   );
 }

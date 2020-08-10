@@ -82,10 +82,15 @@ function UserList() {
               key="action"
               render={() => (
                 <Space size="middle">
-                  <Button type="primary" 
-                  style={{backgroundColor:"#9c88ff", borderColor:"#9c88ff"}}
-                  // danger
-                  onClick={onRoleAdminHandler}>
+                  <Button
+                    type="primary"
+                    style={{
+                      backgroundColor: "#9c88ff",
+                      borderColor: "#9c88ff",
+                    }}
+                    // danger
+                    onClick={onRoleAdminHandler}
+                  >
                     관리자
                   </Button>
                   <Button type="primary" onClick={onRoleUserHandler}>
@@ -101,12 +106,13 @@ function UserList() {
               render={(dataIndex) => (
                 <Space size="middle">
                   <Button
+                    ghost
                     type="primary"
                     danger
-                    // style={{backgroundColor:"white", borderColor:"red", fontColor:"red"}}
+                    style={{ border: "1.5px solid" }}
                     onClick={() => onUserDeleteHandler(dataIndex)}
                   >
-                    삭제
+                    <span style={{ color: "red" }}>삭제</span>
                   </Button>
                 </Space>
               )}
