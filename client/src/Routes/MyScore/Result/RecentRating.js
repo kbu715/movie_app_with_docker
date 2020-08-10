@@ -4,11 +4,10 @@ import Rating from "../../../Components/Rating";
 
 const Chart = styled.div`
   float: bottom;
-  width: 100%;
+  width: 90%;
   height: 100%;
-  /* border: 1px solid black; */
   border-radius: 5px;
-  /* margin-left: 10px; */
+  margin: 0 auto;
 `;
 
 const SectionTitle = styled.div`
@@ -22,22 +21,14 @@ const SectionTitle = styled.div`
 `;
 
 const SectionGrid = styled.div`
-  /* margin-top: 3px; */
   display: grid;
-  /* margin-left: 1%; */
-  /* border: 1px solid red; */
-  grid-template-columns: repeat(auto-fill, 150px);
+  grid-template-columns: repeat(auto-fill, 160px);
   grid-gap: 10px;
-  /* width: 90%;
-  height: 95%; */
-  /* overflow-x: auto;
-  overflow-y: hidden; */
 `;
 
 const PosterContainer = styled.div`
   font-size: 12px;
   text-align: center;
-  /* border: 1px solid green; */
   width: 100%;
   margin-right: 1%;
 `;
@@ -49,10 +40,6 @@ const PosterImage = styled.div`
   background-size: cover;
   transition: all 0.1s linear 0s;
   position: relative;
-  /* float: left; */
-  /* border: 1px solid black; */
-  /* display: inline-block; */
-  /* border-radius: 3px; */
   margin: 0 auto;
 `;
 
@@ -70,11 +57,10 @@ const RatingWapper = styled.div`
 
 const PosterWrapper = styled.div`
   background-color: gray;
-  width: 100%;
+  width: 155px;
   height: 100%;
-  padding-top: 5px;
+  padding: 5px;
   border-radius: 5px;
-  margin-right: 1px;
 `;
 
 const Nothing = styled.div`
@@ -82,7 +68,6 @@ const Nothing = styled.div`
   color: black;
   width: 100%;
   height: 100%;
-  /* border: 1px solid red; */
   text-align: center;
   display: table;
 `;
@@ -111,12 +96,10 @@ const RecentRating = ({ recent, user }) => {
           <SectionGrid>
             {recent.map((item, index) => (
               <PosterContainer key={index}>
-                {/* <PosterImageContainer> */}
                 <PosterWrapper>
                   <PosterImage
                     bgUrl={`https://image.tmdb.org/t/p/w300${item.imageUrl}`}
                   />
-                  {/* </PosterImageContainer> */}
                   <PosterTitle>{item.title}</PosterTitle>
                   <RatingWapper>
                     <Rating number={item.score} />

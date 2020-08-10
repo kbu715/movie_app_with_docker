@@ -12,9 +12,6 @@ const StarsWrapper = styled.span`
 const Rating = ({ movieId, count, setCount, genres, imageUrl, title }) => {//{ movieId, count, setCount, genres, imageUrl, title }
 
 const onClickHandler = (value) => {
-  // console.log("props:", props);
-
-    // console.log("genres:", genres);
     axios.post("/api/myscore/giveStarRating", {
       userFrom: localStorage.getItem("userId"),
       movieId: movieId,

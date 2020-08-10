@@ -4,10 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 
 const Container = styled.div`
   float: bottom;
-  margin-left: 20px;
-  width: 100%;
-  height: 100%;
-  /* border: 1px solid black; */
+  width: 80%;
   border-radius: 5px;
   margin: 0 auto;
 `;
@@ -25,13 +22,11 @@ const Nothing = styled.div`
   color: black;
   width: 100%;
   height: 100%;
-  /* border: 1px solid red; */
   text-align: center;
   display: table;
 `;
 
 const GenrePreference = ({ user, topGenre, result }) => {
-  // console.log(topGenre);
   const expData = {
     labels: topGenre.map((item) => item.name),
     datasets: [
