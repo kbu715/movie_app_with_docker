@@ -121,7 +121,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         const SeatFiltered = Seat.filter(
           (seat) => seat !== e.target.textContent
         ); //text삭제
-        setSeat(SeatFiltered);        
+        setSeat(SeatFiltered);
         if (!Seat.includes(e.target.textContent)) {
           alert("선택한 인원수보다 좌석을 많이 선택하셨습니다.");
         }
@@ -199,6 +199,16 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     },
   ];
 
+  const onKaKaoPay = () => {
+    console.log("kakao");
+    axios.get("/api/kakoPay/getKakaoPay").then((response) => {
+      if (response.data.success) {
+        console.log("성공");
+      } else {
+        console.log("실패");
+      }
+    });
+  };
   //===================================================================================================================================
   //===================================================================================================================================
   //===================================================================================================================================
@@ -499,6 +509,11 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           style={{ position: "absolute", bottom: "45px", right: "35px" }}
         >
           <Paypal onSuccess={transactionSuccess} Price={Price} />
+          <img
+            src={require("../../img/kakaoPay.png")}
+            onClick={onKaKaoPay}
+            alt="kakaoPay"
+          />
         </InnerWrapper>
       </Wrapper>
       {/* </Nav> */}
