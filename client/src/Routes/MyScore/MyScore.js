@@ -22,13 +22,13 @@ const Progress = styled.div`
   height: 100px;
   align-items: center;
   padding-top: 25px;
-  margin-left: 200px;
+  margin-left: 15%;
 `;
 
 const Select = styled.span`
   width: 100%;
   height: 50px;
-  margin-left: 800px;
+  margin-left: 50%;
   text-align: center;
   font-size: 40px;
   font-weight: 500;
@@ -105,7 +105,6 @@ function MyScore() {
 
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom > docHeight - 1) {
-      // console.log("click:", buttonRef.current);
       if (buttonRef.current === null) {
         return 0;
       } else {
