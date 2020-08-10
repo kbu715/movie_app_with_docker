@@ -22,13 +22,13 @@ const userSchema = mongoose.Schema({
     type: String,
     maxlength: 50,
   },
-  gender : {
+  gender: {
     type: String,
     maxlength: 10,
   },
   role: {
-    type: Number,
-    default: 2,
+    type: String,
+    default: "일반회원",
   },
 
   movie: {

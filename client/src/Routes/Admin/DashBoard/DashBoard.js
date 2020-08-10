@@ -3,7 +3,7 @@ import { Grid } from "@material-ui/core";
 import TotalUsers from "../TotalUser/TotalUsers";
 import TotleReservation from "../TotalReservation/TotalReservation";
 import { Doughnut, Line } from "react-chartjs-2";
-import { Typography } from "@material-ui/core";
+// import { Typography } from "@material-ui/core";
 import axios from "axios";
 import TotalProduct from "../TotalProduct/TotalProduct";
 
