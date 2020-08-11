@@ -22,8 +22,6 @@ const Title = styled.span`
   margin-right: 30px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-  // border: 1px solid pink;
 `;
 
 const RecommendatinMovie = ({ movie, id }) => {

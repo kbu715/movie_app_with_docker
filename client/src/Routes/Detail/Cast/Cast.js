@@ -9,12 +9,20 @@ const Wrapper = styled.div`
 const Test = styled.div`
   margin-top: 10px;
   display: flex;
-  overflow: auto;
+  overflow-y: hidden;
+  overflow-x: auto; // 스크롤 있는 경우에만 표시
+  &::-webkit-scrollbar {
+    width: 40px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    opacity: 1 important!;
+  }
 `;
 
 const Credits = ({ cast }) => {
   // console.log(cast)
-  const items = cast.map((person) => (
+  const items = cast.map(person => (
     <CastItem person={person} key={person.id} />
   ));
 

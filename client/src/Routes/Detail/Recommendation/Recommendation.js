@@ -2,7 +2,6 @@ import React from "react";
 import RecommendatinMovie from "./RecommendatinMovie";
 import styled from "styled-components";
 
-
 const Wrapper = styled.div`
   margin-bottom: 5rem;
 `;
@@ -10,7 +9,16 @@ const Wrapper = styled.div`
 const Test = styled.div`
   margin-top: 10px;
   display: flex;
-  overflow: auto;
+  overflow-y: hidden;
+  overflow-x: auto; // 스크롤 있는 경우에만 표시
+  &::-webkit-scrollbar {
+    width: 40px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    /* background-color: mediumslateblue;  */
+    opacity: 1 important!;
+  }
 `;
 // const Title = styled.span`
 //   font-size: 18px;
@@ -37,7 +45,6 @@ const Heading = styled.h3`
 `;
 
 const Recommendation = ({ recommendation }) => {
-  
   const movies = recommendation.map(movie => (
     <RecommendatinMovie movie={movie} key={movie.id} id={movie.id} />
   ));

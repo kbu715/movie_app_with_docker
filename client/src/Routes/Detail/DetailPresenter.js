@@ -13,14 +13,13 @@ import Recommendation from "./Recommendation/Recommendation";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
-
   width: 100vw;
-
   position: relative;
-
   padding: 50px;
-
   overflow: hidden;
+  &::-webkit-scrollbar {
+    display: none !important; // 윈도우 크롬 등
+  }
 `;
 
 const Backdrop = styled.div`
@@ -77,7 +76,11 @@ const Data = styled.div`
   width: 65%;
   height: 100%;
   margin-left: 10px;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none !important; // 윈도우 크롬 등
+  }
 `;
 
 const Title = styled.h3`
@@ -190,7 +193,7 @@ const DetailPresenter = ({
               ? result.title //movie : title, tv show : name
               : result.name}
             <Reservation
-            // style={{border:"1px solid red"}}
+              // style={{border:"1px solid red"}}
               id={result.id}
               title={result.title}
               bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
