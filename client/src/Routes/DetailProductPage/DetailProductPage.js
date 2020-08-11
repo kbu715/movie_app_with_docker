@@ -19,22 +19,21 @@ function DetailProductPage(props) {
 
   return (
     <div
-      style={{ width: "100%", padding: "3rem 4rem", border: "1px solid white" }}
+      style={{ width: "80%", padding: "5rem 4rem", margin:"0 auto", height:"90%" }}
     >
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
-          border: "1px solid red",
+          // justifyContent: "center",
+          // border: "1px solid red",
         }}
       >
-        <h1 style={{ color: "white", fontSize: "32px" }}>{Product.title}</h1>
+        <h1 style={{ color: "#f7f7f7", fontSize: "50px", fontWeight:"400" }}>{Product.title}</h1>
       </div>
-
-      <br />
+        <hr style={{borderColor:"white"}}></hr>
       <Row gutter={[16, 16]}>
         <Col lg={12} sm={24}>
-          <ProductImage detail={Product} />
+          <ProductImage detail={Product}/>
         </Col>
 
         <Col lg={12} sm={24}>

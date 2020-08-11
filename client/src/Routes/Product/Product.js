@@ -54,6 +54,7 @@ function Product() {
     return (
       <Col lg={6} md={7} xs={24} key={index}>
         <Card
+        // style={{border:"1px red solid"}}
           hoverable={true}
           cover={
             <a href={`/product/${product._id}`}>
@@ -82,9 +83,7 @@ function Product() {
     <div
       style={{ width: "75%", margin: "3rem auto", border: "1px solid white" }}
     >
-      <div style={{ textAlign: "center" }}>
-        <h1 style={{ color: "white" }}>상품</h1>
-      </div>
+        <span style={{ color: "white", fontSize:"3rem", fontWeight:"600" }}>Store</span>
 
       {/* Filter  */}
 
