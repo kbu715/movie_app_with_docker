@@ -63,6 +63,7 @@ function UpdateProfile(props) {
         console.log(99, response.data);
         setCurrentEmail(response.data.user[0].email);
         setCurrentName(response.data.user[0].name);
+        // console.log(response.data.user[0].image);
         setCurrentImage(response.data.user[0].image);
       } else {
         alert("user 정보를 갖고오는데 실패했습니다.");
@@ -89,9 +90,6 @@ function UpdateProfile(props) {
     });
   };
 
-  // const handleChangeCurrentPassword = event => {
-  //   setCurrentPassword(event.currentTarget.value);
-  // };
   const handleChangeCurrentName = event => {
     setUpdateName(event.currentTarget.value);
   };
@@ -106,26 +104,28 @@ function UpdateProfile(props) {
 
   const onSubmit = event => {
     event.preventDefault(); //페이지 refresh 방지
-
     let variable = {
       id: window.localStorage.getItem("userId"),
       password: currentPassword,
-      name: UpdateName,
+      newName: UpdateName !== "" ? UpdateName : currentName,
       newPassword: updatePassword !== "" ? updatePassword : currentPassword,
       newImage: FilePath !== "" ? FilePath : currentImage,
     };
-    if (currentPassword !== "") {
+    if (currentEmail.includes("(google)") || currentEmail.includes("(kakao)")) {
+      alert("소셜 계정입니다!");
+    }
+    if (updatePassword === updatePasswordConfirm) {
       Axios.post("/api/users/updateProfile", variable).then(response => {
         console.log(response.data);
         if (response.data.success) {
           alert("변경되었습니다.");
-          props.history.push("/mypage");
+          props.history.push("/");
         } else {
           alert("잘못된 입력입니다.");
         }
       });
     } else {
-      alert("현재 비밀번호를 입력해주세요!");
+      alert("비밀번호가 일치하지 않습니다!");
     }
   };
 
@@ -188,14 +188,16 @@ function UpdateProfile(props) {
                 <img
                   style={{
                     display: "flex",
-
-                    border: "2px solid gray",
+                    borderRadius: "30%",
                     justifyContent: "center",
                   }}
                   src={
-                      FilePath ? `http://localhost:5000/${FilePath}` : `http://localhost:5000/${currentImage}`
-                      }
-                  
+                    FilePath
+                      ? `http://localhost:5000/${FilePath}`
+                      : currentImage !== undefined
+                      ? `http://localhost:5000/${currentImage}`
+                      : `http://localhost:5000/uploads/default.png`
+                  }
                   alt="haha"
                   width="110px"
                   height="110px"

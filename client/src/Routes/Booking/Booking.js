@@ -19,7 +19,9 @@ import { addToMovie } from "../../_actions/user_action";
 import Select from "react-select";
 // import WindowOpener from "react-window-opener";
 // import Popup from "reactjs-popup";
-import Approve from "../Approve";
+// import Approve from "../Approve";
+// import Popout from "react-popout";
+
 const PriceTag = styled.div`
   font-size: 20px;
   font-weight: 30px;
@@ -212,9 +214,10 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         setTest(response.data.next_redirect_pc_url);
         console.log("tid", tid);
 
-        // if (tid) {
-        //   window.location.href = response.data.next_redirect_pc_url;
-        // }
+        if (tid) {
+          // window.open(response.data.next_redirect_pc_url, "_blank");
+          window.location.href = response.data.next_redirect_pc_url;
+        }
 
         // axios.post("/api/kakaoPay/approve");
       } else {

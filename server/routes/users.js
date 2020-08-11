@@ -165,7 +165,7 @@ router.get("/management", (req, res) => {
 router.post("/removeFromUsers", (req, res) => {
   User.findOneAndDelete({
     email: req.body.email,
-  }).exec((err) => {
+  }).exec(err => {
     if (err) return res.status(400).send(err);
     return res.status(200).json({ success: true });
   });
@@ -181,27 +181,27 @@ router.post("/getUserInfo", (req, res) => {
 router.post("/updateProfile", (req, res) => {
   User.findOne({ _id: req.body.id }, (err, user) => {
     if (err) return res.json({ success: false, err });
-    user.comparePassword(req.body.password, (err, isMatch) => {
-      if (!isMatch) {
-        return res.json({
-          loginSuccess: false,
-          message: "비밀번호를 잘못 입력했습니다.",
-        });
-      }
-      User.updateOne(
-        { _id: user._id },
-        {
-          $set: {
-            password: req.body.newPassword,
-            image: req.body.newImage,
-          },
+    // user.comparePassword(req.body.password, (err, isMatch) => {
+    //   if (!isMatch) {
+    //     return res.json({
+    //       loginSuccess: false,
+    //       message: "비밀번호를 잘못 입력했습니다.",
+    //     });
+    //   }
+    User.updateOne(
+      { _id: user._id },
+      {
+        $set: {
+          password: req.body.newPassword,
+          image: req.body.newImage,
+          name: req.body.newName,
         },
-        (err, user) => {
-          if (err) return res.json({ success: false, err });
-          res.status(200).json({ success: true, user });
-        }
-      );
-    });
+      },
+      (err, user) => {
+        if (err) return res.json({ success: false, err });
+        res.status(200).json({ success: true, user });
+      }
+    );
   });
 });
 
@@ -218,10 +218,10 @@ router.post("/googlelogin", (req, res) => {
       audience:
         "929257267887-jabje0s2v9gdvfrm1avh5qr1q63j9p91.apps.googleusercontent.com",
     })
-    .then((response) => {
+    .then(response => {
       const { email_verified, name, email } = response.payload;
 
-      console.log(response.payload);
+      // console.log("22222", response.payload);
 
       if (email_verified) {
         User.findOne({ email }).exec((err, user) => {
@@ -242,8 +242,9 @@ router.post("/googlelogin", (req, res) => {
                   .json({ loginSuccess: true, userId: user._id });
               });
             } else {
+              let google_email = email + "(google)";
               let password = email + "google";
-              const newUser = new User({ email, name, password });
+              const newUser = new User({ email: google_email, name, password });
 
               //비밀번호 까지 맞다면 토큰을 생성하기.
               newUser.generateToken((err, user) => {
@@ -262,65 +263,66 @@ router.post("/googlelogin", (req, res) => {
     });
 });
 
-
-
-
-
 router.post("/kakaologin", (req, res) => {
   const data = req.body;
-  const { profile : { id, kakao_account : { email, gender,  is_email_verified }, properties : { nickname } } } = data;
-      if (is_email_verified) {
-        User.findOne({ email:email+"(kakao)" }).exec((err, user) => {
-          if (err) {
-            return res.status(400).json({
-              error: "Something went wrong...",
-            });
-          } else {
-            if (user) {
-              //비밀번호 까지 맞다면 토큰을 생성하기.
-              user.generateToken((err, user) => {
-                if (err) return res.status(400).send(err);
-
-                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
-                res
-                  .cookie("x_auth", user.token)
-                  .status(200)
-                  .json({ loginSuccess: true, userId: user._id });
-              });
-            } else {
-              
-              let password = id + "kakao";
-              let name = nickname;
-              let kakao_email = email + "(kakao)"
-              const newUser = new User({ email:kakao_email, name, password, gender });
-
-              //비밀번호 까지 맞다면 토큰을 생성하기.
-              newUser.generateToken((err, user) => {
-                if (err) return res.status(400).send(err);
-
-                // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
-                res
-                  .cookie("x_auth", user.token)
-                  .status(200)
-                  .json({ loginSuccess: true, userId: user._id });
-              });
-            }
-          }
+  const {
+    profile: {
+      id,
+      kakao_account: { email, gender, is_email_verified },
+      properties: { nickname },
+    },
+  } = data;
+  if (is_email_verified) {
+    User.findOne({ email: email + "(kakao)" }).exec((err, user) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Something went wrong...",
         });
+      } else {
+        if (user) {
+          //비밀번호 까지 맞다면 토큰을 생성하기.
+          user.generateToken((err, user) => {
+            if (err) return res.status(400).send(err);
+
+            // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+            res
+              .cookie("x_auth", user.token)
+              .status(200)
+              .json({ loginSuccess: true, userId: user._id });
+          });
+        } else {
+          let password = id + "kakao";
+          let name = nickname;
+          let kakao_email = email + "(kakao)";
+          const newUser = new User({
+            email: kakao_email,
+            name,
+            password,
+            gender,
+          });
+
+          //비밀번호 까지 맞다면 토큰을 생성하기.
+          newUser.generateToken((err, user) => {
+            if (err) return res.status(400).send(err);
+
+            // 토큰을 저장한다.  어디에 ?  쿠키 , 로컬스토리지
+            res
+              .cookie("x_auth", user.token)
+              .status(200)
+              .json({ loginSuccess: true, userId: user._id });
+          });
+        }
       }
     });
-
-
-
-
-
+  }
+});
 
 router.post("/addToMovie", auth, (req, res) => {
   //User Collection에 해당 유저 정보를 가져오기(auth에 저장된 user._id를 불러올수있다.)
   User.findOne({ _id: req.user._id }, (err, userInfo) => {
     let duplicate = false;
 
-    userInfo.movie.forEach((item) => {
+    userInfo.movie.forEach(item => {
       if (item.id === req.body.movieId) {
         duplicate = true;
       }
@@ -379,7 +381,7 @@ router.get("/removeFromMovie", auth, (req, res) => {
     { new: true },
     (err, userInfo) => {
       let movie = userInfo.movie;
-      let array = movie.map((item) => {
+      let array = movie.map(item => {
         return item._id;
       });
 
@@ -402,7 +404,7 @@ router.post("/addToCart", auth, (req, res) => {
   User.findOne({ _id: req.user._id }, (err, userInfo) => {
     // 가져온 정보에서 카트에다 넣으려 하는 상품이 이미 들어 있는지 확인
     let duplicate = false;
-    userInfo.cart.forEach((item) => {
+    userInfo.cart.forEach(item => {
       if (item.id === req.body.productId) {
         duplicate = true;
       }
@@ -452,7 +454,7 @@ router.get("/removeFromCart", auth, (req, res) => {
     { new: true },
     (err, userInfo) => {
       let cart = userInfo.cart;
-      let array = cart.map((item) => {
+      let array = cart.map(item => {
         return item.id;
       });
 
@@ -474,7 +476,7 @@ router.post("/successBuy", auth, (req, res) => {
   let history = [];
   let transactionData = {};
 
-  req.body.cartDetail.forEach((item) => {
+  req.body.cartDetail.forEach(item => {
     history.push({
       dateOfPurchase: Date.now(),
       name: item.title,
@@ -512,7 +514,7 @@ router.post("/successBuy", auth, (req, res) => {
 
         //상품당 몇개의 quantity를 샀는지
         let products = [];
-        doc.product.forEach((item) => {
+        doc.product.forEach(item => {
           products.push({ id: item.id, quantity: item.quantity });
         });
 
@@ -530,7 +532,7 @@ router.post("/successBuy", auth, (req, res) => {
               callback
             );
           },
-          (err) => {
+          err => {
             if (err) return res.json({ success: false, err });
             res.status(200).json({
               success: true,
