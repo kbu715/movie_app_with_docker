@@ -58,7 +58,7 @@ function UpdateProfile(props) {
   useEffect(() => {
     Axios.post("/api/users/getUserInfo", {
       userId: localStorage.getItem("userId"),
-    }).then((response) => {
+    }).then(response => {
       if (response.data.success) {
         console.log(99, response.data);
         setCurrentEmail(response.data.user[0].email);
@@ -70,7 +70,7 @@ function UpdateProfile(props) {
     });
   }, []);
 
-  const onDrop = (files) => {
+  const onDrop = files => {
     let formData = new FormData();
     const config = {
       header: { "content-type": "multipart/form-data" },
@@ -78,7 +78,7 @@ function UpdateProfile(props) {
     console.log(files);
     formData.append("file", files[0]);
 
-    Axios.post("/api/image/uploadfiles", formData, config).then((response) => {
+    Axios.post("/api/image/uploadfiles", formData, config).then(response => {
       if (response.data.success) {
         console.log(response.data);
 
@@ -89,22 +89,22 @@ function UpdateProfile(props) {
     });
   };
 
-  const handleChangeCurrentPassword = (event) => {
-    setCurrentPassword(event.currentTarget.value);
-  };
-  const handleChangeCurrentName = (event) => {
+  // const handleChangeCurrentPassword = event => {
+  //   setCurrentPassword(event.currentTarget.value);
+  // };
+  const handleChangeCurrentName = event => {
     setUpdateName(event.currentTarget.value);
   };
 
-  const handleChangeUpdatePassword = (event) => {
+  const handleChangeUpdatePassword = event => {
     setUpdatePassword(event.currentTarget.value);
   };
 
-  const handleChangeUpdatePasswordConfirm = (event) => {
+  const handleChangeUpdatePasswordConfirm = event => {
     setUpdatePasswordConfirm(event.currentTarget.value);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault(); //페이지 refresh 방지
 
     let variable = {
@@ -115,7 +115,7 @@ function UpdateProfile(props) {
       newImage: FilePath !== "" ? FilePath : currentImage,
     };
     if (currentPassword !== "") {
-      Axios.post("/api/users/updateProfile", variable).then((response) => {
+      Axios.post("/api/users/updateProfile", variable).then(response => {
         console.log(response.data);
         if (response.data.success) {
           alert("변경되었습니다.");
@@ -193,12 +193,9 @@ function UpdateProfile(props) {
                     justifyContent: "center",
                   }}
                   src={
-                    currentImage
-                      ? `http://localhost:5000/${
-                          FilePath ? FilePath : currentImage
-                        }`
-                      : "http://localhost:5000/uploads/default.png"
-                  }
+                      FilePath ? `http://localhost:5000/${FilePath}` : `http://localhost:5000/${currentImage}`
+                      }
+                  
                   alt="haha"
                   width="110px"
                   height="110px"

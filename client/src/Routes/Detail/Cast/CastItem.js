@@ -19,14 +19,12 @@ const Name = styled.span`
   margin-bottom: 3px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-  /* border: 1px solid pink; */
 `;
 const Box = styled.div`
-    color: inherit;
-    text-decoration: none;
-    font: inherit;
-    margin-right:30px;
+  color: inherit;
+  text-decoration: none;
+  font: inherit;
+  margin-right: 30px;
 `;
 const CastItem = ({ person }) => {
   return (
@@ -38,7 +36,11 @@ const CastItem = ({ person }) => {
             : "https://www.eeweb.com/assets/themes/mobile/images/user.png"
         }
       />
-      <Name>{person.name.length > 12 ? `${person.name.substring(0, 8)}...` : person.name}</Name>
+      <Name>
+        {person.name.length > 12
+          ? `${person.name.substring(0, 8)}...`
+          : person.name}
+      </Name>
       {/* {title.length > 18 ? `${title.substring(0, 8)}...` : title} */}
     </Box>
   );
