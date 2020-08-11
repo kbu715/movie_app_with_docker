@@ -7,6 +7,7 @@ import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
 import Helmet from "react-helmet";
 import { withRouter } from "react-router-dom";
+import { Carousel } from "antd";
 
 const Container = styled.div`
   padding: 10px;
@@ -118,8 +119,8 @@ const HomePresenter = ({
       <Loader />
     ) : (
       <>
-        <Container onWheel={e => {}}>
-          <Video>
+        <Container onWheel={(e) => {}}>
+          {/* <Video>
             <iframe
               width="100%"
               height="800"
@@ -129,36 +130,130 @@ const HomePresenter = ({
               allowFullScreen
               title="movie-trailer"
             ></iframe>
-          </Video>
+          </Video> */}
+
+          <Carousel autoplay>
+            <div>
+              <div style={{ position: "absolute" }}>
+                <img
+                  src="https://image.tmdb.org/t/p/w1066_and_h600_bestv2/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg"
+                  alt="1"
+                  width="1420px"
+                  height="670px"
+                />
+              </div>
+              <Hero>
+                <Effect>
+                  <HeroContent>
+                    <HeroContentText>조커 : Joker</HeroContentText>
+                    <HeroContentP>
+                      "내 인생이 비극인 줄 알았는데, 코미디였어"
+                      <br />
+                      <br />
+                      <br />
+                      홀어머니와 사는 아서 플렉은 코미디언을 꿈꾸지만 그의 삶은
+                      좌절과 절망으로 가득 차 있다.
+                      <br />
+                      <br />
+                      군중들은 지배계급에 대한 저항의 아이콘이 된 그를 추종하기
+                      시작
+                      <br />
+                      <br />
+                      광대 마스크로 얼굴을 가리고 거리로 쏟아져 나오기
+                      시작하는데..!
+                    </HeroContentP>
+                    <HeroButtonWrapper>
+                      <HeroButton text="상세 정보" />
+                      <HeroButton text="+ 찜한 목록" />
+                    </HeroButtonWrapper>
+                  </HeroContent>
+                </Effect>
+              </Hero>
+            </div>
+            <div>
+              <div style={{ position: "absolute" }}>
+                <img
+                  src="https://image.tmdb.org/t/p/w1066_and_h600_bestv2/wzJRB4MKi3yK138bJyuL9nx47y6.jpg"
+                  alt="2"
+                  width="1420px"
+                  height="600px"
+                />
+              </div>
+            
+            <Hero>
+              <Effect>
+                <HeroContent>
+                  <HeroContentText>테넷 : Tenet</HeroContentText>
+                  <HeroContentP>
+                    "시간을 추격하라!"
+                    <br />
+                    <br />
+                    <br />
+                    시간의 흐름을 뒤집는 인버전을 통해 현재와 미래를 오가며
+                    <br />
+                    <br />
+                    세상을 파괴하려는 사토르를 막기 위해 투입된 작전의 주도자.
+                    <br />
+                    <br />
+                    미래의 공격에 맞서 제3차 세계대전을 막아야 한다!
+                  </HeroContentP>
+                  <HeroButtonWrapper>
+                    <HeroButton text="상세 정보" />
+                    <HeroButton text="+ 찜한 목록" />
+                  </HeroButtonWrapper>
+                </HeroContent>
+              </Effect>
+            </Hero>
+            </div>
+            <div>
+              <div style={{ position: "absolute" }}>
+                <img
+                  src="https://image.tmdb.org/t/p/w1066_and_h600_bestv2/xJHokMbljvjADYdit5fK5VQsXEG.jpg"
+                  alt="3"
+                  width="1420px"
+                  height="600px"
+                />
+              </div>
+            
+            <Hero>
+              <Effect>
+                <HeroContent>
+                  <HeroContentText>인터스텔라 : Interstellar</HeroContentText>
+                  <HeroContentP>
+                    "우린 답을 찾을 거야, 늘 그랬듯이"
+                    <br />
+                    <br />
+                    <br />
+                    세계 각국의 정부와 경제가 완전히 붕괴된 미래가 다가온다.
+                    <br />
+                    <br />
+                    지난 20세기에 범한 잘못이 전 세계적인 식량 부족을 불러왔고,
+                    NASA도 해체되었다. 시공간에 불가사의한 틈이 열리고, 이 곳을
+                    탐험해 인류를 구해야 하는 임무를 위해 쿠퍼는 만류하는 딸을
+                    뒤로한 채 우주선에 탑승한다.
+                    <br />
+                    <br />
+                  </HeroContentP>
+                  <HeroButtonWrapper>
+                    <HeroButton text="상세 정보" />
+                    <HeroButton text="+ 찜한 목록" />
+                  </HeroButtonWrapper>
+                </HeroContent>
+              </Effect>
+            </Hero>
+            </div>
+          </Carousel>
+          <br />
+
           <Helmet>
             <title>Movies | Nomflix</title>
           </Helmet>
-          <Hero>
-            <Effect>
-              <HeroContent>
-                <HeroContentText>매드맥스: 분노의 도로</HeroContentText>
-                <HeroContentP>
-                  "세상이 멸망하면서 누가 미친 건지 알 수 없어졌다. 나인지 이
-                  세상인지.."
-                  <br />
-                  <br />
-                  <br />
-                  핵전쟁으로 멸망한 22세기. 얼마 남지 않은 물과 기름을
-                  <br />
-                  <br />
-                  차지한 독재자 임모탄 조가 살아남은 인류를 지배한다.
-                  <br />
-                  <br />
-                  끝내주는 날, 끝내주는 액션이 폭렬한다!
-                </HeroContentP>
-                <HeroButtonWrapper>
-                  <HeroButton text="상세 정보" />
-                  <HeroButton text="+ 찜한 목록" />
-                </HeroButtonWrapper>
-              </HeroContent>
-              {/* <HeroOverlay></HeroOverlay> */}
-            </Effect>
-          </Hero>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
           <TopSection>
             {/* {trending && trending.length > 0 && (
               <Section title="인기 상영작">
