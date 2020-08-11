@@ -20,6 +20,8 @@ import Select from "react-select";
 // import WindowOpener from "react-window-opener";
 // import Popup from "reactjs-popup";
 import Approve from "../Approve";
+import Kakao from "./Kakao";
+import Popup from "reactjs-popup";
 const PriceTag = styled.div`
   font-size: 20px;
   font-weight: 30px;
@@ -66,7 +68,8 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
-  const [Test, setTest] = useState("");
+  // const [Test, setTest] = useState("");
+  // const [Url, setUrl] = useState("");
   const movieTitle = {
     title: title,
   };
@@ -202,26 +205,25 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     price: Price,
   };
 
-  const onKaKaoPay = () => {
-    console.log("kakao");
-    axios.post("/api/kakaoPay/ready", data).then(response => {
-      console.log("response.data", response.data);
-      if (response.data) {
-        console.log("성공");
-        let tid = response.data.tid;
-        setTest(response.data.next_redirect_pc_url);
-        console.log("tid", tid);
-
-        // if (tid) {
-        //   window.location.href = response.data.next_redirect_pc_url;
-        // }
-
-        // axios.post("/api/kakaoPay/approve");
-      } else {
-        console.log("실패");
-      }
-    });
-  };
+  // const onKaKaoPay = () => {
+  //   console.log("kakao");
+  //   axios.post("/api/kakaoPay/ready", data).then(response => {
+  //     console.log("response.data", response.data);
+  //     if (response.data) {
+  //       console.log("성공");
+  //       let tid = response.data.tid;
+  //       setTest(response.data.next_redirect_pc_url);
+  //       console.log(1);
+  //       if (tid) {
+  //         // window.location.href = response.data.next_redirect_pc_url;
+  //         // setUrl(response.data.next_redirect_pc_url)
+  //       }
+  //       // axios.post("/api/kakaoPay/approve");
+  //     } else {
+  //       console.log("실패");
+  //     }
+  //   });
+  // };
 
   //===================================================================================================================================
   //===================================================================================================================================
@@ -523,26 +525,27 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           style={{ position: "absolute", bottom: "45px", right: "35px" }}
         >
           <Paypal onSuccess={transactionSuccess} Price={Price} />
-          {/* <Popup
-            trigger={<button>Ka</button>}
+          <Popup
+            trigger={
+            <img
+              src={require("../../img/kakaoPay.png")}
+              alt="kakaoPay"
+            />
+          }
             modal
-            closeOnDocumentClick={true}
-            triggerOn="click"
             contentStyle={{
+              width:"770px",
+              height:"600px",
               backgroundColor: "#242333",
-              width: "500px",
               borderRadius: "10px",
               padding: "1%",
               border: "2px solid #848484",
             }}
-          > */}
-          {/* {(window.location.href = `${Test}`)} */}
-          <img
-            src={require("../../img/kakaoPay.png")}
-            onClick={onKaKaoPay}
-            alt="kakaoPay"
-          />
-          {/* </Popup> */}
+            closeOnDocumentClick={true}
+            triggerOn="click"
+          >
+            <Kakao seat={Seat} data={data}/>
+          </Popup>
         </InnerWrapper>
       </Wrapper>
       {/* </Nav> */}

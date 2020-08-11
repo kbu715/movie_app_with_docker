@@ -203,7 +203,7 @@ export default withRouter(
                       }}
                     >
                       <span
-                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                        style={{ textAlign: "center",marginTop:"4px" }}
                       >
                         {user.userData && user.userData.name.length > 7
                           ? `${user.userData.name.substring(0, 4)}...`
