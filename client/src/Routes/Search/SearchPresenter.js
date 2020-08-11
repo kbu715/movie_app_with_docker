@@ -21,6 +21,7 @@ const Input = styled.input`
   font-size: 28px;
   width: 100%;
   color : white;
+  box-shadow: 3px 3px darkgray;
 `;
 
 const SearchPresenter = ({
@@ -37,7 +38,7 @@ const SearchPresenter = ({
     </Helmet>
     <Form onSubmit={handleSubmit}>
       <Input
-        placeholder="Search Movies or TV Shows..."
+        placeholder="Search Movies..."
         value={searchTerm}
         onChange={updateTerm}
       />
