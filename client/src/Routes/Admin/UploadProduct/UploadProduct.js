@@ -106,8 +106,9 @@ function UploadProductPage(props) {
         <br />
         <br />
 
-        <Button onClick={onSubmit} style={{ color: "black" }}>
+        <Button onClick={onSubmit}><span style={{ color: "black" }}>
           등록
+        </span>
         </Button>
       </Form>
     </div>

@@ -10,11 +10,12 @@ const Container = styled.div`
 `;
 
 const SectionTitle = styled.div`
-  text-align: center;
-  font-size: 23px;
-  font-weight: 500;
+  /* text-align: center; */
+  font-size: 20px;
+  font-weight: 400;
   margin-top: 15px;
-  color: black;
+  margin-bottom: 15px;
+  color: #f7f7f7;
   position: relative;
 `;
 const Nothing = styled.div`
@@ -25,7 +26,10 @@ const Nothing = styled.div`
   text-align: center;
   display: table;
 `;
-
+const ChartWrapper = styled.div`
+  /* border: 1px solid red; */
+  /* height: 100px; */
+`;
 const GenrePreference = ({ user, topGenre, result }) => {
   const expData = {
     labels: topGenre.map((item) => item.name),
@@ -47,14 +51,14 @@ const GenrePreference = ({ user, topGenre, result }) => {
   return (
     <Container>
       <SectionTitle>
-        {user.userData && user.userData.name}님이 좋아하는 장르
+        {user.userData && user.userData.name}'s Top Genres
       </SectionTitle>
 
       {result.length === 0 ? (
         <Nothing>
           <span
             style={{
-              color: "black",
+              color: "#f7f7f7",
               display: "table-cell",
               verticalAlign: "middle",
             }}
@@ -63,16 +67,19 @@ const GenrePreference = ({ user, topGenre, result }) => {
           </span>
         </Nothing>
       ) : (
+        <ChartWrapper>
+
         <Doughnut
           options={{
             legend: {
               display: true,
-              position: "bottom",
+              position: "right",
             },
           }}
           data={expData}
           height={200}
-        />
+          />
+          </ChartWrapper>
       )}
     </Container>
   );

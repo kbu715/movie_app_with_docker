@@ -12,11 +12,11 @@ const Chart = styled.div`
 
 const SectionTitle = styled.div`
   text-align: center;
-  font-size: 23px;
-  font-weight: 500;
+  font-size: 30px;
+  font-weight: 600;
   margin-top: 5px;
-  margin-bottom: 10px;
-  color: black;
+  margin-bottom: 20px;
+  color: #f7f7f7;
   position: relative;
 `;
 
@@ -41,11 +41,12 @@ const PosterImage = styled.div`
   transition: all 0.1s linear 0s;
   position: relative;
   margin: 0 auto;
+  border: 1px solid black;
 `;
 
 const PosterTitle = styled.div`
   font-size: 15px;
-  color: black;
+  color: #f7f7f7;
   margin: 0 auto;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -56,7 +57,8 @@ const RatingWapper = styled.div`
 `;
 
 const PosterWrapper = styled.div`
-  background-color: gray;
+  background-color: #2e2e2e;
+  border: 1px solid #585858;
   width: 155px;
   height: 100%;
   padding: 5px;
@@ -73,16 +75,17 @@ const Nothing = styled.div`
 `;
 
 const RecentRating = ({ recent, user }) => {
+  
   return (
     <Chart>
       <SectionTitle>
-        {user.userData && user.userData.name}님의 최근 별점 목록
+        Result of {user.userData && user.userData.name}
       </SectionTitle>
       {recent.length === 0 ? (
         <Nothing>
           <span
             style={{
-              color: "black",
+              color: "#f7f7f7",
               display: "table-cell",
               verticalAlign: "middle",
             }}
@@ -100,7 +103,9 @@ const RecentRating = ({ recent, user }) => {
                   <PosterImage
                     bgUrl={`https://image.tmdb.org/t/p/w300${item.imageUrl}`}
                   />
-                  <PosterTitle>{item.title}</PosterTitle>
+                  <PosterTitle>
+                  {item.title.length > 11 ? `${item.title.substring(0, 11)}...` : item.title}
+                  </PosterTitle>
                   <RatingWapper>
                     <Rating number={item.score} />
                   </RatingWapper>

@@ -4,9 +4,8 @@ import { Rate } from "antd";
 import "antd/dist/antd.css";
 import axios from "axios";
 
-const StarsWrapper = styled.span`
-  line-height: 1;
-  margin-left: 50px;
+const StarsWrapper = styled.div`
+  text-align: center;
 `;
 
 const Rating = ({ movieId, count, setCount, genres, imageUrl, title }) => {//{ movieId, count, setCount, genres, imageUrl, title }

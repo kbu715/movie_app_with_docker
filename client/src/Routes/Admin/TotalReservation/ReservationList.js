@@ -11,7 +11,6 @@ function ReservationList() {
       .post("/api/reservation/getList")
       .then((response) => {
         if (response.data.success) {
-          console.log("성공", response.data.doc);
           setReservation(response.data.doc);
         } else {
           console.log("실패");
@@ -22,9 +21,9 @@ function ReservationList() {
       });
   }, []);
 
-  console.log('====================================');
-  console.log(88,Reservation);
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(88,Reservation);
+  // console.log('====================================');
   return (
     <PageHeader
       title="Reservation List"
@@ -79,7 +78,16 @@ function ReservationList() {
                 </>
               )}
             />
-            <Column title="인원" dataIndex="continent" key="continent" />
+            <Column title="인원" dataIndex="continent" key="continent"/>
+            <Column title="좌석" dataIndex="seat" key="seat" render={(Seat)=>( //Seat: 좌석 배열
+              Seat.map((seat, index)=>{
+                if(index < Seat.length-1) {
+                  return seat+", "
+                } else {
+                  return seat;
+                }
+              })
+            )}/>
             <Column title="가격" dataIndex="price" key="price" />
           </Table>
         </div>
