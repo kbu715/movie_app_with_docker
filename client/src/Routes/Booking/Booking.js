@@ -17,7 +17,9 @@ import {
 import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
 import Select from "react-select";
-
+// import WindowOpener from "react-window-opener";
+// import Popup from "reactjs-popup";
+import Approve from "../Approve";
 const PriceTag = styled.div`
   font-size: 20px;
   font-weight: 30px;
@@ -64,6 +66,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
+  const [Test, setTest] = useState("");
   const movieTitle = {
     title: title,
   };
@@ -71,10 +74,10 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   useEffect(() => {
     axios
       .post("/api/reservation/findSeat", movieTitle)
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           let seatlist = [];
-          response.data.seats.forEach((obj) => {
+          response.data.seats.forEach(obj => {
             if (
               obj.time[0].time === time.time &&
               obj.selectDay[0].day === selectDay.day &&
@@ -88,13 +91,13 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           setDistinct(flatlist);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }, []);
 
   //seat 색 변경
-  const onSeatChange = (e) => {
+  const onSeatChange = e => {
     if (Continent >= Seat.length + 1) {
       //인원이 좌석수보다 크거나 같을때
 
@@ -109,18 +112,14 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         //인원수와 좌석수가 같을때
         //선택된좌석은 삭제
         e.target.classList.remove("selected");
-        const SeatFiltered = Seat.filter(
-          (seat) => seat !== e.target.textContent
-        ); //text삭제
+        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
         setSeat(SeatFiltered);
       }
     } else {
       if (Continent === Seat.length) {
         e.target.classList.remove("selected");
 
-        const SeatFiltered = Seat.filter(
-          (seat) => seat !== e.target.textContent
-        ); //text삭제
+        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
         setSeat(SeatFiltered);
         if (!Seat.includes(e.target.textContent)) {
           alert("선택한 인원수보다 좌석을 많이 선택하셨습니다.");
@@ -134,14 +133,14 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     }
   };
 
-  const onCount = (event) => {
+  const onCount = event => {
     console.log("event", event);
     setContinent(event.key);
     setPrice(event.key * 100);
   };
 
   //결제후 DB저장
-  const transactionSuccess = (data, e) => {
+  const transactionSuccess = () => {
     const body = {
       userFrom: userFrom,
       id: id,
@@ -152,7 +151,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       seat: Seat,
       price: Price,
     };
-    axios.post("/api/reservation", body).then((response) => {
+    axios.post("/api/reservation", body).then(response => {
       if (response.data.success) {
         alert("예매 성공");
 
@@ -169,7 +168,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   ////////////////////////////////////////////////////////////////
 
   const colourStyles = {
-    control: (styles) => ({
+    control: styles => ({
       ...styles,
       backgroundColor: "white",
       borderRadius: "1rem",
@@ -199,16 +198,31 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     },
   ];
 
+  const data = {
+    price: Price,
+  };
+
   const onKaKaoPay = () => {
     console.log("kakao");
-    axios.get("/api/kakoPay/getKakaoPay").then((response) => {
-      if (response.data.success) {
+    axios.post("/api/kakaoPay/ready", data).then(response => {
+      console.log("response.data", response.data);
+      if (response.data) {
         console.log("성공");
+        let tid = response.data.tid;
+        setTest(response.data.next_redirect_pc_url);
+        console.log("tid", tid);
+
+        // if (tid) {
+        //   window.location.href = response.data.next_redirect_pc_url;
+        // }
+
+        // axios.post("/api/kakaoPay/approve");
       } else {
         console.log("실패");
       }
     });
   };
+
   //===================================================================================================================================
   //===================================================================================================================================
   //===================================================================================================================================
@@ -309,7 +323,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
             {/* 좌석 */}
             {
               <div className="row">
-                {SeatA.map((item) => {
+                {SeatA.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -337,7 +351,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatB.map((item) => {
+                {SeatB.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -365,7 +379,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatC.map((item) => {
+                {SeatC.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -393,7 +407,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatD.map((item) => {
+                {SeatD.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -421,7 +435,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatE.map((item) => {
+                {SeatE.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -449,7 +463,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatF.map((item) => {
+                {SeatF.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -477,7 +491,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
             {
               <div className="row">
-                {SeatG.map((item) => {
+                {SeatG.map(item => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -509,11 +523,26 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           style={{ position: "absolute", bottom: "45px", right: "35px" }}
         >
           <Paypal onSuccess={transactionSuccess} Price={Price} />
+          {/* <Popup
+            trigger={<button>Ka</button>}
+            modal
+            closeOnDocumentClick={true}
+            triggerOn="click"
+            contentStyle={{
+              backgroundColor: "#242333",
+              width: "500px",
+              borderRadius: "10px",
+              padding: "1%",
+              border: "2px solid #848484",
+            }}
+          > */}
+          {/* {(window.location.href = `${Test}`)} */}
           <img
             src={require("../../img/kakaoPay.png")}
             onClick={onKaKaoPay}
             alt="kakaoPay"
           />
+          {/* </Popup> */}
         </InnerWrapper>
       </Wrapper>
       {/* </Nav> */}

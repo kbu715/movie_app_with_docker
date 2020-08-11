@@ -199,7 +199,7 @@ function UpdateProfile(props) {
               </div>
             </div>
           </div>
-          {/* {currentImage !== "" && (
+          {currentImage !== "" && (
             <div
               style={{
                 display: "flex",
@@ -228,7 +228,7 @@ function UpdateProfile(props) {
                 height="200px"
               />
             </div>
-          )} */}
+          )}
         </div>
         {/* ///////////////////////////////////////////////////////////////////////////////////////////// */}
         <Form onSubmit={onSubmit}>
