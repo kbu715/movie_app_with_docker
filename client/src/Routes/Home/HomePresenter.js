@@ -179,7 +179,7 @@ const HomePresenter = ({
                   height="600px"
                 />
               </div>
-            </div>
+            
             <Hero>
               <Effect>
                 <HeroContent>
@@ -204,7 +204,7 @@ const HomePresenter = ({
                 </HeroContent>
               </Effect>
             </Hero>
-
+            </div>
             <div>
               <div style={{ position: "absolute" }}>
                 <img
@@ -214,7 +214,7 @@ const HomePresenter = ({
                   height="600px"
                 />
               </div>
-            </div>
+            
             <Hero>
               <Effect>
                 <HeroContent>
@@ -241,6 +241,7 @@ const HomePresenter = ({
                 </HeroContent>
               </Effect>
             </Hero>
+            </div>
           </Carousel>
           <br />
 
