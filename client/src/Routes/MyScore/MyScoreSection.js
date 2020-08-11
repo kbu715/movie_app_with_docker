@@ -9,7 +9,7 @@ const Container = styled.div`
     margin-bottom: 60px;
   }
   margin: 0 auto;
-  width: 90%;
+  width: 88%;
 `;
 
 const Title = styled.span`
@@ -22,30 +22,32 @@ const Title = styled.span`
 const Grid = styled.div`
   margin-top: 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
-  grid-gap: 100px;
+  grid-template-columns: repeat(auto-fill, 270px);
+  grid-gap: 60px;
   align-items: center;
   width: 100%;
   height: 100%;
 `;
 
 const PopUpButton = styled.button`
-  color: #FF8000;
-  border: 2px solid #FF8000;
+  color: #9c88ff;
+  border: 3px solid #9c88ff;
   border-radius: 5px;
   font-size: 18px;
-  background-color: black;
+  font-weight: 600;
+  background-color: #151515;
   margin-left: 20px;
-  padding: 5px;
+  padding: 6px;
+  box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
 `;
 
 const MyScoreSection = ({ title, children }) => (
   <Container>
     <Title>{title}</Title>
-    <Popup trigger={<PopUpButton>결과보기</PopUpButton>}
+    <Popup trigger={<PopUpButton>RESULT</PopUpButton>}
       modal
       closeOnDocumentClick
-      contentStyle={{backgroundColor: "#F2F2F2"}}>
+      contentStyle={{backgroundColor: "#242333"}}>
       {close => <Result close={close}/>}
     </Popup>
     <Grid>{children}</Grid>

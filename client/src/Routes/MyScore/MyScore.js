@@ -126,8 +126,9 @@ function MyScore() {
           <Progress>
             <ProgressBar
               completed={count}
-              bgcolor={"yellow"}
-              labelColor={"black"}
+              borderRadius={"50px"}
+              bgcolor={"rgba(156, 136, 255)"}
+              labelColor={"rgba(156, 136, 255)"}
             />
           </Progress>
           {Movies && Movies.length > 0 && (

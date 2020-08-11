@@ -27,24 +27,24 @@ var opt = {
   },
 };
 
-var optt = {
-  async: true,
-  crossDomain: true,
-  method: "POST",
-  url: "https://kapi.kakao.com/v1/payment/approve",
-  headers: {
-    "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-    Authorization: "KakaoAK df8bab28cc8cb4f3ab1276487f028caf",
-    "cache-control": "no-cache",
-  },
-  form: {
-    cid: "TC0ONETIME",
-    tid: "T1234567890123456789",
-    partner_order_id: "partner_order_id",
-    partner_user_id: "partner_user_id",
-    pg_token: "xxxxxxxxxxxxxx"
-  },
-};
+// var optt = {
+//   async: true,
+//   crossDomain: true,
+//   method: "POST",
+//   url: "https://kapi.kakao.com/v1/payment/approve",
+//   headers: {
+//     "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+//     Authorization: "KakaoAK df8bab28cc8cb4f3ab1276487f028caf",
+//     "cache-control": "no-cache",
+//   },
+//   form: {
+//     cid: "TC0ONETIME",
+//     tid: "T1234567890123456789",
+//     partner_order_id: "partner_order_id",
+//     partner_user_id: "partner_user_id",
+//     pg_token: "xxxxxxxxxxxxxx"
+//   },
+// };
 /* GET users listing. */
 router.post("/ready", (req, res, next) => {
   console.log("req.body", req.body);

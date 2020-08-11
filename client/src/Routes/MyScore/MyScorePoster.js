@@ -12,18 +12,10 @@ const Container = styled.div`
 `;
 const Image = styled.div`
   background-image: url(${(props) => props.bgUrl});
-  width: 280px;
-  height: 410px;
+  width: 260px;
+  height: 390px;
   margin-right: 20px;
   background-size: cover;
-  transition: all 0.1s linear 0s;
-`;
-const Rating = styled.span`
-  font-size: 15px;
-  position: absolute;
-  bottom: 5px;
-  right: 25px;
-  opacity: 0;
   transition: all 0.1s linear 0s;
 `;
 const ImageContainer = styled.div`
@@ -33,13 +25,8 @@ const ImageContainer = styled.div`
     ${Image} {
       opacity: 0.3;
     }
-    ${Rating} {
-      opacity: 1;
-    }
   }
-
   transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
-  position: relative;
   transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
   &:hover {
     transform: scale(1.03);
@@ -66,16 +53,16 @@ const ImageContainer = styled.div`
   }
 `;
 const Title = styled.span`
-  font-size: 25px solid;
-  display: flex;
+  font-size: 17px;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 `;
 const RatingsWrapper = styled.div`
-  position: relative;
-  align-items: center;
   margin-bottom: 0.5rem;
+  /* margin: 0 auto; */
+  text-align: center;
   color: var(--color-primary);
   ${Container}:hover & {
     color: var(--color-primary-lighter);
@@ -104,7 +91,7 @@ const MyScorePoster = ({
     </ImageContainer>
     </Link>
     <RatingsWrapper>
-      <Title>{title.length > 8 ? `${title.substring(0, 4)}...` : title}</Title>
+      <Title>{title.length > 11 ? `${title.substring(0, 11)}...` : title}</Title>
     </RatingsWrapper>
     <MyScoreRating
       movieId={movieId}
