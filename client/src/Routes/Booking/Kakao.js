@@ -14,7 +14,9 @@ const Kakao = ({data}) => {
             let tid = response.data.tid;
             setTest(response.data.next_redirect_pc_url);
             console.log(1);
+            
             if (tid) {
+                window.location.href = "http://localhost:3000/payment/approve";
               // window.location.href = response.data.next_redirect_pc_url;
               // setUrl(response.data.next_redirect_pc_url)
             }
