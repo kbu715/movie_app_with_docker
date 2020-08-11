@@ -55,7 +55,7 @@ function Product() {
     return (
       <Col lg={6} md={7} xs={24} key={index} >
         <Card
-          style={{ width: "250px", height: "460px", backgroundColor: "#f7f7f7", borderColor: "#f7f7f7", borderRadius: "5px", padding: "5px", marginBottom: "50px" }}
+          style={{ width: "250px",height: "460px", backgroundColor: "#f7f7f7", borderColor: "#f7f7f7", borderRadius: "5px", padding: "5px", marginBottom: "50px" }}
           hoverable={true}
           cover={
             <a href={`/product/${product._id}`}>
