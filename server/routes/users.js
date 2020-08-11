@@ -224,7 +224,7 @@ router.post("/googlelogin", (req, res) => {
       // console.log("22222", response.payload);
 
       if (email_verified) {
-        User.findOne({ email }).exec((err, user) => {
+        User.findOne({ email: email + "(google)" }).exec((err, user) => {
           if (err) {
             return res.status(400).json({
               error: "Something went wrong...",
