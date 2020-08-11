@@ -272,8 +272,8 @@ const HomePresenter = ({
 
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
-              <Section title="현재 상영중">
-                {nowPlaying.map((movie) => (
+              <Section title="Now Playing">
+                {nowPlaying.map(movie => (
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -287,8 +287,8 @@ const HomePresenter = ({
               </Section>
             )}
             {upcoming && upcoming.length > 0 && (
-              <Section title="개봉 예정">
-                {upcoming.map((movie) => (
+              <Section title="Upcoming">
+                {upcoming.map(movie => (
                   <Poster
                     key={movie.id}
                     id={movie.id}

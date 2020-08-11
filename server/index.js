@@ -21,7 +21,7 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
+  .catch(err => console.log(err));
 
 module.exports = { mongoose };
 
@@ -34,7 +34,7 @@ app.use("/uploads", express.static("uploads")); //이거 했더니 안돼던 이
 app.use("/api/reservation", require("./routes/reservation"));
 app.use("/api/product", require("./routes/product"));
 
-app.use("/api/kakoPay", require("./routes/kakaoPay"));
+app.use("/api/kakaoPay", require("./routes/kakaoPay"));
 
 const port = 5000;
 

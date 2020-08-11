@@ -14,31 +14,31 @@ function SignUp(props) {
   const [Name, setName] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
-  const [FilePath, setFilePath] = useState("");
+  const [FilePath, setFilePath] = useState("uploads/default.png");
   const [FileName, setFileName] = useState("");
   const [Gender, setGender] = useState("");
 
-  const onEmailHandler = (event) => {
+  const onEmailHandler = event => {
     setEmail(event.currentTarget.value);
   };
 
-  const onNameHandler = (event) => {
+  const onNameHandler = event => {
     setName(event.currentTarget.value);
   };
 
-  const onPasswordHandler = (event) => {
+  const onPasswordHandler = event => {
     setPassword(event.currentTarget.value);
   };
 
-  const onConfirmPasswordHandler = (event) => {
+  const onConfirmPasswordHandler = event => {
     setConfirmPassword(event.currentTarget.value);
   };
 
-  const onGenderHandler = (event) => {
+  const onGenderHandler = event => {
     setGender(event.currentTarget.value);
-  }
+  };
 
-  const onDrop = (files) => {
+  const onDrop = files => {
     let formData = new FormData();
     const config = {
       header: { "content-type": "multipart/form-data" },
@@ -46,17 +46,21 @@ function SignUp(props) {
 
     formData.append("file", files[0]);
 
-    Axios.post("/api/image/uploadfiles", formData, config).then((response) => {
+    Axios.post("/api/image/uploadfiles", formData, config).then(response => {
       if (response.data.success) {
-        setFilePath(response.data.filePath);
+        // console.log("22222", response.data.filePath);
+        setFilePath(
+          response.data.filePath
+            ? response.data.filePath
+            : "uploads/default.png"
+        );
         setFileName(response.data.fileName);
-
       } else {
         alert("failed to save the video in server");
       }
     });
   };
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = event => {
     event.preventDefault(); //페이지 refresh 방지
 
     if (Password !== ConfirmPassword) {
@@ -72,7 +76,7 @@ function SignUp(props) {
     };
 
     // redux action => loginUser는 action이름
-    dispatch(registerUser(body)).then((response) => {
+    dispatch(registerUser(body)).then(response => {
       if (response.payload.success) {
         props.history.push("/sign-in");
         alert("회원가입 성공!");
@@ -86,9 +90,12 @@ function SignUp(props) {
     <div className="auth-wrapper">
       <div className="auth-inner">
         <form onSubmit={onSubmitHandler} style={{ margin: "0" }}>
-        <div className="form-group" style={{ textAlign:"center"}}>
-            <label style={{ marginBottom: "10px", display:"inline-block" }}>프로필 이미지</label><br/>
-            <div style={{ display: "flex", justifyContent: "space-between",}}>
+          <div className="form-group" style={{ textAlign: "center" }}>
+            <label style={{ marginBottom: "10px", display: "inline-block" }}>
+              프로필 이미지
+            </label>
+            <br />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
                 {({ getRootProps, getInputProps }) => (
                   <div
@@ -179,18 +186,23 @@ function SignUp(props) {
             />
           </div>
           <div className="form-group">
-            <label style={{ marginBottom: "5px" }}>성별</label><br/>
-            <label style={{ marginRight: "10px", fontSize:"20px"}}>남자</label>
+            <label style={{ marginBottom: "5px" }}>성별</label>
+            <br />
+            <label style={{ marginRight: "10px", fontSize: "20px" }}>
+              남자
+            </label>
             <input
               type="radio"
               className="form-control-radio"
               value={"male"}
               name={Gender}
               onClick={onGenderHandler}
-              style={{marginRight: "20px"}}
+              style={{ marginRight: "20px" }}
             />
-              <label style={{ marginRight: "10px", fontSize:"20px"}}>여자</label>
-          <input
+            <label style={{ marginRight: "10px", fontSize: "20px" }}>
+              여자
+            </label>
+            <input
               type="radio"
               className="form-control-radio"
               value={"female"}
@@ -198,7 +210,6 @@ function SignUp(props) {
               onClick={onGenderHandler}
             />
           </div>
-          
 
           <button type="submit" className="btn btn-primary btn-block">
             회원 가입
