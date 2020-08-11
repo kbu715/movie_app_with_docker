@@ -135,7 +135,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   };
 
   const onCount = (event) => {
-    console.log("event", event);
     setContinent(event.key);
     setPrice(event.key * 100);
   };
@@ -200,7 +199,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   ];
 
   const onKaKaoPay = () => {
-    console.log("kakao");
     axios.get("/api/kakoPay/getKakaoPay").then((response) => {
       if (response.data.success) {
         console.log("성공");

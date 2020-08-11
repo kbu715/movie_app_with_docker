@@ -85,7 +85,7 @@ class UserMovie extends Component {
             <TableBody>
               {movies
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(movie => (
+                .map((movie) => (
                   <TableRow className={classes.tableRow} hover key={movie._id}>
                     <TableCell className={classes.tableCell}>
                       {movie.title}

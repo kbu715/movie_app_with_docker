@@ -204,13 +204,9 @@ export default withRouter(
                         style={{
                           display: "flex",
                           borderRadius: "70%",
-                          // position:"absolute",
-                          // right:"0",
-                          // bottom:"0",
                           overflow: "hidden",
                           objectFit: "cover",
                           marginLeft: "10px",
-                          // border: "2px solid white",
                           justifyContent: "center",
                         }}
                         src={

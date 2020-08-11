@@ -27,7 +27,6 @@ var opt = {
 };
 /* GET users listing. */
 router.get("/getKakaoPay", (req, res, next) => {
-  console.log("카카오페이");
   request.post(opt, (error, response, body) => {
     console.log(error);
     console.log(request);
