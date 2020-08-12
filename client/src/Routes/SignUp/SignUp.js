@@ -95,7 +95,13 @@ function SignUp(props) {
               프로필 이미지
             </label>
             <br />
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "30px",
+              }}
+            >
               <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
                 {({ getRootProps, getInputProps }) => (
                   <div
@@ -110,14 +116,29 @@ function SignUp(props) {
                     {...getRootProps()}
                   >
                     <input {...getInputProps()} />
-                    <PlusOutlined
+                    {/* <PlusOutlined
                       style={{ color: "white", fontSize: "3rem" }}
                     />
-                    {/* <Icon type="plus" style={{ fontSize: '3rem' }} /> */}
+                    <Icon type="plus" style={{ fontSize: '3rem' }} /> */}
+                    <img
+                      style={{
+                        display: "flex",
+                        borderRadius: "30%",
+                        justifyContent: "center",
+                      }}
+                      src={
+                        FilePath
+                          ? `http://localhost:5000/${FilePath}`
+                          : `http://localhost:5000/uploads/default.png`
+                      }
+                      alt="haha"
+                      width="110px"
+                      height="110px"
+                    />
                   </div>
                 )}
               </Dropzone>
-              {FilePath !== "" && (
+              {/* {FilePath !== "" && (
                 <div
                   style={{
                     display: "flex",
@@ -140,10 +161,10 @@ function SignUp(props) {
                     height="200rem"
                   />
                 </div>
-              )}
+              )} */}
             </div>
-            <div>{FilePath ? FilePath : "undefined"}</div>
-            <div>{FileName ? FileName : "undefined"}</div>
+            {/* <div>{FilePath ? FilePath : "undefined"}</div>
+            <div>{FileName ? FileName : "undefined"}</div> */}
           </div>
           <div className="form-group">
             <label style={{ marginBottom: "5px" }}>이메일</label>
@@ -221,3 +242,47 @@ function SignUp(props) {
 }
 
 export default withRouter(SignUp);
+
+{
+  /* <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
+{({ getRootProps, getInputProps }) => (
+  <div
+    style={{
+      width: "6rem",
+      height: "6rem",
+      border: "1px solid black",
+
+      borderRadius: "20px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      position: "relative",
+      top: "5px",
+      left: "5px",
+      margin: "0 auto",
+    }}
+    {...getRootProps()}
+  >
+    <input {...getInputProps()} />
+
+    <img
+      style={{
+        display: "flex",
+        borderRadius: "30%",
+        justifyContent: "center",
+      }}
+      src={
+        FilePath
+          ? `http://localhost:5000/${FilePath}`
+          : currentImage !== undefined
+          ? `http://localhost:5000/${currentImage}`
+          : `http://localhost:5000/uploads/default.png`
+      }
+      alt="haha"
+      width="110px"
+      height="110px"
+    />
+  </div>
+)}
+</Dropzone> */
+}
