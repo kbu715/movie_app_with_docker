@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require("body-parser"); //body 데이터를 분석(parse)해서 req.body로 출력해주는 것
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
-const kakaoPay = require("./routes/kakaoPay");
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -33,8 +32,6 @@ app.use("/api/image", require("./routes/image"));
 app.use("/uploads", express.static("uploads")); //이거 했더니 안돼던 이미지 보여주기가 됐다. araboza...
 app.use("/api/reservation", require("./routes/reservation"));
 app.use("/api/product", require("./routes/product"));
-
-app.use("/api/kakaoPay", require("./routes/kakaoPay"));
 
 const port = 5000;
 

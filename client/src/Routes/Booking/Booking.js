@@ -17,11 +17,7 @@ import {
 import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
 import Select from "react-select";
-// import WindowOpener from "react-window-opener";
-// import Popup from "reactjs-popup";
-import Approve from "../Approve";
-import Kakao from "./Kakao";
-import Popup from "reactjs-popup";
+
 const PriceTag = styled.div`
   font-size: 20px;
   font-weight: 30px;
@@ -139,7 +135,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   const onCount = event => {
     console.log("event", event);
     setContinent(event.key);
-    setPrice(event.key * 100);
+    setPrice(event.key * 6000);
   };
 
   //결제후 DB저장
@@ -158,7 +154,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       if (response.data.success) {
         alert("예매 성공");
 
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "http://localhost:3000/mymovie";
 
         //개인 영화 구매정보
         dispatch(addToMovie(response.data.doc._id));
@@ -201,33 +197,43 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     },
   ];
 
-  const data = {
-    price: Price,
+  const onKaKaoPay = () => {
+    console.log("kakao");
+    var IMP = window.IMP; // 생략가능
+    IMP.init("imp10561880");
+    // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+
+    IMP.request_pay(
+      {
+        pg: "inicis", // version 1.1.0부터 지원.
+        pay_method: "card",
+        merchant_uid: "merchant_" + new Date().getTime(),
+        name: title,
+        amount: Price,
+        buyer_email: "iamport@siot.do",
+        buyer_name: "구매자이름",
+        buyer_tel: "010-1234-5678",
+        buyer_addr: "서울특별시 강남구 삼성동",
+        buyer_postcode: "123-456",
+        m_redirect_url: "https://www.yourdomain.com/payments/complete",
+      },
+      function (rsp) {
+        if (rsp.success) {
+          var msg = "결제가 완료되었습니다.";
+          msg += "고유ID : " + rsp.imp_uid;
+          msg += "상점 거래ID : " + rsp.merchant_uid;
+          msg += "결제 금액 : " + rsp.paid_amount;
+          // msg += "카드 승인번호 : " + rsp.apply_num;
+        } else {
+          msg = "결제에 실패하였습니다.";
+          msg += "에러내용 : " + rsp.error_msg;
+        }
+        alert(msg);
+        transactionSuccess();
+      }
+    );
   };
 
-  // const onKaKaoPay = () => {
-  //   console.log("kakao");
-  //   axios.post("/api/kakaoPay/ready", data).then(response => {
-  //     console.log("response.data", response.data);
-  //     if (response.data) {
-  //       console.log("성공");
-  //       let tid = response.data.tid;
-  //       setTest(response.data.next_redirect_pc_url);
-  //       console.log(1);
-  //       if (tid) {
-  //         // window.location.href = response.data.next_redirect_pc_url;
-  //         // setUrl(response.data.next_redirect_pc_url)
-  //       }
-  //       // axios.post("/api/kakaoPay/approve");
-  //     } else {
-  //       console.log("실패");
-  //     }
-  //   });
-  // };
-
-  //===================================================================================================================================
-  //===================================================================================================================================
-  //===================================================================================================================================
   return (
     <>
       <Wrapper style={{ marginRight: "20px" }}>
@@ -525,27 +531,11 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
           style={{ position: "absolute", bottom: "45px", right: "35px" }}
         >
           <Paypal onSuccess={transactionSuccess} Price={Price} />
-          <Popup
-            trigger={
-            <img
-              src={require("../../img/kakaoPay.png")}
-              alt="kakaoPay"
-            />
-          }
-            modal
-            contentStyle={{
-              width:"770px",
-              height:"600px",
-              backgroundColor: "#242333",
-              borderRadius: "10px",
-              padding: "1%",
-              border: "2px solid #848484",
-            }}
-            closeOnDocumentClick={true}
-            triggerOn="click"
-          >
-            <Kakao seat={Seat} data={data}/>
-          </Popup>
+          <img
+            src={require("../../img/kakaoPay.png")}
+            alt="kakaoPay"
+            onClick={onKaKaoPay}
+          />
         </InnerWrapper>
       </Wrapper>
       {/* </Nav> */}
