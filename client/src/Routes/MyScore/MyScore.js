@@ -15,6 +15,7 @@ const Container = styled.div`
 const Button = styled.button`
   background-color: black;
   border: 1px solid black;
+  visibility: hidden;
 `;
 
 const Progress = styled.div`
