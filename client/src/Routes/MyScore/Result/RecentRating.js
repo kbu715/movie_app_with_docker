@@ -75,7 +75,6 @@ const Nothing = styled.div`
 `;
 
 const RecentRating = ({ recent, user }) => {
-  
   return (
     <Chart>
       <SectionTitle>
@@ -107,7 +106,7 @@ const RecentRating = ({ recent, user }) => {
                   {item.title.length > 11 ? `${item.title.substring(0, 11)}...` : item.title}
                   </PosterTitle>
                   <RatingWapper>
-                    <Rating number={item.score} />
+                    <Rating number={item.score} myColor="#2e2e2e"/>
                   </RatingWapper>
                 </PosterWrapper>
               </PosterContainer>
