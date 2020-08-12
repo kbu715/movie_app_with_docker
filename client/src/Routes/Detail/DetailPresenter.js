@@ -224,7 +224,7 @@ const DetailPresenter = ({
                     : `${genre.name} / `
                 )}
             </Item>
-
+                
             <Favorite
               isMovie={isMovie}
               movieInfo={result}
