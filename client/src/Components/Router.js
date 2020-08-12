@@ -25,7 +25,7 @@ import DetailProductPage from "../Routes/DetailProductPage/DetailProductPage";
 export default () => (
   <Router>
     <>
-      {" "}
+      
       <Header />
       <Switch>
         <Route path="/" exact component={Auth(Home, true)} />
