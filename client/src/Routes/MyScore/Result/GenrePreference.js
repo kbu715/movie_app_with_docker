@@ -39,11 +39,12 @@ const GenrePreference = ({ user, topGenre, result }) => {
         data: topGenre.map((item) => item.count),
         borderWidth: 3,
         backgroundColor: [
-          "rgba(238, 102, 121, 1)",
-          "rgba(98, 181, 229, 1)",
-          "rgba(255, 198, 0, 1)",
+          "rgba(62, 96, 111)",
+          "rgba(25, 52, 65)",
+          "rgba(145, 170, 157)",
         ],
         fill: true,
+        borderColor:"#d5d5d5"
       },
     ],
   };
@@ -74,6 +75,11 @@ const GenrePreference = ({ user, topGenre, result }) => {
             legend: {
               display: true,
               position: "right",
+              labels: {
+                fontColor: 'white',
+                fontSize: 17,
+                padding: 15
+             }
             },
           }}
           data={expData}

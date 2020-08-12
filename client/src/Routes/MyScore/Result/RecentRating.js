@@ -46,7 +46,7 @@ const PosterImage = styled.div`
 
 const PosterTitle = styled.div`
   font-size: 15px;
-  color: #f7f7f7;
+  color: #2E2E2E;
   margin: 0 auto;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -57,7 +57,7 @@ const RatingWapper = styled.div`
 `;
 
 const PosterWrapper = styled.div`
-  background-color: #2e2e2e;
+  background-color: #C9C9C9;
   border: 1px solid #585858;
   width: 155px;
   height: 100%;
@@ -75,7 +75,6 @@ const Nothing = styled.div`
 `;
 
 const RecentRating = ({ recent, user }) => {
-  
   return (
     <Chart>
       <SectionTitle>
@@ -107,7 +106,7 @@ const RecentRating = ({ recent, user }) => {
                   {item.title.length > 11 ? `${item.title.substring(0, 11)}...` : item.title}
                   </PosterTitle>
                   <RatingWapper>
-                    <Rating number={item.score} />
+                    <Rating number={item.score} myColor="#2e2e2e"/>
                   </RatingWapper>
                 </PosterWrapper>
               </PosterContainer>

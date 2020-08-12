@@ -101,10 +101,9 @@ const Title = styled.span`
   font-size: 20px;
   display: flex;
   flex-direction: column;
-  //justify-content: space-between;
   justify-content: center;
   align-items: center;
-  padding: 1rem 
+  padding: 1rem;
 `
 const Year = styled.span`
   display: flex;
@@ -163,7 +162,7 @@ const FavoritePoster = ({ onClickDelete, id, imageUrl, title, rating, year, isMo
           {title.length > 18 ? `${title.substring(0, 8)}...` : title}
         </Title>
         <Year>
-          <Ratingg number={rating / 2} />
+          <Ratingg number={rating / 2} myColor="white"/>
         </Year>
       </RatingsWrapper>
       <DelBtnContainer>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import Approve from "../Approve";
+// import Approve from "../Approve";
 
 const Kakao = ({ data }) => {
   const [url, setURL] = useState("");
