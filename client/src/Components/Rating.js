@@ -4,21 +4,20 @@ import Stars from "react-rating";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const StarsWrapper = styled(Stars)`
-  line-height: 1;
+  line-height: 0.5;
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`
-  // color: #fff000;
-  color: lime;
+  color: inherit;
   transition: color 300ms cubic-bezier(0.6, 0.045, 0.355, 1);
-  margin-right: 10px;
+  margin-right: 5px;
 `;
 
-const Rating = ({ number }) => {
+const Rating = ({ number, myColor }) => {
   return (
     <StarsWrapper
-      emptySymbol={<FontAwesome icon={["far", "star"]} size="lg" />}
-      fullSymbol={<FontAwesome icon={["fas", "star"]} size="lg" />}
+      emptySymbol={<FontAwesome icon={["far", "star"]} size="lg" style={{color:myColor}}/>}
+      fullSymbol={<FontAwesome icon={["fas", "star"]} size="lg" style={{color:myColor}} />}
       initialRating={number}
       readonly
     />
