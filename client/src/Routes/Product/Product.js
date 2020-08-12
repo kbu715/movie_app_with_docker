@@ -50,20 +50,22 @@ function Product() {
     getProducts(body);
     setSkip(skip);
   };
-
+  //#f7f7f7
+  //f7f7f7
+  //style={{ marginRight: "0px", marginLeft: "0px", height: "100%" }}
   const renderCards = Products.map((product, index) => {
     return (
       <Col lg={6} md={7} xs={24} key={index} >
         <Card
-          style={{ width: "250px",height: "460px", backgroundColor: "#f7f7f7", borderColor: "#f7f7f7", borderRadius: "5px", padding: "5px", marginBottom: "50px" }}
+          style={{ width: "70%",height: "90%",border:"10px solid #9DA28C", backgroundColor: "#AABACC", borderColor: "#91CCF1", borderRadius: "5px", marginBottom: "50px" }}
           hoverable={true}
           cover={
-            <a href={`/product/${product._id}`}>
-              <ImageSlider images={product.images} style={{ marginRight: "0px", marginLeft: "0px", height: "100%" }} />
+            <a href={`/product/${product._id}`} >
+              <ImageSlider images={product.images} />
             </a>
           }
         >
-          <Meta title={product.title} description={`$${product.price}`} style={{ textAlign: "center", fontSize: "18px" }} />
+          <Meta title={product.title} description={`$${product.price}`} style={{ position:"releative", textAlign: "center", fontSize: "18px" }} />
         </Card>
       </Col>
     );
