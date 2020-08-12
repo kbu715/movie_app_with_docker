@@ -8,8 +8,7 @@ const StarsWrapper = styled(Stars)`
 `;
 
 const FontAwesome = styled(FontAwesomeIcon)`
-  // color: #fff000;
-  color: lime;
+  color: #272727;
   transition: color 300ms cubic-bezier(0.6, 0.045, 0.355, 1);
   margin-right: 10px;
 `;
@@ -17,8 +16,8 @@ const FontAwesome = styled(FontAwesomeIcon)`
 const Rating = ({ number }) => {
   return (
     <StarsWrapper
-      emptySymbol={<FontAwesome icon={["far", "star"]} size="lg" />}
-      fullSymbol={<FontAwesome icon={["fas", "star"]} size="lg" />}
+      emptySymbol={<FontAwesome icon={["far", "star"]} size="lg"/>}
+      fullSymbol={<FontAwesome icon={["fas", "star"]} size="lg"/>}
       initialRating={number}
       readonly
     />
