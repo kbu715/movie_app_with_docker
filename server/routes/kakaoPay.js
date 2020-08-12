@@ -23,7 +23,7 @@ var opt = {
     tax_free_amount: "0",
     approval_url: "http://localhost:3000/payment/approve",
     fail_url: "http://localhost:3000/payment/fail",
-    cancel_url: "http://localhost:3000/payment/cancel",
+    cancel_url: "http://localhost:3000/ payment/cancel",
   },
 };
 
