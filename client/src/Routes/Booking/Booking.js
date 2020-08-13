@@ -20,7 +20,7 @@ import Select from "react-select";
 
 const PriceTag = styled.div`
   font-size: 20px;
-  font-weight: 30px;
+  font-weight: 30px; 
 `;
 
 const Small = styled.div`
@@ -32,6 +32,25 @@ const Small = styled.div`
 const Wrapper = styled.div`
   float: left;
   height: 100%;
+  
+`;
+
+const SeatWrapper = styled.div`
+  float: right;
+  height: 100%;
+  
+`;
+const SelectWrapper = styled.div`
+  background-color: #242333;
+  color: #fff;
+  /* display: flex;
+  flex-direction: row;
+  //align-items: center;
+  justify-content: flex-end; */
+  /* width: 50%; */
+  font-family: "Lato", sans-serif;
+  
+  
 `;
 const InnerWrapper = styled.div`
   background-color: #242333;
@@ -41,9 +60,11 @@ const InnerWrapper = styled.div`
   //align-items: center;
   justify-content: flex-end; */
   /* width: 50%; */
-  font-family: "Lato", sans-serif;
-  /* border: 2px solid red; */
+  font-family: "Lato", sans-serif; 
+  
 `;
+
+
 const Cover = styled.div`
   width: 90%;
   height: 100%;
@@ -237,15 +258,16 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
   return (
     <>
-      <Wrapper style={{ marginRight: "20px" }}>
-        <InnerWrapper style={{ height: "50px" }}>
+      {/* <Wrapper style={{ marginRight: "20px" }}> */}
+      <Wrapper >
+        <SelectWrapper>
           <Select
             options={groupedOptions}
             // defaultValue="인원을 선택해주세요"
             styles={colourStyles}
             onChange={onCount}
           />
-        </InnerWrapper>
+        </SelectWrapper>
 
         {/* <Nav> */}
         <InnerWrapper style={{ height: "300px", marginTop: "20px" }}>
@@ -300,14 +322,25 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
             </tbody>
           </table>
           <hr style={{ color: "white", borderColor: "white", width: "100%" }} />
-          <PriceTag>${Price}</PriceTag>
+          <PriceTag>{Price}원</PriceTag>                     
+          {/* <Paypal onSuccess={transactionSuccess} Price={Price} /> */}     
+          <img
+            src={require("../../img/kakaoPay.png")}
+            alt="kakaoPay"
+            style={{ width:"20%",height:"25px",float:"right"}}
+            onClick={onKaKaoPay}
+          />      
+          
 
           {/* </SideFlex>
         </SideWrapper> */}
         </InnerWrapper>
       </Wrapper>
-      <Wrapper>
-        <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}>
+        {/* **************************************************************************************** */}
+
+
+      <SeatWrapper>
+        {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
           <ul className="showcase">
             <li>
               <div className="seat"></div> <Small>빈좌석</Small>
@@ -319,13 +352,13 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               <div className="seat occupied"></div> <Small>선택완료</Small>
             </li>
           </ul>
-        </InnerWrapper>
+        {/* </InnerWrapper> */}
 
         <hr
           style={{ color: "white", borderColor: "white", marginLeft: "20px" }}
         />
         {/* {DBtime === time.time && ( */}
-        <InnerWrapper>
+        {/* <InnerWrapper> */}
           <div className="container">
             <div className="screen"></div>
 
@@ -526,19 +559,10 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               </div>
             }
           </div>
-        </InnerWrapper>
+        {/* </InnerWrapper> */}
         {/* )} */}
-        <InnerWrapper
-          style={{ position: "absolute", bottom: "45px", right: "35px" }}
-        >
-          <Paypal onSuccess={transactionSuccess} Price={Price} />
-          <img
-            src={require("../../img/kakaoPay.png")}
-            alt="kakaoPay"
-            onClick={onKaKaoPay}
-          />
-        </InnerWrapper>
-      </Wrapper>
+        
+      </SeatWrapper>
       {/* </Nav> */}
     </>
   );
