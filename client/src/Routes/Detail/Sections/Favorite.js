@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import styled from "styled-components"
 import MoodIcon from "@material-ui/icons/Mood"
 import { makeStyles } from "@material-ui/core/styles"
 
@@ -10,23 +9,7 @@ const useStyles = makeStyles({
   },
 })
 
-const Button = styled.button`
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -ms-transition: all 0.5s;
-  transition: all 0.5s;
-  color: white;
-  border-color: white;
-  background: transparent;
-  margin: 5px 5px;
-  padding: 5px 5px;
-  outline: 0;
-  margin-left: 5px;
-`
+
 
 function Favorite(props) {
   const isMovie = props.isMovie
@@ -92,7 +75,10 @@ function Favorite(props) {
   }
   const classes = useStyles()
   return (
-    <div>
+      <>
+      &nbsp;
+      &nbsp;
+      &nbsp;
       <span onClick={onClickFavorite}>
         {Favorited ? (
           <>
@@ -106,7 +92,7 @@ function Favorite(props) {
           </>
         )}
       </span>
-    </div>
+    </>
   )
 }
 

@@ -547,16 +547,16 @@ router.post("/successBuy", auth, (req, res) => {
 });
 
 router.get("/history", auth, (req, res) => {
-  User.find({}, ["history"]).exec((err, doc) => {
+  Payment.find({}).exec((err, doc) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true, doc });
   });
 });
 module.exports = router;
 
-router.get("/roleAdmin", auth, (req, res) => {
+router.post("/roleAdmin",(req, res) => {
   User.findOneAndUpdate(
-    { role: "일반회원" },
+    { role: "일반회원" , _id: req.body._id },   
     { $set: { role: "관리자" } },
     { new: true }
   ).exec((err, doc) => {
@@ -565,9 +565,9 @@ router.get("/roleAdmin", auth, (req, res) => {
   });
 });
 
-router.get("/roleUser", auth, (req, res) => {
+router.post("/roleUser",(req, res) => {
   User.findOneAndUpdate(
-    { role: "관리자" },
+    { role: "관리자", _id: req.body._id },
     { $set: { role: "일반회원" } },
     { new: true }
   ).exec((err, doc) => {
@@ -584,5 +584,7 @@ router.post("/removeFromUser", auth, (req, res) => {
     return res.status(200).json({ success: true, result });
   });
 });
+
+
 
 module.exports = router;

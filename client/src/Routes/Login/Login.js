@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../_actions/user_action";
 import { withRouter } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
+import Axios from "axios";
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -38,14 +39,24 @@ function Login(props) {
     });
   };
 
-  // const responseGoogle = (response) => {
-  //   console.log(response);
-  // };
+  const handleSubmit = (e) => {
+    console.log('====================================');
+    console.log("handelsubmit 들어옴");
+    console.log('====================================');
+    e.preventDefault();
+
+    const dataToSubmit = {
+      email : Email
+    }
+
+    Axios.post("/api/users/sendMail", dataToSubmit)
+  }
 
   return (
     <div className="auth-wrapper">
       <div className="auth-inner">
         <form onSubmit={onSubmitHandler}>
+         
           <div className="form-group">
             <input
               type="email"
@@ -63,9 +74,8 @@ function Login(props) {
               placeholder="비밀번호"
               value={Password}
               onChange={onPasswordHandler}
-            />
-          </div>
-
+            />            
+          </div>        
           <div className="form-group">
             <div className="custom-control custom-checkbox">
               <input
@@ -83,6 +93,9 @@ function Login(props) {
           <br />
           <a href="/sign-up">회원이 아니신가요?</a>
         </form>
+        
+          
+        
       </div>
     </div>
   );
