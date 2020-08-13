@@ -203,7 +203,7 @@ router.post("/updateProfile", (req, res) => {
       }
     );
   });
-});
+}); 
 
 const client = new OAuth2Client(
   "929257267887-jabje0s2v9gdvfrm1avh5qr1q63j9p91.apps.googleusercontent.com"

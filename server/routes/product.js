@@ -93,7 +93,6 @@ router.get("/management", (req, res) => {
 });
 
 router.post("/removeFromProduct", (req, res) => {
-  // console.log("req:", req.body);
   Product.findOneAndDelete({
     _id: req.body._id,
   }).exec(err => {

@@ -37,11 +37,9 @@ function DashBoard() {
   const fetchGenres = function () {
     axios.post("/api/myscore/getAllGenres").then((response) => {
       if (response.data.success) {
-        // console.log(response.data.genres);
         const listOfGenreNum = response.data.genres.map((g) => {
           return g.genres;
         });
-        // console.log(typeof listOfGenreNum[0])
         listOfGenreNum.forEach((element) => {
           switch (element) {
             case 28:
