@@ -114,7 +114,6 @@ function DashBoard() {
   const fetchUsers = function () {
     axios.get("/api/users/management").then((response) => {
       if (response.data.success) {
-        console.log(response.data.users);
         setUser(response.data.users);
       } else {
         console.log("불러오기 실패");

@@ -84,6 +84,24 @@ router.get("/getCountOfProduct", (req, res) => {
   });
 });
 
+router.get("/management", (req, res) => {
+  // console.log("req:", req);
+  Product.find({}).exec((err, item) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).json({ success: true, products: item });
+    });
+});
+
+router.post("/removeFromProduct", (req, res) => {
+  // console.log("req:", req.body);
+  Product.findOneAndDelete({
+    _id: req.body._id,
+  }).exec(err => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true });
+  });
+});
+
 router.get("/products_by_id", (req, res) => {
   //axios 주소에 걸린 조건은 타입이라 query로 받는다.
   let type = req.query.type;
