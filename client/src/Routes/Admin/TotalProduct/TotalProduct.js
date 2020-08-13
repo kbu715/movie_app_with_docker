@@ -49,7 +49,6 @@ function TotalProduct() {
   useEffect(() => {
     axios.get("/api/product/getCountOfProduct").then(response => {
       if (response.data.success) {
-          console.log()
         setProductCount(response.data.products.length);
       } else {
         console.log("불러오기 실패");
