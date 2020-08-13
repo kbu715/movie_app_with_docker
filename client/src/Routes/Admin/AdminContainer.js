@@ -9,6 +9,7 @@ import ReservationsCalendar from "./TotalReservation/ReservationsCalendar";
 import ReservationList from "./TotalReservation/ReservationList";
 import UploadProduct from "./UploadProduct/UploadProduct";
 import ProductList from "./ProductList/ProductList";
+import Product from "./ProductList/Product";
 import "antd/dist/antd.css";
 
 function AdminContainer() {
@@ -75,6 +76,13 @@ function AdminContainer() {
                 </span>
                 <Link to="/UploadProduct" />
               </Menu.Item>
+              <Menu.Item key="9">
+                <span>
+                  <Icon type="pie-chart" />
+                  상품 목록
+                </span>
+                <Link to="/productManage" />
+              </Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>
@@ -106,6 +114,7 @@ function AdminContainer() {
             <Route path="/reservationList" component={ReservationList} />
             <Route path="/UploadProduct" component={UploadProduct} />
             <Route path="/productList" component={ProductList} />
+            <Route path="/productManage" component={Product} />
           </Content>
           <Footer style={{ textAlign: "center" }}>
             Ant Design ©2016 Created by Ant UED
