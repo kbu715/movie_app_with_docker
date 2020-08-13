@@ -6,12 +6,15 @@ import { Doughnut, Line } from "react-chartjs-2";
 // import { Typography } from "@material-ui/core";
 import axios from "axios";
 import TotalProduct from "../TotalProduct/TotalProduct";
+import TotalSales from "../TotalSales/TotalSales";
+
 
 function DashBoard() {
   const [numOfCGV, setNumOfCGV] = useState(0);
   const [numOfLotte, setNumOfLotte] = useState(0);
   const [numOfMega, setNumOfMega] = useState(0);
   const [user, setUser] = useState([]);
+  
 
   // 19개 장르
   const [action, setAction] = useState(0);
@@ -35,6 +38,8 @@ function DashBoard() {
   const [western, setWestern] = useState(0);
 
   const fetchGenres = function () {
+
+
     axios.post("/api/myscore/getAllGenres").then((response) => {
       if (response.data.success) {
         // console.log(response.data.genres);
@@ -113,8 +118,7 @@ function DashBoard() {
 
   const fetchUsers = function () {
     axios.get("/api/users/management").then((response) => {
-      if (response.data.success) {
-        console.log(response.data.users);
+      if (response.data.success) {        
         setUser(response.data.users);
       } else {
         console.log("불러오기 실패");
@@ -122,8 +126,7 @@ function DashBoard() {
     });
   };
 
-  useEffect(() => {
-    // fetchTheaters();
+  useEffect(() => {    
     fetchGenres();
     fetchUsers();
   }, []);
@@ -296,28 +299,35 @@ function DashBoard() {
         // display: "flex",
         justifyContent: "center",
         flexDirection: "column",
-        // border: "2px solid pink",
+        //border: "2px solid blue",
       }}
     >
       <div
         style={{
           display: "flex",
           width: "100%",
-          float: "bottom",
-          // border: "1px solid red",
+          float: "bottom",          
         }}
       >
+        {/* 유저 count */}
         <Grid container spacing={4}>
-          <Grid item lg={4} sm={6} xl={3} xs={12}>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
             <TotalUsers />
           </Grid>
 
-          <Grid item lg={4} sm={6} xl={3} xs={12}>
+        {/* 예매 count */}
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
             <TotleReservation />
           </Grid>
 
-          <Grid item lg={4} sm={6} xl={3} xs={12}>
+        {/* 매점상품 count */}
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
             <TotalProduct />
+          </Grid>
+
+        {/* 금일 매출 count */}
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <TotalSales />
           </Grid>
         </Grid>
       </div>
