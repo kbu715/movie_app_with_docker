@@ -483,7 +483,7 @@ router.post("/successBuy", auth, (req, res) => {
       id: item._id,
       price: item.price,
       quantity: item.quantity,
-      paymentId: req.body.paymentData.paymentID,
+      paymentId: req.body.paymentData,
     });
   });
 
@@ -554,9 +554,9 @@ router.get("/history", auth, (req, res) => {
 });
 module.exports = router;
 
-router.post("/roleAdmin",(req, res) => {
+router.post("/roleAdmin", (req, res) => {
   User.findOneAndUpdate(
-    { role: "일반회원" , _id: req.body._id },   
+    { role: "일반회원", _id: req.body._id },
     { $set: { role: "관리자" } },
     { new: true }
   ).exec((err, doc) => {
@@ -565,7 +565,7 @@ router.post("/roleAdmin",(req, res) => {
   });
 });
 
-router.post("/roleUser",(req, res) => {
+router.post("/roleUser", (req, res) => {
   User.findOneAndUpdate(
     { role: "관리자", _id: req.body._id },
     { $set: { role: "일반회원" } },
@@ -584,7 +584,5 @@ router.post("/removeFromUser", auth, (req, res) => {
     return res.status(200).json({ success: true, result });
   });
 });
-
-
 
 module.exports = router;
