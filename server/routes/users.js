@@ -547,7 +547,7 @@ router.post("/successBuy", auth, (req, res) => {
 });
 
 router.get("/history", auth, (req, res) => {
-  User.find({}, ["history"]).exec((err, doc) => {
+  Payment.find({}).exec((err, doc) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true, doc });
   });
