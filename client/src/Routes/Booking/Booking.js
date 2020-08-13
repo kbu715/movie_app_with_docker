@@ -42,7 +42,7 @@ const InnerWrapper = styled.div`
   justify-content: flex-end; */
   /* width: 50%; */
   font-family: "Lato", sans-serif;
-  /* border: 2px solid red; */
+  border: 2px solid red;
 `;
 const Cover = styled.div`
   width: 90%;
