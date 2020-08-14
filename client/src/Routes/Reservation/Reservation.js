@@ -52,6 +52,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   width: max-content;
   height: 60px;
+  border: 1px solid pink;
   /* margin-bottom: 10px; */
 `;
 
@@ -82,7 +83,9 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       ref={ref}
       placeholder="  날짜를 선택해주세요"
       value={
-        selectDay ? `  ${selectDay.year}-${selectDay.month}-${selectDay.day}` : ""
+        selectDay
+          ? `  ${selectDay.year}-${selectDay.month}-${selectDay.day}`
+          : ""
       }
       style={{
         // textAlign: "center",
@@ -128,7 +131,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
         <DatePicker
-          // contentStyle={{marginTop:"10px"}}
+          
           value={selectDay}
           onChange={setSelectedDay}
           minimumDate={utils().getToday()}
@@ -140,7 +143,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       <Wrapper>
         <Select
           options={groupedOptions}
-          defaultValue={groupedOptions[0]}
+          defaultValue={groupedOptions[1]}
           styles={colourStyles}
           onChange={onTime}
         />
@@ -167,7 +170,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
           }
           modal
           contentStyle={{
-            width:"770px",
+            width: "770px",
             backgroundColor: "#242333",
             borderRadius: "10px",
             padding: "1%",

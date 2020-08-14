@@ -38,7 +38,7 @@ function ProductList(props) {
         <div style={{ textAlign: "center" }}>
           <br />
 
-          <Table dataSource={History}>
+          <Table key dataSource={History}>
             <Column
               title="결제ID"
               dataIndex="data"
