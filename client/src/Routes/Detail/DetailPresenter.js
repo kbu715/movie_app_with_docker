@@ -9,6 +9,7 @@ import Cast from "./Cast/Cast";
 import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
 import Reservation from "../Reservation/Reservation";
+import ReservationAll from "../Reservation/ReservationAll";
 import Recommendation from "./Recommendation/Recommendation";
 
 const Container = styled.div`
@@ -98,9 +99,7 @@ const ItemContainer = styled.div`
   margin: 20px 0;
 `;
 
-const Item = styled.span`
-  
-`;
+const Item = styled.span``;
 
 const Divider = styled.span`
   margin: 0 10px;
@@ -191,11 +190,14 @@ const DetailPresenter = ({
         />
         <Data>
           <Title>
-            {isMovie
-              ? result.title //movie : title, tv show : name
-              : result.name}
+            {isMovie ? result.title : result.name}
             <Reservation
-              // style={{border:"1px solid red"}}
+              id={result.id}
+              title={result.title}
+              bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+              userFrom={localStorage.getItem("userId")}
+            />
+            <ReservationAll
               id={result.id}
               title={result.title}
               bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
@@ -233,10 +235,6 @@ const DetailPresenter = ({
               movieId={parseInt(result.id)}
               userFrom={localStorage.getItem("userId")}
             />
-            
-            
-            
-            
 
             <RatingsWrapper>
               <Rating number={result.vote_average / 2} />
