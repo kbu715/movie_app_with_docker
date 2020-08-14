@@ -4,9 +4,10 @@ import { Doughnut } from "react-chartjs-2";
 
 const Container = styled.div`
   float: bottom;
-  width: 80%;
+  width: 90%;
   border-radius: 5px;
   margin: 0 auto;
+  margin-top: 18px;
 `;
 
 const SectionTitle = styled.div`
@@ -29,6 +30,7 @@ const Nothing = styled.div`
 const ChartWrapper = styled.div`
   /* border: 1px solid red; */
   /* height: 100px; */
+  margin-bottom:10px;
 `;
 const GenrePreference = ({ user, topGenre, result }) => {
   const expData = {
@@ -52,7 +54,7 @@ const GenrePreference = ({ user, topGenre, result }) => {
   return (
     <Container>
       <SectionTitle>
-        {user.userData && user.userData.name}'s Top Genres
+        {user.userData && user.userData.name}님의 선호 장르
       </SectionTitle>
 
       {result.length === 0 ? (
@@ -74,7 +76,7 @@ const GenrePreference = ({ user, topGenre, result }) => {
           options={{
             legend: {
               display: true,
-              position: "right",
+              position: "bottom",
               labels: {
                 fontColor: 'white',
                 fontSize: 17,
@@ -83,7 +85,8 @@ const GenrePreference = ({ user, topGenre, result }) => {
             },
           }}
           data={expData}
-          height={200}
+          height={100}
+          // width={1000}
           />
           </ChartWrapper>
       )}

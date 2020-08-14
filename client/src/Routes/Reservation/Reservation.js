@@ -16,8 +16,8 @@ const colourStyles = {
     fontSize: "1.1rem",
     width: "250px",
     textAlign: "center",
-    marginTop: "25px",
-    height: "40px",
+    // marginTop: "25px",
+    // height: "10px",
     border: "1px solid #9c88ff",
     boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
     color: "#2e2e2e",
@@ -50,8 +50,10 @@ const Button1 = styled.button`
 const Wrapper = styled.div`
   /* padding: 5px; */
   margin: 0 auto;
+  /* border: 1px solid red; */
   width: max-content;
-  height: 60px;
+  /* height: 50px; */
+  padding : 5px;
   /* margin-bottom: 10px; */
 `;
 
@@ -92,11 +94,11 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
         boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
         color: "#2e2e2e",
         outline: "none",
-        marginLeft: "10px",
+        // marginLeft: "10px",
         width: "250px",
-        height: "40px",
-        marginTop: "10px",
-        marginBottom: "10px",
+        height: "38px",
+        // marginTop: "10px",
+        // marginBottom: "10px",
       }}
       className="my-custom-input-class"
     />
@@ -140,7 +142,8 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       <Wrapper>
         <Select
           options={groupedOptions}
-          defaultValue={groupedOptions[0]}
+          // defaultValue={groupedOptions[1]}
+          placeholder="  시간을 선택해주세요"
           styles={colourStyles}
           onChange={onTime}
         />
