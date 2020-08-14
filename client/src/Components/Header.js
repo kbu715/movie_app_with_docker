@@ -127,7 +127,7 @@ const handleScroll = () => {
     x.style.backgroundColor = "transparent";
     // console.log("trans");
   } else if (windowBottom > docHeight - y) {
-    x.style.backgroundColor = "#171717";
+    x.style.backgroundColor = "black";
     // console.log("black");
   }
 };
