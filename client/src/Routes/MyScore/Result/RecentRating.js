@@ -11,11 +11,10 @@ const Chart = styled.div`
 `;
 
 const SectionTitle = styled.div`
-  text-align: center;
-  font-size: 30px;
-  font-weight: 600;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 15px;
+  margin-bottom: 15px;
   color: #f7f7f7;
   position: relative;
 `;
@@ -78,7 +77,7 @@ const RecentRating = ({ recent, user }) => {
   return (
     <Chart>
       <SectionTitle>
-        Result of {user.userData && user.userData.name}
+      {user.userData && user.userData.name}님의 최근 별점 목록
       </SectionTitle>
       {recent.length === 0 ? (
         <Nothing>

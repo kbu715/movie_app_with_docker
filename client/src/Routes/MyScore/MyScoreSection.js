@@ -47,7 +47,7 @@ const MyScoreSection = ({ title, children }) => (
     <Popup trigger={<PopUpButton>RESULT</PopUpButton>}
       modal
       closeOnDocumentClick
-      contentStyle={{backgroundColor: "#5D5D5D"}}>
+      contentStyle={{backgroundColor: "#5D5D5D",minWidth:"950px", }}>
       {close => <Result close={close}/>}
     </Popup>
     <Grid>{children}</Grid>

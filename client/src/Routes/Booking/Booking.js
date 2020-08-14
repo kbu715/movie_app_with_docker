@@ -257,6 +257,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         <SelectWrapper>
           <Select
             options={groupedOptions}
+            placeholder="  인원을 선택해주세요"
             // defaultValue="인원을 선택해주세요"
             styles={colourStyles}
             onChange={onCount}
@@ -330,7 +331,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         </InnerWrapper>
       </Wrapper>
       {/* **************************************************************************************** */}
-
+  
       <SeatWrapper>
         {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
         <ul className="showcase">

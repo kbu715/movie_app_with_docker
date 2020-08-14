@@ -19,7 +19,6 @@ function Product() {
       }
     });
   };
-//==========================================================================
   const onProductDeleteHandler = (_id) => {
     const variables = {
       _id,

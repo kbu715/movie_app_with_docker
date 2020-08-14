@@ -45,7 +45,6 @@ router.get("/reservation_by_id", auth, (req, res) => {
       return item;
     });
   }
-  console.log(222, movieIds);
   // Reservation.find({ userFrom: req.user._id })
   Reservation.find({ _id: { $in: movieIds } })
     .populate("userForm")
