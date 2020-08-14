@@ -10,6 +10,7 @@ import {
   GET_CART_ITEMS,
   REMOVE_CART_ITEM,
   ON_SUCCESS_BUY,
+  REMOVE_PRODUCT,
 } from "./types";
 
 export function loginUser(dataToSubmit) {
@@ -183,4 +184,12 @@ export function onSuccessBuy(data) {
     type: ON_SUCCESS_BUY,
     payload: request,
   };
+}
+
+export function removeProduct(id){
+  console.log("remove");
+
+  return {
+    type: REMOVE_PRODUCT,
+  }
 }
