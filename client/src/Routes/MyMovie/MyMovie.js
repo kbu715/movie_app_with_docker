@@ -10,7 +10,21 @@ import {
 import UserMovie from "./Sections/UserMovie";
 import { Empty, Result } from "antd";
 import CartPage from "../Product/CartPage/CartPage";
-import Paypal from "../../utils/Paypal";
+// import Paypal from "../../utils/Paypal";
+import styled from "styled-components";
+
+const Button1 = styled.button`
+  color: #9c88ff;
+  border: 3px solid #9c88ff;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: #151515;
+  margin-left: 20px;
+  padding: 5px;
+  box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
+`;
+
 function MyMovie(props) {
   console.log("movie", props);
   const dispatch = useDispatch();
@@ -24,7 +38,7 @@ function MyMovie(props) {
     //리덕스 User state안에 movie안에 결재내역이 있는지 확인
     if (props.user.userData && props.user.userData.movie) {
       if (props.user.userData.movie.length > 0) {
-        props.user.userData.movie.forEach(item => {
+        props.user.userData.movie.forEach((item) => {
           movieObjIds.push(item._id);
         });
 
@@ -35,12 +49,12 @@ function MyMovie(props) {
     //redux User state안에 Cart 안에 상품이 들어 있는지 확인
     if (props.user.userData && props.user.userData.cart) {
       if (props.user.userData.cart.length > 0) {
-        props.user.userData.cart.forEach(item => {
+        props.user.userData.cart.forEach((item) => {
           cartItems.push(item.id);
         });
 
         dispatch(getCartItems(cartItems, props.user.userData.cart)).then(
-          response => {
+          (response) => {
             calculateTotal(response.payload);
           }
         );
@@ -48,38 +62,38 @@ function MyMovie(props) {
     }
   }, [props.user.userData]);
 
-  let calculateTotal = cartDetail => {
+  let calculateTotal = (cartDetail) => {
     let total = 0;
-    cartDetail.forEach(item => {
+    cartDetail.forEach((item) => {
       total += parseInt(item.price, 10) * item.quantity;
     });
 
     setTotal(total);
   };
 
-  const removeFromMovie = movieObjId => {
-    dispatch(removeMovieItem(movieObjId)).then(response => {
+  const removeFromMovie = (movieObjId) => {
+    dispatch(removeMovieItem(movieObjId)).then((response) => {
       if (response.payload.movieInfo.length <= 0) {
         setShowTotalMovie(false);
       }
     });
   };
 
-  let removeFromCart = productId => {
-    dispatch(removeCartItem(productId)).then(response => {
+  let removeFromCart = (productId) => {
+    dispatch(removeCartItem(productId)).then((response) => {
       if (response.payload.productInfo.length <= 0) {
         setShowTotalProduct(false);
       }
     });
   };
 
-  const transactionSuccess = data => {
+  const transactionSuccess = (data) => {
     dispatch(
       onSuccessBuy({
         paymentData: data,
         cartDetail: props.user.cartDetail,
       })
-    ).then(response => {
+    ).then((response) => {
       if (response.payload.success) {
         setShowTotalProduct(false);
         setShowSuccess(true);
@@ -130,7 +144,8 @@ function MyMovie(props) {
 
   return (
     <div style={{ width: "85%", margin: "4rem auto" }}>
-      <h1>My Product</h1>
+      <h1 style={{ color: "white", fontSize: "30px" }}>My Product</h1>
+      <br />
       <div>
         <CartPage
           products={props.user.cartDetail && props.user.cartDetail}
@@ -148,13 +163,11 @@ function MyMovie(props) {
               width: "100%",
             }}
           >
-            <h3 style={{ color: "#f7f7f7" }}>
-              총 금액:{" "}
-              <span role="img" aria-label="cute">
-                💰
-              </span>
-              {Total}
-            </h3>
+            <h4 style={{ color: "#f7f7f7" }}>
+              총 금액:
+              <span style={{ color: "red" }}>{Total}</span>
+              <b>원</b>
+            </h4>
           </div>
         ) : ShowSuccess ? (
           <Result status="success" title="Success!" />
@@ -167,13 +180,15 @@ function MyMovie(props) {
         <div style={{ textAlign: "right", paddingTop: "2%" }}>
           {ShowTotalProduct && (
             // <Paypal onSuccess={transactionSuccess} Price={Total} />
-
-            <img
-              src={require("../../img/kakaoPay.png")}
-              alt="kakaoPay"
-              style={{ width: "5%", height: "2%", float: "right" }}
-              onClick={onKaKaoPay}
-            />
+            <Button1 variant="contained" color="primary" onClick={onKaKaoPay}>
+              주문하기
+            </Button1>
+            // <img
+            //   src={require("../../img/kakaoPay.png")}
+            //   alt="kakaoPay"
+            //   style={{ width: "5%", height: "2%", float: "right" }}
+            //   onClick={onKaKaoPay}
+            // />
           )}
         </div>
       </div>
@@ -181,10 +196,12 @@ function MyMovie(props) {
       <br />
       <br />
       <br />
+      <hr style={{ color: "white", border: "thin solid white" }} />
       <br />
       <br />
       <hr />
-      <h1>My Movie</h1>
+      <h1 style={{ color: "white", fontSize: "30px" }}>My Movie</h1>
+      <br />
       <div>
         <UserMovie
           movies={props.user.movieDetail && props.user.movieDetail}

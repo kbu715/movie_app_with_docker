@@ -5,7 +5,20 @@ import { Col, Card, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import ImageSlider from "../../utils/ImageSlider";
 import SearchFeature from "./Section/SearchFeature";
-import "./mystyle.css"
+import "./mystyle.css";
+import styled from "styled-components";
+
+const Button1 = styled.button`
+  color: #9c88ff;
+  border: 3px solid #9c88ff;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: #151515;
+  margin-left: 20px;
+  padding: 5px;
+  box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
+`;
 
 function Product() {
   const [Products, setProducts] = useState([]);
@@ -56,17 +69,33 @@ function Product() {
   //style={{ marginRight: "0px", marginLeft: "0px", height: "100%" }}
   const renderCards = Products.map((product, index) => {
     return (
-      <Col lg={6} md={7} xs={24} key={index} >
+      <Col lg={6} md={7} xs={24} key={index}>
         <Card
-          style={{ width: "70%",height: "90%",border:"10px solid #9DA28C", backgroundColor: "#AABACC", borderColor: "white", borderRadius: "5px", marginBottom: "50px" }}
+          style={{
+            width: "70%",
+            height: "80%",
+            border: "10px solid #9c88ff",
+            backgroundColor: "white",
+            // borderColor: "white",
+            borderRadius: "5px",
+            marginBottom: "50px",
+          }}
           hoverable={true}
           cover={
-            <a href={`/product/${product._id}`} >
+            <a href={`/product/${product._id}`}>
               <ImageSlider images={product.images} />
             </a>
           }
         >
-          <Meta title={product.title} description={`$${product.price}`} style={{ position:"releative", textAlign: "center", fontSize: "18px" }} />
+          <Meta
+            title={product.title}
+            description={`${product.price}원`}
+            style={{
+              position: "releative",
+              textAlign: "center",
+              fontSize: "18px",
+            }}
+          />
         </Card>
       </Col>
     );
@@ -84,10 +113,7 @@ function Product() {
   };
 
   return (
-    <div
-      style={{ width: "75%", margin: "3rem auto" }}
-    >
-
+    <div style={{ width: "75%", margin: "3rem auto" }}>
       {/* Filter  */}
 
       {/* Search */}
@@ -96,12 +122,24 @@ function Product() {
           display: "flex",
         }}
       >
-        <span style={{ color: "white", fontSize: "3rem", fontWeight: "600", width: "50%", marginLeft: "10px" }}>Store</span>
-        <div style={{
-          justifyContent: "flex-end",
-          textAlign: "right",
-          width: "50%",
-        }}>
+        <span
+          style={{
+            color: "white",
+            fontSize: "3rem",
+            fontWeight: "600",
+            width: "50%",
+            marginLeft: "10px",
+          }}
+        >
+          Store
+        </span>
+        <div
+          style={{
+            justifyContent: "flex-end",
+            textAlign: "right",
+            width: "50%",
+          }}
+        >
           <SearchFeature refreshFunction={updateSearchTerm} />
         </div>
       </div>
@@ -115,8 +153,16 @@ function Product() {
       <br />
 
       {PostSize >= Limit && (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button onClick={loadMoreHandler}>더보기</button>
+        <div
+          style={{ display: "flex", justifyContent: "center", color: "black" }}
+        >
+          <Button1
+            variant="contained"
+            color="primary"
+            onClick={loadMoreHandler}
+          >
+            더보기
+          </Button1>
         </div>
       )}
     </div>
