@@ -79,14 +79,18 @@ function Favorite(props) {
       &nbsp;
       &nbsp;
       &nbsp;
-      <span onClick={onClickFavorite}>
+      <span 
+        onClick={onClickFavorite}      
+      >
         {Favorited ? (
           <>
             <MoodIcon className={classes.root} />
             {FavoriteNumber}
+            
           </>
         ) : (
           <>
+          
             <MoodIcon />
             {FavoriteNumber}
           </>
