@@ -77,16 +77,22 @@ function Favorite(props) {
   };
   const classes = useStyles();
   return (
-    <>
-      &nbsp; &nbsp; &nbsp;
-      <span onClick={onClickFavorite}>
+      <>
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      <span 
+        onClick={onClickFavorite}      
+      >
         {Favorited ? (
           <>
             <MoodIcon className={classes.root} />
             {FavoriteNumber}
+            
           </>
         ) : (
           <>
+          
             <MoodIcon />
             {FavoriteNumber}
           </>

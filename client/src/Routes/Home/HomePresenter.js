@@ -254,10 +254,11 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
               </Section>
             )} */}
 
-            {/* 현재 상영중 */}
+            {/* 현재 상영중 */}            
             {nowPlaying && nowPlaying.length > 0 && (
+              
               <Section title="Now Playing">
-                {nowPlaying.map((movie) => (
+                {nowPlaying.map((movie) => (                  
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -266,10 +267,12 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                     rating={movie.vote_average}
                     year={movie.release_date.substring(0, 4)}
                     isMovie={true}
-                  />
+                  />                  
                 ))}
               </Section>
+              
             )}
+            
             {upcoming && upcoming.length > 0 && (
               <Section title="Upcoming">
                 {upcoming.map((movie) => (
