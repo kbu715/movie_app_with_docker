@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
 import Axios from "axios";
 import { Badge } from "antd";
-import { MediumOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 
 const Header = styled.header`
@@ -55,6 +55,7 @@ const Item = styled.li`
   float: right;
   text-align: center;
   border-bottom: 5px solid
+  
     ${(props) => (props.current ? "mediumslateblue" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
 
@@ -126,7 +127,7 @@ const handleScroll = () => {
     x.style.backgroundColor = "transparent";
     // console.log("trans");
   } else if (windowBottom > docHeight - y) {
-    x.style.backgroundColor = "#171717";
+    x.style.backgroundColor = "black";
     // console.log("black");
   }
 };
@@ -203,7 +204,7 @@ export default withRouter(
                       }}
                     >
                       <span
-                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                        style={{ textAlign: "center",marginTop:"4px" }}
                       >
                         {user.userData && user.userData.name.length > 7
                           ? `${user.userData.name.substring(0, 4)}...`
@@ -242,11 +243,11 @@ export default withRouter(
                   >
                     <Badge
                       count={user.userData && user.userData.cart.length}
-                      style={{ marginBottom: -10 }}
-                      offset={[10, 10]}
+                      style={{ marginBottom: -10 , backgroundColor: "mediumslateblue", fontSize:1}}
+                      offset={[10,10 ]}
                     >
                       <SLink to="/mymovie" className="head-example">
-                        <MediumOutlined
+                        <ShoppingCartOutlined
                           style={{ fontSize: 25, marginLeft: "10px" }}
                         />
                       </SLink>

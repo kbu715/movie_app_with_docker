@@ -31,7 +31,7 @@ const FavoritePresenter = ({
       ) : (
         <Container>
           {favoriteMovies && favoriteMovies.length > 0 && (
-            <FavoriteSection title="내가 찜한 콘텐츠">
+            <FavoriteSection title="My Favorite">
               {favoriteMovies.map(movie => (
                 <FavoritePoster
                   onClickDelete={onClickDelete}

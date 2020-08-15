@@ -5,6 +5,7 @@ import { Col, Card, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import ImageSlider from "../../utils/ImageSlider";
 import SearchFeature from "./Section/SearchFeature";
+import "./mystyle.css"
 
 function Product() {
   const [Products, setProducts] = useState([]);
@@ -49,20 +50,23 @@ function Product() {
     getProducts(body);
     setSkip(skip);
   };
-
+  //#f7f7f7
+  //f7f7f7
+  //#91CCF1
+  //style={{ marginRight: "0px", marginLeft: "0px", height: "100%" }}
   const renderCards = Products.map((product, index) => {
     return (
-      <Col lg={6} md={7} xs={24} key={index}>
+      <Col lg={6} md={7} xs={24} key={index} >
         <Card
-        // style={{border:"1px red solid"}}
+          style={{ width: "70%",height: "90%",border:"10px solid #9DA28C", backgroundColor: "#AABACC", borderColor: "white", borderRadius: "5px", marginBottom: "50px" }}
           hoverable={true}
           cover={
-            <a href={`/product/${product._id}`}>
+            <a href={`/product/${product._id}`} >
               <ImageSlider images={product.images} />
             </a>
           }
         >
-          <Meta title={product.title} description={`$${product.price}`} />
+          <Meta title={product.title} description={`$${product.price}`} style={{ position:"releative", textAlign: "center", fontSize: "18px" }} />
         </Card>
       </Col>
     );
@@ -81,9 +85,8 @@ function Product() {
 
   return (
     <div
-      style={{ width: "75%", margin: "3rem auto", border: "1px solid white" }}
+      style={{ width: "75%", margin: "3rem auto" }}
     >
-        <span style={{ color: "white", fontSize:"3rem", fontWeight:"600" }}>Store</span>
 
       {/* Filter  */}
 
@@ -91,11 +94,16 @@ function Product() {
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-end",
-          margin: "1rem auto",
         }}
       >
-        <SearchFeature refreshFunction={updateSearchTerm} />
+        <span style={{ color: "white", fontSize: "3rem", fontWeight: "600", width: "50%", marginLeft: "10px" }}>Store</span>
+        <div style={{
+          justifyContent: "flex-end",
+          textAlign: "right",
+          width: "50%",
+        }}>
+          <SearchFeature refreshFunction={updateSearchTerm} />
+        </div>
       </div>
       <br />
       <br />

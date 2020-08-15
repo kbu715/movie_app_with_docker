@@ -24,7 +24,7 @@ function MyMovie(props) {
     //리덕스 User state안에 movie안에 결재내역이 있는지 확인
     if (props.user.userData && props.user.userData.movie) {
       if (props.user.userData.movie.length > 0) {
-        props.user.userData.movie.forEach((item) => {
+        props.user.userData.movie.forEach(item => {
           movieObjIds.push(item._id);
         });
 
@@ -35,12 +35,12 @@ function MyMovie(props) {
     //redux User state안에 Cart 안에 상품이 들어 있는지 확인
     if (props.user.userData && props.user.userData.cart) {
       if (props.user.userData.cart.length > 0) {
-        props.user.userData.cart.forEach((item) => {
+        props.user.userData.cart.forEach(item => {
           cartItems.push(item.id);
         });
 
         dispatch(getCartItems(cartItems, props.user.userData.cart)).then(
-          (response) => {
+          response => {
             calculateTotal(response.payload);
           }
         );
@@ -48,44 +48,86 @@ function MyMovie(props) {
     }
   }, [props.user.userData]);
 
-  let calculateTotal = (cartDetail) => {
+  let calculateTotal = cartDetail => {
     let total = 0;
-    cartDetail.forEach((item) => {
+    cartDetail.forEach(item => {
       total += parseInt(item.price, 10) * item.quantity;
     });
 
     setTotal(total);
   };
 
-  const removeFromMovie = (movieObjId) => {
-    dispatch(removeMovieItem(movieObjId)).then((response) => {
+  const removeFromMovie = movieObjId => {
+    dispatch(removeMovieItem(movieObjId)).then(response => {
       if (response.payload.movieInfo.length <= 0) {
         setShowTotalMovie(false);
       }
     });
   };
 
-  let removeFromCart = (productId) => {
-    dispatch(removeCartItem(productId)).then((response) => {
+  let removeFromCart = productId => {
+    dispatch(removeCartItem(productId)).then(response => {
       if (response.payload.productInfo.length <= 0) {
         setShowTotalProduct(false);
       }
     });
   };
 
-  const transactionSuccess = (data) => {
+  const transactionSuccess = data => {
     dispatch(
       onSuccessBuy({
         paymentData: data,
         cartDetail: props.user.cartDetail,
       })
-    ).then((response) => {
+    ).then(response => {
       if (response.payload.success) {
         setShowTotalProduct(false);
         setShowSuccess(true);
       }
     });
   };
+
+  const onKaKaoPay = () => {
+    console.log("kakao");
+    var IMP = window.IMP; // 생략가능
+    IMP.init("imp10561880");
+    // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+
+    IMP.request_pay(
+      {
+        pg: "inicis", // version 1.1.0부터 지원.
+        pay_method: "card",
+        merchant_uid: "merchant_" + new Date().getTime(),
+        name: props.user.cartDetail[0].title + " 외",
+        amount: Total,
+        buyer_email: props.user.userData.email,
+        buyer_name: props.user.userData.name,
+        buyer_tel: "010-1234-5678",
+        buyer_addr: "서울특별시 강남구 삼성동",
+        buyer_postcode: "123-456",
+        m_redirect_url: "https://www.yourdomain.com/payments/complete",
+      },
+      function (rsp) {
+        if (rsp.success) {
+          var id = {
+            uid: rsp.imp_uid,
+          };
+          var msg = "결제가 완료되었습니다.";
+          msg += "고유ID : " + rsp.imp_uid;
+          msg += "상점 거래ID : " + rsp.merchant_uid;
+          msg += "결제 금액 : " + rsp.paid_amount;
+          // msg += "카드 승인번호 : " + rsp.apply_num;
+
+          transactionSuccess(id);
+        } else {
+          msg = "결제에 실패하였습니다.";
+          msg += "에러내용 : " + rsp.error_msg;
+        }
+        alert(msg);
+      }
+    );
+  };
+
   return (
     <div style={{ width: "85%", margin: "4rem auto" }}>
       <h1>My Product</h1>
@@ -124,7 +166,14 @@ function MyMovie(props) {
         )}
         <div style={{ textAlign: "right", paddingTop: "2%" }}>
           {ShowTotalProduct && (
-            <Paypal onSuccess={transactionSuccess} Price={Total} />
+            // <Paypal onSuccess={transactionSuccess} Price={Total} />
+
+            <img
+              src={require("../../img/kakaoPay.png")}
+              alt="kakaoPay"
+              style={{ width: "5%", height: "2%", float: "right" }}
+              onClick={onKaKaoPay}
+            />
           )}
         </div>
       </div>

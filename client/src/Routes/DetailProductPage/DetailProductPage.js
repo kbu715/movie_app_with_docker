@@ -19,13 +19,13 @@ function DetailProductPage(props) {
 
   return (
     <div
-      style={{ width: "80%", padding: "5rem 4rem", margin:"0 auto", height:"90%" }}
+      style={{ width: "60%", padding: "5rem 4rem", margin:"0 auto", height:"50%" }}
     >
       <div
         style={{
           display: "flex",
           // justifyContent: "center",
-          // border: "1px solid red",
+          
         }}
       >
         <h1 style={{ color: "#f7f7f7", fontSize: "50px", fontWeight:"400" }}>{Product.title}</h1>
@@ -41,6 +41,32 @@ function DetailProductPage(props) {
         </Col>
       </Row>
     </div>
+
+
+
+
+
+
+
+
+//     <div className="postPage" style={{ width: '100%', padding: '3rem 4rem' }}>
+
+//     <div style={{ display: 'flex', justifyContent: 'center' }}>
+//         <h1>{Product.title}</h1>
+//     </div>
+
+//     <br />
+
+//     <Row gutter={[16, 16]} >
+//         <Col lg={12} xs={24}>
+//             <ProductImage detail={Product} />
+//         </Col>
+//         <Col lg={12} xs={24}>
+//             <ProductInfo                
+//                 detail={Product} />
+//         </Col>
+//     </Row>
+// </div>
   );
 }
 

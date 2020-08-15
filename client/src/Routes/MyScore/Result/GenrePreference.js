@@ -4,9 +4,10 @@ import { Doughnut } from "react-chartjs-2";
 
 const Container = styled.div`
   float: bottom;
-  width: 80%;
+  width: 90%;
   border-radius: 5px;
   margin: 0 auto;
+  margin-top: 18px;
 `;
 
 const SectionTitle = styled.div`
@@ -29,6 +30,7 @@ const Nothing = styled.div`
 const ChartWrapper = styled.div`
   /* border: 1px solid red; */
   /* height: 100px; */
+  margin-bottom:10px;
 `;
 const GenrePreference = ({ user, topGenre, result }) => {
   const expData = {
@@ -39,11 +41,12 @@ const GenrePreference = ({ user, topGenre, result }) => {
         data: topGenre.map((item) => item.count),
         borderWidth: 3,
         backgroundColor: [
-          "rgba(238, 102, 121, 1)",
-          "rgba(98, 181, 229, 1)",
-          "rgba(255, 198, 0, 1)",
+          "rgba(62, 96, 111)",
+          "rgba(25, 52, 65)",
+          "rgba(145, 170, 157)",
         ],
         fill: true,
+        borderColor:"#d5d5d5"
       },
     ],
   };
@@ -51,7 +54,7 @@ const GenrePreference = ({ user, topGenre, result }) => {
   return (
     <Container>
       <SectionTitle>
-        {user.userData && user.userData.name}'s Top Genres
+        {user.userData && user.userData.name}님의 선호 장르
       </SectionTitle>
 
       {result.length === 0 ? (
@@ -73,11 +76,17 @@ const GenrePreference = ({ user, topGenre, result }) => {
           options={{
             legend: {
               display: true,
-              position: "right",
+              position: "bottom",
+              labels: {
+                fontColor: 'white',
+                fontSize: 17,
+                padding: 15
+             }
             },
           }}
           data={expData}
-          height={200}
+          height={100}
+          // width={1000}
           />
           </ChartWrapper>
       )}

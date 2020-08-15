@@ -22,8 +22,11 @@ function UserList() {
   };
 
   //일반회원 -> 관리자
-  const onRoleAdminHandler = () => {
-    axios.get("/api/users/roleAdmin").then((response) => {
+  const onRoleAdminHandler = (_id) => {
+    const variables = {
+      _id,
+    };
+    axios.post("/api/users/roleAdmin",variables).then((response) => {
       if (response.data.success) {
         alert("관리자 변경완료");
         getUser();
@@ -33,8 +36,11 @@ function UserList() {
     });
   };
   //관리자 -> 일반회원
-  const onRoleUserHandler = () => {
-    axios.get("/api/users/roleUser").then((response) => {
+  const onRoleUserHandler = (_id) => {
+    const variables = {
+      _id,
+    };
+    axios.post("/api/users/roleUser",variables).then((response) => {
       if (response.data.success) {
         alert("회원등급 변경완료");
         getUser();
@@ -80,7 +86,8 @@ function UserList() {
             <Column
               title="회원수정"
               key="action"
-              render={() => (
+              dataIndex="_id"
+              render={(dataIndex) => (
                 <Space size="middle">
                   <Button
                     type="primary"
@@ -89,11 +96,11 @@ function UserList() {
                       borderColor: "#9c88ff",
                     }}
                     // danger
-                    onClick={onRoleAdminHandler}
+                    onClick={() => onRoleAdminHandler(dataIndex)}
                   >
                     관리자
                   </Button>
-                  <Button type="primary" onClick={onRoleUserHandler}>
+                  <Button type="primary" onClick={() => onRoleUserHandler(dataIndex)}>
                     일반회원
                   </Button>
                 </Space>

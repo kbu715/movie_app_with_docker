@@ -98,7 +98,9 @@ const ItemContainer = styled.div`
   margin: 20px 0;
 `;
 
-const Item = styled.span``;
+const Item = styled.span`
+  
+`;
 
 const Divider = styled.span`
   margin: 0 10px;
@@ -231,6 +233,10 @@ const DetailPresenter = ({
               movieId={parseInt(result.id)}
               userFrom={localStorage.getItem("userId")}
             />
+            
+            
+            
+            
 
             <RatingsWrapper>
               <Rating number={result.vote_average / 2} />

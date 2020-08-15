@@ -1,33 +1,33 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import Section from "Components/Section";
-import Loader from "../../Components/Loader";
-import Message from "../../Components/Message";
-import Poster from "../../Components/Poster";
-import Helmet from "react-helmet";
-import { withRouter } from "react-router-dom";
-import { Carousel } from "antd";
+import React from "react"
+import PropTypes from "prop-types"
+import styled from "styled-components"
+import Section from "Components/Section"
+import Loader from "../../Components/Loader"
+import Message from "../../Components/Message"
+import Poster from "../../Components/Poster"
+import Helmet from "react-helmet"
+import { withRouter } from "react-router-dom"
+import { Carousel } from "antd"
 
 const Container = styled.div`
-  /* padding: 10px; */
   scroll-behavior: smooth;
-`;
+  margin-top: -50px;
+  z-index: -1;
+`
 const Video = styled.div`
   position: absolute;
   width: 100%;
   top: -100px;
   z-index: -1;
-`;
+`
 const Effect = styled.div`
   width: 100%;
-  height: 600px;
-  margin-top: 100px;
-  background: linear-gradient(to bottom, transparent, black);
-`;
+
+  margin-top: 600px;
+`
 const TopSection = styled.div`
-  margin-top: -200px;
-`;
+  margin-top: -160px;
+`
 const Button = styled.button`
   background: transparent;
   display: -webkit-box;
@@ -53,37 +53,56 @@ const Button = styled.button`
   font-weight: 600;
   -webkit-transition: border 0.125s ease, background 0.125s ease;
   transition: border 0.125s ease, background 0.125s ease;
-`;
+`
 const Hero = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-`;
+`
 const HeroContent = styled.div`
   position: relative;
   z-index: 4;
   width: auto;
   left: 10px;
   top: 10px;
-`;
+`
 const HeroContentText = styled.span`
   font-size: 60px;
-`;
+`
 
 const HeroContentP = styled.div`
   width: 100%;
   font-size: 20px;
   margin-top: 40px;
   color: white;
-`;
+`
 const HeroButtonWrapper = styled.div`
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   width: 400px;
+  border: 1px solid red;
   margin-top: 30px;
-`;
+`
+const HeroButtonWrapper1 = styled.div`
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  //width: 400px;
+  width: 20%;
+  
+`
+const HeroButtonWrapper2 = styled.div`
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 400px;
+  
+  margin-top: 30px;
+`
 const AButton = styled.a`
   &:link {
     text-decoration: none;
@@ -101,16 +120,9 @@ const AButton = styled.a`
     text-decoration: none;
     color: gray;
   }
-`;
+`
 
-const HomePresenter = ({
-  nowPlaying,
-  popular,
-  upcoming,
-  trending,
-  loading,
-  error,
-}) => (
+const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error }) => (
   <>
     <Helmet>
       <title>Movies | Nomflix</title>
@@ -132,7 +144,8 @@ const HomePresenter = ({
             ></iframe>
           </Video> */}
 
-          <Carousel autoplay>
+          
+             <Carousel autoplay>
             <div>
               <div
                 style={{
@@ -140,36 +153,35 @@ const HomePresenter = ({
                 }}
               >
                 <img
-                  src="https://image.tmdb.org/t/p/w1066_and_h600_bestv2/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg"
+                  src="https://cdna.artstation.com/p/assets/images/images/017/022/542/large/amirhosein-naseri-desktop-screenshot-2019-04-03-18-17-47-11.jpg?1554338571"
                   alt="1"
                   width="1420px"
                   height="700px"
+                  style={{
+                    position: "releative",
+                    
+                    height: "100%",
+                  }}
                 />
               </div>
               <Hero>
                 <Effect>
                   <HeroContent>
-                    <HeroContentText>조커 : Joker</HeroContentText>
+                    <HeroContentText></HeroContentText>
                     <HeroContentP>
-                      "내 인생이 비극인 줄 알았는데, 코미디였어"
                       <br />
                       <br />
                       <br />
-                      홀어머니와 사는 아서 플렉은 코미디언을 꿈꾸지만 그의 삶은
-                      좌절과 절망으로 가득 차 있다.
                       <br />
                       <br />
-                      군중들은 지배계급에 대한 저항의 아이콘이 된 그를 추종하기
-                      시작
                       <br />
                       <br />
-                      광대 마스크로 얼굴을 가리고 거리로 쏟아져 나오기
-                      시작하는데..!
+                      <br />
+                      <br />
+                   
+                      <br />
                     </HeroContentP>
-                    <HeroButtonWrapper>
-                      <HeroButton text="상세 정보" />
-                      <HeroButton text="+ 찜한 목록" />
-                    </HeroButtonWrapper>
+                   
                   </HeroContent>
                 </Effect>
               </Hero>
@@ -177,7 +189,7 @@ const HomePresenter = ({
             <div>
               <div style={{ position: "absolute" }}>
                 <img
-                  src="https://image.tmdb.org/t/p/w1066_and_h600_bestv2/wzJRB4MKi3yK138bJyuL9nx47y6.jpg"
+                  src="https://i0.wp.com/www-images.theonering.org/torwp/wp-content/uploads/2014/10/HBFA_30sht_Azog_RGB_INTL_master.jpg"
                   alt="2"
                   width="1420px"
                   height="700px"
@@ -187,24 +199,8 @@ const HomePresenter = ({
               <Hero>
                 <Effect>
                   <HeroContent>
-                    <HeroContentText>테넷 : Tenet</HeroContentText>
-                    <HeroContentP>
-                      "시간을 추격하라!"
-                      <br />
-                      <br />
-                      <br />
-                      시간의 흐름을 뒤집는 인버전을 통해 현재와 미래를 오가며
-                      <br />
-                      <br />
-                      세상을 파괴하려는 사토르를 막기 위해 투입된 작전의 주도자.
-                      <br />
-                      <br />
-                      미래의 공격에 맞서 제3차 세계대전을 막아야 한다!
-                    </HeroContentP>
-                    <HeroButtonWrapper>
-                      <HeroButton text="상세 정보" />
-                      <HeroButton text="+ 찜한 목록" />
-                    </HeroButtonWrapper>
+                    <HeroContentText></HeroContentText>
+
                   </HeroContent>
                 </Effect>
               </Hero>
@@ -212,37 +208,27 @@ const HomePresenter = ({
             <div>
               <div style={{ position: "absolute" }}>
                 <img
-                  src="https://image.tmdb.org/t/p/w1066_and_h600_bestv2/xJHokMbljvjADYdit5fK5VQsXEG.jpg"
+                   width="99%"
+                  src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/zz409b4c4c.jpg"
                   alt="3"
-                  width="1420px"
-                  height="700px"
+                  
+                  // height="800px"
                 />
               </div>
 
               <Hero>
                 <Effect>
                   <HeroContent>
-                    <HeroContentText>인터스텔라 : Interstellar</HeroContentText>
+                    <HeroContentText></HeroContentText>
                     <HeroContentP>
-                      "우린 답을 찾을 거야, 늘 그랬듯이"
                       <br />
                       <br />
                       <br />
-                      세계 각국의 정부와 경제가 완전히 붕괴된 미래가 다가온다.
                       <br />
-                      <br />
-                      지난 20세기에 범한 잘못이 전 세계적인 식량 부족을
-                      불러왔고, NASA도 해체되었다.
-                      <br /> 시공간에 불가사의한 틈이 열리고, 이 곳을 탐험해
-                      인류를 구해야 하는 임무를 위해 쿠퍼는 만류하는 딸을 뒤로한
-                      채 우주선에 탑승한다.
                       <br />
                       <br />
                     </HeroContentP>
-                    <HeroButtonWrapper>
-                      <HeroButton text="상세 정보" />
-                      <HeroButton text="+ 찜한 목록" />
-                    </HeroButtonWrapper>
+                 
                   </HeroContent>
                 </Effect>
               </Hero>
@@ -276,10 +262,11 @@ const HomePresenter = ({
               </Section>
             )} */}
 
-            {/* 현재 상영중 */}
+            {/* 현재 상영중 */}            
             {nowPlaying && nowPlaying.length > 0 && (
+              
               <Section title="Now Playing">
-                {nowPlaying.map((movie) => (
+                {nowPlaying.map((movie) => (                  
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -288,10 +275,12 @@ const HomePresenter = ({
                     rating={movie.vote_average}
                     year={movie.release_date.substring(0, 4)}
                     isMovie={true}
-                  />
+                  />                  
                 ))}
               </Section>
+              
             )}
+            
             {upcoming && upcoming.length > 0 && (
               <Section title="Upcoming">
                 {upcoming.map((movie) => (
@@ -328,7 +317,7 @@ const HomePresenter = ({
       </>
     )}
   </>
-);
+)
 
 class HeroButton extends React.Component {
   render() {
@@ -338,7 +327,7 @@ class HeroButton extends React.Component {
           {this.props.text}
         </AButton>
       </Button>
-    );
+    )
   }
 }
 HomePresenter.propTypes = {
@@ -347,7 +336,7 @@ HomePresenter.propTypes = {
   upcoming: PropTypes.array,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
-};
-export default withRouter(HomePresenter);
+}
+export default withRouter(HomePresenter)
 //프리젠터는 그 데이터들을 보여주는 역할을 한다. 프리젠터는 스타일이고, 컨테이너는 데이타야.
 //react에서 children은 일반적으로 태그 사이의 값을 받아.

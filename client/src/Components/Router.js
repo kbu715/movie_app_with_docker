@@ -16,17 +16,14 @@ import Auth from "../hoc/auth";
 import Favorite from "../Routes/Favorite";
 import Admin from "../Routes/Admin";
 import MyScore from "../Routes/MyScore";
-import MyPage from "../Routes/MyPage";
 import UpdateProfile from "../Routes/UpdateProfile";
 import MyMovie from "../Routes/MyMovie";
 import Product from "../Routes/Product";
 import DetailProductPage from "../Routes/DetailProductPage/DetailProductPage";
-import Approve from "../Routes/Approve"
 //hoc 불러오기
 export default () => (
   <Router>
     <>
-      {" "}
       <Header />
       <Switch>
         <Route path="/" exact component={Auth(Home, true)} />
@@ -45,7 +42,6 @@ export default () => (
           exact
         />
         <Route path="/myscore" component={Auth(MyScore, true)} />
-        <Route path="/mypage" exact component={Auth(MyPage, true)} />
 
         <Route
           path="/mypage/update"
@@ -53,7 +49,6 @@ export default () => (
           component={Auth(UpdateProfile, true)}
         />
         <Route path="/mymovie" component={Auth(MyMovie, true)} />
-        <Route path="/payment/approve" component={Auth(Approve, true)} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

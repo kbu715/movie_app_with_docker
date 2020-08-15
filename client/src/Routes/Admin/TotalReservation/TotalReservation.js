@@ -9,6 +9,8 @@ import { green } from "@material-ui/core/colors";
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
+    backgroundColor:"#A9A9F5",
+    color:"#FFF",
   },
   content: {
     alignItems: "center",

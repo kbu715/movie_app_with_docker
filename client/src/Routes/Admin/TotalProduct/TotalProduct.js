@@ -9,6 +9,8 @@ import { green } from "@material-ui/core/colors";
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
+    backgroundColor:"#A9A9F5",
+    color:"#FFF",
   },
   content: {
     alignItems: "center",
@@ -47,7 +49,6 @@ function TotalProduct() {
   useEffect(() => {
     axios.get("/api/product/getCountOfProduct").then(response => {
       if (response.data.success) {
-          console.log()
         setProductCount(response.data.products.length);
       } else {
         console.log("불러오기 실패");

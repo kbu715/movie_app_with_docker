@@ -11,11 +11,10 @@ const Chart = styled.div`
 `;
 
 const SectionTitle = styled.div`
-  text-align: center;
-  font-size: 30px;
-  font-weight: 600;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 15px;
+  margin-bottom: 15px;
   color: #f7f7f7;
   position: relative;
 `;
@@ -46,7 +45,7 @@ const PosterImage = styled.div`
 
 const PosterTitle = styled.div`
   font-size: 15px;
-  color: #f7f7f7;
+  color: #2E2E2E;
   margin: 0 auto;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -57,7 +56,7 @@ const RatingWapper = styled.div`
 `;
 
 const PosterWrapper = styled.div`
-  background-color: #2e2e2e;
+  background-color: #C9C9C9;
   border: 1px solid #585858;
   width: 155px;
   height: 100%;
@@ -75,11 +74,10 @@ const Nothing = styled.div`
 `;
 
 const RecentRating = ({ recent, user }) => {
-  
   return (
     <Chart>
       <SectionTitle>
-        Result of {user.userData && user.userData.name}
+      {user.userData && user.userData.name}님의 최근 별점 목록
       </SectionTitle>
       {recent.length === 0 ? (
         <Nothing>
@@ -107,7 +105,7 @@ const RecentRating = ({ recent, user }) => {
                   {item.title.length > 11 ? `${item.title.substring(0, 11)}...` : item.title}
                   </PosterTitle>
                   <RatingWapper>
-                    <Rating number={item.score} />
+                    <Rating number={item.score} myColor="#2e2e2e"/>
                   </RatingWapper>
                 </PosterWrapper>
               </PosterContainer>

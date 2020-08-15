@@ -41,9 +41,9 @@ const Grid = styled.div`
     height: 6px;
   }
   &::-webkit-scrollbar-thumb {
-     background-color: mediumslateblue; 
+    background-color: mediumslateblue;
   }
-`
+`;
 
 const Section = (
   { title, children } // children 예약된 react prop
