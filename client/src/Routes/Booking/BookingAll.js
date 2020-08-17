@@ -143,13 +143,14 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
       //   }
 
       if (
-        //빈좌석
+        //빈좌석일때
         !e.target.classList.contains("occupied") &&
         !e.target.classList.contains("selected")
       ) {
         let count = Continent;
         let arr = [];
         let temp;
+        //arr 빈배열에 선택된 수(count) 만큼 push하는 과정
         SeatAll.forEach((seat, index) => {
           if (seat.value === e.target.textContent) {
             console.log(seat, index);
@@ -162,19 +163,30 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
           }
         });
         console.log(arr);
+        const arrValue = arr.map(seat => seat.value) // value값만 map으로 뽑음
         // e.target.classList.add("selected"); //누른게 선택좌석으로
         console.log(
           "sdfsdfsd",
-          document.querySelector("div .seat").textContent
+          (document.querySelector("div .container"))
         );
+        var container = document.querySelector("div .container");
+        var unselected = container.querySelectorAll("div .seat"); //NodeList 반환
 
-        arr.forEach(seat => {
-          setSeat([...Seat, seat.value]);
-        });
+        console.log("unselected",unselected)
+        unselected.forEach((item)=>{
+            console.log(item)
+            // if(arr.includes(item.innerHTML)){
+            //   console.log(2222)
+            //   item.className = "seat selected"
+            // }
+        })
+          setSeat([...Seat, ...arrValue]) //옆테이블 예매 정보창 좌석 정보 설정(전개연산자 사용)
+        
+
         // setSeat([...Seat, e.target.textContent]); //저장
       }
     }
-  };
+  }; // 클리했을때 좌석정보는 들어오는데 좌석 색 변경이 안되있음 지영신 화이팅
 
   const onCount = event => {
     console.log("event", event);
@@ -412,7 +424,7 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
           }
 
           {
-            <div className="row">
+            <div className="row" style={{border:"1px solid pink"}}>
               {SeatB.map(item => {
                 if (Distinct.includes(item.value)) {
                   return (

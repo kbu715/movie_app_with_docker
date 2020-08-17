@@ -132,18 +132,7 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
     ) : (
       <>
         <Container onWheel={(e) => {}}>
-          {/* <Video>
-            <iframe
-              width="100%"
-              height="800"
-              src="http://videos.hd-trailers.net/Mad_Max_Fury_Road_2015_Trailer_F4_5.1-1080p-HDTN.mp4"
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="movie-trailer"
-            ></iframe>
-          </Video> */}
-
+       
           
              <Carousel autoplay>
             <div>
