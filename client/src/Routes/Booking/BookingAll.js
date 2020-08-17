@@ -473,7 +473,7 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
           }
 
           {
-            <div className="row" style={{border:"1px solid pink"}}>
+            <div className="row">
               {SeatB.map(item => {
                 if (Distinct.includes(item.value)) {
                   return (
