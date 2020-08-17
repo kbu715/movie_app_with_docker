@@ -80,6 +80,8 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
+  const [subCount, setSubCount] = useState(0);
+  const [selectedArr, setSelectedArr] = useState([]);
   // const [Test, setTest] = useState("");
   // const [Url, setUrl] = useState("");
   const movieTitle = {
@@ -113,8 +115,17 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
 
   //seat 색 변경
   const onSeatChange = e => {
-    console.log("eeeee", e.target);
-    if (Continent >= Seat.length + 1) {
+    // console.log("eeeee", e.target);
+    var container = document.querySelector("div .container");
+    var unselected = container.querySelectorAll("div .seat"); //NodeList 반환
+    
+    if (Continent >= Seat.length + 1 && !e.target.classList.contains("occupied") &&
+        !e.target.classList.contains("selected")) {
+      let arr;
+      if(Seat.length === 0){
+        arr = [];
+      }
+      arr = [...Seat];
       //인원이 좌석수보다 크거나 같을때
 
       //   if (
@@ -142,51 +153,89 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
       //     }
       //   }
 
-      if (
-        //빈좌석일때
-        !e.target.classList.contains("occupied") &&
-        !e.target.classList.contains("selected")
-      ) {
-        let count = Continent;
-        let arr = [];
-        let temp;
-        //arr 빈배열에 선택된 수(count) 만큼 push하는 과정
-        SeatAll.forEach((seat, index) => {
-          if (seat.value === e.target.textContent) {
-            console.log(seat, index);
-            arr.push(seat);
-            count = count - 1;
-            temp = index;
-          } else if (index < temp + count + 1) {
-            console.log(seat, index);
-            arr.push(seat);
-          }
-        });
-        console.log(arr);
-        const arrValue = arr.map(seat => seat.value) // value값만 map으로 뽑음
-        // e.target.classList.add("selected"); //누른게 선택좌석으로
-        console.log(
-          "sdfsdfsd",
-          (document.querySelector("div .container"))
-        );
-        var container = document.querySelector("div .container");
-        var unselected = container.querySelectorAll("div .seat"); //NodeList 반환
 
-        console.log("unselected",unselected)
-        unselected.forEach((item)=>{
-            console.log(item)
-            // if(arr.includes(item.innerHTML)){
-            //   console.log(2222)
-            //   item.className = "seat selected"
-            // }
-        })
-          setSeat([...Seat, ...arrValue]) //옆테이블 예매 정보창 좌석 정보 설정(전개연산자 사용)
+
+        // console.log(
+        //   "sdfsdfsd",
+        //   (document.querySelector("div .container"))
+        // );
+
+          // console.log("@222@", unselected.length)
+
+       
         
+        let temp;
+        let sub = subCount;
+        //arr 빈배열에 선택된 수(count) 만큼 push하는 과정
+        unselected.forEach((seat, index) => {
+          if (seat.innerHTML === e.target.textContent ){
+            console.log("seat",seat.innerHTML, index);
+            arr.push(seat.innerHTML);
+            sub = sub + 1
+            setSubCount(subCount => sub)
+            temp = index;
+          } else if(seat.className === "seat occupied"){
+          console.log("seat",seat.innerHTML, index);
+        }  else if(index > temp && Continent-sub > 0 && index === unselected.length - 1){
+            console.log("seat",seat.innerHTML, index);
+            arr.push(seat.innerHTML);
+            sub = sub + 1;
+            setSubCount(subCount => sub);
+            
 
+        } else if(index > temp && Continent-sub > 0){
+          console.log("seat",seat.innerHTML, index);
+          arr.push(seat.innerHTML);
+          sub = sub + 1;
+          setSubCount(subCount => sub);
+        }
+      });
+        // console.log(arr);
+        // e.target.classList.add("selected"); //누른게 선택좌석으로
+
+
+        // console.log("unselected",unselected)
+        unselected.forEach((item)=>{
+            // console.log(item)
+            if(arr.includes(item.innerHTML)){
+              // console.log(2222)
+              item.className = "seat selected"
+            }
+        })
+          setSeat([...arr]) //옆테이블 예매 정보창 좌석 정보 설정(전개연산자 사용)
+          setSelectedArr(arr); //선택 좌석 설정
         // setSeat([...Seat, e.target.textContent]); //저장
-      }
+      
+    } else if(Continent >= Seat.length + 1 && e.target.classList.contains("selected")){
+      console.log("1111111111111")
+      console.log(selectedArr);
+      unselected.forEach((item)=>{
+        // console.log(item)
+        if(selectedArr.includes(item.innerHTML)){
+          // console.log(2222)
+          item.className = "seat"
+        }
+    })
+      setSelectedArr([]);
+      setSeat([]);
+      setSubCount(0);
+    }else if (e.target.classList.contains("selected")) {
+      console.log("222222222222222")
+      console.log(selectedArr);
+      unselected.forEach((item)=>{
+        // console.log(item)
+        if(selectedArr.includes(item.innerHTML)){
+          // console.log(2222)
+          item.className = "seat"
+        }
+    })
+      setSelectedArr([]);
+      setSeat([]);
+      setSubCount(0);
     }
-  }; // 클리했을때 좌석정보는 들어오는데 좌석 색 변경이 안되있음 지영신 화이팅
+  }; 
+
+
 
   const onCount = event => {
     console.log("event", event);
