@@ -74,7 +74,7 @@ function Product() {
           style={{
             width: "70%",
             height: "80%",
-            border: "10px solid #9c88ff",
+            border: "6px solid #9c88ff",
             backgroundColor: "white",
             // borderColor: "white",
             borderRadius: "5px",

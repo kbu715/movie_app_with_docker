@@ -25,7 +25,7 @@ class CartPage extends Component {
     products: [],
   };
 
-  handleChangePage = (event, page) => {
+  handleChangePage = (page) => {
     this.setState({ page });
   };
 

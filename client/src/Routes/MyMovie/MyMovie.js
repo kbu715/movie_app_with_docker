@@ -26,7 +26,6 @@ const Button1 = styled.button`
 `;
 
 function MyMovie(props) {
-  console.log("movie", props);
   const dispatch = useDispatch();
   const [ShowTotalMovie, setShowTotalMovie] = useState(true);
   const [ShowTotalProduct, setShowTotalProduct] = useState(true);
