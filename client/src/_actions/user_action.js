@@ -129,15 +129,6 @@ export function removeMovieItem(movieObjId) {
   const request = axios
     .get(`/api/users/removeFromMovie?id=${movieObjId}`)
     .then((response) => {
-      //movieInfo, movie 정보를 조합해서 movieDetail을 만든다.
-      // response.data.movie.forEach(item => {
-      //   response.data.movieInfo.forEach((movie, index) => {
-      //     if (item.id === movie.id) {
-      //       response.data.movieInfo[index].quantity = item.quantity;
-      //     }
-      //   });
-      // });
-
       return response.data;
     });
 

@@ -136,10 +136,16 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
           
              <Carousel autoplay>
             <div>
-              <div style={{ position: "absolute" }}>
+              <div
+                style={{
+                  position: "absolute",
+                }}
+              >
                 <img
                   src="https://cdna.artstation.com/p/assets/images/images/017/022/542/large/amirhosein-naseri-desktop-screenshot-2019-04-03-18-17-47-11.jpg?1554338571"
                   alt="1"
+                  width="1420px"
+                  height="700px"
                   style={{
                     position: "releative",
                     
@@ -174,6 +180,8 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                 <img
                   src="https://i0.wp.com/www-images.theonering.org/torwp/wp-content/uploads/2014/10/HBFA_30sht_Azog_RGB_INTL_master.jpg"
                   alt="2"
+                  width="1420px"
+                  height="700px"
                 />
               </div>
 

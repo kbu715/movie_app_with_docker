@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Table, PageHeader, Tag, Space, Button } from "antd";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { removeCartItem } from "../../../_actions/user_action";
 const { Column } = Table;
 
 function Product() {
   const [Product, setProduct] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getProduct();
@@ -19,6 +22,8 @@ function Product() {
       }
     });
   };
+
+  //매점 리스트 삭제
   const onProductDeleteHandler = (_id) => {
     const variables = {
       _id,
@@ -26,12 +31,14 @@ function Product() {
 
     axios.post("/api/product/removeFromProduct", variables).then((response) => {
       if (response.data.success) {
-        alert("상품 삭제 성공")
+        alert("상품 삭제 성공");
         getProduct();
       } else {
         alert("리스트에서 지우는데 실패했습니다.");
       }
     });
+
+    dispatch(removeCartItem(_id));
   };
 
   return (
@@ -49,7 +56,7 @@ function Product() {
           <br />
 
           <Table dataSource={Product}>
-              {/* 이미지 넣을수 있음 좋겟당 */}
+            {/* 이미지 넣을수 있음 좋겟당 */}
             <Column title="ID" dataIndex="_id" key="id" />
             <Column title="상품명" dataIndex="title" key="name" />
             <Column title="sold" dataIndex="sold" key="sold" />

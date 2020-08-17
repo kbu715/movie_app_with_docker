@@ -85,17 +85,16 @@ router.get("/getCountOfProduct", (req, res) => {
 });
 
 router.get("/management", (req, res) => {
-  // console.log("req:", req);
   Product.find({}).exec((err, item) => {
-      if (err) return res.status(400).send(err);
-      res.status(200).json({ success: true, products: item });
-    });
+    if (err) return res.status(400).send(err);
+    res.status(200).json({ success: true, products: item });
+  });
 });
 
 router.post("/removeFromProduct", (req, res) => {
   Product.findOneAndDelete({
     _id: req.body._id,
-  }).exec(err => {
+  }).exec((err) => {
     if (err) return res.status(400).send(err);
     return res.status(200).json({ success: true });
   });
