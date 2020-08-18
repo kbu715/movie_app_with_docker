@@ -5,7 +5,7 @@ import styled from "styled-components";
 // import Paypal from "../../utils/Paypal";
 import "../Reservation/style.css";
 import {
-  Continents,
+  ContinentsAll,
   SeatA,
   SeatB,
   SeatC,
@@ -13,6 +13,7 @@ import {
   SeatE,
   SeatF,
   SeatG,
+  SeatAll,
 } from "../Reservation/Modal/Context";
 import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
@@ -73,12 +74,14 @@ const Cover = styled.div`
 `;
 
 //------------------------------------------------------------------------------------------
-function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
+function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
   const dispatch = useDispatch();
   const [Continent, setContinent] = useState(0);
   const [Seat, setSeat] = useState([]);
   const [Price, setPrice] = useState(0);
   const [Distinct, setDistinct] = useState([]);
+  const [subCount, setSubCount] = useState(0);
+  const [selectedArr, setSelectedArr] = useState([]);
   // const [Test, setTest] = useState("");
   // const [Url, setUrl] = useState("");
   const movieTitle = {
@@ -112,40 +115,127 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
 
   //seat 색 변경
   const onSeatChange = e => {
-    if (Continent >= Seat.length + 1) {
+    // console.log("eeeee", e.target);
+    var container = document.querySelector("div .container");
+    var unselected = container.querySelectorAll("div .seat"); //NodeList 반환
+    
+    if (Continent >= Seat.length + 1 && !e.target.classList.contains("occupied") &&
+        !e.target.classList.contains("selected")) {
+      let arr;
+      if(Seat.length === 0){
+        arr = [];
+      }
+      arr = [...Seat];
       //인원이 좌석수보다 크거나 같을때
 
-      if (
-        //빈좌석
-        !e.target.classList.contains("occupied") &&
-        !e.target.classList.contains("selected")
-      ) {
-        e.target.classList.add("selected"); //누른게 선택좌석으로
-        setSeat([...Seat, e.target.textContent]); //저장
-      } else if (e.target.classList.contains("selected")) {
-        //인원수와 좌석수가 같을때
-        //선택된좌석은 삭제
-        e.target.classList.remove("selected");
-        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
-        setSeat(SeatFiltered);
-      }
-    } else {
-      if (Continent === Seat.length) {
-        e.target.classList.remove("selected");
+      //   if (
+      //     //빈좌석
+      //     !e.target.classList.contains("occupied") &&
+      //     !e.target.classList.contains("selected")
+      //   ) {
+      //     e.target.classList.add("selected"); //누른게 선택좌석으로
+      //     setSeat([...Seat, e.target.textContent]); //저장
+      //   } else if (e.target.classList.contains("selected")) {
+      //     //인원수와 좌석수가 같을때
+      //     //선택된좌석은 삭제
+      //     e.target.classList.remove("selected");
+      //     const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
+      //     setSeat(SeatFiltered);
+      //   }
+      // } else {
+      //   if (Continent === Seat.length) {
+      //     e.target.classList.remove("selected");
 
-        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
-        setSeat(SeatFiltered);
-        if (!Seat.includes(e.target.textContent)) {
-          alert("선택한 인원수보다 좌석을 많이 선택하셨습니다.");
+      //     const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
+      //     setSeat(SeatFiltered);
+      //     if (!Seat.includes(e.target.textContent)) {
+      //       alert("선택한 인원수보다 좌석을 많이 선택하셨습니다.");
+      //     }
+      //   }
+
+
+
+        // console.log(
+        //   "sdfsdfsd",
+        //   (document.querySelector("div .container"))
+        // );
+
+          // console.log("@222@", unselected.length)
+
+       
+        
+        let temp;
+        let sub = subCount;
+        //arr 빈배열에 선택된 수(count) 만큼 push하는 과정
+        unselected.forEach((seat, index) => {
+          if (seat.innerHTML === e.target.textContent ){
+            console.log("seat",seat.innerHTML, index);
+            arr.push(seat.innerHTML);
+            sub = sub + 1
+            setSubCount(subCount => sub)
+            temp = index;
+          } else if(seat.className === "seat occupied"){
+          console.log("seat",seat.innerHTML, index);
+        }  else if(index > temp && Continent-sub > 0 && index === unselected.length - 1){
+            console.log("seat",seat.innerHTML, index);
+            arr.push(seat.innerHTML);
+            sub = sub + 1;
+            setSubCount(subCount => sub);
+            
+
+        } else if(index > temp && Continent-sub > 0){
+          console.log("seat",seat.innerHTML, index);
+          arr.push(seat.innerHTML);
+          sub = sub + 1;
+          setSubCount(subCount => sub);
         }
-      }
+      });
+        // console.log(arr);
+        // e.target.classList.add("selected"); //누른게 선택좌석으로
 
-      //인원보다 좌석지정이 많을경우
 
-      //클릭 못하게
-      e.stopPropagation();
+        // console.log("unselected",unselected)
+        unselected.forEach((item)=>{
+            // console.log(item)
+            if(arr.includes(item.innerHTML)){
+              // console.log(2222)
+              item.className = "seat selected"
+            }
+        })
+          setSeat([...arr]) //옆테이블 예매 정보창 좌석 정보 설정(전개연산자 사용)
+          setSelectedArr(arr); //선택 좌석 설정
+        // setSeat([...Seat, e.target.textContent]); //저장
+      
+    } else if(Continent >= Seat.length + 1 && e.target.classList.contains("selected")){
+      console.log("1111111111111")
+      console.log(selectedArr);
+      unselected.forEach((item)=>{
+        // console.log(item)
+        if(selectedArr.includes(item.innerHTML)){
+          // console.log(2222)
+          item.className = "seat"
+        }
+    })
+      setSelectedArr([]);
+      setSeat([]);
+      setSubCount(0);
+    }else if (e.target.classList.contains("selected")) {
+      console.log("222222222222222")
+      console.log(selectedArr);
+      unselected.forEach((item)=>{
+        // console.log(item)
+        if(selectedArr.includes(item.innerHTML)){
+          // console.log(2222)
+          item.className = "seat"
+        }
+    })
+      setSelectedArr([]);
+      setSeat([]);
+      setSubCount(0);
     }
-  };
+  }; 
+
+
 
   const onCount = event => {
     console.log("event", event);
@@ -209,7 +299,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   };
   const groupedOptions = [
     {
-      options: Continents,
+      options: ContinentsAll,
     },
   ];
 
@@ -250,6 +340,8 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
     );
   };
 
+  //--------------------------------------------------------------------------
+
   return (
     <>
       {/* <Wrapper style={{ marginRight: "20px" }}> */}
@@ -275,7 +367,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
             height: "200px",
             display: "flex",
             flexDirection: "column",
-            fontSize: "17px",
+            fontSize: "13px",
             padding: "10px",
             color: "#D8D8D8",
           }}
@@ -331,7 +423,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         </InnerWrapper>
       </Wrapper>
       {/* **************************************************************************************** */}
-  
+
       <SeatWrapper>
         {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
         <ul className="showcase">
@@ -532,4 +624,4 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
   );
 }
 
-export default Booking;
+export default BookingAll;

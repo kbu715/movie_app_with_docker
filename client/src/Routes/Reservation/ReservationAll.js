@@ -7,6 +7,7 @@ import Booking from "../Booking/Booking";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Select from "react-select";
 import styled from "styled-components";
+import BookingAll from "../Booking/BookingAll";
 
 const colourStyles = {
   control: styles => ({
@@ -36,8 +37,8 @@ const colourStyles = {
 };
 
 const Button1 = styled.button`
-  color: #9c88ff;
-  border: 3px solid #9c88ff;
+  color:  rgb(120, 205, 1);
+  border: 3px solid  rgb(120, 205, 1);
   border-radius: 5px;
   font-size: 18px;
   font-weight: 600;
@@ -53,7 +54,7 @@ const Wrapper = styled.div`
   /* border: 1px solid red; */
   width: max-content;
   /* height: 50px; */
-  padding : 5px;
+  padding: 5px;
   /* margin-bottom: 10px; */
 `;
 
@@ -74,7 +75,7 @@ const groupedOptions = [
   },
 ];
 
-const Reservation = ({ id, title, bgImage, userFrom }) => {
+const ReservationAll = ({ id, title, bgImage, userFrom }) => {
   const [selectDay, setSelectedDay] = useState(null);
   const [time, setTime] = useState(0);
 
@@ -114,7 +115,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
     <Popup
       trigger={
         <Button1 variant="contained" color="primary">
-          간편예매
+          단체예매
         </Button1>
       }
       modal
@@ -132,7 +133,6 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
         <DatePicker
-          
           value={selectDay}
           onChange={setSelectedDay}
           minimumDate={utils().getToday()}
@@ -181,7 +181,7 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
           closeOnDocumentClick={true}
           triggerOn="click"
         >
-          <Booking
+          <BookingAll
             id={id}
             title={title}
             bgImage={bgImage}
@@ -196,4 +196,4 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
   );
 };
 
-export default Reservation;
+export default ReservationAll;

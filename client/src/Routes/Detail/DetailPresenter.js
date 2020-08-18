@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import Cast from "./Cast/Cast";
 import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
-import Reservation from "../Reservation/Reservation";
+
 import Recommendation from "./Recommendation/Recommendation";
 
 const Container = styled.div`
@@ -189,15 +189,8 @@ const DetailPresenter = ({
         />
         <Data>
           <Title>
-            {isMovie
-              ? result.title //movie : title, tv show : name
-              : result.name}
-            <Reservation
-              id={result.id}
-              title={result.title}
-              bgImage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
-              userFrom={localStorage.getItem("userId")}
-            />
+            {isMovie ? result.title : result.name}
+
           </Title>
 
           <ItemContainer>

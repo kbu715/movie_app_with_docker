@@ -10,6 +10,18 @@ export const Continents = [
   { key: 9, value: "9명", label: "9명" },
 ];
 
+export const ContinentsAll = [
+  { key: 9, value: "9명", label: "9명" },
+  { key: 10, value: "10명", label: "10명" },
+  { key: 11, value: "11명", label: "11명" },
+  { key: 12, value: "12명", label: "12명" },
+  { key: 13, value: "13명", label: "13명" },
+  { key: 14, value: "14명", label: "14명" },
+  { key: 15, value: "15명", label: "15명" },
+  { key: 16, value: "16명", label: "16명" },
+  { key: 17, value: "17명", label: "17명" },
+];
+
 export const SeatA = [
   { key: 1, value: "A1" },
   { key: 2, value: "A2" },
@@ -18,7 +30,6 @@ export const SeatA = [
   { key: 5, value: "A5" },
   { key: 6, value: "A6" },
   { key: 7, value: "A7" },
-  
 ];
 
 export const SeatB = [
@@ -86,3 +97,62 @@ export const SeatG = [
   { key: 7, value: "G7" },
   { key: 8, value: "G8" },
 ];
+
+
+export const SeatAll = [
+  { key: 1, value: "A1" },
+  { key: 2, value: "A2" },
+  { key: 3, value: "A3" },
+  { key: 4, value: "A4" },
+  { key: 5, value: "A5" },
+  { key: 6, value: "A6" },
+  { key: 7, value: "A7" },
+  { key: 1, value: "B1" },
+  { key: 2, value: "B2" },
+  { key: 3, value: "B3" },
+  { key: 4, value: "B4" },
+  { key: 5, value: "B5" },
+  { key: 6, value: "B6" },
+  { key: 7, value: "B7" },
+  { key: 8, value: "B8" },
+  { key: 1, value: "C1" },
+  { key: 2, value: "C2" },
+  { key: 3, value: "C3" },
+  { key: 4, value: "C4" },
+  { key: 5, value: "C5" },
+  { key: 6, value: "C6" },
+  { key: 7, value: "C7" },
+  { key: 8, value: "C8" },
+  { key: 1, value: "D1" },
+  { key: 2, value: "D2" },
+  { key: 3, value: "D3" },
+  { key: 4, value: "D4" },
+  { key: 5, value: "D5" },
+  { key: 6, value: "D6" },
+  { key: 7, value: "D7" },
+  { key: 8, value: "D8" },
+  { key: 1, value: "E1" },
+  { key: 2, value: "E2" },
+  { key: 3, value: "E3" },
+  { key: 4, value: "E4" },
+  { key: 5, value: "E5" },
+  { key: 6, value: "E6" },
+  { key: 7, value: "E7" },
+  { key: 8, value: "E8" },
+  { key: 1, value: "F1" },
+  { key: 2, value: "F2" },
+  { key: 3, value: "F3" },
+  { key: 4, value: "F4" },
+  { key: 5, value: "F5" },
+  { key: 6, value: "F6" },
+  { key: 7, value: "F7" },
+  { key: 8, value: "F8" },
+  { key: 1, value: "G1" },
+  { key: 2, value: "G2" },
+  { key: 3, value: "G3" },
+  { key: 4, value: "G4" },
+  { key: 5, value: "G5" },
+  { key: 6, value: "G6" },
+  { key: 7, value: "G7" },
+  { key: 8, value: "G8" },
+]
