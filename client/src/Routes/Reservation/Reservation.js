@@ -44,6 +44,7 @@ const Button1 = styled.button`
   background-color: #151515;
   margin-left: 20px;
   padding: 5px;
+  position: relative;
   box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
 `;
 
@@ -74,7 +75,7 @@ const groupedOptions = [
   },
 ];
 
-const Reservation = ({ id, title, bgImage, userFrom }) => {
+const Reservation = ({ userFrom, movieTitle }) => {
   const [selectDay, setSelectedDay] = useState(null);
   const [time, setTime] = useState(0);
 
@@ -128,6 +129,9 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
       // style={{background:"black"}}
     >
       {/* <Grid container style={{ background: "#242333"}}> */}
+      <div>
+        {movieTitle}
+      </div>
       <Wrapper>
         <DatePicker
           // contentStyle={{marginTop:"10px"}}
@@ -180,9 +184,9 @@ const Reservation = ({ id, title, bgImage, userFrom }) => {
           triggerOn="click"
         >
           <Booking
-            id={id}
-            title={title}
-            bgImage={bgImage}
+            // id={id}
+            // title={title}
+            // bgImage={bgImage}
             userFrom={userFrom}
             selectDay={selectDay}
             time={time}

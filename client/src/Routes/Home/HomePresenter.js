@@ -8,6 +8,7 @@ import Poster from "../../Components/Poster"
 import Helmet from "react-helmet"
 import { withRouter } from "react-router-dom"
 import { Carousel } from "antd"
+import Reservation from "../Reservation/Reservation"
 
 const Container = styled.div`
   scroll-behavior: smooth;
@@ -256,19 +257,25 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
 
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
+              <>
+              
               <Section title="Now Playing">
                 {nowPlaying.map((movie) => (
+                
                   <Poster
-                    key={movie.id}
-                    id={movie.id}
-                    imageUrl={movie.poster_path}
-                    title={movie.title}
-                    rating={movie.vote_average}
-                    year={movie.release_date.substring(0, 4)}
-                    isMovie={true}
+                  key={movie.id}
+                  id={movie.id}
+                  imageUrl={movie.poster_path}
+                  title={movie.title}
+                  rating={movie.vote_average}
+                  year={movie.release_date.substring(0, 4)}
+                  isMovie={true}
                   />
-                ))}
-              </Section>
+                  )
+                  )
+                }
+                </Section>
+              </>
             )}
             {upcoming && upcoming.length > 0 && (
               <Section title="Upcoming">
