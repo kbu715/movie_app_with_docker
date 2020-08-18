@@ -72,7 +72,6 @@ const Continents1 = [
   { key: 7, label: "23:00", value: "23:00" },
   { key: 8, label: "01:00", value: "01:00" },
 ];
-
 const Continents2 = [
   { key: 1, label: "10:00", value: "10:00" },
   { key: 2, label: "12:00", value: "12:00" },
@@ -83,7 +82,6 @@ const Continents2 = [
   { key: 7, label: "22:00", value: "22:00" },
   { key: 8, label: "00:00", value: "00:00" },
 ];
-
 // const groupedOptions = [
 //   {
 //     options: Continentss,
@@ -98,7 +96,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
     isDisabled: index > 2 ? true : false,
     id: movie.id,
   }));
-
   const movieOptions = [
     {
       options: movieList,
@@ -187,15 +184,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           onChange={onMovie}
         />
       </Wrapper>
-      {/* <Wrapper>
-        <Select
-          options={groupedOptions}
-          // defaultValue={groupedOptions[1]}
-          placeholder="  시간을 선택해주세요"
-          styles={colourStyles}
-          onChange={onTime}
-        />
-      </Wrapper> */}
       <Wrapper2>
         {visible ? (
           <div>
@@ -204,11 +192,12 @@ const Reservation = ({ userFrom, nowPlaying }) => {
               {key - 1}관
             </span>
             <br />
-            {Continents1.map(item => (
+            {Continents1.map((item, index) => (
               <button
+                key={index}
                 style={{ color: "black" }}
                 onClick={() => {
-                  setTheater(key);
+                  setTheater(key - 1);
                   onTime(item.value);
                 }}
               >
@@ -216,17 +205,17 @@ const Reservation = ({ userFrom, nowPlaying }) => {
               </button>
             ))}
             <br />
-
             <span>
               {movie}
               {key}관
             </span>
             <br />
-            {Continents2.map(item => (
+            {Continents2.map((item, index) => (
               <button
+                key={index}
                 style={{ color: "black" }}
                 onClick={() => {
-                  setTheater(key + 1);
+                  setTheater(key);
                   onTime(item.value);
                 }}
               >
@@ -242,7 +231,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           </div>
         )}
       </Wrapper2>
-
       <Wrapper>
         <>
           <Popup

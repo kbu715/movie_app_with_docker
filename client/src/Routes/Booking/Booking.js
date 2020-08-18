@@ -75,7 +75,6 @@ const Cover = styled.div`
 `;
 //------------------------------------------------------------------------------------------
 function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
-  // console.log("t:", theater);
   const dispatch = useDispatch();
   const [Continent, setContinent] = useState(0);
   const [Seat, setSeat] = useState([]);
@@ -206,7 +205,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
     },
   ];
   const onKaKaoPay = () => {
-    console.log("kakao");
     var IMP = window.IMP; // 생략가능
     IMP.init("imp10561880");
     // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용

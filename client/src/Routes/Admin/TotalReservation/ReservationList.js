@@ -81,7 +81,6 @@ console.log("Res",Reservation);
             <Column title="인원" dataIndex="continent" key="continent"/>
             <Column title="상영관" dataIndex="theater" key="theater"/>
             <Column title="좌석" dataIndex="seat" key="seat" render={
-              
               (Seat)=>( //Seat: 좌석 배열
               Seat.map((seat, index)=>{
                 if(index < Seat.length-1) {
@@ -91,8 +90,6 @@ console.log("Res",Reservation);
                 }
               })
             )
-            
-            
             }/>
             <Column title="가격" dataIndex="price" key="price" />
           </Table>
