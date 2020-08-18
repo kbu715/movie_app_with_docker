@@ -62,7 +62,18 @@ const Wrapper2 = styled.div`
   padding: 5px;
   // vertical-align: middle;
 `;
-const Continentss = [
+const Continents1 = [
+  { key: 1, label: "11:00", value: "11:00" },
+  { key: 2, label: "13:00", value: "13:00" },
+  { key: 3, label: "15:00", value: "15:00" },
+  { key: 4, label: "17:00", value: "17:00" },
+  { key: 5, label: "19:00", value: "19:00" },
+  { key: 6, label: "21:00", value: "21:00" },
+  { key: 7, label: "23:00", value: "23:00" },
+  { key: 8, label: "01:00", value: "01:00" },
+];
+
+const Continents2 = [
   { key: 1, label: "11:00", value: "11:00" },
   { key: 2, label: "13:00", value: "13:00" },
   { key: 3, label: "15:00", value: "15:00" },
@@ -79,7 +90,7 @@ const Continentss = [
 // ];
 const ReservationAll = ({ userFrom, nowPlaying }) => {
   const movieList = nowPlaying.map((movie, index) => ({
-    key: index + 1,
+    key: (index + 1) * 2,
     label: movie.title,
     value: movie.title,
     poster: movie.poster_path,
@@ -99,7 +110,7 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
   const [id, setID] = useState(0);
   const [visible, setVisible] = useState(false);
   const [theater, setTheater] = useState(0);
-
+  const [key, setKey] = useState(0);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -135,6 +146,7 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
     setPoster(event.poster);
     setID(event.id);
     setVisible(true);
+    setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
   };
   return (
     <Popup
@@ -186,13 +198,17 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
       <Wrapper2>
         {visible ? (
           <div>
-            <span>{movie} 1관</span>
+                        <span>
+              {movie}
+              {key - 1}관
+            </span>
             <br />
-            {Continentss.map(item => (
+            {Continents1.map((item, index) => (
               <button
+              key={index}
                 style={{ color: "black" }}
                 onClick={() => {
-                  setTheater(1);
+                  setTheater(key-1);
                   onTime(item.value);
                 }}
               >
@@ -200,13 +216,17 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
               </button>
             ))}
             <br />
-            <span>{movie} 2관</span>
+            <span>
+              {movie}
+              {key}관
+            </span>
             <br />
-            {Continentss.map(item => (
+            {Continents2.map((item, index) => (
               <button
+              key={index}
                 style={{ color: "black" }}
                 onClick={() => {
-                  setTheater(2);
+                  setTheater(key);
                   onTime(item.value);
                 }}
               >

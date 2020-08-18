@@ -74,7 +74,7 @@ const Cover = styled.div`
 `;
 
 //------------------------------------------------------------------------------------------
-function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
+function BookingAll({ id, title, bgImage, userFrom, selectDay, time, theater }) {
   const dispatch = useDispatch();
   const [Continent, setContinent] = useState(0);
   const [Seat, setSeat] = useState([]);
@@ -99,7 +99,8 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
               obj.time[0].time === time.time &&
               obj.selectDay[0].day === selectDay.day &&
               obj.selectDay[0].month === selectDay.month &&
-              obj.selectDay[0].year === selectDay.year
+              obj.selectDay[0].year === selectDay.year &&
+              obj.theater === theater
             ) {
               seatlist.push(obj.seat);
             }
@@ -254,6 +255,7 @@ function BookingAll({ id, title, bgImage, userFrom, selectDay, time }) {
       continent: Continent,
       seat: Seat,
       price: Price,
+      theater: theater,
     };
 
     axios.post("/api/reservation", body).then(response => {
