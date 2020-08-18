@@ -54,6 +54,14 @@ const Wrapper = styled.div`
   padding: 5px;
   /* margin-bottom: 10px; */
 `;
+const Wrapper2 = styled.div`
+  // border: 1px solid red;
+  // width: 100%;
+  height: 200px;
+  margin: 0 auto;
+  padding: 5px;
+  // vertical-align: middle;
+`;
 const Continentss = [
   { key: 1, label: "11:00", value: "11:00" },
   { key: 2, label: "13:00", value: "13:00" },
@@ -64,19 +72,19 @@ const Continentss = [
   { key: 7, label: "23:00", value: "23:00" },
   { key: 8, label: "01:00", value: "01:00" },
 ];
-const groupedOptions = [
-  {
-    options: Continentss,
-  },
-];
-const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
-  console.log(nowPlaying);
+// const groupedOptions = [
+//   {
+//     options: Continentss,
+//   },
+// ];
+const Reservation = ({ title, bgImage, userFrom, nowPlaying }) => {
   const movieList = nowPlaying.map((movie, index) => ({
     key: index + 1,
     label: movie.title,
     value: movie.title,
     poster: movie.poster_path,
     isDisabled: index > 2 ? true : false,
+    id: movie.id
   }));
   const movieOptions = [
     {
@@ -87,6 +95,10 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
   const [time, setTime] = useState(0);
   const [movie, setMovie] = useState("");
   const [poster, setPoster] = useState("");
+  const [id, setID] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const [theater, setTheater] = useState(0);
+
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -114,12 +126,14 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
       className="my-custom-input-class"
     />
   );
-  const onTime = event => {
-    setTime({ time: event.value });
+  const onTime = value => {
+    setTime({ time: value });
   };
   const onMovie = event => {
     setMovie(event.value);
     setPoster(event.poster);
+    setID(event.id);
+    setVisible(true);
   };
   return (
     <Popup
@@ -138,26 +152,17 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
         padding: "1%",
         border: "2px solid #848484",
       }}
-      // style={{background:"black"}}
+    // style={{background:"black"}}
     >
       {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
         <DatePicker
-          
+
           value={selectDay}
           onChange={setSelectedDay}
           minimumDate={utils().getToday()}
           renderInput={renderCustomInput}
           shouldHighlightWeekends
-        />
-      </Wrapper>
-      <Wrapper>
-        <Select
-          options={groupedOptions}
-          // defaultValue={groupedOptions[1]}
-          placeholder="  시간을 선택해주세요"
-          styles={colourStyles}
-          onChange={onTime}
         />
       </Wrapper>
       <Wrapper>
@@ -169,6 +174,33 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
           onChange={onMovie}
         />
       </Wrapper>
+      {/* <Wrapper>
+        <Select
+          options={groupedOptions}
+          // defaultValue={groupedOptions[1]}
+          placeholder="  시간을 선택해주세요"
+          styles={colourStyles}
+          onChange={onTime}
+        />
+      </Wrapper> */}
+      <Wrapper2>
+        {visible
+          ? <div>
+            <span>{movie} 1관</span>
+            <br />
+            {Continentss.map(item => (
+              <button style={{ color: "black" }} onClick={() => { setTheater(1); onTime(item.value);  }}>{item.label}</button>
+            ))}
+            <br />
+            <span>{movie} 2관</span>
+            <br />
+            {Continentss.map(item => (
+              <button style={{ color: "black" }} onClick={() => { setTheater(2); onTime(item.value); }}>{item.label}</button>
+            ))}
+          </div>
+          : <div style={{ textAlign:"center",}}><span style={{ fontSize: "20px",}}>클릭하면 영화 시간이 보입니다.</span></div>}
+      </Wrapper2>
+
       <Wrapper>
         <Popup
           trigger={
@@ -206,6 +238,7 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
             userFrom={userFrom}
             selectDay={selectDay}
             time={time}
+            theater={theater}
           />
         </Popup>
       </Wrapper>

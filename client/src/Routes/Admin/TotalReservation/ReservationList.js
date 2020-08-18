@@ -5,7 +5,7 @@ const { Column } = Table;
 
 function ReservationList() {
   const [Reservation, setReservation] = useState([]);
-
+console.log("Res",Reservation);
   useEffect(() => {
     axios
       .post("/api/reservation/getList")
@@ -79,7 +79,10 @@ function ReservationList() {
               )}
             />
             <Column title="인원" dataIndex="continent" key="continent"/>
-            <Column title="좌석" dataIndex="seat" key="seat" render={(Seat)=>( //Seat: 좌석 배열
+            <Column title="상영관" dataIndex="theater" key="theater"/>
+            <Column title="좌석" dataIndex="seat" key="seat" render={
+              
+              (Seat)=>( //Seat: 좌석 배열
               Seat.map((seat, index)=>{
                 if(index < Seat.length-1) {
                   return seat+", "
@@ -87,7 +90,10 @@ function ReservationList() {
                   return seat;
                 }
               })
-            )}/>
+            )
+            
+            
+            }/>
             <Column title="가격" dataIndex="price" key="price" />
           </Table>
         </div>

@@ -28,7 +28,6 @@ const colourStyles = {
     return {
       ...styles,
       backgroundColor: isDisabled ? "red" : "#f7f7f7",
-      backgroundColor: isFocused ? "#D8CEF6" : "#f7f7f7",
       color: "#151515",
       fontSize: "1.1rem",
       cursor: isDisabled ? "not-allowed" : "default",

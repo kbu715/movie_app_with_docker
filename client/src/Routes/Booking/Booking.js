@@ -6,13 +6,20 @@ import styled from "styled-components";
 import "../Reservation/style.css";
 import {
   Continents,
+  SeatA2,
+  SeatB2,
+  SeatC2,
+  SeatD2,
+  SeatE2,
+  SeatF2,
+  SeatG2,
+  SeatF,
+  SeatG,
+  SeatE,
+  SeatD,
   SeatA,
   SeatB,
   SeatC,
-  SeatD,
-  SeatE,
-  SeatF,
-  SeatG,
 } from "../Reservation/Modal/Context";
 import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
@@ -67,8 +74,8 @@ const Cover = styled.div`
   flex-direction: column;
 `;
 //------------------------------------------------------------------------------------------
-function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
-  console.log("22222", title, bgImage);
+function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
+  // console.log("t:", theater);
   const dispatch = useDispatch();
   const [Continent, setContinent] = useState(0);
   const [Seat, setSeat] = useState([]);
@@ -86,11 +93,13 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         if (response.data.success) {
           let seatlist = [];
           response.data.seats.forEach(obj => {
+            // console.log("obj", obj);
             if (
               obj.time[0].time === time.time &&
               obj.selectDay[0].day === selectDay.day &&
               obj.selectDay[0].month === selectDay.month &&
-              obj.selectDay[0].year === selectDay.year
+              obj.selectDay[0].year === selectDay.year &&
+              obj.theater === theater
             ) {
               seatlist.push(obj.seat);
             }
@@ -151,6 +160,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
       continent: Continent,
       seat: Seat,
       price: Price,
+      theater: theater,
     };
     axios.post("/api/reservation", body).then(response => {
       if (response.data.success) {
@@ -304,193 +314,384 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         </InnerWrapper>
       </Wrapper>
       {/* **************************************************************************************** */}
-      <SeatWrapper>
-        {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
-        <ul className="showcase">
-          <li>
-            <div className="seat"></div> <Small>빈좌석</Small>
-          </li>
-          <li>
-            <div className="seat selected"></div> <Small>선택좌석</Small>
-          </li>
-          <li>
-            <div className="seat occupied"></div> <Small>선택완료</Small>
-          </li>
-        </ul>
-        {/* </InnerWrapper> */}
-        <hr
-          style={{ color: "white", borderColor: "white", marginLeft: "20px" }}
-        />
-        {/* {DBtime === time.time && ( */}
-        {/* <InnerWrapper> */}
-        <div className="container">
-          <div className="screen"></div>
-          {/* 좌석 */}
-          {
-            <div className="row">
-              {SeatA.map(item => {
-                if (Distinct.includes(item.value)) {
-                  return (
-                    <div
-                      key={item.key}
-                      className="seat occupied"
-                      onClick={onSeatChange}
-                    >
-                      {item.value}
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={item.key} className="seat" onClick={onSeatChange}>
-                      {item.value}
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          }
-          {
-            <div className="row">
-              {SeatB.map(item => {
-                if (Distinct.includes(item.value)) {
-                  return (
-                    <div
-                      key={item.key}
-                      className="seat occupied"
-                      onClick={onSeatChange}
-                    >
-                      {item.value}
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={item.key} className="seat" onClick={onSeatChange}>
-                      {item.value}
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          }
-          {
-            <div className="row">
-              {SeatC.map(item => {
-                if (Distinct.includes(item.value)) {
-                  return (
-                    <div
-                      key={item.key}
-                      className="seat occupied"
-                      onClick={onSeatChange}
-                    >
-                      {item.value}
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={item.key} className="seat" onClick={onSeatChange}>
-                      {item.value}
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          }
-          {
-            <div className="row">
-              {SeatD.map(item => {
-                if (Distinct.includes(item.value)) {
-                  return (
-                    <div
-                      key={item.key}
-                      className="seat occupied"
-                      onClick={onSeatChange}
-                    >
-                      {item.value}
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={item.key} className="seat" onClick={onSeatChange}>
-                      {item.value}
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          }
-          {
-            <div className="row">
-              {SeatE.map(item => {
-                if (Distinct.includes(item.value)) {
-                  return (
-                    <div
-                      key={item.key}
-                      className="seat occupied"
-                      onClick={onSeatChange}
-                    >
-                      {item.value}
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={item.key} className="seat" onClick={onSeatChange}>
-                      {item.value}
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          }
-          {
-            <div className="row">
-              {SeatF.map(item => {
-                if (Distinct.includes(item.value)) {
-                  return (
-                    <div
-                      key={item.key}
-                      className="seat occupied"
-                      onClick={onSeatChange}
-                    >
-                      {item.value}
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={item.key} className="seat" onClick={onSeatChange}>
-                      {item.value}
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          }
-          {
-            <div className="row">
-              {SeatG.map(item => {
-                if (Distinct.includes(item.value)) {
-                  return (
-                    <div
-                      key={item.key}
-                      className="seat occupied"
-                      onClick={onSeatChange}
-                    >
-                      {item.value}
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={item.key} className="seat" onClick={onSeatChange}>
-                      {item.value}
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          }
-        </div>
-        {/* </InnerWrapper> */}
-        {/* )} */}
-      </SeatWrapper>
+      {(theater===1)
+      ? <SeatWrapper>
+      {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
+      <ul className="showcase">
+        <li>
+          <div className="seat"></div> <Small>빈좌석</Small>
+        </li>
+        <li>
+          <div className="seat selected"></div> <Small>선택좌석</Small>
+        </li>
+        <li>
+          <div className="seat occupied"></div> <Small>선택완료</Small>
+        </li>
+      </ul>
+      {/* </InnerWrapper> */}
+      <hr
+        style={{ color: "white", borderColor: "white", marginLeft: "20px" }}
+      />
+      {/* {DBtime === time.time && ( */}
+      {/* <InnerWrapper> */}
+      <div className="container">
+        <div className="screen"></div>
+        {/* 좌석 */}
+        {
+          <div className="row">
+            {SeatA.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatB.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatC.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatD.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatE.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatF.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatG.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+      </div>
+      {/* </InnerWrapper> */}
+      {/* )} */}
+    </SeatWrapper>
+      : <SeatWrapper>
+      {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
+      <ul className="showcase">
+        <li>
+          <div className="seat"></div> <Small>빈좌석</Small>
+        </li>
+        <li>
+          <div className="seat selected"></div> <Small>선택좌석</Small>
+        </li>
+        <li>
+          <div className="seat occupied"></div> <Small>선택완료</Small>
+        </li>
+      </ul>
+      {/* </InnerWrapper> */}
+      <hr
+        style={{ color: "white", borderColor: "white", marginLeft: "20px" }}
+      />
+      {/* {DBtime === time.time && ( */}
+      {/* <InnerWrapper> */}
+      <div className="container">
+        <div className="screen"></div>
+        {/* 좌석 */}
+        {
+          <div className="row">
+            {SeatA2.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatB2.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatC2.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatD2.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatE2.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatF2.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+        {
+          <div className="row">
+            {SeatG2.map(item => {
+              if (Distinct.includes(item.value)) {
+                return (
+                  <div
+                    key={item.key}
+                    className="seat occupied"
+                    onClick={onSeatChange}
+                  >
+                    {item.value}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={item.key} className="seat" onClick={onSeatChange}>
+                    {item.value}
+                  </div>
+                );
+              }
+            })}
+          </div>
+        }
+      </div>
+      {/* </InnerWrapper> */}
+      {/* )} */}
+    </SeatWrapper>
+      }
+      
+      
       {/* </Nav> */}
     </>
   );

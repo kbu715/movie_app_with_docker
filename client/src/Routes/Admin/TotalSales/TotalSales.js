@@ -97,7 +97,7 @@ function AddComma(data_value) {
  
 }
  
-console.log(myData);
+// console.log(myData);
 
   return (
     <Card className={classnames(classes.root)}>
