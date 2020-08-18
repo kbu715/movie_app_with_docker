@@ -1,25 +1,25 @@
-import React from "react"
-import PropTypes from "prop-types"
-import styled from "styled-components"
-import Section from "Components/Section"
-import Loader from "../../Components/Loader"
-import Message from "../../Components/Message"
-import Poster from "../../Components/Poster"
-import Helmet from "react-helmet"
-import { withRouter } from "react-router-dom"
-import { Carousel } from "antd"
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Section from "Components/Section";
+import Loader from "../../Components/Loader";
+import Message from "../../Components/Message";
+import Poster from "../../Components/Poster";
+import Helmet from "react-helmet";
+import { withRouter } from "react-router-dom";
+import { Carousel } from "antd";
 const Container = styled.div`
   scroll-behavior: smooth;
   margin-top: -50px;
   z-index: -1;
-`
+`;
 const Effect = styled.div`
   width: 100%;
   margin-top: 600px;
-`
+`;
 const TopSection = styled.div`
   margin-top: -160px;
-`
+`;
 const Button = styled.button`
   background: transparent;
   display: -webkit-box;
@@ -45,28 +45,28 @@ const Button = styled.button`
   font-weight: 600;
   -webkit-transition: border 0.125s ease, background 0.125s ease;
   transition: border 0.125s ease, background 0.125s ease;
-`
+`;
 const Hero = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-`
+`;
 const HeroContent = styled.div`
   position: relative;
   z-index: 4;
   width: auto;
   left: 10px;
   top: 10px;
-`
+`;
 const HeroContentText = styled.span`
   font-size: 60px;
-`
+`;
 const HeroContentP = styled.div`
   width: 100%;
   font-size: 20px;
   margin-top: 40px;
   color: white;
-`
+`;
 const AButton = styled.a`
   &:link {
     text-decoration: none;
@@ -84,8 +84,15 @@ const AButton = styled.a`
     text-decoration: none;
     color: gray;
   }
-`
-const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error }) => (
+`;
+const HomePresenter = ({
+  nowPlaying,
+  popular,
+  upcoming,
+  trending,
+  loading,
+  error,
+}) => (
   <>
     <Helmet>
       <title>Movies | Nomflix</title>
@@ -94,8 +101,8 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
       <Loader />
     ) : (
       <>
-        <Container onWheel={(e) => {}}>
-             <Carousel autoplay>
+        <Container onWheel={e => {}}>
+          <Carousel autoplay>
             <div>
               <div style={{ position: "absolute" }}>
                 <img
@@ -145,7 +152,7 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
             <div>
               <div style={{ position: "absolute" }}>
                 <img
-                   width="99%"
+                  width="99%"
                   src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/zz409b4c4c.jpg"
                   alt="3"
                 />
@@ -180,8 +187,8 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
           <TopSection>
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
-              <Section title="Now Playing">
-                {nowPlaying.map((movie) => (
+              <Section title="Now Playing" nowPlaying={nowPlaying}>
+                {nowPlaying.map(movie => (
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -196,7 +203,7 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
             )}
             {upcoming && upcoming.length > 0 && (
               <Section title="Upcoming">
-                {upcoming.map((movie) => (
+                {upcoming.map(movie => (
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -215,7 +222,7 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
       </>
     )}
   </>
-)
+);
 class HeroButton extends React.Component {
   render() {
     return (
@@ -224,7 +231,7 @@ class HeroButton extends React.Component {
           {this.props.text}
         </AButton>
       </Button>
-    )
+    );
   }
 }
 HomePresenter.propTypes = {
@@ -233,7 +240,7 @@ HomePresenter.propTypes = {
   upcoming: PropTypes.array,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
-}
-export default withRouter(HomePresenter)
+};
+export default withRouter(HomePresenter);
 //프리젠터는 그 데이터들을 보여주는 역할을 한다. 프리젠터는 스타일이고, 컨테이너는 데이타야.
 //react에서 children은 일반적으로 태그 사이의 값을 받아.

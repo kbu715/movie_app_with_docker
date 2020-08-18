@@ -104,6 +104,7 @@ function UpdateProfile(props) {
 
   const onSubmit = event => {
     event.preventDefault(); //페이지 refresh 방지
+    console.log("들어왔다");
     let variable = {
       id: window.localStorage.getItem("userId"),
       password: currentPassword,
@@ -115,6 +116,7 @@ function UpdateProfile(props) {
       alert("소셜 계정입니다!");
     }
     if (updatePassword === updatePasswordConfirm) {
+      // console.log("2222222");
       Axios.post("/api/users/updateProfile", variable).then(response => {
         console.log(response.data);
         if (response.data.success) {
@@ -194,7 +196,7 @@ function UpdateProfile(props) {
                   src={
                     FilePath
                       ? `http://localhost:5000/${FilePath}`
-                      : currentImage !== undefined
+                      : currentImage
                       ? `http://localhost:5000/${currentImage}`
                       : `http://localhost:5000/uploads/default.png`
                   }
@@ -239,7 +241,7 @@ function UpdateProfile(props) {
               value={updatePassword}
               onChange={handleChangeUpdatePassword}
               type="password"
-              id="success"
+              id="newPassword"
             />
           </Form.Item>
 
@@ -254,7 +256,7 @@ function UpdateProfile(props) {
               type="password"
               value={updatePasswordConfirm}
               onChange={handleChangeUpdatePasswordConfirm}
-              id="success"
+              id="newPasswordConfirm"
             />
           </Form.Item>
           <br />
@@ -273,295 +275,6 @@ function UpdateProfile(props) {
           </Button>
         </Form>
       </div>
-
-      {/* <div style={{ margin: "2rem auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            float: "left",
-            border: "1px solid yellow",
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "#151515",
-              border: "1px solid pink",
-              width: "570px",
-              height: "200px",
-              borderRadius: "5px",
-              marginLeft: "60px",
-            }}
-          >
-            <div
-              style={{
-                width: "200px",
-                height: "80px",
-                border: "1px solid red",
-                float: "left",
-                marginTop: "10px",
-                marginLeft: "10px",
-              }}
-            >
-              이름
-            </div>
-            <div
-              style={{
-                border: "1px solid red",
-                width: "125x",
-                height: "125px",
-                marginLeft: "240px",
-                marginTop: "10px",
-                marginRight: "10px",
-              }}
-            >
-              이미지 업로드
-            </div>
-            <div
-              style={{
-                border: "1px solid #5F5F5F",
-                width: "570px",
-                marginTop: "25px",
-              }}
-            ></div>
-            <div>
-              <div>
-                <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
-                  {({ getRootProps, getInputProps }) => (
-                    <div
-                      style={{
-                        width: "30px",
-                        height: "30px",
-                        border: "1px solid white",
-                        borderRadius: "20px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        position: "relative",
-                        top: "5px",
-                        left: "5px",
-                        margin: "0 auto",
-                      }}
-                      {...getRootProps()}
-                    >
-                      <input {...getInputProps()} />
-
-                      <CameraOutlined
-                        style={{ color: "white", fontSize: "1rem" }}
-                      />
-                    </div>
-                  )}
-                </Dropzone>
-              </div>
-              <div>
-                
-              </div>
-            </div>
-          </div>
-          {currentImage !== "" && (
-            <div
-              style={{
-                display: "flex",
-                textAlign: "center",
-                margin: "0px auto",
-              }}
-            >
-              <img
-                style={{
-                  display: "flex",
-                  //   borderRadius: "70%",
-                  //   overflow: "hidden",
-                  //   objectFit: "cover",
-                  border: "2px solid white",
-                  justifyContent: "center",
-                }}
-                src={
-                  currentImage
-                    ? `http://localhost:5000/${
-                        FilePath ? FilePath : currentImage
-                      }`
-                    : "http://localhost:5000/uploads/default.png"
-                }
-                alt="haha"
-                width="280px"
-                height="200px"
-              />
-            </div>
-          )}
-        </div>
-        
-        <Form onSubmit={onSubmit}>
-          <div
-            style={{
-              
-              backgroundColor: "#151515",
-              marginLeft: "30%",
-              width: "80%",
-              height: "350px",
-              borderRadius: "5px",
-              marginTop: "50%",
-              border: "3px solid red",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "40px",
-                marginLeft: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              Profile
-            </span>
-            <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
-            
-            <div
-              style={{
-                
-                width: "1050px",
-                height: "220px",
-              }}
-            >
-              <div
-                style={{
-                  marginTop: "30px",
-                  marginLeft: "40px",
-                  float: "left",
-                 
-                }}
-              >
-                <div>
-                  <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
-                    Email
-                  </label>
-                  <br />
-                  <Input
-                    style={{
-                      height: "40px",
-                      width: "480px",
-                      borderRadius: "5px",
-                      backgroundColor: "transparent",
-                      color: "#D8D8D8",
-                      borderColor: "#5F5F5F",
-                    }}
-                    value={currentEmail}
-                  />
-                </div>
-                <div style={{ marginTop: "30px" }}>
-                  <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
-                    New Password
-                  </label>
-                  <br />
-                  <Input
-                    type="password"
-                    style={{
-                      height: "40px",
-                      width: "480px",
-                      borderRadius: "5px",
-                      backgroundColor: "transparent",
-                      color: "#D8D8D8",
-                      borderColor: "#5F5F5F",
-                    }}
-                    onChange={handleChangeUpdatePassword}
-                    value={updatePassword}
-                    placeholder="새 비밀번호"
-                  />
-                </div>
-              </div>
-
-              
-
-              <div
-                style={{
-                  marginTop: "30px",
-                  marginLeft: "40px",
-                  
-                  float: "left",
-                }}
-              >
-                <div>
-                  <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
-                    Name
-                  </label>
-                  <br />
-                  <Input
-                    style={{
-                      height: "40px",
-                      width: "480px",
-                      borderRadius: "5px",
-                      backgroundColor: "transparent",
-                      color: "#D8D8D8",
-                      borderColor: "#5F5F5F",
-                    }}
-                    value={currentName}
-                  />
-                </div>
-                <div style={{ marginTop: "30px" }}>
-                  <label style={{ color: "#E6E6E6", marginBottom: "3px" }}>
-                    New Password Confirm
-                  </label>
-                  <br />
-                  <Input
-                    type="password"
-                    style={{
-                      height: "40px",
-                      width: "480px",
-                      borderRadius: "5px",
-                      backgroundColor: "transparent",
-                      color: "#D8D8D8",
-                      borderColor: "#5F5F5F",
-                    }}
-                    onChange={handleChangeUpdatePasswordConfirm}
-                    value={updatePasswordConfirm}
-                    placeholder="새 비밀번호 확인"
-                  />
-                </div>
-              </div>
-            </div>
-
-            
-
-            <div style={{ border: "1px solid #5F5F5F", width: "1150px" }}></div>
-
-            <div
-              style={{
-                width: "100px",
-                height: "100px",
-                marginLeft: "20px",
-                marginTop: "10px",
-              }}
-            >
-              <Button
-                style={{
-                  backgroundColor: "mediumslateblue",
-                  borderColor: "mediumslateblue",
-                  borderRadius: "5px",
-                }}
-                type="primary"
-                size="large"
-                onClick={onSubmit}
-              >
-                <Button
-                  style={{
-                    backgroundColor: "mediumslateblue",
-
-                    borderRadius: "5px",
-                  }}
-                  type="primary"
-                  size="large"
-                  onClick={onSubmit}
-                >
-                  Update Profile
-                </Button>
-                
-              </Button>
-            </div>
-            
-          </div>
-        </Form>
-      </div> */}
     </>
   );
 }

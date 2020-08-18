@@ -39,7 +39,7 @@ class UserMovie extends Component {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = (event) => {
+  handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
@@ -50,6 +50,7 @@ class UserMovie extends Component {
 
   render() {
     const { classes, className, movies, removeItem } = this.props;
+    console.log("2222", movies);
 
     const { rowsPerPage, page } = this.state;
     const rootClassName = classNames(classes.root, className);
@@ -61,6 +62,9 @@ class UserMovie extends Component {
               <TableRow>
                 <TableCell align="left" style={{ color: "white" }}>
                   Movie
+                </TableCell>
+                <TableCell align="left" style={{ color: "white" }}>
+                  Theater
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
                   Seats
@@ -85,7 +89,7 @@ class UserMovie extends Component {
             <TableBody>
               {movies
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((movie) => (
+                .map(movie => (
                   <TableRow className={classes.tableRow} hover key={movie._id}>
                     <TableCell className={classes.tableCell}>
                       {movie.title}

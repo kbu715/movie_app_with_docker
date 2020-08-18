@@ -6,7 +6,7 @@ import { Card, CardContent, Grid, Typography, Avatar } from "@material-ui/core";
 import AttachMoneyOutlinedIcon from "@material-ui/icons/AttachMoneyOutlined";
 import { green } from "@material-ui/core/colors";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
     backgroundColor: "#8181F7",
@@ -51,10 +51,10 @@ function TotalReservation() {
   useEffect(() => {
     axios
       .get("/api/sales/getReservationSales")
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           let reservationlist = [];
-          response.data.result.forEach((obj) => {
+          response.data.result.forEach(obj => {
             reservationlist.push(obj.price);
           });
           const reducer = (accumulator, currentValue) =>
@@ -65,13 +65,13 @@ function TotalReservation() {
           console.log("실패");
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
 
     axios
       .get("/api/sales/getProductSales")
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           const reducer = (accumulator, currentValue) =>
             accumulator + currentValue; //배열내에서 수계산
@@ -80,24 +80,21 @@ function TotalReservation() {
           console.log("실패");
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }, []);
 
+  // 총 매출 , 넣어주기
+  var myData = ReservationCount + ProductCount;
 
-// 총 매출 , 넣어주기
-var myData = ReservationCount + ProductCount;
- 
-myData = AddComma(myData);
- 
-function AddComma(data_value) {
- 
- return Number(data_value).toLocaleString('en');
- 
-}
- 
-console.log(myData);
+  myData = AddComma(myData);
+
+  function AddComma(data_value) {
+    return Number(data_value).toLocaleString("en");
+  }
+
+  // console.log(myData);
 
   return (
     <Card className={classnames(classes.root)}>
@@ -115,7 +112,6 @@ console.log(myData);
             <Typography variant="h3">
               {/* {ReservationCount + ProductCount}원 */}
               {myData}원
-              
             </Typography>
           </Grid>
           <Grid item>

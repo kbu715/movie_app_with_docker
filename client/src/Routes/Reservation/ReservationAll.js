@@ -27,8 +27,8 @@ const colourStyles = {
   option: (styles, { isDisabled, isFocused }) => {
     return {
       ...styles,
-      backgroundColor: isDisabled ? "red" : "#f7f7f7",
-      backgroundColor: isFocused ? "#D8CEF6" : "#f7f7f7",
+      backgroundColor: isDisabled ? "#d4d4d4" : "#f7f7f7",
+      // backgroundColor: isFocused ? "#D8CEF6" : "#f7f7f7",
       color: "#151515",
       fontSize: "1.1rem",
       cursor: isDisabled ? "not-allowed" : "default",
@@ -37,8 +37,9 @@ const colourStyles = {
 };
 
 const Button1 = styled.button`
-  color:  rgb(120, 205, 1);
-  border: 3px solid  rgb(120, 205, 1);
+  position: relative;
+  color: rgb(120, 205, 1);
+  border: 3px solid rgb(120, 205, 1);
   border-radius: 5px;
   font-size: 18px;
   font-weight: 600;
@@ -75,10 +76,28 @@ const groupedOptions = [
   },
 ];
 
-const ReservationAll = ({ id, title, bgImage, userFrom }) => {
+const ReservationAll = ({ userFrom, nowPlaying }) => {
+  // console.log(nowPlaying);
+  const movieList = nowPlaying.map((movie, index) => ({
+    key: index + 1,
+    label: movie.title,
+    value: movie.title,
+    poster: movie.poster_path,
+    isDisabled: index > 2 ? true : false,
+    id: movie.id,
+  }));
+
+  const movieOptions = [
+    {
+      options: movieList,
+    },
+  ];
+
   const [selectDay, setSelectedDay] = useState(null);
   const [time, setTime] = useState(0);
-
+  const [movie, setMovie] = useState("");
+  const [poster, setPoster] = useState("");
+  const [id, setID] = useState(0);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -111,88 +130,108 @@ const ReservationAll = ({ id, title, bgImage, userFrom }) => {
     setTime({ time: event.value });
   };
 
+  const onMovie = event => {
+    setMovie(event.value);
+    setPoster(event.poster);
+    setID(event.id);
+  };
+
   return (
-    <Popup
-      trigger={
-        <Button1 variant="contained" color="primary">
-          단체예매
-        </Button1>
-      }
-      modal
-      closeOnDocumentClick={true}
-      triggerOn="click"
-      contentStyle={{
-        backgroundColor: "#242333",
-        width: "500px",
-        borderRadius: "10px",
-        padding: "1%",
-        border: "2px solid #848484",
-      }}
-      // style={{background:"black"}}
-    >
-      {/* <Grid container style={{ background: "#242333"}}> */}
-      <Wrapper>
-        <DatePicker
-          value={selectDay}
-          onChange={setSelectedDay}
-          minimumDate={utils().getToday()}
-          renderInput={renderCustomInput}
-          shouldHighlightWeekends
-        />
-      </Wrapper>
-
-      <Wrapper>
-        <Select
-          options={groupedOptions}
-          // defaultValue={groupedOptions[1]}
-          placeholder="  시간을 선택해주세요"
-          styles={colourStyles}
-          onChange={onTime}
-        />
-      </Wrapper>
-
-      <Wrapper>
-        <Popup
-          trigger={
-            <Button1
-              variant="contained"
-              color="primary"
-              style={{
-                height: "40px",
-                width: "80px",
-                backgroundColor: "transparent",
-                fontWeight: "1000",
-                fontSize: "15px",
-                padding: "0px",
-                marginLeft: "0px",
-              }}
-            >
-              다음
-            </Button1>
-          }
-          modal
-          contentStyle={{
-            width: "770px",
-            backgroundColor: "#242333",
-            borderRadius: "10px",
-            padding: "1%",
-            border: "2px solid #848484",
-          }}
-          closeOnDocumentClick={true}
-          triggerOn="click"
-        >
-          <BookingAll
-            id={id}
-            title={title}
-            bgImage={bgImage}
-            userFrom={userFrom}
-            selectDay={selectDay}
-            time={time}
+    <>
+      <Popup
+        trigger={
+          <Button1 variant="contained" color="primary">
+            단체예매
+          </Button1>
+        }
+        modal
+        closeOnDocumentClick={true}
+        triggerOn="click"
+        contentStyle={{
+          backgroundColor: "#242333",
+          width: "500px",
+          borderRadius: "10px",
+          padding: "1%",
+          border: "2px solid #848484",
+        }}
+        // style={{background:"black"}}
+      >
+        {/* <Grid container style={{ background: "#242333"}}> */}
+        <Wrapper>
+          <DatePicker
+            value={selectDay}
+            onChange={setSelectedDay}
+            minimumDate={utils().getToday()}
+            renderInput={renderCustomInput}
+            shouldHighlightWeekends
           />
-        </Popup>
-      </Wrapper>
-      {/* </Grid> */}
-    </Popup>
+        </Wrapper>
+
+        <Wrapper>
+          <Select
+            options={groupedOptions}
+            // defaultValue={groupedOptions[1]}
+            placeholder="  시간을 선택해주세요"
+            styles={colourStyles}
+            onChange={onTime}
+          />
+        </Wrapper>
+
+        <Wrapper>
+          <Select
+            options={movieOptions}
+            // defaultValue={groupedOptions[1]}
+            placeholder="  영화를 선택해주세요"
+            styles={colourStyles}
+            onChange={onMovie}
+          />
+        </Wrapper>
+
+        <Wrapper>
+          <>
+            <Popup
+              trigger={
+                <Button1
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    height: "40px",
+                    width: "80px",
+                    backgroundColor: "transparent",
+                    fontWeight: "1000",
+                    fontSize: "15px",
+                    padding: "0px",
+                    marginLeft: "0px",
+                  }}
+                >
+                  다음
+                </Button1>
+              }
+              modal
+              contentStyle={{
+                width: "770px",
+                backgroundColor: "#242333",
+                borderRadius: "10px",
+                padding: "1%",
+                border: "2px solid #848484",
+              }}
+              closeOnDocumentClick={true}
+              triggerOn="click"
+            >
+              <BookingAll
+                id={id}
+                title={movie}
+                bgImage={poster}
+                userFrom={userFrom}
+                selectDay={selectDay}
+                time={time}
+              />
+            </Popup>
+          </>
+        </Wrapper>
+        {/* </Grid> */}
+      </Popup>
+    </>
   );
 };
 

@@ -74,6 +74,7 @@ const Cover = styled.div`
 
 //------------------------------------------------------------------------------------------
 function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
+  // console.log("22222", title, bgImage);
   const dispatch = useDispatch();
   const [Continent, setContinent] = useState(0);
   const [Seat, setSeat] = useState([]);
@@ -101,7 +102,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
               seatlist.push(obj.seat);
             }
           });
-          const flatlist = seatlist.flat(); //평탄화 함수!!!
+          const flatlist = seatlist.flat(); //평탄화 함수!!! from 갓동제
           setDistinct(flatlist);
         }
       })
@@ -267,7 +268,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         {/* <Nav> */}
         <InnerWrapper style={{ height: "300px", marginTop: "20px" }}>
           {/* <SideFlex> */}
-          <Cover bgImage={bgImage} />
+          <Cover bgImage={`https://image.tmdb.org/t/p/original${bgImage}`} />
         </InnerWrapper>
 
         <InnerWrapper
@@ -331,7 +332,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time }) {
         </InnerWrapper>
       </Wrapper>
       {/* **************************************************************************************** */}
-  
+
       <SeatWrapper>
         {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
         <ul className="showcase">
