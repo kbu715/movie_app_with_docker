@@ -62,7 +62,7 @@ const Wrapper2 = styled.div`
   padding: 5px;
   // vertical-align: middle;
 `;
-const Continentss = [
+const Continents1 = [
   { key: 1, label: "11:00", value: "11:00" },
   { key: 2, label: "13:00", value: "13:00" },
   { key: 3, label: "15:00", value: "15:00" },
@@ -72,21 +72,30 @@ const Continentss = [
   { key: 7, label: "23:00", value: "23:00" },
   { key: 8, label: "01:00", value: "01:00" },
 ];
+const Continents2 = [
+  { key: 1, label: "10:00", value: "10:00" },
+  { key: 2, label: "12:00", value: "12:00" },
+  { key: 3, label: "14:00", value: "14:00" },
+  { key: 4, label: "16:00", value: "16:00" },
+  { key: 5, label: "18:00", value: "18:00" },
+  { key: 6, label: "20:00", value: "20:00" },
+  { key: 7, label: "22:00", value: "22:00" },
+  { key: 8, label: "00:00", value: "00:00" },
+];
 // const groupedOptions = [
 //   {
 //     options: Continentss,
 //   },
 // ];
-const Reservation = ({ title, bgImage, userFrom, nowPlaying }) => {
+const Reservation = ({ userFrom, nowPlaying }) => {
   const movieList = nowPlaying.map((movie, index) => ({
-    key: index + 1,
+    key: (index+1)*2,
     label: movie.title,
     value: movie.title,
     poster: movie.poster_path,
     isDisabled: index > 2 ? true : false,
     id: movie.id,
   }));
-
   const movieOptions = [
     {
       options: movieList,
@@ -99,7 +108,7 @@ const Reservation = ({ title, bgImage, userFrom, nowPlaying }) => {
   const [id, setID] = useState(0);
   const [visible, setVisible] = useState(false);
   const [theater, setTheater] = useState(0);
-
+  const [key, setKey] = useState(0);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -135,6 +144,7 @@ const Reservation = ({ title, bgImage, userFrom, nowPlaying }) => {
     setPoster(event.poster);
     setID(event.id);
     setVisible(true);
+    setKey(event.key)
   };
   return (
     <Popup
@@ -174,25 +184,17 @@ const Reservation = ({ title, bgImage, userFrom, nowPlaying }) => {
           onChange={onMovie}
         />
       </Wrapper>
-      {/* <Wrapper>
-        <Select
-          options={groupedOptions}
-          // defaultValue={groupedOptions[1]}
-          placeholder="  시간을 선택해주세요"
-          styles={colourStyles}
-          onChange={onTime}
-        />
-      </Wrapper> */}
       <Wrapper2>
         {visible ? (
           <div>
-            <span>{movie} 1관</span>
+            <span>{movie}{key-1}관</span>
             <br />
-            {Continentss.map(item => (
+            {Continents1.map((item, index) => (
               <button
+              key = {index}
                 style={{ color: "black" }}
                 onClick={() => {
-                  setTheater(1);
+                  setTheater(key-1);
                   onTime(item.value);
                 }}
               >
@@ -200,13 +202,14 @@ const Reservation = ({ title, bgImage, userFrom, nowPlaying }) => {
               </button>
             ))}
             <br />
-            <span>{movie} 2관</span>
+            <span>{movie}{key}관</span>
             <br />
-            {Continentss.map(item => (
+            {Continents2.map((item, index) => (
               <button
+              key = {index}
                 style={{ color: "black" }}
                 onClick={() => {
-                  setTheater(2);
+                  setTheater(key);
                   onTime(item.value);
                 }}
               >
@@ -222,7 +225,6 @@ const Reservation = ({ title, bgImage, userFrom, nowPlaying }) => {
           </div>
         )}
       </Wrapper2>
-
       <Wrapper>
         <>
           <Popup
