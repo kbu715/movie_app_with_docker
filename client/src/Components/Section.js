@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Reservation from "../Routes/Reservation/Reservation";
-
 const Container = styled.div`
   :not(:last-child) {
     margin-bottom: 60px;
@@ -45,9 +44,8 @@ const Grid = styled.div`
     background-color: mediumslateblue;
   }
 `;
-
 const Section = (
-  { title, children, movieTitle } // children 예약된 react prop
+  { title, children, nowPlaying } // children 예약된 react prop
 ) => {
   // const settings = {
   //   dots: true,
@@ -60,24 +58,20 @@ const Section = (
   // };
   return (
     <Container>
-      
       <Title>
         <TitleSub>{title}</TitleSub>
       </Title>
-      {title==="Now Playing"
-      ? <Reservation
-                  // style={{border:"1px solid red"}}
-                  movieTitle={movieTitle}
-                  userFrom={localStorage.getItem("userId")}
-                />
-      : null
-    }
-      
+      {title === "Now Playing" ? (
+        <Reservation
+          // style={{border:"1px solid red"}}
+          nowPlaying={nowPlaying}
+          userFrom={localStorage.getItem("userId")}
+        />
+      ) : null}
       <Grid>{children}</Grid>
     </Container>
   );
 };
-
 Section.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([

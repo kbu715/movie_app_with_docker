@@ -258,9 +258,10 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
               <>
-              
-              <Section title="Now Playing">
-                {nowPlaying.map((movie) => (
+              <Section title="Now Playing" nowPlaying={nowPlaying}>
+                {nowPlaying.map((movie) => 
+                {
+                return (
                 
                   <Poster
                   key={movie.id}
@@ -271,7 +272,7 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                   year={movie.release_date.substring(0, 4)}
                   isMovie={true}
                   />
-                  )
+                  )}
                   )
                 }
                 </Section>
