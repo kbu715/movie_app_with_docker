@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import Booking from "../Booking/Booking";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Select from "react-select";
 import styled from "styled-components";

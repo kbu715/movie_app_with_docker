@@ -187,19 +187,26 @@ const HomePresenter = ({
           <TopSection>
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
+              <>
               <Section title="Now Playing" nowPlaying={nowPlaying}>
-                {nowPlaying.map(movie => (
+                {nowPlaying.map((movie) => 
+                {
+                return (
+                
                   <Poster
-                    key={movie.id}
-                    id={movie.id}
-                    imageUrl={movie.poster_path}
-                    title={movie.title}
-                    rating={movie.vote_average}
-                    year={movie.release_date.substring(0, 4)}
-                    isMovie={true}
+                  key={movie.id}
+                  id={movie.id}
+                  imageUrl={movie.poster_path}
+                  title={movie.title}
+                  rating={movie.vote_average}
+                  year={movie.release_date.substring(0, 4)}
+                  isMovie={true}
                   />
-                ))}
-              </Section>
+                  )}
+                  )
+                }
+                </Section>
+              </>
             )}
             {upcoming && upcoming.length > 0 && (
               <Section title="Upcoming">

@@ -50,7 +50,7 @@ class UserMovie extends Component {
 
   render() {
     const { classes, className, movies, removeItem } = this.props;
-    console.log("2222", movies);
+
 
     const { rowsPerPage, page } = this.state;
     const rootClassName = classNames(classes.root, className);
@@ -93,6 +93,9 @@ class UserMovie extends Component {
                   <TableRow className={classes.tableRow} hover key={movie._id}>
                     <TableCell className={classes.tableCell}>
                       {movie.title}
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {movie.theater}관
                     </TableCell>
                     <TableCell className={classes.tableCell}>
                       {movie.seat ? movie.seat.sort() : "not found"}

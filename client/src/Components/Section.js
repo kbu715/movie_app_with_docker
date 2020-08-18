@@ -46,7 +46,6 @@ const Grid = styled.div`
     background-color: mediumslateblue;
   }
 `;
-
 const Section = (
   { title, children, nowPlaying } // children 예약된 react prop
 ) => {
@@ -82,7 +81,6 @@ const Section = (
     </Container>
   );
 };
-
 Section.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
