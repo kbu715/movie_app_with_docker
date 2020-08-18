@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import Cast from "./Cast/Cast";
 import Video from "./Video/Video";
 import Favorite from "./Sections/Favorite";
-import Reservation from "../Reservation/Reservation";
+
 import Recommendation from "./Recommendation/Recommendation";
 
 const Container = styled.div`
@@ -33,7 +33,7 @@ const Backdrop = styled.div`
 
   height: 100vh;
 
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
 
   background-position: center center;
 
@@ -62,7 +62,7 @@ const Content = styled.div`
 const Cover = styled.div`
   width: 30%;
 
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
 
   background-position: center center;
 
@@ -98,9 +98,7 @@ const ItemContainer = styled.div`
   margin: 20px 0;
 `;
 
-const Item = styled.span`
-  
-`;
+const Item = styled.span``;
 
 const Divider = styled.span`
   margin: 0 10px;
@@ -141,7 +139,7 @@ const Heading = styled.h3`
   margin-top: 10px;
   color: white;
 
-  @media ${props => props.theme.mediaQueries.medium} {
+  @media ${(props) => props.theme.mediaQueries.medium} {
     font-size: 1.2rem;
   }
 `;
@@ -150,7 +148,7 @@ const ButtonsWrapper = styled.div`
   margin-top: -73px;
   display: flex;
   align-items: center;
-  @media ${props => props.theme.mediaQueries.small} {
+  @media ${(props) => props.theme.mediaQueries.small} {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -191,10 +189,8 @@ const DetailPresenter = ({
         />
         <Data>
           <Title>
-            {isMovie
-              ? result.title //movie : title, tv show : name
-              : result.name}
-            
+            {isMovie ? result.title : result.name}
+
           </Title>
 
           <ItemContainer>
@@ -227,10 +223,6 @@ const DetailPresenter = ({
               movieId={parseInt(result.id)}
               userFrom={localStorage.getItem("userId")}
             />
-            
-            
-            
-            
 
             <RatingsWrapper>
               <Rating number={result.vote_average / 2} />

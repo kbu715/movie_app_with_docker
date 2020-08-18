@@ -3,30 +3,26 @@ import axios from "axios";
 import classnames from "classnames";
 import { makeStyles } from "@material-ui/styles";
 import { Card, CardContent, Grid, Typography, Avatar } from "@material-ui/core";
-import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
+import AttachMoneyOutlinedIcon from "@material-ui/icons/AttachMoneyOutlined";
 import { green } from "@material-ui/core/colors";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
-    backgroundColor:"#e74c3c",
-    color:"#FFF",
-
+    backgroundColor: "#8181F7",
+    color: "#FFF",
   },
   content: {
     alignItems: "center",
     display: "flex",
-    
   },
   title: {
     fontWeight: 700,
-
   },
   avatar: {
     backgroundColor: green[500],
     height: 56,
     width: 56,
-    
   },
   icon: {
     height: 32,
@@ -39,11 +35,10 @@ const useStyles = makeStyles(theme => ({
   },
   differenceIcon: {
     color: "rgb(26, 26, 26)",
-    
   },
   differenceValue: {
     color: green[700],
-    
+
     // marginRight: theme.spacing(1),
   },
 }));
@@ -53,44 +48,57 @@ function TotalReservation() {
   const [ReservationCount, setReservationCount] = useState(0);
   const [ProductCount, setProductCount] = useState(0);
 
-
-  
-
   useEffect(() => {
     axios
       .get("/api/sales/getReservationSales")
-      .then(response => {
-        if (response.data.success) {                    
-          let reservationlist = [];          
-          response.data.result.forEach(obj => {      
-            reservationlist.push(obj.price);                      
+      .then((response) => {
+        if (response.data.success) {
+          let reservationlist = [];
+          response.data.result.forEach((obj) => {
+            reservationlist.push(obj.price);
           });
-          const reducer = (accumulator, currentValue) => accumulator + currentValue; //배열내에서 수계산
-          const flatlist = reservationlist.flat(); //평탄화 함수!!!          
+          const reducer = (accumulator, currentValue) =>
+            accumulator + currentValue; //배열내에서 수계산
+          const flatlist = reservationlist.flat(); //평탄화 함수!!!
           setReservationCount(flatlist.reduce(reducer));
         } else {
           console.log("실패");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
 
-      axios
+    axios
       .get("/api/sales/getProductSales")
-      .then(response => {
-        if (response.data.success) {                    
-          const reducer = (accumulator, currentValue) => accumulator + currentValue; //배열내에서 수계산        
+      .then((response) => {
+        if (response.data.success) {
+          const reducer = (accumulator, currentValue) =>
+            accumulator + currentValue; //배열내에서 수계산
           setProductCount(response.data.arr.reduce(reducer));
         } else {
           console.log("실패");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
-  }, []);  
-  
+  }, []);
+
+
+// 총 매출 , 넣어주기
+var myData = ReservationCount + ProductCount;
+ 
+myData = AddComma(myData);
+ 
+function AddComma(data_value) {
+ 
+ return Number(data_value).toLocaleString('en');
+ 
+}
+ 
+console.log(myData);
+
   return (
     <Card className={classnames(classes.root)}>
       <CardContent>
@@ -105,12 +113,14 @@ function TotalReservation() {
               TOTAL SALES
             </Typography>
             <Typography variant="h3">
-                    {ReservationCount+ProductCount}원
+              {/* {ReservationCount + ProductCount}원 */}
+              {myData}원
+              
             </Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
-                {/* 아이콘 */}
+              {/* 아이콘 */}
               <AttachMoneyOutlinedIcon className={classes.icon} />
             </Avatar>
           </Grid>

@@ -7,6 +7,8 @@ import Booking from "../Booking/Booking";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Select from "react-select";
 import styled from "styled-components";
+import BookingAll from "../Booking/BookingAll";
+
 const colourStyles = {
   control: styles => ({
     ...styles,
@@ -25,18 +27,18 @@ const colourStyles = {
   option: (styles, { isDisabled, isFocused }) => {
     return {
       ...styles,
-      backgroundColor: isDisabled ? "#d4d4d4" : "#f7f7f7",
-      // backgroundColor: isFocused ? "#D8CEF6" : "#f7f7f7",
+      backgroundColor: isDisabled ? "red" : "#f7f7f7",
+      backgroundColor: isFocused ? "#D8CEF6" : "#f7f7f7",
       color: "#151515",
       fontSize: "1.1rem",
       cursor: isDisabled ? "not-allowed" : "default",
     };
   },
 };
+
 const Button1 = styled.button`
-  position: relative;
-  color: #9c88ff;
-  border: 3px solid #9c88ff;
+  color:  rgb(120, 205, 1);
+  border: 3px solid  rgb(120, 205, 1);
   border-radius: 5px;
   font-size: 18px;
   font-weight: 600;
@@ -45,6 +47,7 @@ const Button1 = styled.button`
   padding: 5px;
   box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
 `;
+
 const Wrapper = styled.div`
   /* padding: 5px; */
   margin: 0 auto;
@@ -54,6 +57,7 @@ const Wrapper = styled.div`
   padding: 5px;
   /* margin-bottom: 10px; */
 `;
+
 const Continentss = [
   { key: 1, label: "11:00", value: "11:00" },
   { key: 2, label: "13:00", value: "13:00" },
@@ -64,29 +68,17 @@ const Continentss = [
   { key: 7, label: "23:00", value: "23:00" },
   { key: 8, label: "01:00", value: "01:00" },
 ];
+
 const groupedOptions = [
   {
     options: Continentss,
   },
 ];
-const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
-  console.log(nowPlaying);
-  const movieList = nowPlaying.map((movie, index) => ({
-    key: index + 1,
-    label: movie.title,
-    value: movie.title,
-    poster: movie.poster_path,
-    isDisabled: index > 2 ? true : false,
-  }));
-  const movieOptions = [
-    {
-      options: movieList,
-    },
-  ];
+
+const ReservationAll = ({ id, title, bgImage, userFrom }) => {
   const [selectDay, setSelectedDay] = useState(null);
   const [time, setTime] = useState(0);
-  const [movie, setMovie] = useState("");
-  const [poster, setPoster] = useState("");
+
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -114,18 +106,16 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
       className="my-custom-input-class"
     />
   );
+
   const onTime = event => {
     setTime({ time: event.value });
   };
-  const onMovie = event => {
-    setMovie(event.value);
-    setPoster(event.poster);
-  };
+
   return (
     <Popup
       trigger={
         <Button1 variant="contained" color="primary">
-          간편예매
+          단체예매
         </Button1>
       }
       modal
@@ -143,7 +133,6 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
       {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
         <DatePicker
-          
           value={selectDay}
           onChange={setSelectedDay}
           minimumDate={utils().getToday()}
@@ -151,6 +140,7 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
           shouldHighlightWeekends
         />
       </Wrapper>
+
       <Wrapper>
         <Select
           options={groupedOptions}
@@ -160,15 +150,7 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
           onChange={onTime}
         />
       </Wrapper>
-      <Wrapper>
-        <Select
-          options={movieOptions}
-          // defaultValue={groupedOptions[1]}
-          placeholder="  영화를 선택해주세요"
-          styles={colourStyles}
-          onChange={onMovie}
-        />
-      </Wrapper>
+
       <Wrapper>
         <Popup
           trigger={
@@ -199,10 +181,10 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
           closeOnDocumentClick={true}
           triggerOn="click"
         >
-          <Booking
+          <BookingAll
             id={id}
-            title={movie}
-            bgImage={poster}
+            title={title}
+            bgImage={bgImage}
             userFrom={userFrom}
             selectDay={selectDay}
             time={time}
@@ -213,4 +195,5 @@ const Reservation = ({ id, title, bgImage, userFrom, nowPlaying }) => {
     </Popup>
   );
 };
-export default Reservation;
+
+export default ReservationAll;

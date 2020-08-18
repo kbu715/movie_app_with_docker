@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import TotalUsers from "../TotalUser/TotalUsers";
 import TotleReservation from "../TotalReservation/TotalReservation";
-import { Doughnut, Line } from "react-chartjs-2";
+import { Doughnut, Line,Bar } from "react-chartjs-2";
 // import { Typography } from "@material-ui/core";
 import axios from "axios";
 import TotalProduct from "../TotalProduct/TotalProduct";
@@ -163,7 +163,7 @@ function DashBoard() {
     datasets: [
       {
         labels: ["남자", "여자"],
-        data: [male, female],
+        data: [male, female],        
         borderWidth: 3,
         hoverBorderWidth: 4,
         backgroundColor: [
@@ -178,10 +178,10 @@ function DashBoard() {
   const styles = {
     fontFamily: "sans-serif",
     textAlign: "center",
-    width: "50%",
+    width: "60%",
     height: "100%",
     marginTop: "70px",
-    // border: "1px solid green",
+    
     float: "right",
   };
   const data = {
@@ -206,13 +206,14 @@ function DashBoard() {
       "전쟁",
       "서부",
     ],
+    
     datasets: [
       {
         label: "My First dataset",
         fill: false,
-        lineTension: 0.1,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "rgba(75,192,192,1)",
+        lineTension: 0.1,        
+        backgroundColor: "mediumslateblue",        
+        borderColor: "mediumslateblue",
         borderCapStyle: "butt",
         borderDash: [],
         borderDashOffset: 0.0,
@@ -293,11 +294,9 @@ function DashBoard() {
   return (
     <div
       style={{
-        height: "100%",
-        // display: "flex",
+        height: "100%",        
         justifyContent: "center",
-        flexDirection: "column",
-        //border: "2px solid blue",
+        flexDirection: "column",        
       }}
     >
       <div
@@ -331,21 +330,17 @@ function DashBoard() {
       </div>
       <div style={{ display: "flex" }}>
         <div
-          style={{
-            // display: "flex",
-            width: "40%",
-            // border: "1px solid blue",
-            // float: "left",
-            // height: "100%",
+          style={{            
+            width: "40%",            
           }}
         >
-          <div
+          {/* <div
             style={{
               // display: "flex",
               width: "80%",
               float: "bottom",
-              // border: "1px solid blue",
-              backgroundColor: "skyblue",
+              border: "1px solid blue",
+              // backgroundColor: "skyblue",
               padding: "1%",
               margin: "3%",
               marginLeft: "0%",
@@ -361,33 +356,39 @@ function DashBoard() {
               data={expData}
               // height={180}
             />
-          </div>
+          </div> */}
           <div
             style={{
               // display: "flex",
               margin: "3%",
-              marginLeft: "0%",
+              marginLeft: "0%",              
               padding: "1%",
-              width: "80%",
+              width: "100%",
+              height:"100%",              
               // border: "1px solid yellow",
-              backgroundColor: "pink",
+              // backgroundColor: "pink",
             }}
           >
             <Doughnut
+              style={{
+                marginTop:"50%",
+              }}
               options={{
                 legend: {
                   display: true,
-                  position: "bottom",
+                  position: "right",
+                  marginTop:"50%",                  
                 },
               }}
               data={expDataUserGender}
-              // height={180}
+              height={200}
             />
           </div>
         </div>
 
         <div style={styles}>
-          <Line data={data} options={lineOptions} />
+          {/* <Line data={data} options={lineOptions} /> */}
+          <Bar data={data} options={lineOptions} />
         </div>
       </div>
     </div>

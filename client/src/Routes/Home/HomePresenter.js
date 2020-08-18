@@ -8,22 +8,13 @@ import Poster from "../../Components/Poster"
 import Helmet from "react-helmet"
 import { withRouter } from "react-router-dom"
 import { Carousel } from "antd"
-import Reservation from "../Reservation/Reservation"
-
 const Container = styled.div`
   scroll-behavior: smooth;
   margin-top: -50px;
   z-index: -1;
 `
-const Video = styled.div`
-  position: absolute;
-  width: 100%;
-  top: -100px;
-  z-index: -1;
-`
 const Effect = styled.div`
   width: 100%;
-
   margin-top: 600px;
 `
 const TopSection = styled.div`
@@ -70,39 +61,11 @@ const HeroContent = styled.div`
 const HeroContentText = styled.span`
   font-size: 60px;
 `
-
 const HeroContentP = styled.div`
   width: 100%;
   font-size: 20px;
   margin-top: 40px;
   color: white;
-`
-const HeroButtonWrapper = styled.div`
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 400px;
-  border: 1px solid red;
-  margin-top: 30px;
-`
-const HeroButtonWrapper1 = styled.div`
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  //width: 400px;
-  width: 20%;
-  
-`
-const HeroButtonWrapper2 = styled.div`
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 400px;
-  
-  margin-top: 30px;
 `
 const AButton = styled.a`
   &:link {
@@ -122,7 +85,6 @@ const AButton = styled.a`
     color: gray;
   }
 `
-
 const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error }) => (
   <>
     <Helmet>
@@ -133,19 +95,6 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
     ) : (
       <>
         <Container onWheel={(e) => {}}>
-          {/* <Video>
-            <iframe
-              width="100%"
-              height="800"
-              src="http://videos.hd-trailers.net/Mad_Max_Fury_Road_2015_Trailer_F4_5.1-1080p-HDTN.mp4"
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="movie-trailer"
-            ></iframe>
-          </Video> */}
-
-          
              <Carousel autoplay>
             <div>
               <div style={{ position: "absolute" }}>
@@ -154,7 +103,6 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                   alt="1"
                   style={{
                     position: "releative",
-                    
                     height: "100%",
                   }}
                 />
@@ -173,10 +121,8 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                       <br />
                       <br />
                       <br />
-                   
                       <br />
                     </HeroContentP>
-                   
                   </HeroContent>
                 </Effect>
               </Hero>
@@ -188,12 +134,10 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                   alt="2"
                 />
               </div>
-
               <Hero>
                 <Effect>
                   <HeroContent>
                     <HeroContentText></HeroContentText>
-
                   </HeroContent>
                 </Effect>
               </Hero>
@@ -204,11 +148,8 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                    width="99%"
                   src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/zz409b4c4c.jpg"
                   alt="3"
-                  
-                  // height="800px"
                 />
               </div>
-
               <Hero>
                 <Effect>
                   <HeroContent>
@@ -221,14 +162,12 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                       <br />
                       <br />
                     </HeroContentP>
-                 
                   </HeroContent>
                 </Effect>
               </Hero>
             </div>
           </Carousel>
           <br />
-
           <Helmet>
             <title>Movies | Nomflix</title>
           </Helmet>
@@ -239,22 +178,6 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
           <br />
           <br />
           <TopSection>
-            {/* {trending && trending.length > 0 && (
-              <Section title="인기 상영작">
-                {trending.map((movie) => (
-                  <Poster
-                    key={movie.id}
-                    id={movie.id}
-                    imageUrl={movie.poster_path}
-                    title={movie.title}
-                    rating={movie.vote_average}
-                    year={movie.release_date.substring(0, 4)}
-                    isMovie={true}
-                  />
-                ))}
-              </Section>
-            )} */}
-
             {/* 현재 상영중 */}
             {nowPlaying && nowPlaying.length > 0 && (
               <>
@@ -293,21 +216,6 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
                 ))}
               </Section>
             )}
-            {/* {popular && popular.length > 0 && (
-              <Section title="흥행순">
-                {popular.map((movie) => (
-                  <Poster
-                    key={movie.id}
-                    id={movie.id}
-                    imageUrl={movie.poster_path}
-                    title={movie.title}
-                    rating={movie.vote_average}
-                    year={movie.release_date.substring(0, 4)}
-                    isMovie={true}
-                  />
-                ))}
-              </Section>
-            )} */}
           </TopSection>
           {error && <Message color="#e74c3c" text={error} />}
         </Container>
@@ -315,7 +223,6 @@ const HomePresenter = ({ nowPlaying, popular, upcoming, trending, loading, error
     )}
   </>
 )
-
 class HeroButton extends React.Component {
   render() {
     return (

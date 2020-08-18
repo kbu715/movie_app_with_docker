@@ -17,11 +17,13 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  all: unset;
-  font-size: 28px;
-  width: 100%;
-  color : white;
-  box-shadow: 3px 3px darkgray;
+all: unset;
+    width: 100%;
+    font-size: 28px;
+    line-height: 28px;
+    text-indent: 15px;
+    padding: 5px 0px;
+    background: rgba(255, 255, 255, 0.1);
 `;
 
 const SearchPresenter = ({
@@ -38,7 +40,7 @@ const SearchPresenter = ({
     </Helmet>
     <Form onSubmit={handleSubmit}>
       <Input
-        placeholder="Search Movies..."
+        placeholder="검색어를 입력해주세요."
         value={searchTerm}
         onChange={updateTerm}
       />
