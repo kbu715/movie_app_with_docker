@@ -314,7 +314,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
         </InnerWrapper>
       </Wrapper>
       {/* **************************************************************************************** */}
-      {(theater===1)
+      {(theater%2===1)
       ? <SeatWrapper>
       {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
       <ul className="showcase">
