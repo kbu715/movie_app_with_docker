@@ -50,6 +50,7 @@ export default class extends React.Component {
     } catch {
       this.setState({ error: "Can't find anything." });
     } finally {
+
       this.setState({
         loading: false,
         result,
@@ -59,6 +60,7 @@ export default class extends React.Component {
       });
     }
   }
+
 
   render() {
     const {

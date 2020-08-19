@@ -23,8 +23,8 @@ function Product() {
   const [Skip, setSkip] = useState(0);
   const [PostSize, setPostSize] = useState(0);
   const [SearchTerm, setSearchTerm] = useState("");
-const[Limit, setLimit] = useState(8);
-
+  const[Limit, setLimit] = useState(8);
+  
   useEffect(() => {
     let body = {
       skip: Skip,

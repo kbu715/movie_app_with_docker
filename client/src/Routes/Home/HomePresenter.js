@@ -43,9 +43,7 @@ const HeroContentP = styled.div`
 `;
 const HomePresenter = ({
   nowPlaying,
-  popular,
   upcoming,
-  trending,
   loading,
   error,
 }) => (

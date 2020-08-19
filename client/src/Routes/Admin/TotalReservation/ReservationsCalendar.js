@@ -22,7 +22,6 @@ function ReservationsCalendar() {
       .post("/api/reservation/getList")
       .then((response) => {
         if (response.data.success) {
-          console.log(response.data);
           setReservation(response.data.doc);
         } else {
           console.log("실패");

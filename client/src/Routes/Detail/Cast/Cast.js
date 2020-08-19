@@ -16,7 +16,7 @@ const Test = styled.div`
     height: 10px;
   }
   &::-webkit-scrollbar-thumb {
-    opacity: 1;
+    opacity: 1 important!;
   }
 `;
 

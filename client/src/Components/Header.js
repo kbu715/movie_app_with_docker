@@ -103,8 +103,10 @@ const handleScroll = () => {
     y = 1
   }
   if (windowBottom < docHeight - y) {
+    if(x === null) { return x=document.getElementById("header")}
     x.style.backgroundColor = "transparent";
   } else if (windowBottom > docHeight - y) {
+    if(x === null) { return x=document.getElementById("header") }
     x.style.backgroundColor = "#171717";
   }
 };
@@ -171,10 +173,10 @@ export default withRouter(
                       style={{
                         display: "flex",
                         margin: "0px auto",
-                        fontColor: "#e5e5e5",
+                        color: "#e5e5e5",
                       }}
                     >
-                      <span style={{ textAlign: "center", marginTop: "6px", fontColor: "#e5e5e5" }}>
+                      <span style={{ textAlign: "center", marginTop: "6px", color: "#e5e5e5" }}>
                         {user.userData && user.userData.name.length > 7
                           ? `${user.userData.name.substring(0, 4)}...`
                           : user.userData.name}
@@ -187,7 +189,7 @@ export default withRouter(
                           objectFit: "cover",
                           marginLeft: "10px",
                           justifyContent: "center",
-                          fontColor: "#e5e5e5",
+                          color: "#e5e5e5",
                         }}
                         src={
                           user.userData.image
@@ -195,7 +197,7 @@ export default withRouter(
                             : `${LOCAL_SERVER}uploads/default.png`
                         }
                         alt="haha"
-                        fontColor="#e5e5e5"
+                        color="#e5e5e5"
                         width="24rem"
                         height="23rem"
                       />
@@ -210,7 +212,7 @@ export default withRouter(
                       display: "flex",
                       itemAlign: "center",
                       margin: "0px auto",
-                      fontColor: "#e5e5e5",
+                      color: "#e5e5e5",
                     }}
                   >
                     <Badge
@@ -220,7 +222,7 @@ export default withRouter(
                     >
                       <SLink to="/mymovie" className="head-example">
                         <ShoppingCartOutlined
-                          style={{ fontSize: 25, marginLeft: "10px", fontColor: "#e5e5e5" }}
+                          style={{ fontSize: 25, marginLeft: "10px", color: "#e5e5e5" }}
                         />
                       </SLink>
                     </Badge>
