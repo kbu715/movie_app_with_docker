@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
@@ -7,6 +7,7 @@ import Booking from "../Booking/Booking";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Select from "react-select";
 import styled from "styled-components";
+import Axios from "axios";
 const colourStyles = {
   control: styles => ({
     ...styles,
@@ -102,13 +103,15 @@ const Reservation = ({ userFrom, nowPlaying }) => {
     },
   ];
   const [selectDay, setSelectedDay] = useState(null);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState("");
   const [movie, setMovie] = useState("");
   const [poster, setPoster] = useState("");
   const [id, setID] = useState(0);
   const [visible, setVisible] = useState(false);
   const [theater, setTheater] = useState(0);
   const [key, setKey] = useState(0);
+  const [Distinct, setDistinct] = useState([]);
+
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -146,6 +149,49 @@ const Reservation = ({ userFrom, nowPlaying }) => {
     setVisible(true);
     setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
   };
+
+  useEffect(() => {
+    // console.log("유즈이펙트 실행", movie, selectDay, time);
+    const movieTitle = {
+      title: movie,
+    };
+    Axios.post("/api/reservation/findSeat", movieTitle)
+      .then(response => {
+        if (response.data.success) {
+          let seatlist = [];
+          response.data.seats.forEach(obj => {
+            if (
+              // obj.time[0].time === time.time &&
+              obj.selectDay[0].day === selectDay.day &&
+              obj.selectDay[0].month === selectDay.month &&
+              obj.selectDay[0].year === selectDay.year
+              // obj.theater === theater
+            ) {
+              seatlist.push(obj);
+            }
+          });
+          // console.log("22222", seatlist);
+          setDistinct(seatlist);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [movie, selectDay, time, theater]);
+
+  const countLeftSeats = (time, theater) => {
+    let countAllSeats = theater % 2 === 1 ? 55 : 45;
+    // console.log("dddddd");
+    let count = 0;
+    Distinct &&
+      Distinct.forEach(obj => {
+        if (obj.time[0].time === time && obj.theater === theater) {
+          count = count + obj.continent;
+        }
+      });
+    return <span style={{ color: "black" }}>{countAllSeats - count}</span>;
+  };
+
   return (
     <Popup
       trigger={
@@ -201,7 +247,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                   onTime(item.value);
                 }}
               >
-                {item.label}
+                {item.label}|{countLeftSeats(item.value, key - 1)}석
               </button>
             ))}
             <br />
@@ -219,7 +265,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                   onTime(item.value);
                 }}
               >
-                {item.label}
+                {item.label}|{countLeftSeats(item.value, key)}석
               </button>
             ))}
           </div>

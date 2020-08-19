@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
@@ -7,6 +7,7 @@ import BookingAll from "../Booking/BookingAll";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Select from "react-select";
 import styled from "styled-components";
+import axios from "axios";
 const colourStyles = {
   control: styles => ({
     ...styles,
@@ -72,16 +73,15 @@ const Continents1 = [
   { key: 7, label: "23:00", value: "23:00" },
   { key: 8, label: "01:00", value: "01:00" },
 ];
-
 const Continents2 = [
-  { key: 1, label: "11:00", value: "11:00" },
-  { key: 2, label: "13:00", value: "13:00" },
-  { key: 3, label: "15:00", value: "15:00" },
-  { key: 4, label: "17:00", value: "17:00" },
-  { key: 5, label: "19:00", value: "19:00" },
-  { key: 6, label: "21:00", value: "21:00" },
-  { key: 7, label: "23:00", value: "23:00" },
-  { key: 8, label: "01:00", value: "01:00" },
+  { key: 1, label: "10:00", value: "10:00" },
+  { key: 2, label: "12:00", value: "12:00" },
+  { key: 3, label: "14:00", value: "14:00" },
+  { key: 4, label: "16:00", value: "16:00" },
+  { key: 5, label: "18:00", value: "18:00" },
+  { key: 6, label: "20:00", value: "20:00" },
+  { key: 7, label: "22:00", value: "22:00" },
+  { key: 8, label: "00:00", value: "00:00" },
 ];
 // const groupedOptions = [
 //   {
@@ -104,13 +104,15 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
     },
   ];
   const [selectDay, setSelectedDay] = useState(null);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState("");
   const [movie, setMovie] = useState("");
   const [poster, setPoster] = useState("");
   const [id, setID] = useState(0);
   const [visible, setVisible] = useState(false);
   const [theater, setTheater] = useState(0);
   const [key, setKey] = useState(0);
+  const [Distinct, setDistinct] = useState([]);
+
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -147,6 +149,49 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
     setID(event.id);
     setVisible(true);
     setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
+  };
+
+  useEffect(() => {
+    // console.log("유즈이펙트 실행", movie, selectDay, time);
+    const movieTitle = {
+      title: movie,
+    };
+    axios
+      .post("/api/reservation/findSeat", movieTitle)
+      .then(response => {
+        if (response.data.success) {
+          let seatlist = [];
+          response.data.seats.forEach(obj => {
+            if (
+              // obj.time[0].time === time.time &&
+              obj.selectDay[0].day === selectDay.day &&
+              obj.selectDay[0].month === selectDay.month &&
+              obj.selectDay[0].year === selectDay.year
+              // obj.theater === theater
+            ) {
+              seatlist.push(obj);
+            }
+          });
+          // console.log("22222", seatlist);
+          setDistinct(seatlist);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [movie, selectDay, time, theater]);
+
+  const countLeftSeats = (time, theater) => {
+    let countAllSeats = theater % 2 === 1 ? 55 : 45;
+    // console.log("dddddd");
+    let count = 0;
+    Distinct &&
+      Distinct.forEach(obj => {
+        if (obj.time[0].time === time && obj.theater === theater) {
+          count = count + obj.continent;
+        }
+      });
+    return <span style={{ color: "black" }}>{countAllSeats - count}</span>;
   };
   return (
     <Popup
@@ -198,21 +243,21 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
       <Wrapper2>
         {visible ? (
           <div>
-                        <span>
+            <span>
               {movie}
               {key - 1}관
             </span>
             <br />
             {Continents1.map((item, index) => (
               <button
-              key={index}
+                key={index}
                 style={{ color: "black" }}
                 onClick={() => {
-                  setTheater(key-1);
+                  setTheater(key - 1);
                   onTime(item.value);
                 }}
               >
-                {item.label}
+                {item.label}|{countLeftSeats(item.value, key - 1)}석
               </button>
             ))}
             <br />
@@ -223,14 +268,14 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
             <br />
             {Continents2.map((item, index) => (
               <button
-              key={index}
+                key={index}
                 style={{ color: "black" }}
                 onClick={() => {
                   setTheater(key);
                   onTime(item.value);
                 }}
               >
-                {item.label}
+                {item.label}|{countLeftSeats(item.value, key)}석
               </button>
             ))}
           </div>
