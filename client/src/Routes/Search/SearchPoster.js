@@ -11,34 +11,26 @@ const Container = styled.div`
 `;
 const Image = styled.div`
   background-image: url(${(props) => props.bgUrl});
-
   width: 280px;
-
   height: 410px;
-
   margin-right: 20px;
-
   background-size: cover;
-
   transition: all 0.1s linear 0s;
 `;
 
 const ImageContainer = styled.div`
   margin-bottom: 5px;
   position: relative;
-
   &:hover {
     ${Image} {
       opacity: 0.3;
     }
   }
-
   transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
   position: relative;
   transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
   &:hover {
     transform: scale(1.03);
-
     ::after {
       transform: scaleY(1);
       opacity: 1;
@@ -66,17 +58,14 @@ const Title = styled.span`
   font-size: 25px solid;
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   align-items: center;
-  /* padding: 1.5rem 3rem; */
 `;
 const RatingsWrapper = styled.div`
   position: relative;
   align-items: center;
   margin-bottom: 0.5rem;
   color: var(--color-primary);
-
   ${Container}:hover & {
     color: var(--color-primary-lighter);
   }

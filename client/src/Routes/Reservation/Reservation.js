@@ -8,6 +8,7 @@ import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Select from "react-select";
 import styled from "styled-components";
 import Axios from "axios";
+
 const colourStyles = {
   control: styles => ({
     ...styles,
@@ -16,8 +17,6 @@ const colourStyles = {
     fontSize: "1.1rem",
     width: "250px",
     textAlign: "center",
-    // marginTop: "25px",
-    // height: "10px",
     border: "1px solid #9c88ff",
     boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
     color: "#2e2e2e",
@@ -27,7 +26,6 @@ const colourStyles = {
     return {
       ...styles,
       backgroundColor: isDisabled ? "#d4d4d4" : "#f7f7f7",
-      // backgroundColor: isFocused ? "#D8CEF6" : "#f7f7f7",
       color: "#151515",
       fontSize: "1.1rem",
       cursor: isDisabled ? "not-allowed" : "default",
@@ -77,7 +75,6 @@ const Title = styled.span`
 const InnerWrapper = styled.div`
   min-height:200px;
   max-width:450px;
-  /* padding-top:10px; */
 `;
 
 const Continents1 = [
@@ -131,18 +128,14 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           : ""
       }
       style={{
-        // textAlign: "center",
         borderRadius: "1rem",
         fontSize: "1.1rem",
         border: "1px solid #9c88ff",
         boxShadow: "0 1.5rem 2rem rgba(156, 136, 255, 0.2)",
         color: "#2e2e2e",
         outline: "none",
-        // marginLeft: "10px",
         width: "250px",
         height: "38px",
-        // marginTop: "10px",
-        // marginBottom: "10px",
       }}
       className="my-custom-input-class"
     />
@@ -159,7 +152,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
   };
 
   useEffect(() => {
-    // console.log("유즈이펙트 실행", movie, selectDay, time);
     const movieTitle = {
       title: movie,
     };
@@ -176,7 +168,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
               seatlist.push(obj);
             }
           });
-          // console.log("22222", seatlist);
           setDistinct(seatlist);
         }
       })
@@ -187,7 +178,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
 
   const countLeftSeats = (time, theater) => {
     let countAllSeats = theater % 2 === 1 ? 55 : 45;
-    // console.log("dddddd");
     let count = 0;
     Distinct &&
       Distinct.forEach(obj => {
@@ -214,12 +204,9 @@ const Reservation = ({ userFrom, nowPlaying }) => {
         width: "500px",
         borderRadius: "10px",
         padding: "1%",
-        // height: "400px",
         border: "2px solid #848484",
       }}
-    // style={{background:"black"}}
     >
-      {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
         <DatePicker
           value={selectDay}
@@ -232,7 +219,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
       <Wrapper>
         <Select
           options={movieOptions}
-          // defaultValue={groupedOptions[1]}
           placeholder="  영화를 선택해주세요"
           styles={colourStyles}
           onChange={onMovie}
@@ -249,9 +235,10 @@ const Reservation = ({ userFrom, nowPlaying }) => {
             {Continents1.map((item, index) => (
                 <Button2
                   key={index}
-                  onClick={() => {
+                  onClick={(props) => {
                     setTheater(key - 1);
                     onTime(item.value);
+                    props.currentTarget.style.backgroundColor="mediumslateblue"
                   }}
                 >
                     {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}
@@ -325,7 +312,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           </Popup>
         </>
       </Wrapper>
-      {/* </Grid> */}
     </Popup>
   );
 };

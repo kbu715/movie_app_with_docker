@@ -36,37 +36,18 @@ function ReservationsCalendar() {
   const events = Reservation.map((item) => {
 
     let selectday = item.selectDay[0];
-    let reservationdate
 
     //달력에 날짜 format : `${selectday.year}-${selectday.month}-${selectday.day}` => ex. 2020-08-06
     // {year:2020, day:6, month:8} 이런식으로 캘린더에 넘어옴
     // 6 -> 06, 8->08 식으로 바꿔주는 방법 m1, m2
     // ** parseInt 못씀-> "06" string을 parseInt로 해주면 다시 6 으로 바뀜..
-
-    //M1. 
-    // if(selectday.day < 10) {
-    //   selectday.day = '0'+selectday.day
-    // }
-    // if(selectday.month < 10) {
-    //   selectday.month = parseInt('0')+selectday.month
-    // }
-
-    // let reservationdate = `${selectday.year}-`+ "0" +`${selectday.month}-${selectday.day}`
-
-    //M2. 
-    if(selectday.day < 10) { //day만 10이하
-      reservationdate = `${selectday.year}-${selectday.month}-`+"0"+`${selectday.day}`
-      if(selectday.month < 10) { //day, month 둘다 10이하
-      reservationdate = `${selectday.year}-`+"0"+`${selectday.month}-`+"0"+`${selectday.day}`
-      }
-    } else if (selectday.month < 10) { //month 10이하
-      reservationdate = `${selectday.year}-`+"0"+`${selectday.month}-${selectday.day}`
-    } else {
-      reservationdate = `${selectday.year}-${selectday.month}-${selectday.day}`
-      
+    if(selectday.day < 10) {
+      selectday.day = '0'+selectday.day
     }
-
-
+    if(selectday.month < 10) {
+      selectday.month = '0'+selectday.month
+    }
+    let reservationdate = `${selectday.year}-${selectday.month}-${selectday.day}`
 
     return (
       {

@@ -5,7 +5,6 @@ const { Column } = Table;
 
 function ReservationList() {
   const [Reservation, setReservation] = useState([]);
-console.log("Res",Reservation);
   useEffect(() => {
     axios
       .post("/api/reservation/getList")
@@ -13,17 +12,13 @@ console.log("Res",Reservation);
         if (response.data.success) {
           setReservation(response.data.doc);
         } else {
-          console.log("실패");
+          alert("실패");
         }
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  // console.log('====================================');
-  // console.log(88,Reservation);
-  // console.log('====================================');
   return (
     <PageHeader
       title="Reservation List"
@@ -40,18 +35,6 @@ console.log("Res",Reservation);
           <Table dataSource={Reservation}>
             <Column title="영화번호" dataIndex="id" key="id" />
             <Column title="제목" dataIndex="title" key="title" />
-            {/* <Column
-              title="상영관"
-              dataIndex="theaters"
-              key="theaters"
-              render={(theaters) => (
-                <>
-                  {theaters.map((item, index) => (
-                    <Tag key={index}>{item.theaters}</Tag>
-                  ))}
-                </>
-              )}
-            /> */}
             <Column
               title="예매날짜"
               dataIndex="selectDay"

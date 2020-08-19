@@ -26,22 +26,15 @@ const useStyles = makeStyles((theme) => ({
 const Container = styled.div`
   font-size: 12px;
   min-height: 350px;
-  // border: 1px solid red;
   width: 200px;
 `
 const Image = styled.div`
   background-image: url(${(props) => props.bgUrl});
-
   width: 200px;
-
   height: 300px;
-
   margin-right: 20px;
-
   background-size: cover;
-
   border-radius: 4px;
-
   transition: all 0.1s linear 0s;
 `
 const Rating = styled.span`
@@ -54,31 +47,25 @@ const Rating = styled.span`
 `
 const ImageContainer = styled.div`
   margin-bottom: 5px;
-
   position: relative;
-
   &:hover {
     ${Image} {
       opacity: 0.3;
     }
-
     ${Rating} {
       opacity: 1;
     }
   }
-
   transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
   position: relative;
   transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
   &:hover {
     transform: scale(1.03);
-
     ::after {
       transform: scaleY(1);
       opacity: 1;
     }
   }
-
   &::after {
     content: "";
     position: absolute;
@@ -96,7 +83,6 @@ const ImageContainer = styled.div`
     transition: all 100ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 `
-
 const Title = styled.span`
   font-size: 20px;
   display: flex;
@@ -113,22 +99,18 @@ const Year = styled.span`
   margin-bottom: 0.5rem;
   color: var(--color-primary);
 `
-
 const RatingsWrapper = styled.div`
   position: relative;
   align-items: center;
   margin-bottom: 0.5rem;
   color: var(--color-primary);
-
   ${Container}:hover & {
     color: var(--color-primary-lighter);
   }
 `
-
 const DelBtnContainer = styled.div`
   text-align: center;
 `
-
 const FavoritePoster = ({ onClickDelete, id, imageUrl, title, rating, year, isMovie = false }) => {
   const classes = useStyles()
   return (
@@ -153,12 +135,6 @@ const FavoritePoster = ({ onClickDelete, id, imageUrl, title, rating, year, isMo
       </Link>
       <RatingsWrapper>
         <Title>
-          {/* <DelBtn
-            onClick={() => onClickDelete(id, localStorage.getItem("userId"))}
-          >
-            del
-          </DelBtn> */}
-
           {title.length > 18 ? `${title.substring(0, 8)}...` : title}
         </Title>
         <Year>

@@ -10,18 +10,17 @@ const Test = styled.div`
   margin-top: 10px;
   display: flex;
   overflow-y: hidden;
-  overflow-x: auto; // 스크롤 있는 경우에만 표시
+  overflow-x: auto;
   &::-webkit-scrollbar {
     width: 40px;
     height: 10px;
   }
   &::-webkit-scrollbar-thumb {
-    opacity: 1 important!;
+    opacity: 1;
   }
 `;
 
 const Credits = ({ cast }) => {
-  // console.log(cast)
   const items = cast.map(person => (
     <CastItem person={person} key={person.id} />
   ));

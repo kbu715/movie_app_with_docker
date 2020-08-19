@@ -4,7 +4,6 @@ import { registerUser } from "../../_actions/user_action";
 import "./SignUp.css";
 import { withRouter } from "react-router-dom";
 import Dropzone from "react-dropzone";
-import { PlusOutlined } from "@ant-design/icons";
 import Axios from "axios";
 
 function SignUp(props) {
@@ -48,7 +47,6 @@ function SignUp(props) {
 
     Axios.post("/api/image/uploadfiles", formData, config).then(response => {
       if (response.data.success) {
-        // console.log("22222", response.data.filePath);
         setFilePath(
           response.data.filePath
             ? response.data.filePath
@@ -116,10 +114,6 @@ function SignUp(props) {
                     {...getRootProps()}
                   >
                     <input {...getInputProps()} />
-                    {/* <PlusOutlined
-                      style={{ color: "white", fontSize: "3rem" }}
-                    />
-                    <Icon type="plus" style={{ fontSize: '3rem' }} /> */}
                     <img
                       style={{
                         display: "flex",
@@ -138,33 +132,8 @@ function SignUp(props) {
                   </div>
                 )}
               </Dropzone>
-              {/* {FilePath !== "" && (
-                <div
-                  style={{
-                    display: "flex",
-                    textAlign: "center",
-                    margin: "0px auto",
-                  }}
-                >
-                  <img
-                    style={{
-                      display: "flex",
-                      borderRadius: "70%",
-                      overflow: "hidden",
-                      objectFit: "cover",
-                      border: "2px solid white",
-                      justifyContent: "center",
-                    }}
-                    src={`http://localhost:5000/${FilePath}`}
-                    alt="haha"
-                    width="200rem"
-                    height="200rem"
-                  />
-                </div>
-              )} */}
+              
             </div>
-            {/* <div>{FilePath ? FilePath : "undefined"}</div>
-            <div>{FileName ? FileName : "undefined"}</div> */}
           </div>
           <div className="form-group">
             <label style={{ marginBottom: "5px" }}>이메일</label>
@@ -242,47 +211,3 @@ function SignUp(props) {
 }
 
 export default withRouter(SignUp);
-
-{
-  /* <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
-{({ getRootProps, getInputProps }) => (
-  <div
-    style={{
-      width: "6rem",
-      height: "6rem",
-      border: "1px solid black",
-
-      borderRadius: "20px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      position: "relative",
-      top: "5px",
-      left: "5px",
-      margin: "0 auto",
-    }}
-    {...getRootProps()}
-  >
-    <input {...getInputProps()} />
-
-    <img
-      style={{
-        display: "flex",
-        borderRadius: "30%",
-        justifyContent: "center",
-      }}
-      src={
-        FilePath
-          ? `http://localhost:5000/${FilePath}`
-          : currentImage !== undefined
-          ? `http://localhost:5000/${currentImage}`
-          : `http://localhost:5000/uploads/default.png`
-      }
-      alt="haha"
-      width="110px"
-      height="110px"
-    />
-  </div>
-)}
-</Dropzone> */
-}

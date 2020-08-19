@@ -37,7 +37,6 @@ export default class extends React.Component {
         data: { results: trending },
       } = await moviesApi.trending();
 
-      // throw Error(); 에러 테스트 할때''
       this.setState({
         nowPlaying, //nowPlaying: nowPlaying 이랑 같은 표현
         upcoming,

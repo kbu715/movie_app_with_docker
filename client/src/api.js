@@ -28,13 +28,6 @@ export const moviesApi = {
         query: term,
       },
     }),
-  trending: () => api.get("trending/movie/day"),
-  cast: id =>
-    api.get(`movie/${id}/credits`, {
-      params: {
-        append_to_response: "videos",
-      },
-    }),
   videos: id =>
     api.get(`movie/${id}/videos`, {
       params: {
@@ -47,5 +40,4 @@ export const moviesApi = {
         page : 1,
       },
     }),
- 
 };

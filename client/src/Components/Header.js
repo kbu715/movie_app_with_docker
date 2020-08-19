@@ -53,13 +53,6 @@ const Item = styled.li`
   height: 50px;
   float: right;
   text-align: center;
-  // border-bottom: 5px solid
-  //   ${(props) => (props.current ? "mediumslateblue" : "transparent")};
-  // transition: border-bottom 0.5s ease-in-out;
-  // &:hover {
-  //   background: mediumslateblue;
-  //   cursor: pointer;
-  // }
 `;
 const SLink = styled(Link)`
   font-size: 13px;
@@ -87,7 +80,6 @@ const SLink = styled(Link)`
 `;
 //헤더 색 scroll에따라 변화/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const handleScroll = () => {
-  // //scroll처리
   const windowHeight =
     "innerHeight" in window
       ? window.innerHeight
@@ -104,12 +96,8 @@ const handleScroll = () => {
   const windowBottom = windowHeight + window.pageYOffset;
   var x = document.getElementById("header");
   var y = 0;
-  // console.log("wind:", windowBottom); //308~1542
-  // console.log("doc", docHeight);
-  //메인-1542 // 평가-2520 // 찜 - 600 //검색-2270 //매점 - 500 => 페이지마다 docHeight가 변함
   if (docHeight > 2000) {
     y = 1800;
-    // console.log("doc", docHeight);
   } else if (docHeight > 1000) {
     y = 500;
   } else {
@@ -117,13 +105,10 @@ const handleScroll = () => {
   }
   if (windowBottom < docHeight - y) {
     x.style.backgroundColor = "transparent";
-    // console.log("trans");
   } else if (windowBottom > docHeight - y) {
     x.style.backgroundColor = "#171717";
-    // console.log("black");
   }
 };
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
@@ -192,7 +177,6 @@ export default withRouter(
                     <div
                       style={{
                         display: "flex",
-                        // textAlign: "right",
                         margin: "0px auto",
                       }}
                     >
