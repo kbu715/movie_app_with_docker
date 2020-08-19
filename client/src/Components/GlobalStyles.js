@@ -13,12 +13,12 @@ const globalStyles = createGlobalStyle`
         
     }
     body{
-        font-family: 'Noto Sans KR','Oswald', sans-serif;
+        font-family:“Netflix Sans Icon”;
         font-size:14px;
         background-color:black;
         color:white;
         padding-top:50px;
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Oswald:wght@400;600&display=swap');
+        // @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Oswald:wght@400;600&display=swap');
     }
     
 `;

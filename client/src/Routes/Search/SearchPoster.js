@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
+import { IMAGE_BASE_URL } from "../../Components/Config";
 const Container = styled.div`
   font-size: 12px;
   min-height: 350px;
@@ -10,7 +10,7 @@ const Container = styled.div`
   align-content: center;
 `;
 const Image = styled.div`
-  background-image: url(${(props) => props.bgUrl});
+  background-image: url(${props => props.bgUrl});
 
   width: 280px;
 
@@ -82,23 +82,31 @@ const RatingsWrapper = styled.div`
   }
 `;
 
-const SearchPoster = ({id, imageUrl, title, rating, year, isMovie = false
+const SearchPoster = ({
+  id,
+  imageUrl,
+  title,
+  rating,
+  year,
+  isMovie = false,
 }) => (
   <Link to={`/movie/${id}`}>
-  <Container>
-    <ImageContainer>
-      <Image
-        bgUrl={
-          imageUrl
-            ? `https://image.tmdb.org/t/p/w300${imageUrl}`
-            : "https://www.movienewz.com/img/films/poster-holder.jpg"
-        }
-      />
-    </ImageContainer>
-    <RatingsWrapper>
-      <Title>{title.length > 8 ? `${title.substring(0, 4)}...` : title}</Title>
-    </RatingsWrapper>
-  </Container>
+    <Container>
+      <ImageContainer>
+        <Image
+          bgUrl={
+            imageUrl
+              ? `${IMAGE_BASE_URL}original${imageUrl}`
+              : "https://www.movienewz.com/img/films/poster-holder.jpg"
+          }
+        />
+      </ImageContainer>
+      <RatingsWrapper>
+        <Title>
+          {title.length > 8 ? `${title.substring(0, 4)}...` : title}
+        </Title>
+      </RatingsWrapper>
+    </Container>
   </Link>
 );
 

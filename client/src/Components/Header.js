@@ -5,12 +5,13 @@ import Axios from "axios";
 import { Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
+import { LOCAL_SERVER } from "./Config";
 const Header = styled.header`
-  position: fixed;  
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 65px;  
+  height: 65px;
   display: flex;
   align-items: center;
   z-index: 10;
@@ -54,7 +55,7 @@ const Item = styled.li`
   float: right;
   text-align: center;
   // border-bottom: 5px solid
-  //   ${(props) => (props.current ? "mediumslateblue" : "transparent")};
+  //   ${props => (props.current ? "mediumslateblue" : "transparent")};
   // transition: border-bottom 0.5s ease-in-out;
   // &:hover {
   //   background: mediumslateblue;
@@ -69,12 +70,12 @@ const SLink = styled(Link)`
   justify-content: center;
   &:link {
     text-decoration: none;
-     color: white;
+    color: white;
   }
   &:visited {
     text-decoration: none;
     //color: white;
-    color:#E5E5E5
+    color: #e5e5e5;
   }
   &:active {
     text-decoration: none;
@@ -128,13 +129,13 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector(state => state.user);
     window.addEventListener("scroll", handleScroll);
     const {
       location: { pathname },
     } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then((response) => {
+      Axios.get("/api/users/logout").then(response => {
         if (response.data.success) {
           console.log(response.data);
           props.history.push("/sign-in");
@@ -149,11 +150,11 @@ export default withRouter(
           <List1>
             <Item current={pathname === "/"}>
               <SLink to="/">
-                <img 
-                  src={require("./images/logo.png")} 
+                <img
+                  src={require("./images/logo.png")}
                   alt="logo"
-                  style={{width:"160%", margin:"0 auto", marginTop:"30px"}}
-                  />
+                  style={{ width: "160%", margin: "0 auto", marginTop: "30px" }}
+                />
               </SLink>
             </Item>
             <Item current={pathname === "/search"}>
@@ -196,9 +197,7 @@ export default withRouter(
                         margin: "0px auto",
                       }}
                     >
-                      <span
-                        style={{ textAlign: "center",marginTop:"4px" }}
-                      >
+                      <span style={{ textAlign: "center", marginTop: "4px" }}>
                         {user.userData && user.userData.name.length > 7
                           ? `${user.userData.name.substring(0, 4)}...`
                           : user.userData.name}
@@ -214,8 +213,8 @@ export default withRouter(
                         }}
                         src={
                           user.userData.image
-                            ? `http://localhost:5000/${user.userData.image}`
-                            : "http://localhost:5000/uploads/default.png"
+                            ? `${LOCAL_SERVER}${user.userData.image}`
+                            : `${LOCAL_SERVER}uploads/default.png`
                         }
                         alt="haha"
                         width="25rem"
@@ -236,8 +235,12 @@ export default withRouter(
                   >
                     <Badge
                       count={user.userData && user.userData.cart.length}
-                      style={{ marginBottom: -10 , backgroundColor: "mediumslateblue", fontSize:1}}
-                      offset={[10,10 ]}
+                      style={{
+                        marginBottom: -10,
+                        backgroundColor: "mediumslateblue",
+                        fontSize: 1,
+                      }}
+                      offset={[10, 10]}
                     >
                       <SLink to="/mymovie" className="head-example">
                         <ShoppingCartOutlined
