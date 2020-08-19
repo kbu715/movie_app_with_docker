@@ -125,7 +125,7 @@ const FavoritePoster = ({ onClickDelete, id, imageUrl, title, rating, year, isMo
           <Image
             bgUrl={
               imageUrl
-                ? `${IMAGE_BASE_URL}w500${imageUrl}`
+                ? `${IMAGE_BASE_URL}original${imageUrl}`
                 : "https://www.movienewz.com/img/films/poster-holder.jpg"
             }
           />

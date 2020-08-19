@@ -63,6 +63,10 @@ function UpdateProfile(props) {
     setUpdateName(event.currentTarget.value);
   };
 
+  const handleChangeCurrentPassword = event => {
+    setCurrentPassword(event.currentTarget.value)
+  };
+
   const handleChangeUpdatePassword = event => {
     setUpdatePassword(event.currentTarget.value);
   };
@@ -72,6 +76,13 @@ function UpdateProfile(props) {
   };
 
   const onSubmit = event => {
+    if (currentEmail.includes("(google)") || currentEmail.includes("(kakao)")) {
+      alert("소셜 계정입니다!");
+    }
+    if(currentPassword === ""){
+      alert("현재 비밀번호를 입력하세요")
+    }
+
     event.preventDefault(); //페이지 refresh 방지
     let variable = {
       id: window.localStorage.getItem("userId"),
@@ -80,16 +91,13 @@ function UpdateProfile(props) {
       newPassword: updatePassword !== "" ? updatePassword : currentPassword,
       newImage: FilePath !== "" ? FilePath : currentImage,
     };
-    if (currentEmail.includes("(google)") || currentEmail.includes("(kakao)")) {
-      alert("소셜 계정입니다!");
-    }
+
     if (updatePassword === updatePasswordConfirm) {
       Axios.post("/api/users/updateProfile", variable).then(response => {
         if (response.data.success) {
           alert("변경되었습니다.");
           props.history.push("/");
         } else {
-          alert("잘못된 입력입니다.");
         }
       });
     } else {
@@ -175,6 +183,21 @@ function UpdateProfile(props) {
               placeholder={currentName}
               value={UpdateName}
               onChange={handleChangeCurrentName}
+            />
+          </Form.Item>
+
+          <Form.Item
+            style={{ color: "white" }}
+            label="현 비밀번호"
+            hasFeedback
+            validateStatus="success"
+          >
+            <Input
+              placeholder="현재 비밀번호 입력"
+              value={currentPassword}
+              onChange={handleChangeCurrentPassword}
+              type="password"
+              id="currentPassword"
             />
           </Form.Item>
 

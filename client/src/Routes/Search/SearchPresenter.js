@@ -53,7 +53,7 @@ const SearchPresenter = ({
           <SearchSection title="Movie Results">
             {movieResults.map((movie, index) => (
               <Poster
-              key={index}
+                key={index}
                 id={movie.id}
                 imageUrl={movie.poster_path}
                 title={movie.original_title}
