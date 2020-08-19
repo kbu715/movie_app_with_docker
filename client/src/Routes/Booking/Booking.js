@@ -286,6 +286,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
               <tr>
                 <th style={{ color: "white" }}>좌석</th>
                 <td style={{ width: "75%" }}>
+                  {theater}관
                   {Seat.map((seat, index) => {
                     if (index < Seat.length - 1) {
                       return seat + ", ";
@@ -314,7 +315,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
       {/* **************************************************************************************** */}
       {(theater%2===1)
       ? <SeatWrapper>
-      {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
       <ul className="showcase">
         <li>
           <div className="seat"></div> <Small>빈좌석</Small>
@@ -326,15 +326,11 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
           <div className="seat occupied"></div> <Small>선택완료</Small>
         </li>
       </ul>
-      {/* </InnerWrapper> */}
       <hr
         style={{ color: "white", borderColor: "white", marginLeft: "20px" }}
       />
-      {/* {DBtime === time.time && ( */}
-      {/* <InnerWrapper> */}
       <div className="container">
         <div className="screen"></div>
-        {/* 좌석 */}
         {
           <div className="row">
             {SeatA.map(item => {
@@ -497,11 +493,8 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
           </div>
         }
       </div>
-      {/* </InnerWrapper> */}
-      {/* )} */}
     </SeatWrapper>
       : <SeatWrapper>
-      {/* <InnerWrapper style={{ marginBottom: "30px", marginTop: "2px" }}> */}
       <ul className="showcase">
         <li>
           <div className="seat"></div> <Small>빈좌석</Small>
@@ -513,15 +506,11 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
           <div className="seat occupied"></div> <Small>선택완료</Small>
         </li>
       </ul>
-      {/* </InnerWrapper> */}
       <hr
         style={{ color: "white", borderColor: "white", marginLeft: "20px" }}
       />
-      {/* {DBtime === time.time && ( */}
-      {/* <InnerWrapper> */}
       <div className="container">
         <div className="screen"></div>
-        {/* 좌석 */}
         {
           <div className="row">
             {SeatA2.map(item => {
@@ -684,8 +673,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
           </div>
         }
       </div>
-      {/* </InnerWrapper> */}
-      {/* )} */}
     </SeatWrapper>
       }
       

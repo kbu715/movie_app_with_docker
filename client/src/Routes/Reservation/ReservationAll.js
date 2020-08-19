@@ -46,22 +46,37 @@ const Button1 = styled.button`
   padding: 5px;
   box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
 `;
-const Wrapper = styled.div`
-  /* padding: 5px; */
-  margin: 0 auto;
-  /* border: 1px solid red; */
-  width: max-content;
-  /* height: 50px; */
-  padding: 5px;
-  /* margin-bottom: 10px; */
+//시간 버튼
+const Button2 = styled.button`
+  color: black;
+font-weight: 800;
+  font-size: 15px;
+  margin: 8px;
+  padding: 5px 12px 5px 12px;
+  border: 1px solid gray;
+  &:hover {
+    background: mediumslateblue;
+    cursor: pointer;
+  }
 `;
-const Wrapper2 = styled.div`
-  // border: 1px solid red;
-  // width: 100%;
-  height: 200px;
+const Wrapper = styled.div`
   margin: 0 auto;
+  width: max-content;
   padding: 5px;
-  // vertical-align: middle;
+`;
+const TitleWrapper = styled.div`
+margin-top: 10px;
+margin-bottom: 8px;
+`;
+const Title = styled.span`
+  font-size: 18px;
+  margin: 5px;
+`;
+
+const InnerWrapper = styled.div`
+  min-height:200px;
+  max-width:450px;
+  /* padding-top:10px; */
 `;
 const Continents1 = [
   { key: 1, label: "11:00", value: "11:00" },
@@ -97,7 +112,6 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
     isDisabled: index > 2 ? true : false,
     id: movie.id,
   }));
-
   const movieOptions = [
     {
       options: movieList,
@@ -112,7 +126,6 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
   const [theater, setTheater] = useState(0);
   const [key, setKey] = useState(0);
   const [Distinct, setDistinct] = useState([]);
-
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -150,7 +163,6 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
     setVisible(true);
     setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
   };
-
   useEffect(() => {
     // console.log("유즈이펙트 실행", movie, selectDay, time);
     const movieTitle = {
@@ -183,7 +195,6 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
 
   const countLeftSeats = (time, theater) => {
     let countAllSeats = theater % 2 === 1 ? 55 : 45;
-    // console.log("dddddd");
     let count = 0;
     Distinct &&
       Distinct.forEach(obj => {
@@ -191,8 +202,10 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
           count = count + obj.continent;
         }
       });
-    return <span style={{ color: "black" }}>{countAllSeats - count}</span>;
+      let myColor=(countAllSeats-count)>10? "black" : "red"; 
+      return <span style={{ color: myColor, fontWeight:"500"  }}>{countAllSeats - count}</span>;
   };
+
   return (
     <Popup
       trigger={
@@ -210,9 +223,7 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
         padding: "1%",
         border: "2px solid #848484",
       }}
-      // style={{background:"black"}}
     >
-      {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
         <DatePicker
           value={selectDay}
@@ -231,43 +242,33 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
           onChange={onMovie}
         />
       </Wrapper>
-      {/* <Wrapper>
-        <Select
-          options={groupedOptions}
-          // defaultValue={groupedOptions[1]}
-          placeholder="  시간을 선택해주세요"
-          styles={colourStyles}
-          onChange={onTime}
-        />
-      </Wrapper> */}
-      <Wrapper2>
+      <Wrapper>
         {visible ? (
-          <div>
-            <span>
-              {movie}
-              {key - 1}관
-            </span>
-            <br />
+          <InnerWrapper>
+            <TitleWrapper style={{marginTop:"5px"}}>
+            <Title>
+              {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key - 1}관</span>
+            </Title>
+            </TitleWrapper>
             {Continents1.map((item, index) => (
-              <button
-                key={index}
-                style={{ color: "black" }}
-                onClick={() => {
-                  setTheater(key - 1);
-                  onTime(item.value);
-                }}
-              >
-                {item.label}|{countLeftSeats(item.value, key - 1)}석
-              </button>
+                <Button2
+                  key={index}
+                  style={{ color: "black" }}
+                  onClick={() => {
+                    setTheater(key - 1);
+                    onTime(item.value);
+                  }}
+                >
+                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}석
+                </Button2>
             ))}
-            <br />
-            <span>
-              {movie}
-              {key}관
-            </span>
-            <br />
+            <TitleWrapper>
+            <Title>
+            {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key}관</span> 
+            </Title>
+            </TitleWrapper>
             {Continents2.map((item, index) => (
-              <button
+              <Button2
                 key={index}
                 style={{ color: "black" }}
                 onClick={() => {
@@ -275,19 +276,18 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
                   onTime(item.value);
                 }}
               >
-                {item.label}|{countLeftSeats(item.value, key)}석
-              </button>
+                  {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key)}석
+              </Button2>
             ))}
-          </div>
+          </InnerWrapper>
         ) : (
-          <div style={{ textAlign: "center" }}>
-            <span style={{ fontSize: "20px" }}>
-              클릭하면 영화 시간이 보입니다.
+            <div style={{ textAlign: "center", marginTop:"10px", marginBottom:"10px" }}>
+              <span style={{ fontSize: "20px" }}>
+                클릭하면 영화 시간이 보입니다.
             </span>
-          </div>
-        )}
-      </Wrapper2>
-
+            </div>
+          )}
+      </Wrapper>
       <Wrapper>
         <>
           <Popup

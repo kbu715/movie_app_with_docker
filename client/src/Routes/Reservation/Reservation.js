@@ -34,7 +34,8 @@ const colourStyles = {
     };
   },
 };
-const Button1 = styled.button`
+// 예약 버튼
+const Button1 = styled.button` 
   position: relative;
   color: #9c88ff;
   border: 3px solid #9c88ff;
@@ -46,23 +47,39 @@ const Button1 = styled.button`
   padding: 5px;
   box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
 `;
+//시간 버튼
+const Button2 = styled.button`
+color: black;
+font-weight: 800;
+  font-size: 15px;
+  margin: 8px;
+  padding: 5px 12px 5px 12px;
+  border: 1px solid gray;
+  &:hover {
+    background: mediumslateblue;
+    cursor: pointer;
+  }
+`;
 const Wrapper = styled.div`
-  /* padding: 5px; */
   margin: 0 auto;
-  /* border: 1px solid red; */
   width: max-content;
-  /* height: 50px; */
   padding: 5px;
-  /* margin-bottom: 10px; */
 `;
-const Wrapper2 = styled.div`
-  // border: 1px solid red;
-  // width: 100%;
-  height: 200px;
-  margin: 0 auto;
-  padding: 5px;
-  // vertical-align: middle;
+const TitleWrapper = styled.div`
+margin-top: 10px;
+margin-bottom: 8px;
 `;
+const Title = styled.span`
+  font-size: 18px;
+  margin: 5px;
+`;
+
+const InnerWrapper = styled.div`
+  min-height:200px;
+  max-width:450px;
+  /* padding-top:10px; */
+`;
+
 const Continents1 = [
   { key: 1, label: "11:00", value: "11:00" },
   { key: 2, label: "13:00", value: "13:00" },
@@ -70,8 +87,6 @@ const Continents1 = [
   { key: 4, label: "17:00", value: "17:00" },
   { key: 5, label: "19:00", value: "19:00" },
   { key: 6, label: "21:00", value: "21:00" },
-  { key: 7, label: "23:00", value: "23:00" },
-  { key: 8, label: "01:00", value: "01:00" },
 ];
 const Continents2 = [
   { key: 1, label: "10:00", value: "10:00" },
@@ -80,14 +95,7 @@ const Continents2 = [
   { key: 4, label: "16:00", value: "16:00" },
   { key: 5, label: "18:00", value: "18:00" },
   { key: 6, label: "20:00", value: "20:00" },
-  { key: 7, label: "22:00", value: "22:00" },
-  { key: 8, label: "00:00", value: "00:00" },
 ];
-// const groupedOptions = [
-//   {
-//     options: Continentss,
-//   },
-// ];
 const Reservation = ({ userFrom, nowPlaying }) => {
   const movieList = nowPlaying.map((movie, index) => ({
     key: (index + 1) * 2,
@@ -187,7 +195,8 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           count = count + obj.continent;
         }
       });
-    return <span style={{ color: "black" }}>{countAllSeats - count}</span>;
+      let myColor=(countAllSeats-count)>10? "#2e2e2e" : "red"; 
+    return <span style={{ color: myColor, fontWeight:"500" }}>{countAllSeats - count}석</span>;
   };
 
   return (
@@ -205,9 +214,10 @@ const Reservation = ({ userFrom, nowPlaying }) => {
         width: "500px",
         borderRadius: "10px",
         padding: "1%",
+        // height: "400px",
         border: "2px solid #848484",
       }}
-      // style={{background:"black"}}
+    // style={{background:"black"}}
     >
       {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
@@ -228,53 +238,50 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           onChange={onMovie}
         />
       </Wrapper>
-      <Wrapper2>
+      <Wrapper>
         {visible ? (
-          <div>
-            <span>
-              {movie}
-              {key - 1}관
-            </span>
-            <br />
+          <InnerWrapper>
+            <TitleWrapper style={{marginTop:"5px"}}>
+            <Title>
+              {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key - 1}관</span>
+            </Title>
+            </TitleWrapper>
             {Continents1.map((item, index) => (
-              <button
-                key={index}
-                style={{ color: "black" }}
-                onClick={() => {
-                  setTheater(key - 1);
-                  onTime(item.value);
-                }}
-              >
-                {item.label}|{countLeftSeats(item.value, key - 1)}석
-              </button>
+                <Button2
+                  key={index}
+                  onClick={() => {
+                    setTheater(key - 1);
+                    onTime(item.value);
+                  }}
+                >
+                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}
+                </Button2>
             ))}
-            <br />
-            <span>
-              {movie}
-              {key}관
-            </span>
-            <br />
+            <TitleWrapper>
+            <Title>
+            {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key}관</span> 
+            </Title>
+            </TitleWrapper>
             {Continents2.map((item, index) => (
-              <button
+              <Button2
                 key={index}
-                style={{ color: "black" }}
                 onClick={() => {
                   setTheater(key);
                   onTime(item.value);
                 }}
               >
-                {item.label}|{countLeftSeats(item.value, key)}석
-              </button>
+                  {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key)}
+              </Button2>
             ))}
-          </div>
+          </InnerWrapper>
         ) : (
-          <div style={{ textAlign: "center" }}>
-            <span style={{ fontSize: "20px" }}>
-              클릭하면 영화 시간이 보입니다.
+            <div style={{ textAlign: "center", marginTop:"10px", marginBottom:"10px" }}>
+              <span style={{ fontSize: "20px" }}>
+                클릭하면 영화 시간이 보입니다.
             </span>
-          </div>
-        )}
-      </Wrapper2>
+            </div>
+          )}
+      </Wrapper>
       <Wrapper>
         <>
           <Popup
