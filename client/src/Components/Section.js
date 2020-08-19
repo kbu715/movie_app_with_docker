@@ -30,6 +30,7 @@ const TitleSub = styled.a`
   transition: all 0.2s ease 0s;
 `;
 const Grid = styled.div`
+
   margin-top: 30px;
   display: flex;
   border-radius: 0.8rem;
@@ -38,13 +39,18 @@ const Grid = styled.div`
   height: 10%;
   overflow-x: auto;
   overflow-y: hidden;
+  
   &::-webkit-scrollbar {
-    width: 40px;
+    
+    width: 10px;
     height: 6px;
+   
   }
   &::-webkit-scrollbar-thumb {
-    background-color: mediumslateblue;
+    background-color:  mediumslateblue;
+  
   }
+
 `;
 const Section = (
   { title, children, nowPlaying } // children 예약된 react prop
