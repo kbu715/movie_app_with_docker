@@ -36,8 +36,8 @@ const colourStyles = {
 };
 const Button1 = styled.button`
   position: relative;
-  color: rgb(120, 205, 1);
-  border: 3px solid rgb(120, 205, 1);
+  color: #61dbfb;
+  border: 3px solid #61dbfb;
   border-radius: 5px;
   font-size: 18px;
   font-weight: 600;

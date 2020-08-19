@@ -5,13 +5,12 @@ import Axios from "axios";
 import { Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-
 const Header = styled.header`
-  position: fixed;
+  position: fixed;  
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 65px;  
   display: flex;
   align-items: center;
   z-index: 10;
@@ -54,15 +53,13 @@ const Item = styled.li`
   height: 50px;
   float: right;
   text-align: center;
-  border-bottom: 5px solid
-  
-    ${(props) => (props.current ? "mediumslateblue" : "transparent")};
-  transition: border-bottom 0.5s ease-in-out;
-
-  &:hover {
-    background: mediumslateblue;
-    cursor: pointer;
-  }
+  // border-bottom: 5px solid
+  //   ${(props) => (props.current ? "mediumslateblue" : "transparent")};
+  // transition: border-bottom 0.5s ease-in-out;
+  // &:hover {
+  //   background: mediumslateblue;
+  //   cursor: pointer;
+  // }
 `;
 const SLink = styled(Link)`
   font-size: 13px;
@@ -72,11 +69,12 @@ const SLink = styled(Link)`
   justify-content: center;
   &:link {
     text-decoration: none;
-    color: white;
+     color: white;
   }
   &:visited {
     text-decoration: none;
-    color: white;
+    //color: white;
+    color:#E5E5E5
   }
   &:active {
     text-decoration: none;
@@ -87,7 +85,6 @@ const SLink = styled(Link)`
     color: white;
   }
 `;
-
 //헤더 색 scroll에따라 변화/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const handleScroll = () => {
   // //scroll처리
@@ -105,15 +102,11 @@ const handleScroll = () => {
     html.offsetHeight
   );
   const windowBottom = windowHeight + window.pageYOffset;
-
   var x = document.getElementById("header");
   var y = 0;
-
   // console.log("wind:", windowBottom); //308~1542
   // console.log("doc", docHeight);
-
   //메인-1542 // 평가-2520 // 찜 - 600 //검색-2270 //매점 - 500 => 페이지마다 docHeight가 변함
-
   if (docHeight > 2000) {
     y = 1800;
     // console.log("doc", docHeight);
@@ -122,29 +115,24 @@ const handleScroll = () => {
   } else {
     y = 1;
   }
-
   if (windowBottom < docHeight - y) {
     x.style.backgroundColor = "transparent";
     // console.log("trans");
   } else if (windowBottom > docHeight - y) {
-    x.style.backgroundColor = "black";
+    x.style.backgroundColor = "#171717";
     // console.log("black");
   }
 };
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
     const user = useSelector((state) => state.user);
     window.addEventListener("scroll", handleScroll);
-
     const {
       location: { pathname },
     } = props;
-
     const logoutHandler = () => {
       Axios.get("/api/users/logout").then((response) => {
         if (response.data.success) {
@@ -155,13 +143,18 @@ export default withRouter(
         }
       });
     };
-
     return (
       <>
         <Header id="header">
           <List1>
             <Item current={pathname === "/"}>
-              <SLink to="/">홈</SLink>
+              <SLink to="/">
+                <img 
+                  src={require("./images/logo.png")} 
+                  alt="logo"
+                  style={{width:"160%", margin:"0 auto", marginTop:"30px"}}
+                  />
+              </SLink>
             </Item>
             <Item current={pathname === "/search"}>
               <SLink to="/search">검색</SLink>
@@ -255,7 +248,6 @@ export default withRouter(
                   </div>
                 )}
               </Item>
-
               <Item>
                 <SLink to="/login" onClick={logoutHandler}>
                   로그아웃

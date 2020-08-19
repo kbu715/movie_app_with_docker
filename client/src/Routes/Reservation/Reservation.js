@@ -161,11 +161,9 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           let seatlist = [];
           response.data.seats.forEach(obj => {
             if (
-              // obj.time[0].time === time.time &&
               obj.selectDay[0].day === selectDay.day &&
               obj.selectDay[0].month === selectDay.month &&
               obj.selectDay[0].year === selectDay.year
-              // obj.theater === theater
             ) {
               seatlist.push(obj);
             }
