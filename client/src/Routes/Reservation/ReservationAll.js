@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "./style.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
@@ -7,6 +7,7 @@ import BookingAll from "../Booking/BookingAll";
 import DatePicker, { utils } from "react-modern-calendar-datepicker";
 import Select from "react-select";
 import styled from "styled-components";
+import axios from "axios";
 const colourStyles = {
   control: styles => ({
     ...styles,
@@ -45,22 +46,37 @@ const Button1 = styled.button`
   padding: 5px;
   box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
 `;
-const Wrapper = styled.div`
-  /* padding: 5px; */
-  margin: 0 auto;
-  /* border: 1px solid red; */
-  width: max-content;
-  /* height: 50px; */
-  padding: 5px;
-  /* margin-bottom: 10px; */
+//시간 버튼
+const Button2 = styled.button`
+  color: black;
+font-weight: 800;
+  font-size: 15px;
+  margin: 8px;
+  padding: 5px 12px 5px 12px;
+  border: 1px solid gray;
+  &:hover {
+    background: mediumslateblue;
+    cursor: pointer;
+  }
 `;
-const Wrapper2 = styled.div`
-  // border: 1px solid red;
-  // width: 100%;
-  height: 200px;
+const Wrapper = styled.div`
   margin: 0 auto;
+  width: max-content;
   padding: 5px;
-  // vertical-align: middle;
+`;
+const TitleWrapper = styled.div`
+margin-top: 10px;
+margin-bottom: 8px;
+`;
+const Title = styled.span`
+  font-size: 18px;
+  margin: 5px;
+`;
+
+const InnerWrapper = styled.div`
+  min-height:200px;
+  max-width:450px;
+  /* padding-top:10px; */
 `;
 const Continents1 = [
   { key: 1, label: "11:00", value: "11:00" },
@@ -72,16 +88,15 @@ const Continents1 = [
   { key: 7, label: "23:00", value: "23:00" },
   { key: 8, label: "01:00", value: "01:00" },
 ];
-
 const Continents2 = [
-  { key: 1, label: "11:00", value: "11:00" },
-  { key: 2, label: "13:00", value: "13:00" },
-  { key: 3, label: "15:00", value: "15:00" },
-  { key: 4, label: "17:00", value: "17:00" },
-  { key: 5, label: "19:00", value: "19:00" },
-  { key: 6, label: "21:00", value: "21:00" },
-  { key: 7, label: "23:00", value: "23:00" },
-  { key: 8, label: "01:00", value: "01:00" },
+  { key: 1, label: "10:00", value: "10:00" },
+  { key: 2, label: "12:00", value: "12:00" },
+  { key: 3, label: "14:00", value: "14:00" },
+  { key: 4, label: "16:00", value: "16:00" },
+  { key: 5, label: "18:00", value: "18:00" },
+  { key: 6, label: "20:00", value: "20:00" },
+  { key: 7, label: "22:00", value: "22:00" },
+  { key: 8, label: "00:00", value: "00:00" },
 ];
 // const groupedOptions = [
 //   {
@@ -97,20 +112,21 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
     isDisabled: index > 2 ? true : false,
     id: movie.id,
   }));
-
   const movieOptions = [
     {
       options: movieList,
     },
   ];
   const [selectDay, setSelectedDay] = useState(null);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState("");
   const [movie, setMovie] = useState("");
   const [poster, setPoster] = useState("");
   const [id, setID] = useState(0);
   const [visible, setVisible] = useState(false);
   const [theater, setTheater] = useState(0);
   const [key, setKey] = useState(0);
+  const [Distinct, setDistinct] = useState([]);
+  
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -148,6 +164,49 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
     setVisible(true);
     setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
   };
+  useEffect(() => {
+    // console.log("유즈이펙트 실행", movie, selectDay, time);
+    const movieTitle = {
+      title: movie,
+    };
+    axios
+      .post("/api/reservation/findSeat", movieTitle)
+      .then(response => {
+        if (response.data.success) {
+          let seatlist = [];
+          response.data.seats.forEach(obj => {
+            if (
+              // obj.time[0].time === time.time &&
+              obj.selectDay[0].day === selectDay.day &&
+              obj.selectDay[0].month === selectDay.month &&
+              obj.selectDay[0].year === selectDay.year
+              // obj.theater === theater
+            ) {
+              seatlist.push(obj);
+            }
+          });
+          // console.log("22222", seatlist);
+          setDistinct(seatlist);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [movie, selectDay, time, theater]);
+
+  const countLeftSeats = (time, theater) => {
+    let countAllSeats = theater % 2 === 1 ? 55 : 45;
+    let count = 0;
+    Distinct &&
+      Distinct.forEach(obj => {
+        if (obj.time[0].time === time && obj.theater === theater) {
+          count = count + obj.continent;
+        }
+      });
+      let myColor=(countAllSeats-count)>10? "black" : "red"; 
+      return <span style={{ color: myColor, fontWeight:"500"  }}>{countAllSeats - count}</span>;
+  };
+
   return (
     <Popup
       trigger={
@@ -165,9 +224,7 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
         padding: "1%",
         border: "2px solid #848484",
       }}
-      // style={{background:"black"}}
     >
-      {/* <Grid container style={{ background: "#242333"}}> */}
       <Wrapper>
         <DatePicker
           value={selectDay}
@@ -186,63 +243,52 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
           onChange={onMovie}
         />
       </Wrapper>
-      {/* <Wrapper>
-        <Select
-          options={groupedOptions}
-          // defaultValue={groupedOptions[1]}
-          placeholder="  시간을 선택해주세요"
-          styles={colourStyles}
-          onChange={onTime}
-        />
-      </Wrapper> */}
-      <Wrapper2>
+      <Wrapper>
         {visible ? (
-          <div>
-                        <span>
-              {movie}
-              {key - 1}관
-            </span>
-            <br />
+          <InnerWrapper>
+            <TitleWrapper style={{marginTop:"5px"}}>
+            <Title>
+              {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key - 1}관</span>
+            </Title>
+            </TitleWrapper>
             {Continents1.map((item, index) => (
-              <button
-              key={index}
-                style={{ color: "black" }}
-                onClick={() => {
-                  setTheater(key-1);
-                  onTime(item.value);
-                }}
-              >
-                {item.label}
-              </button>
+                <Button2
+                  key={index}
+                  style={{ color: "black" }}
+                  onClick={() => {
+                    setTheater(key - 1);
+                    onTime(item.value);
+                  }}
+                >
+                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}석
+                </Button2>
             ))}
-            <br />
-            <span>
-              {movie}
-              {key}관
-            </span>
-            <br />
+            <TitleWrapper>
+            <Title>
+            {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key}관</span> 
+            </Title>
+            </TitleWrapper>
             {Continents2.map((item, index) => (
-              <button
-              key={index}
+              <Button2
+                key={index}
                 style={{ color: "black" }}
                 onClick={() => {
                   setTheater(key);
                   onTime(item.value);
                 }}
               >
-                {item.label}
-              </button>
+                  {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key)}석
+              </Button2>
             ))}
-          </div>
+          </InnerWrapper>
         ) : (
-          <div style={{ textAlign: "center" }}>
-            <span style={{ fontSize: "20px" }}>
-              클릭하면 영화 시간이 보입니다.
+            <div style={{ textAlign: "center", marginTop:"10px", marginBottom:"10px" }}>
+              <span style={{ fontSize: "20px" }}>
+                클릭하면 영화 시간이 보입니다.
             </span>
-          </div>
-        )}
-      </Wrapper2>
-
+            </div>
+          )}
+      </Wrapper>
       <Wrapper>
         <>
           <Popup
