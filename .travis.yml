@@ -1,14 +1,11 @@
 language: generic
-
 sudo: required
 
-services:
-    - docker
+services:  - docker
+before_install:  
+    - docker build -t pjw6531/react-test-app -f ./frontend/Dockerfile.dev ./client
 
-before_install:
-    - docker build -t pjw6531/react-test-app -f ./client/Dockerfile.dev ./client
-
-script:
+script:  
     - docker run -e CI=true pjw6531/react-test-app npm run test
 
 after_success:
