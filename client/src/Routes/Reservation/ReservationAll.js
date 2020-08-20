@@ -47,7 +47,7 @@ const Button1 = styled.button`
 //시간 버튼
 const Button2 = styled.button`
   color: black;
-font-weight: 800;
+  font-weight: 800;
   font-size: 15px;
   margin: 8px;
   padding: 5px 12px 5px 12px;
@@ -55,6 +55,9 @@ font-weight: 800;
   &:hover {
     background: mediumslateblue;
     cursor: pointer;
+  }
+  &:focus {
+    background: mediumslateblue;
   }
 `;
 const Wrapper = styled.div`

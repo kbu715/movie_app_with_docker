@@ -33,7 +33,7 @@ const colourStyles = {
   },
 };
 // 예약 버튼
-const Button1 = styled.button` 
+const Button1 = styled.button`
   position: relative;
   color: #9c88ff;
   border: 3px solid #9c88ff;
@@ -47,8 +47,8 @@ const Button1 = styled.button`
 `;
 //시간 버튼
 const Button2 = styled.button`
-color: black;
-font-weight: 800;
+  color: black;
+  font-weight: 800;
   font-size: 15px;
   margin: 8px;
   padding: 5px 12px 5px 12px;
@@ -57,6 +57,9 @@ font-weight: 800;
     background: mediumslateblue;
     cursor: pointer;
   }
+  &:focus {
+    background: mediumslateblue;
+  }
 `;
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -64,8 +67,8 @@ const Wrapper = styled.div`
   padding: 5px;
 `;
 const TitleWrapper = styled.div`
-margin-top: 10px;
-margin-bottom: 8px;
+  margin-top: 10px;
+  margin-bottom: 8px;
 `;
 const Title = styled.span`
   font-size: 18px;
@@ -73,8 +76,8 @@ const Title = styled.span`
 `;
 
 const InnerWrapper = styled.div`
-  min-height:200px;
-  max-width:450px;
+  min-height: 200px;
+  max-width: 450px;
 `;
 
 const Continents1 = [
@@ -116,7 +119,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
   const [theater, setTheater] = useState(0);
   const [key, setKey] = useState(0);
   const [Distinct, setDistinct] = useState([]);
-
+  const [select, setSelect] = useState([]);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -149,6 +152,11 @@ const Reservation = ({ userFrom, nowPlaying }) => {
     setID(event.id);
     setVisible(true);
     setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
+    let arr = [];
+    Continents1.forEach(item => {
+      arr.push(false);
+    });
+    setSelect(arr);
   };
 
   useEffect(() => {
@@ -185,8 +193,12 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           count = count + obj.continent;
         }
       });
-      let myColor=(countAllSeats-count)>10? "#2e2e2e" : "red"; 
-    return <span style={{ color: myColor, fontWeight:"500" }}>{countAllSeats - count}석</span>;
+    let myColor = countAllSeats - count > 10 ? "#2e2e2e" : "red";
+    return (
+      <span style={{ color: myColor, fontWeight: "500" }}>
+        {countAllSeats - count}석
+      </span>
+    );
   };
 
   return (
@@ -227,27 +239,29 @@ const Reservation = ({ userFrom, nowPlaying }) => {
       <Wrapper>
         {visible ? (
           <InnerWrapper>
-            <TitleWrapper style={{marginTop:"5px"}}>
-            <Title>
-              {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key - 1}관</span>
-            </Title>
+            <TitleWrapper style={{ marginTop: "5px" }}>
+              <Title>
+                {movie}&nbsp;&nbsp;|&nbsp;&nbsp;
+                <span style={{ color: "#d8d8d8" }}>{key - 1}관</span>
+              </Title>
             </TitleWrapper>
             {Continents1.map((item, index) => (
-                <Button2
-                  key={index}
-                  onClick={(props) => {
-                    setTheater(key - 1);
-                    onTime(item.value);
-                    props.currentTarget.style.backgroundColor="mediumslateblue"
-                  }}
-                >
-                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}
-                </Button2>
+              <Button2
+                key={index}
+                onClick={() => {
+                  setTheater(key - 1);
+                  onTime(item.value);
+                }}
+              >
+                {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                {countLeftSeats(item.value, key - 1)}
+              </Button2>
             ))}
             <TitleWrapper>
-            <Title>
-            {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key}관</span> 
-            </Title>
+              <Title>
+                {movie}&nbsp;&nbsp;|&nbsp;&nbsp;
+                <span style={{ color: "#d8d8d8" }}>{key}관</span>
+              </Title>
             </TitleWrapper>
             {Continents2.map((item, index) => (
               <Button2
@@ -257,17 +271,24 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                   onTime(item.value);
                 }}
               >
-                  {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key)}
+                {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                {countLeftSeats(item.value, key)}
               </Button2>
             ))}
           </InnerWrapper>
         ) : (
-            <div style={{ textAlign: "center", marginTop:"10px", marginBottom:"10px" }}>
-              <span style={{ fontSize: "20px" }}>
-                클릭하면 영화 시간이 보입니다.
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            <span style={{ fontSize: "20px" }}>
+              클릭하면 영화 시간이 보입니다.
             </span>
-            </div>
-          )}
+          </div>
+        )}
       </Wrapper>
       <Wrapper>
         <>
