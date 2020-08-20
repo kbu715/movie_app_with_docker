@@ -119,7 +119,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
   const [theater, setTheater] = useState(0);
   const [key, setKey] = useState(0);
   const [Distinct, setDistinct] = useState([]);
-
+  const [select, setSelect] = useState([]);
   const renderCustomInput = ({ ref }) => (
     <input
       readOnly
@@ -152,6 +152,11 @@ const Reservation = ({ userFrom, nowPlaying }) => {
     setID(event.id);
     setVisible(true);
     setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
+    let arr = [];
+    Continents1.forEach(item => {
+      arr.push(false);
+    });
+    setSelect(arr);
   };
 
   useEffect(() => {

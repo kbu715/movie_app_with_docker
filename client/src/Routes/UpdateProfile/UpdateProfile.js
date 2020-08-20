@@ -55,9 +55,11 @@ function UpdateProfile(props) {
   const handleChangeCurrentName = event => {
     setUpdateName(event.currentTarget.value);
   };
+
   const handleChangeCurrentPassword = event => {
     setCurrentPassword(event.currentTarget.value)
   };
+
   const handleChangeUpdatePassword = event => {
     setUpdatePassword(event.currentTarget.value);
   };
@@ -186,6 +188,21 @@ function UpdateProfile(props) {
               id="currentPassword"
             />
           </Form.Item>
+          <Form.Item
+            style={{ color: "white" }}
+            label="현 비밀번호"
+            hasFeedback
+            validateStatus="success"
+          >
+            <Input
+              placeholder="현재 비밀번호 입력"
+              value={currentPassword}
+              onChange={handleChangeCurrentPassword}
+              type="password"
+              id="currentPassword"
+            />
+          </Form.Item>
+
           <Form.Item
             style={{ color: "white" }}
             label="새 비밀번호"

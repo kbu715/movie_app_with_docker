@@ -52,7 +52,7 @@ function MyScore() {
       .post("/api/myscore/myCount", {
         userFrom: localStorage.getItem("userId"),
       })
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           setCount(response.data.obj.length);
         } else {
@@ -61,17 +61,17 @@ function MyScore() {
       });
   }, []);
 
-  const fetchMovies = (endpoint) => {
+  const fetchMovies = endpoint => {
     //2. 영화불러오는 func
     fetch(endpoint)
-      .then((result) => result.json())
-      .then((result) => {
+      .then(result => result.json())
+      .then(result => {
         let temp = result.results;
-        let newResult = temp.filter((item) => item.adult === false);
+        let newResult = temp.filter(item => item.adult === false);
         setMovies([...Movies, ...newResult]);
         setCurrentPage(result.page);
       }, setLoading(false))
-      .catch((error) => console.error("Error:", error));
+      .catch(error => console.error("Error:", error));
   };
 
   const loadMoreItems = () => {

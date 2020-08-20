@@ -6,7 +6,6 @@ import Loader from "Components/Loader";
 import Message from "../../Components/Message";
 import Poster from "./SearchPoster";
 import SearchSection from "./SearchSection";
-
 const Container = styled.div`
   padding: 20px;
 `;
