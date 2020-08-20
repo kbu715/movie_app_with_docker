@@ -1,30 +1,3 @@
-// import React from "react";
-// import { Grid, withStyles } from "@material-ui/core";
-// import AccountProfile from "./AccountProfile/AccountProfile";
-// import AccountDetails from "./AccountDetails/AccountDetails";
-// const styles = (theme) => ({
-//   root: {
-//     padding: theme.spacing(4),
-//   },
-// });
-
-// function UpdateProfile(props) {
-//   return (
-//     <div>
-//       <Grid container spacting={4}>
-//         <Grid item lg={4} md={6} xl={4} xs={12}>
-//           <AccountProfile ap={props.user.userData && props.user.userData} />
-//         </Grid>
-//         <Grid item lg={8} md={6} xl={8} xs={12}>
-//           <AccountDetails ad={props.user.userData && props.user.userData} />
-//         </Grid>
-//       </Grid>
-//     </div>
-//   );
-// }
-
-// export default withStyles(styles)(UpdateProfile);
-
 import React, { useState, useEffect } from "react";
 import { Typography, Form, Input } from "antd";
 
@@ -54,16 +27,15 @@ function UpdateProfile(props) {
   const [currentName, setCurrentName] = useState("");
   const [currentImage, setCurrentImage] = useState("");
   const [UpdateName, setUpdateName] = useState("");
+  
 
   useEffect(() => {
     Axios.post("/api/users/getUserInfo", {
       userId: localStorage.getItem("userId"),
     }).then(response => {
       if (response.data.success) {
-        console.log(99, response.data);
         setCurrentEmail(response.data.user[0].email);
         setCurrentName(response.data.user[0].name);
-        // console.log(response.data.user[0].image);
         setCurrentImage(response.data.user[0].image);
       } else {
         alert("user 정보를 갖고오는데 실패했습니다.");
@@ -76,13 +48,10 @@ function UpdateProfile(props) {
     const config = {
       header: { "content-type": "multipart/form-data" },
     };
-    console.log(files);
     formData.append("file", files[0]);
 
     Axios.post("/api/image/uploadfiles", formData, config).then(response => {
       if (response.data.success) {
-        console.log(response.data);
-
         setFilePath(response.data.filePath);
       } else {
         alert("failed to save the video in server");
@@ -94,6 +63,10 @@ function UpdateProfile(props) {
     setUpdateName(event.currentTarget.value);
   };
 
+  const handleChangeCurrentPassword = event => {
+    setCurrentPassword(event.currentTarget.value)
+  };
+
   const handleChangeUpdatePassword = event => {
     setUpdatePassword(event.currentTarget.value);
   };
@@ -103,8 +76,14 @@ function UpdateProfile(props) {
   };
 
   const onSubmit = event => {
+    if (currentEmail.includes("(google)") || currentEmail.includes("(kakao)")) {
+      alert("소셜 계정입니다!");
+    }
+    if(currentPassword === ""){
+      alert("현재 비밀번호를 입력하세요")
+    }
+
     event.preventDefault(); //페이지 refresh 방지
-    console.log("들어왔다");
     let variable = {
       id: window.localStorage.getItem("userId"),
       password: currentPassword,
@@ -112,18 +91,13 @@ function UpdateProfile(props) {
       newPassword: updatePassword !== "" ? updatePassword : currentPassword,
       newImage: FilePath !== "" ? FilePath : currentImage,
     };
-    if (currentEmail.includes("(google)") || currentEmail.includes("(kakao)")) {
-      alert("소셜 계정입니다!");
-    }
+
     if (updatePassword === updatePasswordConfirm) {
-      // console.log("2222222");
       Axios.post("/api/users/updateProfile", variable).then(response => {
-        console.log(response.data);
         if (response.data.success) {
           alert("변경되었습니다.");
           props.history.push("/");
         } else {
-          alert("잘못된 입력입니다.");
         }
       });
     } else {
@@ -169,24 +143,6 @@ function UpdateProfile(props) {
                 {...getRootProps()}
               >
                 <input {...getInputProps()} />
-
-                {/* <UserOutlined style={{ color: "white", fontSize: "1rem" }} /> */}
-                {/* <img
-                  style={{
-                    borderRadius: "70%",
-                    overflow: "hidden",
-                    objectFit: "cover",
-                    justifyContent: "center",
-                  }}
-                  src={
-                    currentImage
-                      ? `http://localhost:5000/${currentImage.image}`
-                      : "http://localhost:5000/uploads/default.png"
-                  }
-                  alt="haha"
-                  width="80rem"
-                  height="90rem"
-                /> */}
                 <img
                   style={{
                     display: "flex",
@@ -227,6 +183,21 @@ function UpdateProfile(props) {
               placeholder={currentName}
               value={UpdateName}
               onChange={handleChangeCurrentName}
+            />
+          </Form.Item>
+
+          <Form.Item
+            style={{ color: "white" }}
+            label="현 비밀번호"
+            hasFeedback
+            validateStatus="success"
+          >
+            <Input
+              placeholder="현재 비밀번호 입력"
+              value={currentPassword}
+              onChange={handleChangeCurrentPassword}
+              type="password"
+              id="currentPassword"
             />
           </Form.Item>
 

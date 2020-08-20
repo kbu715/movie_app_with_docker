@@ -10,18 +10,10 @@ function ProductInfo(props) {
   const clickHandler = () => {
     //카트에 넣으면 필요한 정보를 넣어준다.
     dispatch(addToCart(props.detail._id));
+    alert("카트에 추가했습니다.")
   };
   return (
     <div style={{ height:"50%", marginLeft:"5%", marginTop:"10%"}}>
-      {/* <Descriptions title="상품정보" bordered style={{border:"1px solid red", backgroundColor:"#f7f7f7"}}>
-        <Descriptions.Item label="가격" ><span style={{color:"#2e2e2e", }}>{props.detail.price}</span></Descriptions.Item>
-        <Descriptions.Item label="Sold"><span style={{color:"#2e2e2e", }}>{props.detail.sold}</span></Descriptions.Item>
-        <Descriptions.Item label="View"><span style={{color:"#2e2e2e", }}>{props.detail.views}</span></Descriptions.Item>
-        <Descriptions.Item label="Description"><span style={{color:"#2e2e2e"}}>
-          {props.detail.description}
-        </span>
-        </Descriptions.Item>
-      </Descriptions> */}
       <table style={{ borderCollapse: "collapse", width:"100%", height:"100%", borderTop:"1px solid white" }}>
             <tbody>
               <tr style={{}}>
