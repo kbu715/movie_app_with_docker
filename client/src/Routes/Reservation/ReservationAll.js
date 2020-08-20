@@ -245,7 +245,7 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
                     onTime(item.value);
                   }}
                 >
-                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}석
+                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}
                 </Button2>
             ))}
             <TitleWrapper>
@@ -262,7 +262,7 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
                   onTime(item.value);
                 }}
               >
-                  {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key)}석
+                  {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key)}
               </Button2>
             ))}
           </InnerWrapper>

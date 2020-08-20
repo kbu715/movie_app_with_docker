@@ -237,6 +237,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
         <InnerWrapper
           style={{
             height: "200px",
+            width:"250px",
             display: "flex",
             flexDirection: "column",
             fontSize: "17px",
