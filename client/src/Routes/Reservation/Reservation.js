@@ -116,6 +116,8 @@ const Reservation = ({ userFrom, nowPlaying }) => {
   const [theater, setTheater] = useState(0);
   const [key, setKey] = useState(0);
   const [Distinct, setDistinct] = useState([]);
+  const [buttonState, setButtonState] = useState(false);
+  // const [compareButtonState, setCompareButtonState] = useState(true);
 
   const renderCustomInput = ({ ref }) => (
     <input
@@ -140,7 +142,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
       className="my-custom-input-class"
     />
   );
-  const onTime = value => {
+  const onTime = (value) => {
     setTime({ time: value });
   };
   const onMovie = event => {
@@ -185,9 +187,27 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           count = count + obj.continent;
         }
       });
-      let myColor=(countAllSeats-count)>10? "#2e2e2e" : "red"; 
-    return <span style={{ color: myColor, fontWeight:"500" }}>{countAllSeats - count}석</span>;
+    let myColor = (countAllSeats - count) > 10 ? "#2e2e2e" : "red";
+    return <span style={{ color: myColor, fontWeight: "500" }}>{countAllSeats - count}석</span>;
   };
+
+  const setEffect = (props) => {
+
+    buttonState
+    ? buttonStateFalse(props)
+    : buttonStateTrue(props)
+  }
+
+  const buttonStateFalse = (props) => {
+    setButtonState(false)
+    props.currentTarget.style.backgroundColor = "mediumslateblue"
+    props.currentTarget.style.outline = "none"
+  }
+  const buttonStateTrue = (props) => {
+    setButtonState(true);
+    props.currentTarget.style.backgroundColor = "white"
+    props.currentTarget.style.outline = "none"
+  }
 
   return (
     <Popup
@@ -227,42 +247,46 @@ const Reservation = ({ userFrom, nowPlaying }) => {
       <Wrapper>
         {visible ? (
           <InnerWrapper>
-            <TitleWrapper style={{marginTop:"5px"}}>
-            <Title>
-              {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key - 1}관</span>
-            </Title>
+            <TitleWrapper style={{ marginTop: "5px" }}>
+              <Title>
+                {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{ color: "#d8d8d8" }}>{key - 1}관</span>
+              </Title>
             </TitleWrapper>
             {Continents1.map((item, index) => (
-                <Button2
-                  key={index}
-                  onClick={(props) => {
-                    setTheater(key - 1);
-                    onTime(item.value);
-                    props.currentTarget.style.backgroundColor="mediumslateblue"
-                  }}
-                >
-                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}
-                </Button2>
+              <Button2
+                id="timeButton"
+                key={index}
+                onClick={(props) => {
+                  setTheater(key - 1);
+                  onTime(item.value);
+                  setEffect(props);
+                }}
+              >
+                {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}
+              </Button2>
             ))}
             <TitleWrapper>
-            <Title>
-            {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{color:"#d8d8d8"}}>{key}관</span> 
-            </Title>
+              <Title>
+                {movie}&nbsp;&nbsp;|&nbsp;&nbsp;<span style={{ color: "#d8d8d8" }}>{key}관</span>
+              </Title>
             </TitleWrapper>
             {Continents2.map((item, index) => (
               <Button2
                 key={index}
-                onClick={() => {
+                onClick={(props) => {
                   setTheater(key);
                   onTime(item.value);
+                  buttonState
+                    ? buttonStateFalse(props)
+                    : buttonStateTrue(props);
                 }}
               >
-                  {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key)}
+                {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key)}
               </Button2>
             ))}
           </InnerWrapper>
         ) : (
-            <div style={{ textAlign: "center", marginTop:"10px", marginBottom:"10px" }}>
+            <div style={{ textAlign: "center", marginTop: "10px", marginBottom: "10px" }}>
               <span style={{ fontSize: "20px" }}>
                 클릭하면 영화 시간이 보입니다.
             </span>
