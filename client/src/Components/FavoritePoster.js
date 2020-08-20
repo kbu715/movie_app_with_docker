@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Ratingg from "../Components/Rating";
+// import Ratingg from "../Components/Rating";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -143,7 +143,7 @@ const FavoritePoster = ({ onClickDelete, id, imageUrl, title, rating, year, isMo
           {title.length > 18 ? `${title.substring(0, 8)}...` : title}
         </Title>
         <Year>
-          <Ratingg number={rating / 2} myColor="white" />
+          {/* <Ratingg number={rating / 2} myColor="white" /> */}
         </Year>
       </RatingsWrapper>
       <DelBtnContainer>

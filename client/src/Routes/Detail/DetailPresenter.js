@@ -153,18 +153,11 @@ const DetailPresenter = ({
           {result.title ? result.title : result.original_name} | Nomflix
         </title>
       </Helmet>
-      <Backdrop
-        bgImage={`${IMAGE_BASE_URL}original${result.backdrop_path}`}
-      />
+      <Backdrop bgImage={`${IMAGE_BASE_URL}original${result.backdrop_path}`} />
       <Content>
-        <Cover
-          bgImage={`${IMAGE_BASE_URL}original${result.poster_path}`}
-        />
+        <Cover bgImage={`${IMAGE_BASE_URL}original${result.poster_path}`} />
         <Data>
-          <Title>
-            {isMovie ? result.title : result.name}
-
-          </Title>
+          <Title>{isMovie ? result.title : result.name}</Title>
 
           <ItemContainer>
             <Item>
@@ -197,10 +190,10 @@ const DetailPresenter = ({
               userFrom={localStorage.getItem("userId")}
             />
 
-            <RatingsWrapper>
+            {/* <RatingsWrapper>
               <Rating number={result.vote_average / 2} />
               <RatingNumber>{result.vote_average}</RatingNumber>
-            </RatingsWrapper>
+            </RatingsWrapper> */}
           </ItemContainer>
 
           <Overview>{result.overview}</Overview>
