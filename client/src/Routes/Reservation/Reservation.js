@@ -10,7 +10,7 @@ import styled from "styled-components";
 import Axios from "axios";
 
 const colourStyles = {
-  control: styles => ({
+  control: (styles) => ({
     ...styles,
     backgroundColor: "white",
     borderRadius: "1rem",
@@ -53,6 +53,7 @@ const Button2 = styled.button`
   margin: 8px;
   padding: 5px 12px 5px 12px;
   border: 1px solid gray;
+  outline: none;
   &:hover {
     background: mediumslateblue;
     cursor: pointer;
@@ -79,22 +80,21 @@ const InnerWrapper = styled.div`
   min-height: 200px;
   max-width: 450px;
 `;
-
 const Continents1 = [
-  { key: 1, label: "11:00", value: "11:00" },
-  { key: 2, label: "13:00", value: "13:00" },
-  { key: 3, label: "15:00", value: "15:00" },
-  { key: 4, label: "17:00", value: "17:00" },
-  { key: 5, label: "19:00", value: "19:00" },
-  { key: 6, label: "21:00", value: "21:00" },
+  { key: 1, label: "11:00", value: "11:00", check: false },
+  { key: 2, label: "13:00", value: "13:00", check: false },
+  { key: 3, label: "15:00", value: "15:00", check: false },
+  { key: 4, label: "17:00", value: "17:00", check: false },
+  { key: 5, label: "19:00", value: "19:00", check: false },
+  { key: 6, label: "21:00", value: "21:00", check: false },
 ];
 const Continents2 = [
-  { key: 1, label: "10:00", value: "10:00" },
-  { key: 2, label: "12:00", value: "12:00" },
-  { key: 3, label: "14:00", value: "14:00" },
-  { key: 4, label: "16:00", value: "16:00" },
-  { key: 5, label: "18:00", value: "18:00" },
-  { key: 6, label: "20:00", value: "20:00" },
+  { key: 1, label: "10:00", value: "10:00", check: false },
+  { key: 2, label: "12:00", value: "12:00", check: false },
+  { key: 3, label: "14:00", value: "14:00", check: false },
+  { key: 4, label: "16:00", value: "16:00", check: false },
+  { key: 5, label: "18:00", value: "18:00", check: false },
+  { key: 6, label: "20:00", value: "20:00", check: false },
 ];
 const Reservation = ({ userFrom, nowPlaying }) => {
   const movieList = nowPlaying.map((movie, index) => ({
@@ -143,10 +143,10 @@ const Reservation = ({ userFrom, nowPlaying }) => {
       className="my-custom-input-class"
     />
   );
-  const onTime = value => {
+  const onTime = (value) => {
     setTime({ time: value });
   };
-  const onMovie = event => {
+  const onMovie = (event) => {
     setMovie(event.value);
     setPoster(event.poster);
     setID(event.id);
@@ -164,10 +164,10 @@ const Reservation = ({ userFrom, nowPlaying }) => {
       title: movie,
     };
     Axios.post("/api/reservation/findSeat", movieTitle)
-      .then(response => {
+      .then((response) => {
         if (response.data.success) {
           let seatlist = [];
-          response.data.seats.forEach(obj => {
+          response.data.seats.forEach((obj) => {
             if (
               obj.selectDay[0].day === selectDay.day &&
               obj.selectDay[0].month === selectDay.month &&
@@ -179,7 +179,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           setDistinct(seatlist);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, [movie, selectDay, time, theater]);
@@ -188,17 +188,13 @@ const Reservation = ({ userFrom, nowPlaying }) => {
     let countAllSeats = theater % 2 === 1 ? 55 : 45;
     let count = 0;
     Distinct &&
-      Distinct.forEach(obj => {
+      Distinct.forEach((obj) => {
         if (obj.time[0].time === time && obj.theater === theater) {
           count = count + obj.continent;
         }
       });
-    let myColor = countAllSeats - count > 10 ? "#2e2e2e" : "red";
-    return (
-      <span style={{ color: myColor, fontWeight: "500" }}>
-        {countAllSeats - count}석
-      </span>
-    );
+    let myColor = (countAllSeats - count) > 10 ? "#2e2e2e" : "red";
+    return <span style={{ color: myColor, fontWeight: "500" }}>{countAllSeats===count ? `매진` : `${countAllSeats - count}석`}</span>;
   };
 
   return (
@@ -266,7 +262,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
             {Continents2.map((item, index) => (
               <Button2
                 key={index}
-                onClick={() => {
+                onClick={(props) => {
                   setTheater(key);
                   onTime(item.value);
                 }}

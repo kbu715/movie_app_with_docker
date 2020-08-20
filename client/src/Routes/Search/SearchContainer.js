@@ -2,9 +2,9 @@ import React from "react";
 import SearchPresenter from "./SearchPresenter";
 import { moviesApi } from "../../api";
 export default class extends React.Component {
+
   state = {
     movieResults: null,
-    tvResults: null,
     searchTerm: "",
     loading: false,
     error: null

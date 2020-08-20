@@ -313,9 +313,10 @@ function BookingAll({
         <InnerWrapper
           style={{
             height: "200px",
+            width:"250px",
             display: "flex",
             flexDirection: "column",
-            fontSize: "13px",
+            fontSize: "17px",
             padding: "10px",
             color: "#D8D8D8",
           }}
