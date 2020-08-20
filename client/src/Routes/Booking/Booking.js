@@ -286,7 +286,6 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
               <tr>
                 <th style={{ color: "white" }}>좌석</th>
                 <td style={{ width: "75%" }}>
-                  {theater}관
                   {Seat.map((seat, index) => {
                     if (index < Seat.length - 1) {
                       return seat + ", ";
