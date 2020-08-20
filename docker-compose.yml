@@ -24,4 +24,5 @@ services:
     container_name: app_backend
     volumes:
       - /app/node_modules
+      - /app/uploads
       - ./server:/app
