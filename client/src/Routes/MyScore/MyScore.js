@@ -128,7 +128,7 @@ function MyScore() {
               completed={count}
               borderRadius={"50px"}
               bgcolor={"rgba(156, 136, 255)"}
-              labelColor={"rgba(156, 136, 255)"}
+              labelColor={"transparent"}
             />
           </Progress>
           {Movies && Movies.length > 0 && (

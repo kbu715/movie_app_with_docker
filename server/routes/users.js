@@ -137,20 +137,28 @@ router.post("/getUserInfo", (req, res) => {
 router.post("/updateProfile", (req, res) => {
   User.findOne({ _id: req.body.id }, (err, user) => {
     if (err) return res.json({ success: false, err });
-    User.updateOne(
-      { _id: user._id },
-      {
-        $set: {
-          password: req.body.newPassword,
-          image: req.body.newImage,
-          name: req.body.newName,
-        },
-      },
-      (err, user) => {
-        if (err) return res.json({ success: false, err });
-        res.status(200).json({ success: true, user });
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if (!isMatch) {
+        return res.json({
+          loginSuccess: false,
+          message: "비밀번호를 잘못 입력했습니다.",
+        });
       }
-    );
+      User.updateOne(
+        { _id: user._id },
+        {
+          $set: {
+            password: req.body.newPassword,
+            image: req.body.newImage,
+            name: req.body.newName,
+          },
+        },
+        (err, user) => {
+          if (err) return res.json({ success: false, err });
+          res.status(200).json({ success: true, user });
+        }
+      );
+    });
   });
 });
 

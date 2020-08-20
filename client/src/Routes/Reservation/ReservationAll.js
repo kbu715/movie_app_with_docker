@@ -56,6 +56,9 @@ font-weight: 800;
     background: mediumslateblue;
     cursor: pointer;
   }
+  &:focus {
+    background: mediumslateblue;
+  }
 `;
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -187,7 +190,7 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
         }
       });
       let myColor=(countAllSeats-count)>10? "black" : "red"; 
-      return <span style={{ color: myColor, fontWeight:"500"  }}>{countAllSeats - count}</span>;
+      return <span style={{ color: myColor, fontWeight: "500" }}>{countAllSeats===count ? `매진` : `${countAllSeats - count}석`}</span>;
   };
 
   return (
@@ -237,10 +240,9 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
                 <Button2
                   key={index}
                   style={{ color: "black" }}
-                  onClick={(props) => {
+                  onClick={() => {
                     setTheater(key - 1);
                     onTime(item.value);
-                    props.currentTarget.style.backgroundColor="mediumslateblue"
                   }}
                 >
                     {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;{countLeftSeats(item.value, key - 1)}석
