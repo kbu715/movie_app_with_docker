@@ -21,3 +21,16 @@ after_success:
   - docker push pjw6531/docker-frontend
   - docker push pjw6531/docker-backend
   - docker push pjw6531/docker-nginx
+
+  deploy:
+    provider: elasticbeanstalk
+    region: "ap-northeast-2"
+    app: " docker-nomfilx"
+    env: "DockerNomfilx-env"
+    bucket_name: elasticbeanstalk-ap-northeast-2-128529754877
+    bucket_path: "docker-nomfilx"
+    on:
+      branch: master
+    
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
