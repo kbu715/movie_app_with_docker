@@ -18,7 +18,7 @@ const Header = styled.header`
   top: 0;
   left: 0;
   justify-content: center;
-`
+`;
 const List1 = styled.ul`
   justify-content: flex-start;
   width: 100%;
@@ -32,7 +32,7 @@ const List1 = styled.ul`
   -ms-flex-align: center;
   align-items: center;
   padding: 0 10px;
-`
+`;
 const List2 = styled.ul`
   justify-content: flex-end;
   float: right;
@@ -48,7 +48,7 @@ const List2 = styled.ul`
 
   font-weight: 400;
   height: 44px;
-`
+`;
 const Item = styled.li`
   width: 80px;
   height: 50px;
@@ -78,13 +78,15 @@ const SLink = styled(Link)`
     text-decoration: none;
     color: white;
   }
-`
+`;
 //헤더 색 scroll에따라 변화/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const handleScroll = () => {
   const windowHeight =
-    "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight
-  const body = document.body
-  const html = document.documentElement
+    "innerHeight" in window
+      ? window.innerHeight
+      : document.documentElement.offsetHeight;
+  const body = document.body;
+  const html = document.documentElement;
   const docHeight = Math.max(
     body.scrollHeight,
     body.offsetHeight,
@@ -98,15 +100,19 @@ const handleScroll = () => {
   if (docHeight > 2000) {
     y = 1800;
   } else if (docHeight > 1000) {
-    y = 500
+    y = 500;
   } else {
-    y = 1
+    y = 1;
   }
   if (windowBottom < docHeight - y) {
-    if(x === null) { return x=document.getElementById("header")}
+    if (x === null) {
+      return (x = document.getElementById("header"));
+    }
     x.style.backgroundColor = "transparent";
   } else if (windowBottom > docHeight - y) {
-    if(x === null) { return x=document.getElementById("header") }
+    if (x === null) {
+      return (x = document.getElementById("header"));
+    }
     x.style.backgroundColor = "#171717";
   }
 };
@@ -114,21 +120,21 @@ export default withRouter(
   (
     props //withRouter 때문에 props를 가질 수 있다.
   ) => {
-    const user = useSelector(state => state.user);
+    const user = useSelector((state) => state.user);
     window.addEventListener("scroll", handleScroll);
     const {
       location: { pathname },
-    } = props
+    } = props;
     const logoutHandler = () => {
-      Axios.get("/api/users/logout").then(response => {
+      Axios.get("/api/users/logout").then((response) => {
         if (response.data.success) {
-          console.log(response.data)
-          props.history.push("/sign-in")
+          console.log(response.data);
+          props.history.push("/sign-in");
         } else {
-          alert("로그아웃 하는데 실패 했습니다.")
+          alert("로그아웃 하는데 실패 했습니다.");
         }
-      })
-    }
+      });
+    };
     return (
       <>
         <Header id="header">
@@ -146,7 +152,13 @@ export default withRouter(
               <SLink to="/search">검색</SLink>
             </Item>
             <Item current={pathname === "/favorite"}>
-              <SLink to={user.userData && !user.userData.isAuth ? "/sign-in" : "/favorite"}>
+              <SLink
+                to={
+                  user.userData && !user.userData.isAuth
+                    ? "/sign-in"
+                    : "/favorite"
+                }
+              >
                 찜한 목록
               </SLink>
             </Item>
@@ -176,7 +188,13 @@ export default withRouter(
                         color: "#e5e5e5",
                       }}
                     >
-                      <span style={{ textAlign: "center", marginTop: "6px", color: "#e5e5e5" }}>
+                      <span
+                        style={{
+                          textAlign: "center",
+                          marginTop: "6px",
+                          color: "#e5e5e5",
+                        }}
+                      >
                         {user.userData && user.userData.name.length > 7
                           ? `${user.userData.name.substring(0, 4)}...`
                           : user.userData.name}
@@ -217,12 +235,20 @@ export default withRouter(
                   >
                     <Badge
                       count={user.userData && user.userData.cart.length}
-                      style={{ marginBottom: -10, backgroundColor: "mediumslateblue", fontSize: 1 }}
+                      style={{
+                        marginBottom: -10,
+                        backgroundColor: "mediumslateblue",
+                        fontSize: 1,
+                      }}
                       offset={[10, 10]}
                     >
                       <SLink to="/mymovie" className="head-example">
                         <ShoppingCartOutlined
-                          style={{ fontSize: 25, marginLeft: "10px", color: "#e5e5e5" }}
+                          style={{
+                            fontSize: 25,
+                            marginLeft: "10px",
+                            color: "#e5e5e5",
+                          }}
                         />
                       </SLink>
                     </Badge>
@@ -238,9 +264,9 @@ export default withRouter(
           )}
         </Header>
       </>
-    )
+    );
   }
-)
+);
 //const SLink = styled(Link)``; : React Router에서 주어진 Link, 이런식으로 스타일을 추가 할 수있다.
 //npm i styled-reset : SC를 이용해서 CSS를 초기화해서 0의 상태에서 시작하게 하는 거야
 //position:fixed 스크롤해도 그자리에 있게 하기 위해
