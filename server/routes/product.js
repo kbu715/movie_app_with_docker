@@ -6,7 +6,7 @@ const { auth } = require("../middleware/auth");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "/api/uploads/");
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}_${file.originalname}`);
