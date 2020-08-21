@@ -6,14 +6,14 @@
       "image": "pjw6531/docker-frontend",
       "hostname": "frontend",
       "essential": false,
-      "memory": 1024
+      "memory": 2024
     },
     {
       "name": "backend",
       "image": "pjw6531/docker-backend",
       "hostname": "backend",
       "essential": false,
-      "memory": 1024
+      "memory": 2024
     },
     {
       "name": "nginx",
@@ -27,7 +27,7 @@
         }
       ],
       "links": ["frontend", "backend"],
-      "memory": 1024
+      "memory": 2024
     }
   ]
 }
