@@ -6,7 +6,7 @@
       "image": "pjw6531/docker-frontend",
       "hostname": "frontend",
       "essential": false,
-      "memory": 1000
+      "memory": 1500
     },
     {
       "name": "backend",
