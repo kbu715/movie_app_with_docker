@@ -63,7 +63,7 @@ class UserMovie extends Component {
                   Total
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
-                  환불
+                  예매 취소
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -107,7 +107,7 @@ class UserMovie extends Component {
                       style={{ color: "#2d2d2d" }}
                     >
                       <button onClick={() => removeItem(movie._id)}>
-                        환불
+                        취소
                       </button>
                     </TableCell>
                   </TableRow>

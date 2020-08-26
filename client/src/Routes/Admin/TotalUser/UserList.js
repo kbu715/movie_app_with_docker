@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Table, PageHeader, Tag, Space, Button } from "antd";
-
+import { auth } from "../../../_actions/user_action";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+
 const { Column } = Table;
 
 function UserList() {
+  const dispatch = useDispatch();
   const [User, setUser] = useState([]);
 
   useEffect(() => {
@@ -30,6 +33,7 @@ function UserList() {
       if (response.data.success) {
         alert("관리자 변경완료");
         getUser();
+        dispatch(auth());
       } else {
         alert("실패");
       }
@@ -44,6 +48,7 @@ function UserList() {
       if (response.data.success) {
         alert("회원등급 변경완료");
         getUser();
+        dispatch(auth());
       } else {
         alert("실패");
       }

@@ -69,7 +69,7 @@ class CartPage extends Component {
                   Product Price
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
-                  환불
+                  장바구니
                 </TableCell>
               </TableRow>
             </TableHead>

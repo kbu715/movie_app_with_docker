@@ -16,7 +16,7 @@
   border-top-right-radius: 10px;
 }
 .seat.selected {
-  background-color: rgb(120, 205, 1);
+  background-color: #61dbfb;
 }
 .seat.occupied {
   background-color: #fff;

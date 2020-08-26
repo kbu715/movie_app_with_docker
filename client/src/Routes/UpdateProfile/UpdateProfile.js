@@ -188,7 +188,6 @@ function UpdateProfile(props) {
               id="currentPassword"
             />
           </Form.Item>
-
           <Form.Item
             style={{ color: "white" }}
             label="새 비밀번호"
@@ -236,3 +235,4 @@ function UpdateProfile(props) {
   );
 }
 export default withRouter(UpdateProfile);
+

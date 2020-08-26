@@ -125,7 +125,7 @@ function SignUp(props) {
                           ? FilePath
                           : DEFAULT_PROFILE
                       }
-                      alt="haha"
+                      alt="image"
                       width="110px"
                       height="110px"
                     />
