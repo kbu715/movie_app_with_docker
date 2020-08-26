@@ -310,7 +310,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
           <img
             src={require("../../img/kakaoPay.png")}
             alt="kakaoPay"
-            style={{ width: "20%", height: "25px", float: "right" }}
+            style={{ width: "25%", height: "25px", float: "right", marginTop:"20px" }}
             onClick={onKaKaoPay}
           />
         </InnerWrapper>

@@ -241,36 +241,52 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                 <span style={{ color: "#d8d8d8" }}>{key - 1}관</span>
               </Title>
             </TitleWrapper>
-            {Continents1.map((item, index) => (
-              <Button2
-                key={index}
-                onClick={() => {
-                  setTheater(key - 1);
-                  onTime(item.value);
-                }}
-              >
-                {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                {countLeftSeats(item.value, key - 1)}
-              </Button2>
-            ))}
+            {Continents1.map((item, index) => {
+              let h = new Date().getHours();
+              if (h < parseInt(item.value.slice(0, 2))) {
+                return (
+                  <Button2
+                    key={index}
+                    style={{ color: "black" }}
+                    onClick={() => {
+                      setTheater(key - 1);
+                      onTime(item.value);
+                    }}
+                  >
+                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    {countLeftSeats(item.value, key - 1)}
+                  </Button2>
+                );
+              } else {
+                return null;
+              }
+            })}
             <TitleWrapper>
               <Title>
                 {movie}&nbsp;&nbsp;|&nbsp;&nbsp;
                 <span style={{ color: "#d8d8d8" }}>{key}관</span>
               </Title>
             </TitleWrapper>
-            {Continents2.map((item, index) => (
-              <Button2
-                key={index}
-                onClick={(props) => {
-                  setTheater(key);
-                  onTime(item.value);
-                }}
-              >
-                {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                {countLeftSeats(item.value, key)}
-              </Button2>
-            ))}
+            {Continents2.map((item, index) => {
+              let h = new Date().getHours();
+              if (h < parseInt(item.value.slice(0, 2))) {
+                return (
+                  <Button2
+                    key={index}
+                    style={{ color: "black" }}
+                    onClick={() => {
+                      setTheater(key);
+                      onTime(item.value);
+                    }}
+                  >
+                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    {countLeftSeats(item.value, key)}
+                  </Button2>
+                );
+              } else {
+                return null;
+              }
+            })}
           </InnerWrapper>
         ) : (
           <div
