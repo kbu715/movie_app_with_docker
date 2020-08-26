@@ -24,6 +24,6 @@ yarn-error.log*
 
 node_modules
 
-dev.js
+# dev.js
 
 awsconfig.json
