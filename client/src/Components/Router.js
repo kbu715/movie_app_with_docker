@@ -33,7 +33,7 @@ export default () => (
         <Route path="/sign-up" component={Auth(SignUp, false)} />
         <Route path="/logout" component={Auth(Logout, true)} />
         <Route path="/favorite" component={Auth(Favorite, true)} />
-        <Route path="/admin" component={Auth(Admin, true, true)} exact/>
+        <Route path="/admin" component={Auth(Admin, true, true)} exact />
         <Route path="/product" component={Auth(Product, true)} exact />
         <Route
           path="/product/:productId"
