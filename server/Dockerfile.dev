@@ -5,6 +5,9 @@ WORKDIR /app
 COPY ./package.json ./
 
 RUN npm install
+ENV NODE_PATH=/app/node_modules
+RUN npm install multer-s3 --save
+RUN npm install aws-sdk --save
 
 COPY . .
 

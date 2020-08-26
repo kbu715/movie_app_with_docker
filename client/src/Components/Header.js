@@ -5,7 +5,7 @@ import Axios from "axios";
 import { Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { LOCAL_SERVER } from "./Config";
+import { DEFAULT_PROFILE } from "./Config";
 const Header = styled.header`
   position: fixed;
   top: 0;
@@ -211,8 +211,8 @@ export default withRouter(
                         }}
                         src={
                           user.userData.image
-                            ? `${LOCAL_SERVER}${user.userData.image}`
-                            : `${LOCAL_SERVER}uploads/default.png`
+                            ? user.userData.image
+                            : DEFAULT_PROFILE
                         }
                         alt="haha"
                         color="#e5e5e5"

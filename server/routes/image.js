@@ -1,36 +1,32 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
 const multer = require("multer");
+const multerS3 = require("multer-s3");
+const AWS = require("aws-sdk");
+AWS.config.loadFromPath(__dirname + "/../config/awsconfig.json");
 
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "/api/uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}_${file.originalname}`);
-  },
-  fileFilter: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    if (ext !== ".jpg" || ext !== ".png") {
-      return cb(res.status(400).end("only jpg, png is allowed"), false);
-    }
-    cb(null, true);
-  },
+let s3 = new AWS.S3();
+
+let upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "bong.movie.com",
+    key: function (req, file, cb) {
+      let extension = path.extname(file.originalname);
+      cb(null, Date.now().toString() + extension);
+    },
+    acl: "public-read-write",
+  }),
 });
 
-var upload = multer({ storage: storage }).single("file");
+router.post("/upload", upload.single("file"), function (req, res, next) {
+  let imgFile = req.file;
+  res.json(imgFile);
+});
 
-router.post("/uploadfiles", (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      return res.json({ success: false, err });
-    }
-    return res.json({
-      success: true,
-      filePath: res.req.file.path,
-      fileName: res.req.file.filename,
-    });
-  });
+router.get("/upload", function (req, res, next) {
+  res.render("upload");
 });
 
 module.exports = router;

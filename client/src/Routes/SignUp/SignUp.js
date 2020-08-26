@@ -5,7 +5,7 @@ import "./SignUp.css";
 import { withRouter } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import Axios from "axios";
-import { LOCAL_SERVER } from "../../Components/Config";
+import { DEFAULT_PROFILE } from "../../Components/Config";
 function SignUp(props) {
   const dispatch = useDispatch();
 
@@ -13,7 +13,7 @@ function SignUp(props) {
   const [Name, setName] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
-  const [FilePath, setFilePath] = useState("uploads/default.png");
+  const [FilePath, setFilePath] = useState(DEFAULT_PROFILE);
   const [FileName, setFileName] = useState("");
   const [Gender, setGender] = useState("");
 
@@ -45,16 +45,16 @@ function SignUp(props) {
 
     formData.append("file", files[0]);
 
-    Axios.post("/api/image/uploadfiles", formData, config).then(response => {
-      if (response.data.success) {
+    Axios.post("/api/image/upload", formData, config).then(response => {
+      if (response.status === 200) {
         setFilePath(
-          response.data.filePath
-            ? response.data.filePath
-            : "uploads/default.png"
+          response.data.location
+            ? response.data.location
+            : DEFAULT_PROFILE
         );
-        setFileName(response.data.fileName);
+        setFileName(response.data.key);
       } else {
-        alert("failed to save the video in server");
+        alert("이미지 업로드에 실패했습니다.");
       }
     });
   };
@@ -122,8 +122,8 @@ function SignUp(props) {
                       }}
                       src={
                         FilePath
-                          ? `${LOCAL_SERVER}${FilePath}`
-                          : `${LOCAL_SERVER}uploads/default.png`
+                          ? FilePath
+                          : DEFAULT_PROFILE
                       }
                       alt="haha"
                       width="110px"
