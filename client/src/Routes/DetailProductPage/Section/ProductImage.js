@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ImageGallery from "react-image-gallery";
-import { LOCAL_SERVER } from "../../../Components/Config";
 
 function ProductImage(props) {
   const [Images, setImages] = useState([]);
@@ -10,8 +9,8 @@ function ProductImage(props) {
 
       props.detail.images.forEach(item => {
         images.push({
-          original: `${LOCAL_SERVER}${item}`,
-          thumbnail: `${LOCAL_SERVER}${item}`,
+          original: item,
+          thumbnail: item,
         });
       });
       setImages(images);

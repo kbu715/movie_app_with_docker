@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import Dropzone from "react-dropzone";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
-import { LOCAL_SERVER } from "../../Components/Config";
+import { DEFAULT_PROFILE } from "../../Components/Config";
 import "antd/dist/antd.css";
 import { Helmet } from "react-helmet";
 const { Title } = Typography;
@@ -44,11 +44,11 @@ function UpdateProfile(props) {
       header: { "content-type": "multipart/form-data" },
     };
     formData.append("file", files[0]);
-    Axios.post("/api/image/uploadfiles", formData, config).then(response => {
-      if (response.data.success) {
-        setFilePath(response.data.filePath);
+    Axios.post("/api/image/upload", formData, config).then(response => {
+      if (response.status === 200) {
+        setFilePath(response.data.location);
       } else {
-        alert("failed to save the video in server");
+        alert("failed to save the image in server");
       }
     });
   };
@@ -141,10 +141,10 @@ function UpdateProfile(props) {
                   }}
                   src={
                     FilePath
-                      ? `${LOCAL_SERVER}${FilePath}`
+                      ? FilePath
                       : currentImage
-                      ? `${LOCAL_SERVER}${currentImage}`
-                      : `${LOCAL_SERVER}uploads/default.png`
+                      ? currentImage
+                      : DEFAULT_PROFILE
                   }
                   alt="haha"
                   width="110px"
@@ -188,21 +188,6 @@ function UpdateProfile(props) {
               id="currentPassword"
             />
           </Form.Item>
-          <Form.Item
-            style={{ color: "white" }}
-            label="현 비밀번호"
-            hasFeedback
-            validateStatus="success"
-          >
-            <Input
-              placeholder="현재 비밀번호 입력"
-              value={currentPassword}
-              onChange={handleChangeCurrentPassword}
-              type="password"
-              id="currentPassword"
-            />
-          </Form.Item>
-
           <Form.Item
             style={{ color: "white" }}
             label="새 비밀번호"
@@ -250,3 +235,4 @@ function UpdateProfile(props) {
   );
 }
 export default withRouter(UpdateProfile);
+

@@ -5,7 +5,7 @@ import Axios from "axios";
 import { Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { LOCAL_SERVER } from "./Config";
+import { DEFAULT_PROFILE } from "./Config";
 const Header = styled.header`
   position: fixed;
   top: 0;
@@ -168,6 +168,14 @@ export default withRouter(
             <Item current={pathname === "/product"}>
               <SLink to="/product">매점</SLink>
             </Item>
+            {user.userData && user.userData.role ==="관리자"
+            ? (
+              <Item current={pathname === "/admin"}>
+                <SLink to={user.userData.role==="관리자" ? "/admin" : "/sign-in"}>관리자</SLink>
+              </Item>
+              )
+            : null
+              }
           </List1>
           {user.userData && !user.userData.isAuth ? (
             <List2>
@@ -211,8 +219,8 @@ export default withRouter(
                         }}
                         src={
                           user.userData.image
-                            ? `${LOCAL_SERVER}${user.userData.image}`
-                            : `${LOCAL_SERVER}uploads/default.png`
+                            ? user.userData.image
+                            : DEFAULT_PROFILE
                         }
                         alt="haha"
                         color="#e5e5e5"

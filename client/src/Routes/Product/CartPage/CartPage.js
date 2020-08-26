@@ -12,7 +12,6 @@ import {
 import Portlet from "../../MyMovie/Sections/Portlet";
 import PortletContent from "../../MyMovie/Sections/PortletContent";
 import styles from "../../MyMovie/Sections/styles";
-import { LOCAL_SERVER } from "../../../Components/Config";
 import { Helmet } from "react-helmet";
 
 class CartPage extends Component {
@@ -41,7 +40,7 @@ class CartPage extends Component {
     const renderCartImage = images => {
       if (images.length > 0) {
         let image = images[0];
-        return `${LOCAL_SERVER}${image}`;
+        return image;
       }
     };
 
@@ -69,7 +68,7 @@ class CartPage extends Component {
                   Product Price
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
-                  환불
+                  장바구니
                 </TableCell>
               </TableRow>
             </TableHead>

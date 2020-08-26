@@ -14,10 +14,10 @@ function FileUpload(props) {
     };
     formData.append("file", files[0]);
 
-    axios.post("/api/product/image", formData, config).then((response) => {
-      if (response.data.success) {
-        setImages([...Images, response.data.filePath]);
-        props.refreshFunction([...Images, response.data.filePath]);
+    axios.post("/api/image/upload", formData, config).then((response) => {
+      if (response.status === 200) {
+        setImages([...Images, response.data.location]);
+        props.refreshFunction([...Images, response.data.location]);
       } else {
         alert("파일을 저장하는데 실패했습니다.");
       }
@@ -69,7 +69,7 @@ function FileUpload(props) {
           <div onClick={() => deleteHandler(image)} key={index}>
             <img
               style={{ minWidth: "300px", width: "300px", height: "240px" }}
-              src={`${LOCAL_SERVER}${image}`}
+              src={image}
               alt=""
             />
           </div>
