@@ -153,12 +153,11 @@ const Reservation = ({ userFrom, nowPlaying }) => {
     setVisible(true);
     setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
     let arr = [];
-    Continents1.forEach(item => {
+    Continents1.forEach((item) => {
       arr.push(false);
     });
     setSelect(arr);
   };
-
   useEffect(() => {
     const movieTitle = {
       title: movie,
@@ -193,8 +192,12 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           count = count + obj.continent;
         }
       });
-    let myColor = (countAllSeats - count) > 10 ? "#2e2e2e" : "red";
-    return <span style={{ color: myColor, fontWeight: "500" }}>{countAllSeats===count ? `매진` : `${countAllSeats - count}석`}</span>;
+    let myColor = countAllSeats - count > 10 ? "#2e2e2e" : "red";
+    return (
+      <span style={{ color: myColor, fontWeight: "500" }}>
+        {countAllSeats === count ? `매진` : `${countAllSeats - count}석`}
+      </span>
+    );
   };
 
   return (
@@ -242,12 +245,36 @@ const Reservation = ({ userFrom, nowPlaying }) => {
               </Title>
             </TitleWrapper>
             {Continents1.map((item, index) => {
+              const { year, month, day } = selectDay;
               let h = new Date().getHours();
-              if (h < parseInt(item.value.slice(0, 2))) {
+              let today =
+                new Date().getFullYear() +
+                "-" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getDate();
+              let pickDay = year + "-" + month + "-" + day;
+              if (pickDay === today) {
+                if (h < parseInt(item.value.slice(0, 2))) {
+                  return (
+                    <Button2
+                      key={item.value + item.label + ""}
+                      onClick={() => {
+                        setTheater(key - 1);
+                        onTime(item.value);
+                      }}
+                    >
+                      {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                      {countLeftSeats(item.value, key - 1)}
+                    </Button2>
+                  );
+                } else {
+                  return null;
+                }
+              } else {
                 return (
                   <Button2
-                    key={index}
-                    style={{ color: "black" }}
+                    key={item.value + item.label + ""}
                     onClick={() => {
                       setTheater(key - 1);
                       onTime(item.value);
@@ -257,8 +284,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                     {countLeftSeats(item.value, key - 1)}
                   </Button2>
                 );
-              } else {
-                return null;
               }
             })}
             <TitleWrapper>
@@ -268,12 +293,36 @@ const Reservation = ({ userFrom, nowPlaying }) => {
               </Title>
             </TitleWrapper>
             {Continents2.map((item, index) => {
+              const { year, month, day } = selectDay;
               let h = new Date().getHours();
-              if (h < parseInt(item.value.slice(0, 2))) {
+              let today =
+                new Date().getFullYear() +
+                "-" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getDate();
+              let pickDay = year + "-" + month + "-" + day;
+              if (pickDay === today) {
+                if (h < parseInt(item.value.slice(0, 2))) {
+                  return (
+                    <Button2
+                      key={item.value + item.label + ""}
+                      onClick={() => {
+                        setTheater(key);
+                        onTime(item.value);
+                      }}
+                    >
+                      {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                      {countLeftSeats(item.value, key)}
+                    </Button2>
+                  );
+                } else {
+                  return null;
+                }
+              } else {
                 return (
                   <Button2
-                    key={index}
-                    style={{ color: "black" }}
+                    key={item.value + item.label + ""}
                     onClick={() => {
                       setTheater(key);
                       onTime(item.value);
@@ -283,8 +332,6 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                     {countLeftSeats(item.value, key)}
                   </Button2>
                 );
-              } else {
-                return null;
               }
             })}
           </InnerWrapper>

@@ -238,12 +238,36 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
               </Title>
             </TitleWrapper>
             {Continents1.map((item, index) => {
+              const { year, month, day } = selectDay;
               let h = new Date().getHours();
-              if (h < parseInt(item.value.slice(0, 2))) {
+              let today =
+                new Date().getFullYear() +
+                "-" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getDate();
+              let pickDay = year + "-" + month + "-" + day;
+              if (pickDay === today) {
+                if (h < parseInt(item.value.slice(0, 2))) {
+                  return (
+                    <Button2
+                      key={item.value + item.label + ""}
+                      onClick={() => {
+                        setTheater(key - 1);
+                        onTime(item.value);
+                      }}
+                    >
+                      {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                      {countLeftSeats(item.value, key - 1)}
+                    </Button2>
+                  );
+                } else {
+                  return null;
+                }
+              } else {
                 return (
                   <Button2
-                    key={index}
-                    style={{ color: "black" }}
+                    key={item.value + item.label + ""}
                     onClick={() => {
                       setTheater(key - 1);
                       onTime(item.value);
@@ -253,8 +277,6 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
                     {countLeftSeats(item.value, key - 1)}
                   </Button2>
                 );
-              } else {
-                return null;
               }
             })}
             <TitleWrapper>
@@ -264,12 +286,36 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
               </Title>
             </TitleWrapper>
             {Continents2.map((item, index) => {
+              const { year, month, day } = selectDay;
               let h = new Date().getHours();
-              if (h < parseInt(item.value.slice(0, 2))) {
+              let today =
+                new Date().getFullYear() +
+                "-" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getDate();
+              let pickDay = year + "-" + month + "-" + day;
+              if (pickDay === today) {
+                if (h < parseInt(item.value.slice(0, 2))) {
+                  return (
+                    <Button2
+                      key={item.value + item.label + ""}
+                      onClick={() => {
+                        setTheater(key);
+                        onTime(item.value);
+                      }}
+                    >
+                      {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                      {countLeftSeats(item.value, key)}
+                    </Button2>
+                  );
+                } else {
+                  return null;
+                }
+              } else {
                 return (
                   <Button2
-                    key={index}
-                    style={{ color: "black" }}
+                    key={item.value + item.label + ""}
                     onClick={() => {
                       setTheater(key);
                       onTime(item.value);
@@ -279,8 +325,6 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
                     {countLeftSeats(item.value, key)}
                   </Button2>
                 );
-              } else {
-                return null;
               }
             })}
           </InnerWrapper>
