@@ -18,4 +18,4 @@ yarn-debug.log*
 yarn-error.log*
 node_modules
 dev.js
-awsconfig.json
+/server/config/awsconfig.json
