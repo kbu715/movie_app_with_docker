@@ -22,15 +22,15 @@ after_success:
   - docker push kbu715/docker-backend
   - docker push kbu715/docker-nginx
 
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "ap-northeast-2"
-#   app: "docker-movie"
-#   env: "DockerMovie-env"
-#   bucket_name: elasticbeanstalk-ap-northeast-2-128529754877
-#   bucket_path: "docker-movie"
-#   on:
-#     branch: master
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker_testtest"
+  env: "DockerTesttest-env"
+  bucket_name: elasticbeanstalk-ap-northeast-2-553722458208
+  bucket_path: "docker_testtest"
+  on:
+    branch: master
 
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_access_key: $AWS_SECRET_ACCESS_KEY
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
