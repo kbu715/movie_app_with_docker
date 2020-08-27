@@ -78,24 +78,20 @@ const InnerWrapper = styled.div`
   max-width: 450px;
 `;
 const Continents1 = [
-  { key: 1, label: "11:00", value: "11:00" },
-  { key: 2, label: "13:00", value: "13:00" },
-  { key: 3, label: "15:00", value: "15:00" },
-  { key: 4, label: "17:00", value: "17:00" },
-  { key: 5, label: "19:00", value: "19:00" },
-  { key: 6, label: "21:00", value: "21:00" },
-  { key: 7, label: "23:00", value: "23:00" },
-  { key: 8, label: "01:00", value: "01:00" },
+  { key: 1, label: "11:00", value: "11:00", check: false },
+  { key: 2, label: "13:00", value: "13:00", check: false },
+  { key: 3, label: "15:00", value: "15:00", check: false },
+  { key: 4, label: "17:00", value: "17:00", check: false },
+  { key: 5, label: "19:00", value: "19:00", check: false },
+  { key: 6, label: "21:00", value: "21:00", check: false },
 ];
 const Continents2 = [
-  { key: 1, label: "10:00", value: "10:00" },
-  { key: 2, label: "12:00", value: "12:00" },
-  { key: 3, label: "14:00", value: "14:00" },
-  { key: 4, label: "16:00", value: "16:00" },
-  { key: 5, label: "18:00", value: "18:00" },
-  { key: 6, label: "20:00", value: "20:00" },
-  { key: 7, label: "22:00", value: "22:00" },
-  { key: 8, label: "00:00", value: "00:00" },
+  { key: 1, label: "10:00", value: "10:00", check: false },
+  { key: 2, label: "12:00", value: "12:00", check: false },
+  { key: 3, label: "14:00", value: "14:00", check: false },
+  { key: 4, label: "16:00", value: "16:00", check: false },
+  { key: 5, label: "18:00", value: "18:00", check: false },
+  { key: 6, label: "20:00", value: "20:00", check: false },
 ];
 
 const ReservationAll = ({ userFrom, nowPlaying }) => {
@@ -239,7 +235,7 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
             </TitleWrapper>
             {Continents1.map((item, index) => (
                 <Button2
-                  key={index}
+                  key={item.value + item.label + ""}
                   style={{ color: "black" }}
                   onClick={() => {
                     setTheater(key - 1);

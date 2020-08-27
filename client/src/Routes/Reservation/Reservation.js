@@ -241,9 +241,10 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                 <span style={{ color: "#d8d8d8" }}>{key - 1}관</span>
               </Title>
             </TitleWrapper>
-            {Continents1.map((item, index) => (
+            {Continents1.map((item, index) => { 
+              return (
               <Button2
-                key={index}
+                key={item.value+item.label+""}
                 onClick={() => {
                   setTheater(key - 1);
                   onTime(item.value);
@@ -252,7 +253,9 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                 {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                 {countLeftSeats(item.value, key - 1)}
               </Button2>
-            ))}
+            )
+          }
+            )}
             <TitleWrapper>
               <Title>
                 {movie}&nbsp;&nbsp;|&nbsp;&nbsp;
