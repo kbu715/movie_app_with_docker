@@ -4,33 +4,33 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker build -t pjw6531/react-test-app -f ./client/Dockerfile.dev ./client
+  - docker build -t kbu715/react-test-app -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true pjw6531/react-test-app npm run test
+  - docker run -e CI=true kbu715/react-test-app npm run test
 # script:
 #   - echo "skipping tests"
 
 after_success:
-  - docker build -t pjw6531/docker-frontend ./client
-  - docker build -t pjw6531/docker-backend ./server
-  - docker build -t pjw6531/docker-nginx ./nginx
+  - docker build -t kbu715/docker-frontend ./client
+  - docker build -t kbu715/docker-backend ./server
+  - docker build -t kbu715/docker-nginx ./nginx
 
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
 
-  - docker push pjw6531/docker-frontend
-  - docker push pjw6531/docker-backend
-  - docker push pjw6531/docker-nginx
+  - docker push kbu715/docker-frontend
+  - docker push kbu715/docker-backend
+  - docker push kbu715/docker-nginx
 
-deploy:
-  provider: elasticbeanstalk
-  region: "ap-northeast-2"
-  app: "docker-movie"
-  env: "DockerMovie-env"
-  bucket_name: elasticbeanstalk-ap-northeast-2-128529754877
-  bucket_path: "docker-movie"
-  on:
-    branch: master
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "ap-northeast-2"
+#   app: "docker-movie"
+#   env: "DockerMovie-env"
+#   bucket_name: elasticbeanstalk-ap-northeast-2-128529754877
+#   bucket_path: "docker-movie"
+#   on:
+#     branch: master
 
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key: $AWS_SECRET_ACCESS_KEY

@@ -153,12 +153,11 @@ const Reservation = ({ userFrom, nowPlaying }) => {
     setVisible(true);
     setKey(event.key); //영화관 1관 2관 3관 .... 정하기 위해 씀
     let arr = [];
-    Continents1.forEach(item => {
+    Continents1.forEach((item) => {
       arr.push(false);
     });
     setSelect(arr);
   };
-
   useEffect(() => {
     const movieTitle = {
       title: movie,
@@ -193,8 +192,12 @@ const Reservation = ({ userFrom, nowPlaying }) => {
           count = count + obj.continent;
         }
       });
-    let myColor = (countAllSeats - count) > 10 ? "#2e2e2e" : "red";
-    return <span style={{ color: myColor, fontWeight: "500" }}>{countAllSeats===count ? `매진` : `${countAllSeats - count}석`}</span>;
+    let myColor = countAllSeats - count > 10 ? "#2e2e2e" : "red";
+    return (
+      <span style={{ color: myColor, fontWeight: "500" }}>
+        {countAllSeats === count ? `매진` : `${countAllSeats - count}석`}
+      </span>
+    );
   };
 
   return (
@@ -241,39 +244,96 @@ const Reservation = ({ userFrom, nowPlaying }) => {
                 <span style={{ color: "#d8d8d8" }}>{key - 1}관</span>
               </Title>
             </TitleWrapper>
-            {Continents1.map((item, index) => { 
-              return (
-              <Button2
-                key={item.value+item.label+""}
-                onClick={() => {
-                  setTheater(key - 1);
-                  onTime(item.value);
-                }}
-              >
-                {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                {countLeftSeats(item.value, key - 1)}
-              </Button2>
-            )
-          }
-            )}
+            {Continents1.map((item, index) => {
+              const { year, month, day } = selectDay;
+              let h = new Date().getHours();
+              let today =
+                new Date().getFullYear() +
+                "-" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getDate();
+              let pickDay = year + "-" + month + "-" + day;
+              if (pickDay === today) {
+                if (h < parseInt(item.value.slice(0, 2))) {
+                  return (
+                    <Button2
+                      key={item.value + item.label + ""}
+                      onClick={() => {
+                        setTheater(key - 1);
+                        onTime(item.value);
+                      }}
+                    >
+                      {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                      {countLeftSeats(item.value, key - 1)}
+                    </Button2>
+                  );
+                } else {
+                  return null;
+                }
+              } else {
+                return (
+                  <Button2
+                    key={item.value + item.label + ""}
+                    onClick={() => {
+                      setTheater(key - 1);
+                      onTime(item.value);
+                    }}
+                  >
+                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    {countLeftSeats(item.value, key - 1)}
+                  </Button2>
+                );
+              }
+            })}
             <TitleWrapper>
               <Title>
                 {movie}&nbsp;&nbsp;|&nbsp;&nbsp;
                 <span style={{ color: "#d8d8d8" }}>{key}관</span>
               </Title>
             </TitleWrapper>
-            {Continents2.map((item, index) => (
-              <Button2
-                key={index}
-                onClick={(props) => {
-                  setTheater(key);
-                  onTime(item.value);
-                }}
-              >
-                {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                {countLeftSeats(item.value, key)}
-              </Button2>
-            ))}
+            {Continents2.map((item, index) => {
+              const { year, month, day } = selectDay;
+              let h = new Date().getHours();
+              let today =
+                new Date().getFullYear() +
+                "-" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getDate();
+              let pickDay = year + "-" + month + "-" + day;
+              if (pickDay === today) {
+                if (h < parseInt(item.value.slice(0, 2))) {
+                  return (
+                    <Button2
+                      key={item.value + item.label + ""}
+                      onClick={() => {
+                        setTheater(key);
+                        onTime(item.value);
+                      }}
+                    >
+                      {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                      {countLeftSeats(item.value, key)}
+                    </Button2>
+                  );
+                } else {
+                  return null;
+                }
+              } else {
+                return (
+                  <Button2
+                    key={item.value + item.label + ""}
+                    onClick={() => {
+                      setTheater(key);
+                      onTime(item.value);
+                    }}
+                  >
+                    {item.label}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    {countLeftSeats(item.value, key)}
+                  </Button2>
+                );
+              }
+            })}
           </InnerWrapper>
         ) : (
           <div
