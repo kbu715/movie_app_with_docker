@@ -3,21 +3,21 @@
   "containerDefinitions": [
     {
       "name": "frontend",
-      "image": "pjw6531/docker-frontend",
+      "image": "kbu715/docker-frontend",
       "hostname": "frontend",
       "essential": false,
       "memory": 2000
     },
     {
       "name": "backend",
-      "image": "pjw6531/docker-backend",
+      "image": "kbu715/docker-backend",
       "hostname": "backend",
       "essential": false,
       "memory": 2000
     },
     {
       "name": "nginx",
-      "image": "pjw6531/docker-nginx",
+      "image": "kbu715/docker-nginx",
       "hostname": "nginx",
       "essential": true,
       "portMappings": [
