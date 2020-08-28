@@ -24,8 +24,8 @@ function Product() {
   const [Skip, setSkip] = useState(0);
   const [PostSize, setPostSize] = useState(0);
   const [SearchTerm, setSearchTerm] = useState("");
-  const[Limit, setLimit] = useState(8);
-  
+  const [Limit, setLimit] = useState(8);
+
   useEffect(() => {
     let body = {
       skip: Skip,
@@ -37,7 +37,7 @@ function Product() {
 
   const getProducts = (body) => {
     axios.post("/api/product/products", body).then((response) => {
-      console.log("22222",response.data)
+      console.log("22222", response.data);
       if (response.data.success) {
         if (body.loadMore) {
           setProducts([...Products, ...response.data.productInfo]);
@@ -66,33 +66,41 @@ function Product() {
 
   const renderCards = Products.map((product, index) => {
     return (
-      <Col lg={6} md={7} xs={24} key={index}>
-        <Card
+      <Col lg={6} md={8} xs={20} key={index}>
+        <a href={`/product/${product._id}`}>
+          <ImageSlider images={product.images} />
+        </a>
+
+        <div
           style={{
-            width: "70%",
-            height: "80%",
-            border: "6px solid #9c88ff",
-            backgroundColor: "white",
-            borderRadius: "5px",
-            marginBottom: "50px",
+            position: "relative",
+            textAlign: "center",
+            fontSize: "20px",
           }}
-          hoverable={true}
-          cover={
-            <a href={`/product/${product._id}`}>
-              <ImageSlider images={product.images} />
-            </a>
-          }
         >
-          <Meta
-            title={product.title}
-            description={`${product.price}원`}
-            style={{
-              position: "releative",
-              textAlign: "center",
-              fontSize: "18px",
-            }}
-          />
-        </Card>
+          {product.title}
+        </div>
+
+        <div
+          style={{
+            position: "relative",
+            textAlign: "center",
+            fontSize: "10px",
+          }}
+        >
+          {product.description}
+        </div>
+        <br />
+        <br />
+        <div
+          style={{
+            position: "relative",
+            textAlign: "center",
+            fontSize: "20px",
+          }}
+        >
+          {product.price}원
+        </div>
       </Col>
     );
   });
@@ -110,54 +118,58 @@ function Product() {
 
   return (
     <>
-    <Helmet>
-      <title>Product | Nomflix</title>
-    </Helmet>
-    <div style={{ width: "75%", margin: "3rem auto" }}>
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
-        <span
-          style={{
-            color: "white",
-            fontSize: "3rem",
-            fontWeight: "600",
-            width: "50%",
-            marginLeft: "10px",
-          }}
-        >
-          Store
-        </span>
+      <Helmet>
+        <title>Product | Nomflix</title>
+      </Helmet>
+      <div style={{ width: "75%", margin: "3rem auto" }}>
         <div
           style={{
-            justifyContent: "flex-end",
-            textAlign: "right",
-            width: "50%",
+            display: "flex",
           }}
         >
-          <SearchFeature refreshFunction={updateSearchTerm} />
-        </div>
-      </div>
-      <br />
-      <br />
-      <Row gutter={(16, 16)}>{renderCards}</Row>
-      <br />  
-      {PostSize >= Limit && (
-        <div
-          style={{ display: "flex", justifyContent: "center", color: "black" }}
-        >
-          <Button1
-            variant="contained"
-            color="primary"
-            onClick={loadMoreHandler}
+          <span
+            style={{
+              color: "white",
+              fontSize: "3rem",
+              fontWeight: "600",
+              width: "50%",
+              marginLeft: "10px",
+            }}
           >
-            더보기
-          </Button1>
+            Store
+          </span>
+          <div
+            style={{
+              justifyContent: "flex-end",
+              textAlign: "right",
+              width: "50%",
+            }}
+          >
+            <SearchFeature refreshFunction={updateSearchTerm} />
+          </div>
         </div>
-      )}
-    </div>
+        <br />
+        <br />
+        <Row gutter={(16, 16)}>{renderCards}</Row>
+        <br />
+        {PostSize >= Limit && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              color: "black",
+            }}
+          >
+            <Button1
+              variant="contained"
+              color="primary"
+              onClick={loadMoreHandler}
+            >
+              더보기
+            </Button1>
+          </div>
+        )}
+      </div>
     </>
   );
 }

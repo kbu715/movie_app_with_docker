@@ -12,7 +12,6 @@ import {
 import Portlet from "../../MyMovie/Sections/Portlet";
 import PortletContent from "../../MyMovie/Sections/PortletContent";
 import styles from "../../MyMovie/Sections/styles";
-import { DEFAULT_PROFILE } from "../../../Components/Config";
 import { Helmet } from "react-helmet";
 import Button from '@material-ui/core/Button';
 
@@ -27,11 +26,11 @@ class CartPage extends Component {
     products: [],
   };
 
-  handleChangePage = page => {
+  handleChangePage = (page) => {
     this.setState({ page });
   };
 
-  handleChangeRowsPerPage = event => {
+  handleChangeRowsPerPage = (event) => {
     this.setState({ rowsPerPage: event.target.value });
   };
 
@@ -40,7 +39,7 @@ class CartPage extends Component {
     const { rowsPerPage, page } = this.state;
     const rootClassName = classNames(classes.root, className);
 
-    const renderCartImage = images => {
+    const renderCartImage = (images) => {
       if (images.length > 0) {
         let image = images[0];
         return image;
@@ -49,62 +48,65 @@ class CartPage extends Component {
 
     return (
       <>
-      <Helmet>
-      <title>Cart | Nomflix</title>
-    </Helmet>
-      <Portlet className={rootClassName} style={{ backgroundColor: "#2D2D2D" }}>
-        <PortletContent noPadding>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="left" style={{ color: "white" }}>
-                  Product Image
-                </TableCell>
+        <Helmet>
+          <title>Cart | Nomflix</title>
+        </Helmet>
+        <Portlet
+          className={rootClassName}
+          style={{ backgroundColor: "#2D2D2D" }}
+        >
+          <PortletContent noPadding>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left" style={{ color: "white" }}>
+                    Product Image
+                  </TableCell>
 
-                <TableCell align="left" style={{ color: "white" }}>
-                  Product Name
-                </TableCell>
-                <TableCell align="left" style={{ color: "white" }}>
-                  Product Quantity
-                </TableCell>
-                <TableCell align="left" style={{ color: "white" }}>
-                  Product Price
-                </TableCell>
-                <TableCell align="left" style={{ color: "white" }}>
-                  장바구니
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {products
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(product => (
-                  <TableRow
-                    className={classes.tableRow}
-                    hover
-                    key={product._id}
-                  >
-                    <TableCell className={classes.tableCell}>
-                      {/* 이미지 */}
-                      <img
-                        style={{ width: "70px" }}
-                        alt="product"
-                        src={renderCartImage(product.images)}
-                      />
-                    </TableCell>
+                  <TableCell align="left" style={{ color: "white" }}>
+                    Product Name
+                  </TableCell>
+                  <TableCell align="left" style={{ color: "white" }}>
+                    Product Quantity
+                  </TableCell>
+                  <TableCell align="left" style={{ color: "white" }}>
+                    Product Price
+                  </TableCell>
+                  <TableCell align="left" style={{ color: "white" }}>
+                    장바구니
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {products
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((product) => (
+                    <TableRow
+                      className={classes.tableRow}
+                      hover
+                      key={product._id}
+                    >
+                      <TableCell className={classes.tableCell}>
+                        {/* 이미지 */}
+                        <img
+                          style={{ width: "70px" }}
+                          alt="product"
+                          src={renderCartImage(product.images)}
+                        />
+                      </TableCell>
 
-                    <TableCell className={classes.tableCell}>
-                      {/* 타이틀 */}
-                      {product.title}
-                    </TableCell>
-                    <TableCell className={classes.tableCell}>
-                      {/* 갯수 */}
-                      {product.quantity} EA
-                    </TableCell>
-                    <TableCell className={classes.tableCell}>
-                      {/* 가격 */}
-                      {product.price}원
-                    </TableCell>
+                      <TableCell className={classes.tableCell}>
+                        {/* 타이틀 */}
+                        {product.title}
+                      </TableCell>
+                      <TableCell className={classes.tableCell}>
+                        {/* 갯수 */}
+                        {product.quantity} EA
+                      </TableCell>
+                      <TableCell className={classes.tableCell}>
+                        {/* 가격 */}
+                        {product.price}원
+                      </TableCell>
 
                     <TableCell
                       className={classes.tableCell}
