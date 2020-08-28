@@ -23,11 +23,32 @@ import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
 import Select from "react-select";
 import { IMAGE_BASE_URL, CLIENT } from "../../Components/Config";
-
+import KaKaoLogin from "react-kakao-login";
 const PriceTag = styled.div`
   font-size: 20px;
   font-weight: 30px;
+  text-align: right;
 `;
+const KaKaoBtn = styled(KaKaoLogin)`
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+  color: black;
+  background-color: #ffeb00;
+  border: 1px solid transparent;
+  border-radius: 1px;
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
+  }
+`;
+
+
+
+
 
 const Small = styled.div`
   font-size: 20px;
@@ -359,12 +380,26 @@ function BookingAll({
           </table>
           <hr style={{ color: "white", borderColor: "white", width: "100%" }} />
           <PriceTag>{Price}원</PriceTag>
-          <img
-            src={require("../../img/kakaoPay.png")}
-            alt="kakaoPay"
-            style={{ width: "20%", height: "25px", float: "right" }}
+          <button
+            style={{ 
+              width: "100%", 
+              height: "30px", 
+              backgroundColor: "#FAE900",
+              border: "transparent", 
+              marginTop: "10px",
+              fontSize:"15px",
+              color: "black", 
+              fontWeight: "bolder",
+            }}
             onClick={onKaKaoPay}
-          />
+          >
+            <img
+              src={require("../../img/kakaoPay4.png")}
+              alt="kakaoPay"
+              style={{ width: "21px", height: "17px", verticalAlign:"middle", marginRight:"10px" }}
+            />
+            KakaoPay 결제
+            </button>
         </InnerWrapper>
       </Wrapper>
       {theater % 2 === 1 ? (

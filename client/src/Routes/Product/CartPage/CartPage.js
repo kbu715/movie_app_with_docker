@@ -14,6 +14,8 @@ import PortletContent from "../../MyMovie/Sections/PortletContent";
 import styles from "../../MyMovie/Sections/styles";
 import { DEFAULT_PROFILE } from "../../../Components/Config";
 import { Helmet } from "react-helmet";
+import Button from '@material-ui/core/Button';
+
 
 class CartPage extends Component {
   state = {
@@ -108,9 +110,10 @@ class CartPage extends Component {
                       className={classes.tableCell}
                       style={{ color: "#2d2d2d" }}
                     >
-                      <button onClick={() => removeItem(product._id)}>
+                      {/* <button onClick={() => removeItem(product._id)}>
                         삭제
-                      </button>
+                      </button> */}
+                      <Button onClick={() => removeItem(product._id)} variant="contained" color="secondary">삭제</Button>
                     </TableCell>
                   </TableRow>
                 ))}
