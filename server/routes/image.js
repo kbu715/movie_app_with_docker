@@ -9,6 +9,7 @@ const multerS3 = require("multer-s3");
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(__dirname + "/../config/awsconfig.json");
 
+
 let s3 = new AWS.S3();
 
 let upload = multer({
