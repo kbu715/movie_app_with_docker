@@ -63,6 +63,9 @@ function Login(props) {
   };
   return (
     <Container>
+      <div>
+        <h1>로그인</h1>
+      </div>
       <Wrapper>
         <form onSubmit={onSubmitHandler}>
           <TextWrapper>
