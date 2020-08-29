@@ -29,26 +29,6 @@ const PriceTag = styled.div`
   font-weight: 30px;
   text-align: right;
 `;
-const KaKaoBtn = styled(KaKaoLogin)`
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
-  color: black;
-  background-color: #ffeb00;
-  border: 1px solid transparent;
-  border-radius: 1px;
-  font-size: 14px;
-  font-weight: 900;
-  text-align: center;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
-  }
-`;
-
-
-
-
 
 const Small = styled.div`
   font-size: 20px;
@@ -78,7 +58,7 @@ const InnerWrapper = styled.div`
 const Cover = styled.div`
   width: 90%;
   height: 100%;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
   background-position: center center;
   background-size: cover;
   border-radius: 5px;
@@ -112,10 +92,10 @@ function BookingAll({
   useEffect(() => {
     axios
       .post("/api/reservation/findSeat", movieTitle)
-      .then(response => {
+      .then((response) => {
         if (response.data.success) {
           let seatlist = [];
-          response.data.seats.forEach(obj => {
+          response.data.seats.forEach((obj) => {
             if (
               obj.time[0].time === time.time &&
               obj.selectDay[0].day === selectDay.day &&
@@ -130,13 +110,13 @@ function BookingAll({
           setDistinct(flatlist);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, [movieTitle, selectDay, time, theater]);
 
   //seat 색 변경
-  const onSeatChange = e => {
+  const onSeatChange = (e) => {
     var container = document.querySelector("div .container");
     var unselected = container.querySelectorAll("div .seat"); //NodeList 반환
 
@@ -160,7 +140,7 @@ function BookingAll({
             arr.push(seat.innerHTML);
             sub = sub + 1;
           }
-          setSubCount(subCount => sub);
+          setSubCount((subCount) => sub);
           temp = index;
         } else {
           if (seat.className === "seat occupied") {
@@ -174,19 +154,19 @@ function BookingAll({
               arr.push(seat.innerHTML);
               sub = sub + 1;
             }
-            setSubCount(subCount => sub);
+            setSubCount((subCount) => sub);
           } else if (index > temp && Continent - sub > 0) {
             if (!Seat.includes(seat.innerHTML)) {
               arr.push(seat.innerHTML);
               sub = sub + 1;
             }
 
-            setSubCount(subCount => sub);
+            setSubCount((subCount) => sub);
           }
         }
       });
 
-      unselected.forEach(item => {
+      unselected.forEach((item) => {
         if (arr.includes(item.innerHTML)) {
           item.className = "seat selected";
         }
@@ -197,7 +177,7 @@ function BookingAll({
       Continent >= Seat.length + 1 &&
       e.target.classList.contains("selected")
     ) {
-      unselected.forEach(item => {
+      unselected.forEach((item) => {
         if (selectedArr.includes(item.innerHTML)) {
           item.className = "seat";
         }
@@ -206,7 +186,7 @@ function BookingAll({
       setSeat([]);
       setSubCount(0);
     } else if (e.target.classList.contains("selected")) {
-      unselected.forEach(item => {
+      unselected.forEach((item) => {
         if (selectedArr.includes(item.innerHTML)) {
           item.className = "seat";
         }
@@ -217,7 +197,7 @@ function BookingAll({
     }
   };
 
-  const onCount = event => {
+  const onCount = (event) => {
     setContinent(event.key);
     setPrice(event.key * 6000);
   };
@@ -236,7 +216,7 @@ function BookingAll({
       theater: theater,
     };
 
-    axios.post("/api/reservation", body).then(response => {
+    axios.post("/api/reservation", body).then((response) => {
       if (response.data.success) {
         alert("예매 성공");
 
@@ -252,7 +232,7 @@ function BookingAll({
   };
 
   const colourStyles = {
-    control: styles => ({
+    control: (styles) => ({
       ...styles,
       backgroundColor: "white",
       borderRadius: "1rem",
@@ -334,7 +314,7 @@ function BookingAll({
         <InnerWrapper
           style={{
             height: "200px",
-            width:"250px",
+            width: "250px",
             display: "flex",
             flexDirection: "column",
             fontSize: "17px",
@@ -381,14 +361,14 @@ function BookingAll({
           <hr style={{ color: "white", borderColor: "white", width: "100%" }} />
           <PriceTag>{Price}원</PriceTag>
           <button
-            style={{ 
-              width: "100%", 
-              height: "30px", 
+            style={{
+              width: "100%",
+              height: "30px",
               backgroundColor: "#FAE900",
-              border: "transparent", 
+              border: "transparent",
               marginTop: "10px",
-              fontSize:"15px",
-              color: "black", 
+              fontSize: "15px",
+              color: "black",
               fontWeight: "bolder",
             }}
             onClick={onKaKaoPay}
@@ -396,10 +376,15 @@ function BookingAll({
             <img
               src={require("../../img/kakaoPay4.png")}
               alt="kakaoPay"
-              style={{ width: "21px", height: "17px", verticalAlign:"middle", marginRight:"10px" }}
+              style={{
+                width: "21px",
+                height: "17px",
+                verticalAlign: "middle",
+                marginRight: "10px",
+              }}
             />
             KakaoPay 결제
-            </button>
+          </button>
         </InnerWrapper>
       </Wrapper>
       {theater % 2 === 1 ? (
@@ -422,7 +407,7 @@ function BookingAll({
             <div className="screen"></div>
             {
               <div className="row">
-                {SeatA.map(item => {
+                {SeatA.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -449,7 +434,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatB.map(item => {
+                {SeatB.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -476,7 +461,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatC.map(item => {
+                {SeatC.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -503,7 +488,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatD.map(item => {
+                {SeatD.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -530,7 +515,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatE.map(item => {
+                {SeatE.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -557,7 +542,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatF.map(item => {
+                {SeatF.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -584,7 +569,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatG.map(item => {
+                {SeatG.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -632,7 +617,7 @@ function BookingAll({
             {/* 좌석 */}
             {
               <div className="row">
-                {SeatA2.map(item => {
+                {SeatA2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -659,7 +644,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatB2.map(item => {
+                {SeatB2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -686,7 +671,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatC2.map(item => {
+                {SeatC2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -713,7 +698,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatD2.map(item => {
+                {SeatD2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -740,7 +725,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatE2.map(item => {
+                {SeatE2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -767,7 +752,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatF2.map(item => {
+                {SeatF2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -794,7 +779,7 @@ function BookingAll({
             }
             {
               <div className="row">
-                {SeatG2.map(item => {
+                {SeatG2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div

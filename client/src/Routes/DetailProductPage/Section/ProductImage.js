@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ImageGallery from "react-image-gallery";
-import { DEFAULT_PROFILE } from "../../../Components/Config";
 
 function ProductImage(props) {
   const [Images, setImages] = useState([]);
@@ -8,7 +7,7 @@ function ProductImage(props) {
     if (props.detail.images && props.detail.images.length > 0) {
       let images = [];
 
-      props.detail.images.forEach(item => {
+      props.detail.images.forEach((item) => {
         images.push({
           original: item,
           thumbnail: item,
