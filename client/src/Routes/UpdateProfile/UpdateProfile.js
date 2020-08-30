@@ -7,6 +7,7 @@ import AccessTime from "@material-ui/icons/AccessTime";
 import Email from "@material-ui/icons/Email";
 import Person from "@material-ui/icons/Person";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+// import VisibilityOnIcon from "@material-ui/icons/VisibilityOn";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Dropzone from "react-dropzone";

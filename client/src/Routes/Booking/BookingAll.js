@@ -22,7 +22,7 @@ import {
 import { useDispatch } from "react-redux";
 import { addToMovie } from "../../_actions/user_action";
 import Select from "react-select";
-import { IMAGE_BASE_URL, CLIENT } from "../../Components/Config";
+import { IMAGE_BASE_URL, CLIENT, POSTER_SIZE } from "../../Components/Config";
 import KaKaoLogin from "react-kakao-login";
 const PriceTag = styled.div`
   font-size: 20px;
@@ -234,6 +234,7 @@ function BookingAll({
       seat: Seat,
       price: Price,
       theater: theater,
+      poster: `${IMAGE_BASE_URL}${POSTER_SIZE}${bgImage}`,
     };
 
     axios.post("/api/reservation", body).then(response => {
