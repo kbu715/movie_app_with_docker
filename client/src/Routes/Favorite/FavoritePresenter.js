@@ -18,6 +18,7 @@ const FavoritePresenter = ({
   loading,
   error,
 }) => {
+  const message = "좋아하는 영화를 찜해주세요!";
   return (
     <>
       <Helmet>
@@ -27,7 +28,7 @@ const FavoritePresenter = ({
         <Loader />
       ) : (
         <Container>
-          {favoriteMovies && favoriteMovies.length > 0 && (
+          {favoriteMovies && favoriteMovies.length > 0 ? (
             <FavoriteSection title="My Favorite">
               {favoriteMovies.map(movie => (
                 <FavoritePoster
@@ -42,7 +43,7 @@ const FavoritePresenter = ({
                 />
               ))}
             </FavoriteSection>
-          )}
+          ) : <div style={{position:"absolute", textAlign:"center", fontSize:"30px", width:"100%", height:"100%"}}><span style={{verticalAlign:"middle", display:"inline-block"}}>{message}</span></div>}
           {error && <Message color="#e74c3c" text={error} />}
         </Container>
       )}
