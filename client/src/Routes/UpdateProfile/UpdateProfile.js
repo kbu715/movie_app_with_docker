@@ -81,6 +81,10 @@ function UpdateProfile(props) {
   const handleChangeUpdatePasswordConfirm = (event) => {
     setUpdatePasswordConfirm(event.currentTarget.value);
   };
+  const removeProfileImage = () => {
+    setFilePath(null)
+    setCurrentImage(null)
+  }
   const onSubmit = (event) => {
     if (currentEmail.includes("(google)") || currentEmail.includes("(kakao)")) {
       alert("소셜 계정입니다!");
@@ -119,14 +123,12 @@ function UpdateProfile(props) {
           style={{
             width: "100%",
             backgroundColor: "white",
-
             padding: "70px",
           }}
         >
           <div
             style={{
               textAlign: "center",
-
               width: "100%",
             }}
           >
@@ -153,7 +155,6 @@ function UpdateProfile(props) {
                   style={{
                     width: "6rem",
                     height: "6rem",
-
                     borderRadius: "100px",
                     display: "flex",
                     alignItems: "center",
@@ -186,6 +187,7 @@ function UpdateProfile(props) {
                 </div>
               )}
             </Dropzone>
+            <button onClick={removeProfileImage} style={{backgroundColor:"transparent", color:"2e2e2e", borderColor:"transparent", fontweight:"border"}}>X</button>
 
             <Form.Item
               style={{
@@ -418,48 +420,6 @@ function UpdateProfile(props) {
             </Button>
           </div>
 
-          {/* <Form.Item
-            style={{ color: "white" }}
-            label="현 비밀번호"
-            hasFeedback
-            validateStatus="success"
-          >
-            <Input
-              placeholder="현재 비밀번호 입력"
-              value={currentPassword}
-              onChange={handleChangeCurrentPassword}
-              type="password"
-              id="currentPassword"
-            />
-          </Form.Item>
-          <Form.Item
-            style={{ color: "white" }}
-            label="새 비밀번호"
-            hasFeedback
-            validateStatus="success"
-          >
-            <Input
-              placeholder="새 비밀번호 입력"
-              value={updatePassword}
-              onChange={handleChangeUpdatePassword}
-              type="password"
-              id="newPassword"
-            />
-          </Form.Item>
-          <Form.Item
-            style={{ color: "white" }}
-            label="새 비밀번호 재입력"
-            hasFeedback
-            validateStatus="success"
-          >
-            <Input
-              placeholder="새 비밀번호 재입력"
-              type="password"
-              value={updatePasswordConfirm}
-              onChange={handleChangeUpdatePasswordConfirm}
-              id="newPasswordConfirm"
-            />
-          </Form.Item> */}
         </Form>
       </div>
     </>

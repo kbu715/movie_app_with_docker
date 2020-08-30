@@ -12,6 +12,7 @@ import {
 import Portlet from "./Portlet";
 import PortletContent from "./PortletContent";
 import styles from "./styles";
+import {Button} from "antd";
 
 class UserMovie extends Component {
   state = {
@@ -35,6 +36,7 @@ class UserMovie extends Component {
     const { classes, className, movies, removeItem } = this.props;
     const { rowsPerPage, page } = this.state;
     const rootClassName = classNames(classes.root, className);
+    console.log("movies",movies)
     return (
       <Portlet className={rootClassName} style={{ backgroundColor: "#2D2D2D" }}>
         <PortletContent noPadding>
@@ -42,7 +44,10 @@ class UserMovie extends Component {
             <TableHead>
               <TableRow>
                 <TableCell align="left" style={{ color: "white" }}>
-                  Movie
+                  Poster
+                </TableCell>
+                <TableCell align="left" style={{ color: "white" }}>
+                  Title
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
                   Theater
@@ -72,6 +77,15 @@ class UserMovie extends Component {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(movie => (
                   <TableRow className={classes.tableRow} hover key={movie._id}>
+                    <TableCell className={classes.tableCell}>
+                        <a href={`/movie/${movie.id}`}>
+                        <img
+                        style={{ width: "70px" }}
+                        alt="poster"
+                        src={movie.poster}
+                        />
+                        </a>
+                    </TableCell>
                     <TableCell className={classes.tableCell}>
                       {movie.title}
                     </TableCell>
@@ -106,9 +120,12 @@ class UserMovie extends Component {
                       className={classes.tableCell}
                       style={{ color: "#2d2d2d" }}
                     >
-                      <button onClick={() => removeItem(movie._id)}>
+                      <Button 
+                      type="primary"
+                      style={{ backgroundColor:"#7b68ee", border:"#7b68ee" }}
+                      onClick={() => removeItem(movie._id)}>
                         취소
-                      </button>
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

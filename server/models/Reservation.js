@@ -37,6 +37,10 @@ const reservationSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    poster: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true } // 생성된 시간이나 그런것들을 자동으로 처리...
 );

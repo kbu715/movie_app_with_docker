@@ -97,14 +97,16 @@ const Continents2 = [
   { key: 6, label: "20:00", value: "20:00", check: false },
 ];
 const Reservation = ({ userFrom, nowPlaying }) => {
-  const movieList = nowPlaying.map((movie, index) => ({
+  const movieList = nowPlaying.map((movie, index) => {
+    // console.log("2222",movie)
+    return ({
     key: (index + 1) * 2,
     label: movie.title,
     value: movie.title,
     poster: movie.poster_path,
     isDisabled: index > 2 ? true : false,
     id: movie.id,
-  }));
+  })});
   const movieOptions = [
     {
       options: movieList,
@@ -127,7 +129,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
       placeholder="  날짜를 선택해주세요"
       value={
         selectDay
-          ? `  ${selectDay.year}-${selectDay.month}-${selectDay.day}`
+          ? `${selectDay.year}-${selectDay.month}-${selectDay.day}`
           : ""
       }
       style={{
