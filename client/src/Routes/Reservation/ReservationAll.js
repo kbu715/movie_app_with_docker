@@ -221,12 +221,16 @@ const ReservationAll = ({ userFrom, nowPlaying }) => {
         />
       </Wrapper>
       <Wrapper>
-        <Select
-          options={movieOptions}
-          placeholder="  영화를 선택해주세요"
-          styles={colourStyles}
-          onChange={onMovie}
-        />
+        {selectDay && (
+          <>
+          <Select
+            options={movieOptions}
+            placeholder="  영화를 선택해주세요"
+            styles={colourStyles}
+            onChange={onMovie}
+          />
+          </>
+        )}
       </Wrapper>
       <Wrapper>
         {visible ? (

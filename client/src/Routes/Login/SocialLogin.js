@@ -4,18 +4,18 @@ import KaKaoLogin from "react-kakao-login";
 import Axios from "axios";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { GOOGLE_KEY, GOOGLE_LOGO, KAKAO_KEY } from "../../Components/Config";
+import { GOOGLE_KEY, KAKAO_KEY } from "../../Components/Config";
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   // height:100px;
-  `;
+`;
 const KaKaoBtn = styled(KaKaoLogin)`
   width: 100%;
   height: 38px;
   color: #783c00;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   border: 1px solid transparent;
   border-radius: 5px;
   font-size: 14px;
@@ -24,35 +24,35 @@ const KaKaoBtn = styled(KaKaoLogin)`
   cursor: pointer;
   &:hover {
     box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
-  };
+  }
   display: flex;
-  flexDirection: row;
-                justifyContent: center;
-  `;
+  flex-direction: row;
+  justify-content: center;
+`;
 const ButtonWrapper = styled.div`
   width: 100%;
   margin-top: 10px;
   text-align: center;
-  `;
+`;
 const ButtonImageWrapper = styled.div`
-width: 30%;
-margin-top: 3px; 
+  width: 30%;
+  margin-top: 3px;
 `;
 const ButtonTextWrapper = styled.div`
-height: 100%; 
-margin-top: 10px;
+  height: 100%;
+  margin-top: 10px;
 `;
 const ButtonText = styled.span`
-font-size: 14px;
-font-weight: bold;
-color: #5C3C00;
+  font-size: 14px;
+  font-weight: bold;
+  color: #5c3c00;
 `;
 function SocialLogin(props) {
-  const responseGoogle = response => {
+  const responseGoogle = (response) => {
     const data = {
       tokenId: response.tokenId,
     };
-    Axios.post("/api/users/googlelogin", data).then(response => {
+    Axios.post("/api/users/googlelogin", data).then((response) => {
       if (response.data.loginSuccess) {
         window.localStorage.setItem("userId", response.data.userId);
         props.history.push("/");
@@ -61,9 +61,9 @@ function SocialLogin(props) {
       }
     });
   };
-  const responseKaKao = response => {
+  const responseKaKao = (response) => {
     const data = response;
-    Axios.post("/api/users/kakaologin", data).then(response => {
+    Axios.post("/api/users/kakaologin", data).then((response) => {
       if (response.data.loginSuccess) {
         window.localStorage.setItem("userId", response.data.userId);
         props.history.push("/");
@@ -77,7 +77,7 @@ function SocialLogin(props) {
       <ButtonWrapper>
         <GoogleLogin
           clientId={GOOGLE_KEY}
-          render={renderProps => (
+          render={(renderProps) => (
             <button
               className="c-flex"
               onClick={renderProps.onClick}
@@ -95,7 +95,7 @@ function SocialLogin(props) {
               <ButtonImageWrapper>
                 <img
                   src={require("./img/google5.png")}
-                  style={{ width: "60%", }}
+                  style={{ width: "60%" }}
                   alt="Google Logo"
                 />
               </ButtonImageWrapper>
@@ -126,7 +126,7 @@ function SocialLogin(props) {
           <ButtonImageWrapper style={{ marginTop: "5px" }}>
             <img
               src={require("./img/kakao.png")}
-              style={{ width: "60%", }}
+              style={{ width: "60%" }}
               alt="Kakao Logo"
             />
           </ButtonImageWrapper>

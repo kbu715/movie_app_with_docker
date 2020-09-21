@@ -230,12 +230,15 @@ const Reservation = ({ userFrom, nowPlaying }) => {
         />
       </Wrapper>
       <Wrapper>
-        <Select
+        {
+        selectDay && 
+        (<Select
           options={movieOptions}
           placeholder="  영화를 선택해주세요"
           styles={colourStyles}
           onChange={onMovie}
-        />
+        />)
+        }
       </Wrapper>
       <Wrapper>
         {visible ? (
@@ -247,7 +250,8 @@ const Reservation = ({ userFrom, nowPlaying }) => {
               </Title>
             </TitleWrapper>
             {Continents1.map((item, index) => {
-              const { year, month, day } = selectDay;
+              console.log("22222", new Date())
+              const { year, month, day } = selectDay
               let h = new Date().getHours();
               let today =
                 new Date().getFullYear() +

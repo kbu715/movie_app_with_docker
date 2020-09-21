@@ -168,14 +168,15 @@ export default withRouter(
             <Item current={pathname === "/product"}>
               <SLink to="/product">매점</SLink>
             </Item>
-            {user.userData && user.userData.role ==="관리자"
-            ? (
+            {user.userData && user.userData.role === "관리자" ? (
               <Item current={pathname === "/admin"}>
-                <SLink to={user.userData.role==="관리자" ? "/admin" : "/sign-in"}>관리자</SLink>
+                <SLink
+                  to={user.userData.role === "관리자" ? "/admin" : "/sign-in"}
+                >
+                  관리자
+                </SLink>
               </Item>
-              )
-            : null
-              }
+            ) : null}
           </List1>
           {user.userData && !user.userData.isAuth ? (
             <List2>
