@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Form, Input } from "antd";
+import { Typography, Form } from "antd";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -142,14 +142,16 @@ function UpdateProfile(props) {
           <div
             style={{
               margin: "3rem auto",
-              width: "50%",
-              // borderRadius: "50px",
+              width: "100%",
               backgroundColor: "white",
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
+              justifyItems: "center",
               border: "1px solid black",
             }}
           >
+            <div style={{ width: "20%" }}></div>
             <Dropzone onDrop={onDrop} multiple={false} maxSize={800000000}>
               {({ getRootProps, getInputProps }) => (
                 <div
@@ -190,6 +192,7 @@ function UpdateProfile(props) {
             </Dropzone>
             <button onClick={removeProfileImage} style={{backgroundColor:"transparent", color:"2e2e2e", borderColor:"transparent", fontweight:"border"}}>X</button>
 
+            <div style={{ width: "5%" }}></div>
             <Form.Item
               style={{
                 color: "black",

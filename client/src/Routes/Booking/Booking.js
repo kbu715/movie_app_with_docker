@@ -29,23 +29,6 @@ const PriceTag = styled.div`
   font-weight: 30px;
   text-align: right;
 `;
-const KaKaoBtn = styled(KaKaoLogin)`
-  width: 100%;
-  height: 30px;
-  margin-top: 10px;
-  color: black;
-  background-color: #ffeb00;
-  border: 1px solid transparent;
-  border-radius: 1px;
-  font-size: 14px;
-  font-weight: 900;
-  text-align: center;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
-  }
-`;
-
 
 const Small = styled.div`
   font-size: 20px;
@@ -72,7 +55,7 @@ const InnerWrapper = styled.div`
 const Cover = styled.div`
   width: 90%;
   height: 100%;
-  background-image: url(${props => props.bgImage});
+  background-image: url(${(props) => props.bgImage});
   background-position: center center;
   background-size: cover;
   border-radius: 5px;
@@ -94,10 +77,10 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
   useEffect(() => {
     axios
       .post("/api/reservation/findSeat", movieTitle)
-      .then(response => {
+      .then((response) => {
         if (response.data.success) {
           let seatlist = [];
-          response.data.seats.forEach(obj => {
+          response.data.seats.forEach((obj) => {
             if (
               obj.time[0].time === time.time &&
               obj.selectDay[0].day === selectDay.day &&
@@ -112,13 +95,13 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
           setDistinct(flatlist);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     //[]안에 없어서 warning뜸
   }, [movieTitle, selectDay, theater, time]);
   //seat 색 변경
-  const onSeatChange = e => {
+  const onSeatChange = (e) => {
     if (Continent >= Seat.length + 1) {
       //인원이 좌석수보다 크거나 같을때
       if (
@@ -132,13 +115,17 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
         //인원수와 좌석수가 같을때
         //선택된좌석은 삭제
         e.target.classList.remove("selected");
-        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
+        const SeatFiltered = Seat.filter(
+          (seat) => seat !== e.target.textContent
+        ); //text삭제
         setSeat(SeatFiltered);
       }
     } else {
       if (Continent === Seat.length) {
         e.target.classList.remove("selected");
-        const SeatFiltered = Seat.filter(seat => seat !== e.target.textContent); //text삭제
+        const SeatFiltered = Seat.filter(
+          (seat) => seat !== e.target.textContent
+        ); //text삭제
         setSeat(SeatFiltered);
         if (!Seat.includes(e.target.textContent)) {
           alert("선택한 인원수보다 좌석을 많이 선택하셨습니다.");
@@ -157,7 +144,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
           //선택된좌석은 삭제
           e.target.classList.remove("selected");
           const SeatFiltered = Seat.filter(
-            seat => seat !== e.target.textContent
+            (seat) => seat !== e.target.textContent
           ); //text삭제
           setSeat(SeatFiltered);
         }
@@ -167,7 +154,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
       // e.stopPropagation();
     }
   };
-  const onCount = event => {
+  const onCount = (event) => {
     if (event.key >= Seat.length) {
       setContinent(event.key);
       setPrice(event.key * 6000);
@@ -191,7 +178,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
       theater: theater,
       poster: `${IMAGE_BASE_URL}${POSTER_SIZE}${bgImage}`,
     };
-    axios.post("/api/reservation", body).then(response => {
+    axios.post("/api/reservation", body).then((response) => {
       if (response.data.success) {
         alert("예매 성공");
         window.location.href = `${CLIENT}mymovie`;
@@ -204,7 +191,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
     });
   };
   const colourStyles = {
-    control: styles => ({
+    control: (styles) => ({
       ...styles,
       backgroundColor: "white",
       borderRadius: "1rem",
@@ -285,7 +272,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
         <InnerWrapper
           style={{
             height: "200px",
-            width:"250px",
+            width: "250px",
             display: "flex",
             flexDirection: "column",
             fontSize: "17px",
@@ -328,14 +315,14 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
           <hr style={{ color: "white", borderColor: "white", width: "100%" }} />
           <PriceTag>{Price}원</PriceTag>
           <button
-            style={{ 
-              width: "100%", 
-              height: "30px", 
+            style={{
+              width: "100%",
+              height: "30px",
               backgroundColor: "#FAE900",
-              border: "transparent", 
+              border: "transparent",
               marginTop: "10px",
-              fontSize:"15px",
-              color: "black", 
+              fontSize: "15px",
+              color: "black",
               fontWeight: "bolder",
             }}
             onClick={onKaKaoPay}
@@ -343,10 +330,15 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             <img
               src={require("../../img/kakaoPay4.png")}
               alt="kakaoPay"
-              style={{ width: "21px", height: "17px", verticalAlign:"middle", marginRight:"10px" }}
+              style={{
+                width: "21px",
+                height: "17px",
+                verticalAlign: "middle",
+                marginRight: "10px",
+              }}
             />
             KakaoPay 결제
-            </button>
+          </button>
         </InnerWrapper>
       </Wrapper>
       {theater % 2 === 1 ? (
@@ -369,7 +361,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             <div className="screen"></div>
             {
               <div className="row">
-                {SeatA.map(item => {
+                {SeatA.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -396,7 +388,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatB.map(item => {
+                {SeatB.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -423,7 +415,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatC.map(item => {
+                {SeatC.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -450,7 +442,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatD.map(item => {
+                {SeatD.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -477,7 +469,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatE.map(item => {
+                {SeatE.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -504,7 +496,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatF.map(item => {
+                {SeatF.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -531,7 +523,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatG.map(item => {
+                {SeatG.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -578,7 +570,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             <div className="screen"></div>
             {
               <div className="row">
-                {SeatA2.map(item => {
+                {SeatA2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -605,7 +597,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatB2.map(item => {
+                {SeatB2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -632,7 +624,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatC2.map(item => {
+                {SeatC2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -659,7 +651,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatD2.map(item => {
+                {SeatD2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -686,7 +678,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatE2.map(item => {
+                {SeatE2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -713,7 +705,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatF2.map(item => {
+                {SeatF2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
@@ -740,7 +732,7 @@ function Booking({ id, title, bgImage, userFrom, selectDay, time, theater }) {
             }
             {
               <div className="row">
-                {SeatG2.map(item => {
+                {SeatG2.map((item) => {
                   if (Distinct.includes(item.value)) {
                     return (
                       <div
