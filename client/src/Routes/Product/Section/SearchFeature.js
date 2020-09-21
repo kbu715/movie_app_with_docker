@@ -19,7 +19,6 @@ function SearchFeature(props) {
   const classes = useStyles()
   const [SearchTerm, setSearchTerm] = useState("")
   const searchHandler = (event) => {
-    console.log("@22", event.target.value)
     setSearchTerm(event.target.value)
     props.refreshFunction(event.target.value)
   }
