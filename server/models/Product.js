@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
 const productSchema = mongoose.Schema(
   {
@@ -23,8 +23,8 @@ const productSchema = mongoose.Schema(
       default: [],
     },
     continents: {
-      type: Number,
-      default: 1,
+      type: String,
+      default: "",
     },
     sold: {
       type: Number,
@@ -37,7 +37,7 @@ const productSchema = mongoose.Schema(
     },
   },
   { timestamps: true }
-);
+)
 
 productSchema.index(
   {
@@ -50,8 +50,8 @@ productSchema.index(
       description: 1,
     },
   }
-);
+)
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model("Product", productSchema)
 
-module.exports = { Product };
+module.exports = { Product }

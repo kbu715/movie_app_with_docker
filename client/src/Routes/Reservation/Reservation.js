@@ -97,14 +97,16 @@ const Continents2 = [
   { key: 6, label: "20:00", value: "20:00", check: false },
 ];
 const Reservation = ({ userFrom, nowPlaying }) => {
-  const movieList = nowPlaying.map((movie, index) => ({
+  const movieList = nowPlaying.map((movie, index) => {
+    // console.log("2222",movie)
+    return ({
     key: (index + 1) * 2,
     label: movie.title,
     value: movie.title,
     poster: movie.poster_path,
     isDisabled: index > 2 ? true : false,
     id: movie.id,
-  }));
+  })});
   const movieOptions = [
     {
       options: movieList,
@@ -127,7 +129,7 @@ const Reservation = ({ userFrom, nowPlaying }) => {
       placeholder="  날짜를 선택해주세요"
       value={
         selectDay
-          ? `  ${selectDay.year}-${selectDay.month}-${selectDay.day}`
+          ? `${selectDay.year}-${selectDay.month}-${selectDay.day}`
           : ""
       }
       style={{
@@ -228,12 +230,15 @@ const Reservation = ({ userFrom, nowPlaying }) => {
         />
       </Wrapper>
       <Wrapper>
-        <Select
+        {
+        selectDay && 
+        (<Select
           options={movieOptions}
           placeholder="  영화를 선택해주세요"
           styles={colourStyles}
           onChange={onMovie}
-        />
+        />)
+        }
       </Wrapper>
       <Wrapper>
         {visible ? (
@@ -245,7 +250,8 @@ const Reservation = ({ userFrom, nowPlaying }) => {
               </Title>
             </TitleWrapper>
             {Continents1.map((item, index) => {
-              const { year, month, day } = selectDay;
+              console.log("22222", new Date())
+              const { year, month, day } = selectDay
               let h = new Date().getHours();
               let today =
                 new Date().getFullYear() +

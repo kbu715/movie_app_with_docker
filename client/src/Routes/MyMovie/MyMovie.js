@@ -12,6 +12,7 @@ import { Empty, Result } from "antd";
 import CartPage from "../Product/CartPage/CartPage";
 import styled from "styled-components";
 
+
 const Button1 = styled.button`
   color: #9c88ff;
   border: 3px solid #9c88ff;
@@ -21,7 +22,7 @@ const Button1 = styled.button`
   background-color: #151515;
   margin-left: 20px;
   padding: 5px;
-  box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2);
+  /* box-shadow: 0 1.5rem 2rem rgba(156, 136, 255, 0.2); */
 `;
 
 function MyMovie(props) {

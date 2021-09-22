@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core";
+import {Button} from "antd";
 import {
   Table,
   TableBody,
@@ -12,39 +13,31 @@ import {
 import Portlet from "../../MyMovie/Sections/Portlet";
 import PortletContent from "../../MyMovie/Sections/PortletContent";
 import styles from "../../MyMovie/Sections/styles";
-import { DEFAULT_PROFILE } from "../../../Components/Config";
 import { Helmet } from "react-helmet";
-
 class CartPage extends Component {
   state = {
     rowsPerPage: 10,
     page: 0,
   };
-
   static defaultProps = {
     products: [],
   };
-
   handleChangePage = page => {
     this.setState({ page });
   };
-
   handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.value });
   };
-
   render() {
     const { classes, className, products, removeItem } = this.props;
     const { rowsPerPage, page } = this.state;
     const rootClassName = classNames(classes.root, className);
-
     const renderCartImage = images => {
       if (images.length > 0) {
         let image = images[0];
         return image;
       }
     };
-
     return (
       <>
       <Helmet>
@@ -58,7 +51,6 @@ class CartPage extends Component {
                 <TableCell align="left" style={{ color: "white" }}>
                   Product Image
                 </TableCell>
-
                 <TableCell align="left" style={{ color: "white" }}>
                   Product Name
                 </TableCell>
@@ -69,7 +61,7 @@ class CartPage extends Component {
                   Product Price
                 </TableCell>
                 <TableCell align="left" style={{ color: "white" }}>
-                  장바구니
+                  환불
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -84,13 +76,14 @@ class CartPage extends Component {
                   >
                     <TableCell className={classes.tableCell}>
                       {/* 이미지 */}
+                        <a href={`/product/${product._id}`}>
                       <img
                         style={{ width: "70px" }}
                         alt="product"
                         src={renderCartImage(product.images)}
-                      />
+                        />
+                        </a>
                     </TableCell>
-
                     <TableCell className={classes.tableCell}>
                       {/* 타이틀 */}
                       {product.title}
@@ -103,14 +96,16 @@ class CartPage extends Component {
                       {/* 가격 */}
                       {product.price}원
                     </TableCell>
-
                     <TableCell
                       className={classes.tableCell}
                       style={{ color: "#2d2d2d" }}
                     >
-                      <button onClick={() => removeItem(product._id)}>
+                      <Button 
+                      type="primary"
+                      style={{ backgroundColor:"#7b68ee", border:"#7b68ee" }}
+                      onClick={() => removeItem(product._id)}>
                         삭제
-                      </button>
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -138,5 +133,4 @@ class CartPage extends Component {
     );
   }
 }
-
 export default withStyles(styles)(CartPage);

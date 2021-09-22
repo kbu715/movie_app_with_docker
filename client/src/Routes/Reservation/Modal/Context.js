@@ -7,7 +7,6 @@ export const Continents = [
   { key: 6, value: "6명", label: "6명" },
   { key: 7, value: "7명", label: "7명" },
   { key: 8, value: "8명", label: "8명" },
-  { key: 9, value: "9명", label: "9명" },
 ];
 
 export const ContinentsAll = [
@@ -20,6 +19,14 @@ export const ContinentsAll = [
   { key: 15, value: "15명", label: "15명" },
   { key: 16, value: "16명", label: "16명" },
   { key: 17, value: "17명", label: "17명" },
+  { key: 18, value: "18명", label: "18명" },
+  { key: 19, value: "19명", label: "19명" },
+  { key: 20, value: "20명", label: "20명" },
+  { key: 21, value: "21명", label: "21명" },
+  { key: 22, value: "22명", label: "22명" },
+  { key: 23, value: "23명", label: "23명" },
+  { key: 24, value: "24명", label: "24명" },
+  { key: 25, value: "25명", label: "25명" },
 ];
 
 export const SeatA = [

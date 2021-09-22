@@ -1,56 +1,51 @@
-import React, { useState } from "react";
-import { Typography, Button, Form, Input } from "antd";
-import FileUpload from "../../../utils/FileUpload";
-import Axios from "axios";
+import React, { useState } from "react"
+import { Typography, Button, Form, Input } from "antd"
+import FileUpload from "../../../utils/FileUpload"
+import Axios from "axios"
 
-const { Title } = Typography;
-const { TextArea } = Input;
+const { Title } = Typography
+const { TextArea } = Input
 
 const Continents = [
-  { key: 1, value: "팝콘" },
-  { key: 2, value: "음료" },
-  { key: 3, value: "스낵" },
-];
+  { key: 1, value: "콤보" },
+  { key: 2, value: "팝콘" },
+  { key: 3, value: "음료" },
+  
+]
 
 function UploadProductPage(props) {
-  const userFrom = localStorage.getItem("userId");
-  const [TitleValue, setTitleValue] = useState("");
-  const [DescriptionValue, setDescriptionValue] = useState("");
-  const [PriceValue, setPriceValue] = useState(0);
-  const [ContinentValue, setContinentValue] = useState(1);
+  const userFrom = localStorage.getItem("userId")
+  const [TitleValue, setTitleValue] = useState("")
+  const [DescriptionValue, setDescriptionValue] = useState("")
+  const [PriceValue, setPriceValue] = useState(0)
+  const [ContinentValue, setContinentValue] = useState("콤보")
 
-  const [Images, setImages] = useState([]);
+  const [Images, setImages] = useState([])
 
   const onTitleChange = (event) => {
-    setTitleValue(event.currentTarget.value);
-  };
+    setTitleValue(event.currentTarget.value)
+  }
 
   const onDescriptionChange = (event) => {
-    setDescriptionValue(event.currentTarget.value);
-  };
+    setDescriptionValue(event.currentTarget.value)
+  }
 
   const onPriceChange = (event) => {
-    setPriceValue(event.currentTarget.value);
-  };
+    setPriceValue(event.currentTarget.value)
+  }
 
   const onContinentsSelectChange = (event) => {
-    setContinentValue(event.currentTarget.value);
-  };
+    setContinentValue(event.currentTarget.value)
+  }
 
   const updateImages = (newImages) => {
-    setImages(newImages);
-  };
+    setImages(newImages)
+  }
   const onSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    if (
-      !TitleValue ||
-      !DescriptionValue ||
-      !PriceValue ||
-      !ContinentValue ||
-      !Images
-    ) {
-      return alert("fill all the fields first!");
+    if (!TitleValue || !DescriptionValue || !PriceValue || !ContinentValue || !Images) {
+      return alert("fill all the fields first!")
     }
 
     const body = {
@@ -60,17 +55,17 @@ function UploadProductPage(props) {
       price: PriceValue,
       images: Images,
       continents: ContinentValue,
-    };
+    }
 
     Axios.post("/api/product", body).then((response) => {
       if (response.data.success) {
-        alert("상품등록 완료");
-        props.history.push("/");
+        alert("상품등록 완료")
+        props.history.push("/")
       } else {
-        alert("상품등록 실패");
+        alert("상품등록 실패")
       }
-    });
-  };
+    })
+  }
 
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
@@ -97,7 +92,7 @@ function UploadProductPage(props) {
         <br />
         <select onChange={onContinentsSelectChange} value={ContinentValue}>
           {Continents.map((item) => (
-            <option key={item.key} value={item.key}>
+            <option key={item.value} value={item.value}>
               {item.value}{" "}
             </option>
           ))}
@@ -105,13 +100,12 @@ function UploadProductPage(props) {
         <br />
         <br />
 
-        <Button onClick={onSubmit}><span style={{ color: "black" }}>
-          등록
-        </span>
+        <Button onClick={onSubmit}>
+          <span style={{ color: "black" }}>등록</span>
         </Button>
       </Form>
     </div>
-  );
+  )
 }
 
-export default UploadProductPage;
+export default UploadProductPage

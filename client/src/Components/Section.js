@@ -34,9 +34,9 @@ const Grid = styled.div`
     height: 6px;
    
   }
+
   &::-webkit-scrollbar-thumb {
-    background-color:  mediumslateblue;
-  
+    background-color: rgba(123,104,238,0.4)
   }
 
 `;

@@ -40,22 +40,22 @@ router.post("/", auth, (req, res) => {
 });
 
 router.post("/products", (req, res) => {
-  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
-  let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+  // let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  // let skip = req.body.skip ? parseInt(req.body.skip) : 0;
   let term = req.body.searchTerm;
 
   if (term) {
     Product.find()
       .find({ $text: { $search: term } })
       .populate("writer")
-      .skip(skip)
-      .limit(limit)
+      // .skip(skip)
+      // .limit(limit)
       .exec((err, productInfo) => {
         if (err) return res.status(400).json({ success: false, err });
         return res.status(200).json({
           success: true,
           productInfo,
-          postSize: productInfo.length,
+          // postSize: productInfo.length,
         });
       });
   } else {
@@ -63,14 +63,14 @@ router.post("/products", (req, res) => {
     //populate는 DB에 저장된 오브젝트ID의 모든 정보를 가져오는것
     Product.find()
       .populate("writer")
-      .skip(skip)
-      .limit(limit)
+      // .skip(skip)
+      // .limit(limit)
       .exec((err, productInfo) => {
         if (err) return res.status(400).json({ success: false, err });
         return res.status(200).json({
           success: true,
           productInfo,
-          postSize: productInfo.length,
+          // postSize: productInfo.length,
         });
       });
   }
